@@ -14,9 +14,11 @@ const logSomething = () =>  {
     console.log(`Recipe ${Date.now()}`);
 }
 
-export default function Recipe() {
+export default function Recipe(data) {
+    const recipe = data.recipe;
+    
     return (
-        <StyledRecipe onClick={() => logSomething()}>Click me and view the logs!</StyledRecipe>
+        <StyledRecipe onClick={() => logSomething()}>Click me and view the logs! {recipe.title}</StyledRecipe>
     )
 }
 

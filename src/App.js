@@ -1,9 +1,9 @@
-import Recipe from './features/recipes/Recipe';
+import RecipesList from './containers/RecipesList';
 
 function App() {
   return (
     <div className="App">
-      <Recipe />
+      <RecipesList />
     </div>
   );
 }
