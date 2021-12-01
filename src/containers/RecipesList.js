@@ -1,9 +1,14 @@
-
+import { useDispatch } from 'react-redux';
 import Recipe from '../components/Recipe';
+import { fetchRecipes } from '../redux/reducers/recipeSlice';
 
-const recipes = [{title: "Tomato soup"},{"title": "Pasta di pasta"},{"title": "Curry"}];
+const recipes = [];
+
 
 const RecipesList = () => {
+    const dispatch = useDispatch();
+    dispatch(fetchRecipes());
+
     return (
         <div>
             {recipes.map((recipe, i) => {

@@ -1,0 +1,26 @@
+{
+    "recipes": [
+        {
+            "title": "Pasta Cherry Tomaat",
+            "description": "",
+            "img_url": "",
+            "kitchen": "",
+            "course": ""
+        },
+        {
+            "title": "Rendang",
+            "description": "",
+            "img_url": "",
+            "kitchen": "",
+            "course": ""
+            
+        },
+        {
+            "title": "Stamppot",
+            "description": "",
+            "img_url": "",
+            "kitchen": "",
+            "course": ""            
+        }
+    ]
+}
