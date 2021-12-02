@@ -20,6 +20,9 @@ export const recipeSlice = createSlice({
         allItems: ( state, action = {} ) => {
             state.data = state.data;
         },        
+        addRecipe: (state, action = {} ) => {
+            state.data.recipes = [...state.data.recipes, action.payload];
+        },
     },
     extraReducers: {
         [fetchRecipes.pending]: (state, action) => {
@@ -34,7 +37,7 @@ export const recipeSlice = createSlice({
     }
 });
 
-export const { createRecipe, allItems } = recipeSlice.actions;
+export const { createRecipe, allItems, addRecipe } = recipeSlice.actions;
 
 export const selectRecipes = (state) => state.recipes.data;
 

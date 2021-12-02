@@ -5,5 +5,5 @@ import userSlice from "./reducers/users/userSlice";
 
 export default combineReducers({
     recipeSlice,
-    usersSlice: userSlice,
+    userSlice,
 });
