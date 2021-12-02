@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 
-import recipeSlice from "./reducers/recipeSlice";
-import userSlice from "./reducers/userSlice";
+import recipeSlice from "./reducers/recipes/recipeSlice";
+import userSlice from "./reducers/users/userSlice";
 
 export default combineReducers({
-    recipes: recipeSlice,
-    users: userSlice,
+    recipeSlice,
+    usersSlice: userSlice,
 });

@@ -1,13 +1,15 @@
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchRecipes } from '../redux/reducers/recipes/recipeSlice';
 import Recipe from '../components/Recipe';
-import { fetchRecipes } from '../redux/reducers/recipeSlice';
-
-const recipes = [];
-
 
 const RecipesList = () => {
     const dispatch = useDispatch();
-    dispatch(fetchRecipes());
+    const recipes = useSelector((state) => state.recipeSlice.data.recipes);
+    
+    useEffect(() => { 
+        dispatch(fetchRecipes());
+    }, []);
 
     return (
         <div>

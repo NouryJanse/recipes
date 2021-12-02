@@ -1,13 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import * as appReducer from './rootSlice';
-
-// import recipeReducer from '../features/recipes/recipeSlice';
+import appReducer from './rootSlice';
 
 export const store = configureStore({
     reducer: appReducer,
 });
-// export const store = configureStore({
-//     reducer: {
-//         recipes: recipeReducer,
-//     },
-// });
