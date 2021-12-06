@@ -16,7 +16,17 @@ const Recipe = (data) => {
 
     return (
         <div>
-            <h1>{recipe.title}</h1>
+            <h1>
+                {recipe.title}
+            </h1>
+
+            {
+                recipe.description &&
+                <p>
+                    {recipe.description}
+                </p>
+            }
+
             <Button
                 label={"Delete"}
                 onClick={() => onDelete(recipe.id)}

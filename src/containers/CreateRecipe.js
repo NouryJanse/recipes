@@ -26,7 +26,7 @@ const CreateRecipe = () => {
         <form
             onSubmit={handleSubmit(onSubmit)}
         >
-            <Textfield 
+            <Textfield
                 type="text"
                 label="Recipe title*" 
                 name="title" 
@@ -37,7 +37,7 @@ const CreateRecipe = () => {
                 register={register}
             />
 
-            <Textfield 
+            <Textfield
                 type="text"
                 label="Recipe description*" 
                 name="description" 
@@ -46,11 +46,6 @@ const CreateRecipe = () => {
                     required: 'Did you forget to fill in the description of your recipe?'
                 }} 
                 register={register}
-            />
-
-            <Button
-                type="delete"
-                label="X"
             />
 
             <Button
