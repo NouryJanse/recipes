@@ -14,14 +14,14 @@ export const recipeSlice = createSlice({
     name: 'recipes',
     initialState,
     reducers: {
-        createRecipe: ( state, action = {} ) => {
-            state.data = state.data;
-        },
-        allItems: ( state, action = {} ) => {
-            state.data = state.data;
+        showFirstItem: ( state, action = {} ) => {
+            state.data.recipes = state.data[0];
         },        
         addRecipe: (state, action = {} ) => {
             state.data.recipes = [...state.data.recipes, action.payload];
+        },
+        removeRecipeById: (state, action = {} ) => {
+            state.data.recipes = state.data.recipes.filter(recipe => recipe.id !== action.payload);
         },
     },
     extraReducers: {
@@ -37,7 +37,7 @@ export const recipeSlice = createSlice({
     }
 });
 
-export const { createRecipe, allItems, addRecipe } = recipeSlice.actions;
+export const { showFirstItem, addRecipe, removeRecipeById } = recipeSlice.actions;
 
 export const selectRecipes = (state) => state.recipes.data;
 

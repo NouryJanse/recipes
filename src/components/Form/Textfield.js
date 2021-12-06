@@ -19,6 +19,7 @@ const Textfield = ({
     name = "",
     type = "",
     label = "",
+    placeholder = "",
     register,
     validation
 }) => {
@@ -33,6 +34,7 @@ const Textfield = ({
                 name={name}
                 type={type}
                 {...register(name, validation)}
+                placeholder={placeholder}
             />
         </FieldRowStyle>
     )

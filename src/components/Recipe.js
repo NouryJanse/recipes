@@ -1,21 +1,28 @@
-import {Fragment} from 'react';
 import Button from './Button';
+import { removeRecipeById } from '../redux/reducers/recipes/recipeSlice';
+import { useDispatch } from 'react-redux';;
 
-const logSomething = () =>  {
-    console.log(`Recipe ${Date.now()}`);
-}
-
-export default function Recipe(data) {
+const Recipe = (data) => {
     const recipe = data.recipe;
-    const buttonVal = `Click me and view the logs!`;
+    const dispatch = useDispatch();
+        
+    const onDelete = (recipeId) => {
+        if (isNaN(recipeId)) return;
+        
+        dispatch(
+            removeRecipeById(recipeId)
+        );
+    }
 
     return (
-        <Fragment>
+        <div>
             <h1>{recipe.title}</h1>
             <Button
-                label={buttonVal}
-                onClick={() => logSomething()}
+                label={"Delete"}
+                onClick={() => onDelete(recipe.id)}
             />
-        </Fragment>
+        </div>
     )
 }
+
+export default Recipe;

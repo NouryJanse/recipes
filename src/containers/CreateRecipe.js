@@ -10,8 +10,12 @@ import {
 
 const CreateRecipe = () => {
     const dispatch = useDispatch();
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     
+    if (errors) {
+        console.error(errors, new Error(errors));
+    }
+
     const onSubmit = (data) => {
         dispatch(addRecipe(
             data,
@@ -23,29 +27,30 @@ const CreateRecipe = () => {
             onSubmit={handleSubmit(onSubmit)}
         >
             <Textfield 
-                // name="recipeTitle" 
-                // defaultValue="test"
                 type="text"
                 label="Recipe title*" 
                 name="title" 
                 placeholder="Fill in a title"
                 validation={{ 
-                    required: 'Did you forget to name your bundle? Did.. you..?'
+                    required: 'Did you forget to name your recipe?'
                 }} 
                 register={register}
             />
 
             <Textfield 
-                // name="recipeTitle" 
-                // defaultValue="test"
                 type="text"
                 label="Recipe description*" 
                 name="description" 
                 placeholder="Fill in a description"
                 validation={{ 
-                    required: 'Did you forget to name your bundle? Did.. you..?'
+                    required: 'Did you forget to fill in the description of your recipe?'
                 }} 
                 register={register}
+            />
+
+            <Button
+                type="delete"
+                label="X"
             />
 
             <Button

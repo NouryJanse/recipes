@@ -21,11 +21,12 @@ export const userSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {
-        //...,
-        //...,
+        addUser: (state, action = {} ) => {
+            state.data.users = [...state.data.users, action.payload];
+        },        
     },
 });
 
-export const { /* ... */ } = userSlice.actions;
+export const { addUser } = userSlice.actions;
 
 export default userSlice.reducer;

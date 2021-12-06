@@ -9,7 +9,7 @@ const RecipesList = () => {
     
     useEffect(() => { 
         dispatch(fetchRecipes());
-    }, []);
+    }, [dispatch]);
 
     return (
         <div>
