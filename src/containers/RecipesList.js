@@ -11,7 +11,9 @@ const RecipesList = () => {
     const recipes = useSelector((state) => state.recipeSlice.data.recipes);
     
     useEffect(() => { 
-        dispatch(fetchRecipes());
+        if (!recipes.length) {
+            dispatch(fetchRecipes());
+        }
     }, [dispatch]);
 
     return (
