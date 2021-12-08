@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchRecipes } from '../redux/reducers/recipes/recipeSlice';
-import Recipe from '../components/Recipe';
+import { 
+    Recipe,
+} from '../components';
 
 const RecipesList = () => {
     const dispatch = useDispatch();

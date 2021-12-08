@@ -1,5 +1,6 @@
-import Button from './Button';
-import { removeRecipeById } from '../redux/reducers/recipes/recipeSlice';
+import { removeRecipeById } from '../../redux/reducers/recipes/recipeSlice';
+import { RecipeContainer } from './styled';
+import { Button } from '../index';
 import { useDispatch } from 'react-redux';;
 
 const Recipe = (data) => {
@@ -15,7 +16,7 @@ const Recipe = (data) => {
     }
 
     return (
-        <div>
+        <RecipeContainer>
             <h2>
                 {recipe.title}
             </h2>
@@ -31,7 +32,7 @@ const Recipe = (data) => {
                 label={"Delete"}
                 onClick={() => onDelete(recipe.id)}
             />
-        </div>
+        </RecipeContainer>
     )
 }
 

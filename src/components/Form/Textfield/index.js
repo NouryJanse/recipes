@@ -1,25 +1,10 @@
-import styled from 'styled-components';
+import {
+    FieldRowStyle,
+    LabelStyle,
+    InputStyle,
+} from './styled';
 
-const FieldRowStyle = styled.div`
-    width: 200px;
-`;    
-
-const LabelStyle = styled.label`
-    color: black;
-`;
-
-const InputStyle = styled.input`
-    color: black;
-    border: 1px solid #0d6efd;
-    padding: 8px;
-    margin-bottom: 16px;
-    transition: padding 200ms ease-in-out;
-    width: auto;
-
-    &:focus {
-     padding-left: 16px;
-    }
-`;
+import { ErrorMessage } from '../../index';
 
 const Textfield = ({
     name = "",
@@ -27,7 +12,8 @@ const Textfield = ({
     label = "",
     placeholder = "",
     register,
-    validation
+    validation,
+    errors
 }) => {
     return (
         <FieldRowStyle>
@@ -42,6 +28,10 @@ const Textfield = ({
                 {...register(name, validation)}
                 placeholder={placeholder}
             />
+            {errors && 
+                <ErrorMessage message={errors}>
+                </ErrorMessage>
+            }            
         </FieldRowStyle>
     )
 }

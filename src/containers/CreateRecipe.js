@@ -35,6 +35,7 @@ const CreateRecipe = () => {
                     required: 'Did you forget to name your recipe?'
                 }} 
                 register={register}
+                errors={errors.title?.type === 'required' && "Title is required"}
             />
 
             <Textfield
@@ -46,6 +47,7 @@ const CreateRecipe = () => {
                     required: 'Did you forget to fill in the description of your recipe?'
                 }} 
                 register={register}
+                errors={errors.description?.type === 'required' && "Description is required"}
             />
 
             <Button

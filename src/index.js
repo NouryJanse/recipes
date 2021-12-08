@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <GlobalStyle />       */}
+      <GlobalStyle />      
       <App />
     </Provider>
   </React.StrictMode>,
