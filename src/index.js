@@ -8,11 +8,15 @@ import reportWebVitals from './reportWebVitals';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
 
+import { BrowserRouter }  from 'react-router-dom';
+
 render(
   <React.StrictMode>
     <Provider store={store}>
-      <GlobalStyle />      
-      <App />
+      <BrowserRouter>
+        <GlobalStyle />      
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

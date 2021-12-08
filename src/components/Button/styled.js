@@ -12,10 +12,15 @@ export const ButtonStyle = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 200ms ease-in-out;
 
     &:focus {
         outline: none;
         border: 2px solid blue;
         margin: 0;
-    }    
+    }
+
+    &:hover {
+        background-color: #0352c7;
+    }
 `;
