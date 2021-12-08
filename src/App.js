@@ -15,13 +15,15 @@ function App() {
         </div>
       </div>
       <div className="row">
-          <RecipesList />
-
-        <div className="col-xs-12 col-sm-6">
-          <nav>
-            <Link to="/create">Create</Link>
-            <Link to="/recipes">Update</Link>
-          </nav>
+        <nav>
+          <Link to="/"><p>Home</p></Link>
+          <Link to="/create"><p>Create new recipe</p></Link>
+          {/* <Link to="/recipes"><p>Show all recipes</p></Link>           */}
+          <br/>
+          <br/>
+          <br/>
+        </nav>        
+        <div className="col-xs-12">
           <Routes>
             <Route path="/" element={<RecipesList/>} />
 
@@ -36,7 +38,7 @@ function App() {
                   </main>
                 }
               />              
-              <Route path=":recipeId" element={<Recipe />} />
+              <Route path="/recipes:recipeId" element={<Recipe />} />
             </Route>
 
             <Route

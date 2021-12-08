@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { addRecipe } from '../redux/reducers/recipes/recipeSlice';
+import { useNavigate } from 'react-router-dom';
 
 import { 
     Textfield, 
@@ -10,16 +11,19 @@ import {
 
 const CreateRecipe = () => {
     const dispatch = useDispatch();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     
     if (errors) {
         // console.error(errors, new Error(errors));
     }
 
-    const onSubmit = (data) => {
-        dispatch(addRecipe(
+    const onSubmit = async (data) => {
+        await dispatch(addRecipe(
             data,
-        ))
+        ));
+
+        navigate('/');;
     };
 
     return (
