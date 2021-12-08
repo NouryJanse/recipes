@@ -13,6 +13,8 @@ const ButtonStyle = styled.button`
     align-items: center;
     justify-content: center;
 
+    testClass
+
     &:focus {
         outline: none;
         border: 2px solid blue;

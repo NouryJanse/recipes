@@ -16,9 +16,9 @@ const Recipe = (data) => {
 
     return (
         <div>
-            <h1>
+            <h2>
                 {recipe.title}
-            </h1>
+            </h2>
 
             {
                 recipe.description &&

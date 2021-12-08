@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 const FieldRowStyle = styled.div`
     width: 200px;
-    height: 50px;
 `;    
 
 const LabelStyle = styled.label`
@@ -10,9 +9,16 @@ const LabelStyle = styled.label`
 `;
 
 const InputStyle = styled.input`
-    color: red;
-    border: 1px solid #F25C54;
-    padding: 5px;
+    color: black;
+    border: 1px solid #0d6efd;
+    padding: 8px;
+    margin-bottom: 16px;
+    transition: padding 200ms ease-in-out;
+    width: auto;
+
+    &:focus {
+     padding-left: 16px;
+    }
 `;
 
 const Textfield = ({

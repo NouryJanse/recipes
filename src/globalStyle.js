@@ -1,3 +1,72 @@
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+/* 
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */
+
+
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
 /*!
  * Bootstrap Grid v5.0.2 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -1369,3 +1438,57 @@
      order: 6 !important;
    }
  }
+
+  .row-fluid {
+    --bs-gutter-x: 0;
+  }
+
+  .row {
+    --bs-gutter-x: 24px;
+  }
+
+  $xsOnlyBreakpoint: 575px;
+  $smBreakpoint: 576px; // Mobile/portrait tablet
+  $mdBreakpoint: 768px; // Tablet
+  $lgBreakpoint: 992px; // Desktop
+  $xlBreakpoint: 1200px; // Desktop xl
+  $xxlBreakpoint: 1400px; // Desktop xxl
+  $ulBreakpoint: 1600px; // Desktop ul
+
+  // Container width
+  $xsOnlyContainer: 100%;
+  $smContainer: 100%;
+  $mdContainer: 100%;
+  $lgContainer: 100%;
+  $xlContainer: 1200px;
+  $xxlContainer: 1440px;
+  $ulContainer: 1600px;
+  
+  @mixin media-xs-only {
+    @media (max-width: $xsOnlyBreakpoint) { @content; }
+  }
+
+  @mixin media-sm {
+      @media (min-width: $smBreakpoint) { @content; }
+  }
+
+  @mixin media-md {
+      @media (min-width: $mdBreakpoint) { @content; }
+  }
+
+  @mixin media-lg {
+      @media (min-width: $lgBreakpoint) { @content; }
+  }
+
+  @mixin media-xl {
+      @media (min-width: $xlBreakpoint) { @content; }
+  }
+
+  @mixin media-xxl {
+      @media (min-width: $xxlBreakpoint) { @content; }
+  }
+
+  @mixin media-ul {
+      @media (min-width: $ulBreakpoint) { @content; }
+  }    
+ `

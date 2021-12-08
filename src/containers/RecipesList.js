@@ -13,7 +13,6 @@ const RecipesList = () => {
 
     return (
         <div>
-            List of recipes
             {recipes.map((recipe, i) => {
                 return <Recipe key={i} recipe={recipe} />
             })}

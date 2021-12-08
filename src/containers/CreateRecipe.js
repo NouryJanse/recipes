@@ -13,7 +13,7 @@ const CreateRecipe = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     
     if (errors) {
-        console.error(errors, new Error(errors));
+        // console.error(errors, new Error(errors));
     }
 
     const onSubmit = (data) => {
