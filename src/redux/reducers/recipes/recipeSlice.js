@@ -27,7 +27,7 @@ export const recipeSlice = createSlice({
             const updatedRecipe = {...action.payload.currentRecipe, ...action.payload.newRecipe};
             state.data.recipes = state.data.recipes.map(recipe => {
                 return recipe.id === action.payload.id ? updatedRecipe : recipe;
-            })
+            });
         },
     },
     extraReducers: {
@@ -45,7 +45,11 @@ export const recipeSlice = createSlice({
             state.error = {};
         },
         [saveRecipe.fulfilled]: (state, action) => {
-            // state.data.recipes = action.payload.recipes;
+            if (action.payload.id) {
+                state.data.recipes = state.data.recipes.map(recipe => {
+                    return recipe.id === action.payload.id ? action.payload : recipe;
+                });
+            }
             state.status.saveRecipe = 'fulfilled';
             state.error = {};
         },

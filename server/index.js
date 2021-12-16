@@ -1,4 +1,4 @@
-const res = require('dotenv').config({ path: '../config/.env.dev' });
+const res = require('dotenv').config({ path: './config/.env.dev' });
 
 if (res.error) {
     throw res.error;
@@ -11,8 +11,6 @@ const fastify = require('fastify')({
 fastify.register(require('fastify-cors'), { 
     origin: "*",
 });
-const PORT = 1337;
-
  
 fastify.get('/', async() => {
     return {
@@ -23,13 +21,14 @@ fastify.get('/', async() => {
 fastify.post('/recipe', async(req, res) => {
     console.log(req.body);
     return {
-        Test: 'This is working fine'
+        ...req.body,
+        modified_at: Date.now(),
     };
 });
  
 const serve = async () => {
     try {
-        await fastify.listen(PORT);
+        await fastify.listen(process.env.PORT);
         fastify.log.info(`Server listening to PORT ${fastify.server.address().port}`);
     } catch (err) {
         fastify.log.error(err);

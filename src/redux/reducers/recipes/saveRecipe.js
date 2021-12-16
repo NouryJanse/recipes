@@ -14,7 +14,6 @@ async function postRecipeAPI(data) {
 export const saveRecipeThunk = createAsyncThunk(
     'recipes/saveRecipe',
     async (data) => {
-      console.log(data);
       const response = await postRecipeAPI(data);
       return response;
     }
