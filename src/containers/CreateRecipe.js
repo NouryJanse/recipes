@@ -12,7 +12,7 @@ import {
 const CreateRecipe = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     
     if (errors) {
         // console.error(errors, new Error(errors));

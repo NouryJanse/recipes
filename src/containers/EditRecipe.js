@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { editRecipeById } from '../redux/reducers/recipes/recipeSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate, Link, onChange } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { RecipeContainer } from '../components/Recipe/styled';
 import {
     Button,
@@ -12,7 +12,6 @@ import {
 const EditRecipe = (data) => {
     let recipe = data.recipe;
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     let params = useParams();
     const recipes = useSelector((state) => state.recipeSlice.data.recipes);
 
@@ -22,26 +21,26 @@ const EditRecipe = (data) => {
         });
     }
     
-    const { register, handleSubmit, formState: { errors }, reset, watch } = useForm();
+    const { register, handleSubmit, formState: { errors }, watch } = useForm();
+    
+    const dispatchEdit = (data, recipe) => {
+        dispatch(
+            editRecipeById({id: recipe.id, currentRecipe: recipe, newRecipe: data})
+            )
+        }
+
+    const onSave = async (data) => {
+        dispatchEdit(data, recipe);
+    }
 
     useEffect(() => {
         const subscription = watch((value, { name, type }) => {
             if (name === 'title') {
-                disPatchEdit(value, recipe);
+                dispatchEdit(value, recipe);
             }
         });
         return () => subscription.unsubscribe();
     }, [watch, recipe]);
-
-    const disPatchEdit = (data, recipe) => {
-        dispatch(
-            editRecipeById({id: recipe.id, currentRecipe: recipe, newRecipe: data})
-        )
-    }
-
-    const onSave = async (data) => {
-        disPatchEdit(data, recipe);
-    }
         
     if (!recipe) return (<p>Error, no recipe found.</p>);
 

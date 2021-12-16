@@ -2,9 +2,6 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchRecipes } from '../redux/reducers/recipes/recipeSlice';
 import { Outlet, Link, useParams } from 'react-router-dom';
-import { 
-    Recipe,
-} from '../components';
 
 const RecipesList = () => {
     const dispatch = useDispatch();
@@ -15,7 +12,7 @@ const RecipesList = () => {
         if (!recipes.length) {
             dispatch(fetchRecipes());
         }
-    }, [dispatch]);
+    }, [dispatch, recipes]);
 
     return (
         <div> 
