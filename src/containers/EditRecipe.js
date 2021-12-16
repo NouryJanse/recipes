@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { editRecipeById } from '../redux/reducers/recipes/recipeSlice';
+// import { editRecipeById } from '../redux/reducers/recipes/recipeSlice';
+import { saveRecipe } from '../redux/reducers/recipes/recipeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { RecipeContainer } from '../components/Recipe/styled';
@@ -23,11 +24,11 @@ const EditRecipe = (data) => {
     
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     
-    const dispatchEdit = (data, recipe) => {
-        dispatch(
-            editRecipeById({id: recipe.id, currentRecipe: recipe, newRecipe: data})
-            )
-        }
+    const dispatchEdit = async (data, recipe) => {
+        const payload = { id: recipe.id, ...recipe, ...data };
+        // dispatch(editRecipeById(payload));
+        await dispatch(saveRecipe(payload));
+    }
 
     const onSave = async (data) => {
         dispatchEdit(data, recipe);
