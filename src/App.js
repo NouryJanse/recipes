@@ -19,11 +19,12 @@ function App() {
       <div className="row">
         <nav>
           <Link to="/"><p>Home</p></Link>
+          <Link to="/recipes"><p>Recipes</p></Link>
           <Link to="/create"><p>Create new recipe</p></Link>
         </nav>        
         <div className="col-xs-12">
           <Routes>
-            <Route path="/" element={<RecipesList/>} />
+            <Route path="/" element={<div>Welcome!</div>} />
 
             <Route path="/create" element={<CreateRecipe />} />
 

@@ -23,12 +23,15 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     a {
+        display: block;
         text-decoration: none;
+        margin-bottom: 8px;
     }
-
+    
     p {
         font-family: 'opensans';
         font-weight: 400;
+        margin-bottom: 8px;
     }
 
     .Toastify__toast {

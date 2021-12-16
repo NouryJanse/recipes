@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { editRecipeById } from '../redux/reducers/recipes/recipeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate, Link, onChange } from 'react-router-dom';
+import { RecipeContainer } from '../components/Recipe/styled';
 import {
     Button,
     Textfield
@@ -26,74 +27,69 @@ const EditRecipe = (data) => {
     useEffect(() => {
         const subscription = watch((value, { name, type }) => {
             if (name === 'title') {
-                console.log(value, name, type);                
+                disPatchEdit(value, recipe);
             }
         });
         return () => subscription.unsubscribe();
-    }, [watch]);
-    
-    const onChangeTitle = async (val) => {
-        console.log(val);
-        // if (isNaN(recipeId)) return;
-        
-        
-        // navigate('/');
-    }
-    
-    const onSave = async (data) => {
-        console.log(data, recipe);
-        
-        await dispatch(
+    }, [watch, recipe]);
+
+    const disPatchEdit = (data, recipe) => {
+        dispatch(
             editRecipeById({id: recipe.id, currentRecipe: recipe, newRecipe: data})
-        );
+        )
+    }
+
+    const onSave = async (data) => {
+        disPatchEdit(data, recipe);
     }
         
-    if (!recipe) return (<p>Error</p>);
+    if (!recipe) return (<p>Error, no recipe found.</p>);
 
     return (
-        <form onSubmit={handleSubmit(onSave)}>
-            <h2>
-                Editing recipe {recipe.title}
-            </h2>
+        <RecipeContainer>
+            <form onSubmit={handleSubmit(onSave)}>
+                <h2>
+                    Editing recipe {recipe.title}
+                </h2>
 
-            <Textfield
-                type="text"
-                label="Recipe title*" 
-                name="title"
-                defaultValue={recipe.title}
-                placeholder="Fill in a title"
-                validation={{ 
-                    required: 'Did you forget to name your recipe?'
-                }} 
-                register={register}
-                onChange={(e) => onChangeTitle(e)}
-                errors={errors.title?.type === 'required' && "Title is required"}
-            />
-            
-            <Textfield
-                type="text"
-                label="Recipe title*" 
-                name="description"
-                defaultValue={recipe.description}
-                placeholder="Fill in a title"
-                validation={{ 
-                    required: 'Did you forget to name your recipe?'
-                }} 
-                register={register}
-                errors={errors.title?.type === 'required' && "Title is required"}
-            />
+                <Textfield
+                    type="text"
+                    label="Recipe title*" 
+                    name="title"
+                    defaultValue={recipe.title}
+                    placeholder="Fill in a title"
+                    validation={{ 
+                        required: 'Did you forget to name your recipe?'
+                    }} 
+                    register={register}
+                    errors={errors.title?.type === 'required' && "Title is required"}
+                />
+                
+                <Textfield
+                    type="text"
+                    label="Recipe title*" 
+                    name="description"
+                    defaultValue={recipe.description}
+                    placeholder="Fill in a title"
+                    validation={{ 
+                        required: 'Did you forget to name your recipe?'
+                    }} 
+                    register={register}
+                    errors={errors.title?.type === 'required' && "Title is required"}
+                />
 
-            <Button
-                type="submit"
-                label="Save recipe"
-            />
-            
-            <Link 
-                to={`/recipes`}
-            >
-                Back to home
-            </Link>
-        </form>
+                <Button
+                    type="submit"
+                    label="Save recipe"
+                />
+                
+                <Link 
+                    to={`/recipes`}
+                >
+                    Back to recipes
+                </Link>
+            </form>
+        </RecipeContainer>
     )
 }
 

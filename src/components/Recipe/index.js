@@ -29,7 +29,7 @@ const Recipe = (data) => {
         navigate('/');
     }
 
-    if (!recipe) return (<p>Error</p>);
+    if (!recipe) return (<p>Error, no recipe found.</p>);
 
     return (
         <RecipeContainer>
@@ -49,8 +49,6 @@ const Recipe = (data) => {
             >
                 Edit
             </Link>
-
-            <br/>
 
             <Button
                 label={"Delete"}
