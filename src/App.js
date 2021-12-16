@@ -2,6 +2,7 @@ import './bootstrap-grid.css';
 import './bootstrap-reboot.css';
 import RecipesList from './containers/RecipesList';
 import CreateRecipe from './containers/CreateRecipe';
+import EditRecipe from './containers/EditRecipe';
 import { Recipe } from './components';
 
 import { Routes, Route, Link } from 'react-router-dom';
@@ -14,14 +15,11 @@ function App() {
           <h1>Recipes by Noury</h1>
         </div>
       </div>
+
       <div className="row">
         <nav>
           <Link to="/"><p>Home</p></Link>
           <Link to="/create"><p>Create new recipe</p></Link>
-          {/* <Link to="/recipes"><p>Show all recipes</p></Link>           */}
-          <br/>
-          <br/>
-          <br/>
         </nav>        
         <div className="col-xs-12">
           <Routes>
@@ -38,7 +36,8 @@ function App() {
                   </main>
                 }
               />              
-              <Route path="/recipes:recipeId" element={<Recipe />} />
+              <Route path=":recipeId" element={<Recipe />} />
+              <Route path=":recipeId/edit" element={<EditRecipe />} />
             </Route>
 
             <Route

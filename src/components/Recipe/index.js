@@ -1,8 +1,10 @@
 import { removeRecipeById } from '../../redux/reducers/recipes/recipeSlice';
 import { RecipeContainer } from './styled';
-import { Button } from '../index';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import {
+    Button
+} from '../index';
 
 const Recipe = (data) => {
     let recipe = data.recipe;
@@ -13,12 +15,12 @@ const Recipe = (data) => {
 
     if (params.recipeId) {
         recipe = recipes.find(recipe => {
-            return recipe.id === Number.parseInt(params.recipeId);
+            return recipe.id === params.recipeId;
         });
     }
 
     const onDelete = async (recipeId) => {
-        if (isNaN(recipeId)) return;
+        if (!recipeId) return;
         
         await dispatch(
             removeRecipeById(recipeId)
@@ -42,18 +44,24 @@ const Recipe = (data) => {
                 </p>
             }
 
+            <Link 
+                to={`/recipes/${recipe.id}/edit`}
+            >
+                Edit
+            </Link>
+
+            <br/>
+
             <Button
                 label={"Delete"}
                 onClick={() => onDelete(recipe.id)}
             />
 
-            {/* {!params.recipeId &&
-                <Link 
-                    to={`recipes/${recipe.id}`}
-                >
-                    Edit
-                </Link>
-            } */}
+            <Link 
+                to={`/recipes`}
+            >
+                Back to home
+            </Link>
         </RecipeContainer>
     )
 }

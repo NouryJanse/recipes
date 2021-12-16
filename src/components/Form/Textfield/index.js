@@ -11,6 +11,7 @@ const Textfield = ({
     type = "",
     label = "",
     placeholder = "",
+    defaultValue = "",
     register,
     validation,
     errors
@@ -25,6 +26,7 @@ const Textfield = ({
             <InputStyle
                 name={name}
                 type={type}
+                defaultValue={defaultValue}
                 {...register(name, validation)}
                 placeholder={placeholder}
             />

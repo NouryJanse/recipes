@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-// import { fetchRecipesAPI } from './recipesAPI';
 
 async function fetchRecipesAPI(userID = 1) {
   const response = await fetch('/data/recipes.json');
