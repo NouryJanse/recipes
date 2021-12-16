@@ -23,7 +23,7 @@ const CreateRecipe = () => {
             data,
         ));
 
-        navigate('/');;
+        navigate('/recipes');;
     };
 
     return (

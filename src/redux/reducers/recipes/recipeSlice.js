@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchRecipesThunk } from './fetchRecipes';
+import ID from './generateID';
 
 const initialState = {
     data: {recipes: []},
@@ -18,10 +19,16 @@ export const recipeSlice = createSlice({
             state.data.recipes = state.data[0];
         },        
         addRecipe: (state, action = {} ) => {
-            state.data.recipes = [...state.data.recipes, {...action.payload, id: state.data.recipes.length + 1}];
+            state.data.recipes = [...state.data.recipes, { id: ID(), ...action.payload }];
         },
         removeRecipeById: (state, action = {} ) => {
             state.data.recipes = state.data.recipes.filter(recipe => recipe.id !== action.payload);
+        },
+        editRecipeById: (state, action = {} ) => {
+            const updatedRecipe = {...action.payload.currentRecipe, ...action.payload.newRecipe};
+            state.data.recipes = state.data.recipes.map(recipe => {
+                return recipe.id === action.payload.id ? updatedRecipe : recipe;
+            })
         },
     },
     extraReducers: {
@@ -37,7 +44,7 @@ export const recipeSlice = createSlice({
     }
 });
 
-export const { showFirstItem, addRecipe, removeRecipeById } = recipeSlice.actions;
+export const { showFirstItem, addRecipe, removeRecipeById, editRecipeById } = recipeSlice.actions;
 
 export const selectRecipes = (state) => state.recipes.data;
 

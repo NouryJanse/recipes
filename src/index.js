@@ -1,7 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './App';
-import { GlobalStyle } from './globalStyle';
+
+import { GlobalStyle } from './styles/globalStyle';
+import { GlobalFonts } from './styles/fonts';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -14,7 +16,10 @@ render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <GlobalStyle />      
+        <GlobalStyle />
+
+        <GlobalFonts />
+
         <App />
       </BrowserRouter>
     </Provider>
