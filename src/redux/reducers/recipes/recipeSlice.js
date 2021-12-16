@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchRecipesThunk } from './fetchRecipes';
+import { saveRecipeThunk } from './saveRecipe';
 import ID from './generateID';
 
 const initialState = {
@@ -9,15 +10,13 @@ const initialState = {
     },
 };
 
+export const saveRecipe = saveRecipeThunk;
 export const fetchRecipes = fetchRecipesThunk;
 
 export const recipeSlice = createSlice({
     name: 'recipes',
     initialState,
-    reducers: {
-        showFirstItem: ( state, action = {} ) => {
-            state.data.recipes = state.data[0];
-        },        
+    reducers: {     
         addRecipe: (state, action = {} ) => {
             state.data.recipes = [...state.data.recipes, { id: ID(), ...action.payload }];
         },
@@ -28,7 +27,7 @@ export const recipeSlice = createSlice({
             const updatedRecipe = {...action.payload.currentRecipe, ...action.payload.newRecipe};
             state.data.recipes = state.data.recipes.map(recipe => {
                 return recipe.id === action.payload.id ? updatedRecipe : recipe;
-            })
+            });
         },
     },
     extraReducers: {
@@ -38,13 +37,26 @@ export const recipeSlice = createSlice({
         },
         [fetchRecipes.fulfilled]: (state, action) => {
             state.data.recipes = action.payload.recipes;
-            state.status.fetchRecipes = 'loading';
+            state.status.fetchRecipes = 'fulfilled';
+            state.error = {};
+        },
+        [saveRecipe.pending]: (state, action) => {
+            state.status.saveRecipe = 'loading';
+            state.error = {};
+        },
+        [saveRecipe.fulfilled]: (state, action) => {
+            if (action.payload.id) {
+                state.data.recipes = state.data.recipes.map(recipe => {
+                    return recipe.id === action.payload.id ? action.payload : recipe;
+                });
+            }
+            state.status.saveRecipe = 'fulfilled';
             state.error = {};
         },
     }
 });
 
-export const { showFirstItem, addRecipe, removeRecipeById, editRecipeById } = recipeSlice.actions;
+export const { addRecipe, removeRecipeById, editRecipeById } = recipeSlice.actions;
 
 export const selectRecipes = (state) => state.recipes.data;
 

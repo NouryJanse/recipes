@@ -26,7 +26,7 @@ const Recipe = (data) => {
             removeRecipeById(recipeId)
         );
 
-        navigate('/');
+        navigate('/recipes');
     }
 
     if (!recipe) return (<p>Error, no recipe found.</p>);
