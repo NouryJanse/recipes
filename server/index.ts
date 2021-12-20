@@ -1,5 +1,11 @@
-const res = require('dotenv').config({ path: '../config/.env.dev' });
-const fastify = require('fastify')({
+import dotenv = require('dotenv');
+import Fastify from 'fastify';
+import cors = require('fastify-cors');
+
+const fastify = Fastify();
+
+dotenv.config({ path: '../config/.env.dev' });
+Fastify({
   logger: true,
 });
 
@@ -8,55 +14,43 @@ interface Recipe {
   title?: string;
 }
 
-const recipe: Recipe = {
-  id: 0,
-  title: "test",
-}
-
-const recipePrint = (title:string) => {
-  const recipe:Recipe = {
+const recipePrint = (title: string): Recipe => {
+  const recipe: Recipe = {
     id: 0,
-    title
-  }
+    title,
+  };
   return recipe;
-}
+};
 
-if (res.error) {
-  throw res.error;
-}
+recipePrint('test');
 
 const test = {};
 
-fastify.register(require('fastify-cors'), {
-  origin: "*",
+fastify.register(cors, {
+  origin: '*',
 });
 
-fastify.get('/', async () => {
-  return {
-    Test: 'This is working fine'
-  };
-});
+fastify.get('/', async () => ({ Test: 'This is working fine' }));
 
-fastify.post('/recipe', async (req: Request) => {
-  return {
-      ...req.body,
-      test,
-      modified_at: Date.now(),
-  }
-  // return reply.code(201).send({
-    //   ...req.body,
-    //   test,
-    //   modified_at: Date.now(),
-  // })
-});
+fastify.post(
+  '/recipe',
+  async (): Promise<
+    FastifyInstance<Server, IncomingMessage, ServerResponse>
+  > => ({
+    ...req.body,
+    test,
+    modified_at: Date.now(),
+  }),
+);
 
-const serve = async () => {
+const serve = async (): Promise<void> => {
   try {
-    await fastify.listen(process.env.PORT);
-    fastify.log.info(`Server listening to PORT ${fastify.server.address().port}`);
+    const port: string = process.env.port as string;
+    await fastify.listen(port);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
   }
-}
+};
+
 serve();

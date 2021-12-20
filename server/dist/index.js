@@ -9,13 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const res = require('dotenv').config({ path: '../config/.env.dev' });
+const fastify = require('fastify')({
+    logger: true,
+});
+const recipePrint = (title) => {
+    const recipe = {
+        id: 0,
+        title,
+    };
+    return recipe;
+};
+const recipe = recipePrint('test');
 if (res.error) {
     throw res.error;
 }
 const test = {};
-const fastify = require('fastify')({
-    logger: true,
-});
 fastify.register(require('fastify-cors'), {
     origin: "*",
 });
@@ -24,8 +32,13 @@ fastify.get('/', () => __awaiter(void 0, void 0, void 0, function* () {
         Test: 'This is working fine'
     };
 }));
-fastify.post('/recipe', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+fastify.post('/recipe', (req) => __awaiter(void 0, void 0, void 0, function* () {
     return Object.assign(Object.assign({}, req.body), { test, modified_at: Date.now() });
+    // return reply.code(201).send({
+    //   ...req.body,
+    //   test,
+    //   modified_at: Date.now(),
+    // })
 }));
 const serve = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -38,4 +51,3 @@ const serve = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 serve();
-//# sourceMappingURL=index.js.map
