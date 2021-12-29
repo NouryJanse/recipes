@@ -1,6 +1,7 @@
 import path from 'path';
 import AutoLoad from 'fastify-autoload';
 import fp from 'fastify-plugin';
+import { fastifySwagger } from 'fastify-swagger';
 import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify';
 
 export default fp(
@@ -10,6 +11,17 @@ export default fp(
     next: (error?: FastifyError) => void,
   ): void => {
     // Place here your custom code!
+    server.register(fastifySwagger, {
+      exposeRoute: true,
+      routePrefix: '/docs',
+      swagger: {
+        info: {
+          title: 'Recipes API',
+          description: 'Recipes API Swagger docs',
+          version: '0.1.0',
+        },
+      },
+    });
 
     // Do not touch the following lines
 
