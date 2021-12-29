@@ -6,12 +6,15 @@
     "dotenv": "^10.0.0",
     "eslint-config-airbnb": "^19.0.2",
     "fastify": "^3.25.0",
+    "fastify-autoload": "^3.9.0",
     "fastify-cors": "^6.0.2",
+    "fastify-plugin": "^3.0.0",
     "global": "^4.4.0"
   },
   "scripts": {
-    "check-types": "tsc --noemit",
-    "tsc": "tsc",
+    "start": "node ./dist/index.js",
+    "build": "rm -rf dist && tsc",
+    "check": "tsc --noemit",
     "watch": "ts-node-dev --respawn index.ts",
     "lint": "eslint --ext .ts .",
     "lint-and-fix": "eslint . --ext .ts --fix",
