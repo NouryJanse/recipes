@@ -1,7 +1,5 @@
-'use strict';
-
-const path = require('path');
-const AutoLoad = require('fastify-autoload');
+import path from 'path';
+import AutoLoad from 'fastify-autoload';
 import fp from 'fastify-plugin';
 import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify';
 
@@ -20,14 +18,14 @@ export default fp(
     // through your application
     server.register(AutoLoad, {
       dir: path.join(__dirname, 'plugins'),
-      options: Object.assign({}, opts),
+      options: { ...{}, ...opts },
     });
 
     // This loads all plugins defined in routes
     // define your routes in one of these
     server.register(AutoLoad, {
       dir: path.join(__dirname, 'routes'),
-      options: Object.assign({}, opts),
+      options: { ...{}, ...opts },
     });
     next();
   },
