@@ -10,7 +10,7 @@ export default fp(
     opts: FastifyPluginOptions,
     next: (error?: FastifyError) => void,
   ): void => {
-    // Place here your custom code!
+    // Place your custom code here!
     server.register(fastifySwagger, {
       exposeRoute: true,
       routePrefix: '/docs',
@@ -23,7 +23,7 @@ export default fp(
       },
     });
 
-    // Do not touch the following lines
+    // Do not touch the following lines!
 
     // This loads all plugins defined in plugins
     // those should be support plugins that are reused

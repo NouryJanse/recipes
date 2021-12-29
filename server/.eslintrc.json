@@ -21,7 +21,20 @@
     // disable the rule for all files
     "prettier/prettier": 2, // Means error
     "@typescript-eslint/explicit-function-return-type": 0,
-    "no-console": 2
+    "no-console": 2,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never",
+        "mjs": "never",
+        "": "never"
+      }
+    ],
+    "import/no-unresolved": 0
   },
   "overrides": [
     {

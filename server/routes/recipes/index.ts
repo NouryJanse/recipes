@@ -1,18 +1,6 @@
-import {
-  FastifyInstance,
-  FastifyPluginOptions,
-  FastifyError,
-  FastifyRequest,
-  FastifyReply,
-} from 'fastify';
+import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify';
 import fp from 'fastify-plugin';
-
-const postRecipeOps = async (
-  _req: FastifyRequest,
-  reply: FastifyReply,
-): Promise<FastifyReply> => {
-  return reply.code(201).send({ title: 'test' });
-};
+import ops from './ops';
 
 export default fp(
   (
@@ -20,44 +8,19 @@ export default fp(
     _opts: FastifyPluginOptions,
     next: (error?: FastifyError) => void,
   ): void => {
-    server.post('/api/recipes', postRecipeOps);
+    server.post('/api/recipes', ops.postRecipeOps);
 
-    server.get('/api/recipes', async () => {
-      return { recipes: [{}, {}] };
-    });
+    server.get('/api/recipes', ops.getRecipesOps);
 
-    server.get('/api/recipes/:id', async () => {
-      return { title: 'Pasta' };
-    });
+    server.get('/api/recipes/:id', ops.getRecipeOps);
 
-    server.put('/api/recipes/:id', async () => {
-      return { title: 'Pasta' };
-    });
+    server.put('/api/recipes/:id', ops.updateRecipeOps);
 
-    server.delete('/api/recipes/:id', async () => {
-      return { title: 'Pasta' };
-    });
+    server.delete('/api/recipes/:id', ops.deleteRecipeOps);
 
     next();
   },
 );
-
-// interface Recipe {
-//   id: number;
-//   title?: string;
-// }
-
-// const recipePrint = (title: string): Recipe => {
-//   const recipe: Recipe = {
-//     id: 0,
-//     title,
-//   };
-//   return recipe;
-// };
-
-// recipePrint('test');
-
-// const test = {};
 
 // fastify.get('/', async (request) => {
 //   request.log.info('Some info about the current request');
@@ -69,7 +32,6 @@ export default fp(
 //     const body = { ...(request.body as object) };
 //     return {
 //       ...body,
-//       test,
 //       modified_at: Date.now(),
 //     };
 //   } catch (error) {
