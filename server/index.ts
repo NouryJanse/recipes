@@ -1,5 +1,9 @@
 import * as dotenv from 'dotenv';
-import Fastify, { FastifyInstance } from 'fastify';
+import Fastify, {
+  FastifyInstance,
+  FastifyRequest,
+  FastifyReply,
+} from 'fastify';
 import cors from 'fastify-cors';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import App from './app';
@@ -11,6 +15,16 @@ const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> =
   Fastify({ logger: true, pluginTimeout: 10000 });
 
 fastify.register(App);
+
+fastify.register(function (server: any, _options, done) {
+  server.get('/verify', {
+    handler: function (request: any, reply: FastifyReply) {
+      reply.send(request.user);
+    },
+    preValidation: server.authenticate,
+  });
+  done();
+});
 
 fastify.register(cors, {
   origin: '*',

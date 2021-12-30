@@ -21,8 +21,10 @@ const getRecipesOps = async () => {
   return { recipes: [{}, {}] };
 };
 
-const getRecipeOps = async () => {
-  return { recipes: [{}, {}] };
+const getRecipeOps = (_request: any, reply: FastifyReply) => {
+  // const user = request.user;
+  // console.log(user);
+  return reply.code(201).send({ title: 'frieten' });
 };
 
 const updateRecipeOps = async () => {

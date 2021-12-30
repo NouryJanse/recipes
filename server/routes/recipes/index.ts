@@ -1,10 +1,15 @@
-import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify';
+import {
+  FastifyInstance,
+  FastifyPluginOptions,
+  FastifyError,
+  FastifyReply,
+} from 'fastify';
 import fp from 'fastify-plugin';
 import ops from './ops';
 
 export default fp(
   (
-    server: FastifyInstance,
+    server: any,
     _opts: FastifyPluginOptions,
     next: (error?: FastifyError) => void,
   ): void => {
@@ -12,7 +17,10 @@ export default fp(
 
     server.get('/api/recipes', ops.getRecipesOps);
 
-    server.get('/api/recipes/:id', ops.getRecipeOps);
+    server.get('/api/recipes/:id', {
+      handler: ops.getRecipeOps,
+      preValidation: server.authenticate,
+    });
 
     server.put('/api/recipes/:id', ops.updateRecipeOps);
 

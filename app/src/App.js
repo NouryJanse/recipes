@@ -1,57 +1,75 @@
-import './bootstrap-grid.css';
-import './bootstrap-reboot.css';
-import RecipesList from './containers/RecipesList';
-import CreateRecipe from './containers/CreateRecipe';
-import EditRecipe from './containers/EditRecipe';
-import { Recipe } from './components';
+import "./bootstrap-grid.css";
+import "./bootstrap-reboot.css";
+import Home from "./containers/Home";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useApi } from "./useApi";
+import axios from "axios";
 
-import { Routes, Route, Link } from 'react-router-dom';
+console.log(process.env);
+
+const endpoint = process.env.AUTH0;
 
 function App() {
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-xs-12 col-sm-6">
-          <h1>Recipes by Noury</h1>
-        </div>
-      </div>
+  const opts = {
+    audience: `${endpoint}/`,
+    scope: "read:users",
+  };
 
-      <div className="row">
-        <nav>
-          <Link to="/"><p>Home</p></Link>
-          <Link to="/recipes"><p>Recipes</p></Link>
-          <Link to="/create"><p>Create new recipe</p></Link>
-        </nav>        
-        <div className="col-xs-12">
-          <Routes>
-            <Route path="/" element={<div>Welcome!</div>} />
+  const {
+    logout,
+    getAccessTokenWithPopup,
+    isAuthenticated,
+    isLoading,
+    loginWithRedirect,
+    user,
+  } = useAuth0();
 
-            <Route path="/create" element={<CreateRecipe />} />
+  const { error, refresh, data } = useApi(`${endpoint}/users/`, opts);
 
-            <Route path="/recipes" element={<RecipesList />}>
-              <Route
-                index
-                element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>Select an invoice</p>
-                  </main>
-                }
-              />              
-              <Route path=":recipeId" element={<Recipe />} />
-              <Route path=":recipeId/edit" element={<EditRecipe />} />
-            </Route>
+  const getTokenAndTryAgain = async () => {
+    await getAccessTokenWithPopup(opts);
+    refresh();
+  };
 
-            <Route
-              path="*"
-              element={
-                <p>There's nothing here!</p>
-              }
-            />            
-          </Routes>          
-        </div>
-      </div>
-    </div>
+  const fetchRecipe = async () => {
+    const response = await axios.get("http://localhost:1337/api/recipes/1", {
+      headers: {
+        Authorization: `Bearer ${data}`,
+      },
+    });
+    console.log(response.data);
+  };
+
+  const loginButton = (
+    <button onClick={() => loginWithRedirect()}>Login</button>
   );
+
+  if (error) {
+    if (error.error === "login_required") {
+      return loginButton;
+    }
+    if (error.error === "consent_required") {
+      return (
+        <button onClick={getTokenAndTryAgain}>Consent to reading users</button>
+      );
+    }
+    return <div>Oops {error.message}</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isAuthenticated) {
+    return (
+      <div>
+        <button onClick={fetchRecipe}>Fetch recipe</button>
+        <Home user={user} logout={logout} />
+      </div>
+    );
+  } else {
+    return loginButton;
+  }
 }
 
 export default App;
