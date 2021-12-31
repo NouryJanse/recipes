@@ -2,7 +2,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import RecipesList from "./RecipesList";
 import CreateRecipe from "./CreateRecipe";
 import EditRecipe from "./EditRecipe";
-import { Recipe } from "../components";
+import { Recipe, Button } from "../components";
 
 const Home = ({ user, logout }) => {
   return (
@@ -26,7 +26,8 @@ const Home = ({ user, logout }) => {
           </Link>
           <div>
             <p>{user.email}</p>
-            Hello {user.name} <button onClick={() => logout()}>Log out</button>
+            Hello {user.name}{" "}
+            <Button onClick={() => logout()} label="Log out" />
           </div>
         </nav>
 

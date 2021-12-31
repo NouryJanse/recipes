@@ -1,5 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { Recipe } from './Recipe';
+import * as recipes from '../../data.json';
 
 const recipePrint = (title: string): Recipe => {
   const recipe: Recipe = {
@@ -18,12 +19,12 @@ const postRecipeOps = async (
 
 const getRecipesOps = async () => {
   console.log(recipePrint('test'));
-  return { recipes: [{}, {}] };
+  return { recipes: recipes.recipes };
 };
 
-const getRecipeOps = (_request: any, reply: FastifyReply) => {
-  // const user = request.user;
-  // console.log(user);
+const getRecipeOps = (request: any, reply: FastifyReply) => {
+  const user = request.user;
+  console.log(user);
   return reply.code(201).send({ title: 'frieten' });
 };
 

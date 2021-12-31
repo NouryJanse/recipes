@@ -29,21 +29,3 @@ export default fp(
     next();
   },
 );
-
-// fastify.get('/', async (request) => {
-//   request.log.info('Some info about the current request');
-//   return { Test: 'This is working fine 2' };
-// });
-
-// fastify.post('/recipe', async (request) => {
-//   try {
-//     const body = { ...(request.body as object) };
-//     return {
-//       ...body,
-//       modified_at: Date.now(),
-//     };
-//   } catch (error) {
-//     request.log.error(error);
-//     return {};
-//   }
-// });

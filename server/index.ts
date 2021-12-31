@@ -1,9 +1,5 @@
 import * as dotenv from 'dotenv';
-import Fastify, {
-  FastifyInstance,
-  FastifyRequest,
-  FastifyReply,
-} from 'fastify';
+import Fastify, { FastifyInstance, FastifyReply } from 'fastify';
 import cors from 'fastify-cors';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import App from './app';

@@ -16,6 +16,7 @@ React
 Redux with Redux Toolkit
 React Router
 Styled Components
+Axios
 
 ### Back-End
 

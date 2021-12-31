@@ -5,9 +5,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useApi } from "./useApi";
 import axios from "axios";
 
-console.log(process.env);
+import { Button } from "./components";
+import { fetchRecipes } from "./redux/reducers/recipes/recipeSlice";
 
-const endpoint = process.env.AUTH0;
+const endpoint = process.env.REACT_APP_AUTH0_URL;
 
 function App() {
   const opts = {
@@ -41,7 +42,10 @@ function App() {
   };
 
   const loginButton = (
-    <button onClick={() => loginWithRedirect()}>Login</button>
+    <div>
+      <Button onClick={() => loginWithRedirect()} label="Login" />
+      <Button onClick={fetchRecipe} label="Fetch recipe" />
+    </div>
   );
 
   if (error) {
@@ -50,7 +54,10 @@ function App() {
     }
     if (error.error === "consent_required") {
       return (
-        <button onClick={getTokenAndTryAgain}>Consent to reading users</button>
+        <Button
+          onClick={getTokenAndTryAgain}
+          label="Consent to reading users"
+        />
       );
     }
     return <div>Oops {error.message}</div>;
@@ -63,7 +70,7 @@ function App() {
   if (isAuthenticated) {
     return (
       <div>
-        <button onClick={fetchRecipe}>Fetch recipe</button>
+        <Button onClick={fetchRecipe} label="Fetch recipe" />
         <Home user={user} logout={logout} />
       </div>
     );

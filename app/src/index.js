@@ -1,18 +1,16 @@
 import React from "react";
 import { render } from "react-dom";
-import App from "./App";
-
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { Auth0Provider } from "@auth0/auth0-react";
+import { store } from "./redux/store";
 import { GlobalStyle } from "./styles/globalStyle";
 import { GlobalFonts } from "./styles/fonts";
+import App from "./App";
 
-import reportWebVitals from "./reportWebVitals";
-
-import { store } from "./redux/store";
-import { Provider } from "react-redux";
-
-import { BrowserRouter } from "react-router-dom";
-
-import { Auth0Provider } from "@auth0/auth0-react";
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 render(
   <React.StrictMode>
@@ -23,8 +21,8 @@ render(
         <GlobalFonts />
 
         <Auth0Provider
-          domain=""
-          clientId=""
+          domain={domain}
+          clientId={clientId}
           redirectUri={window.location.origin}
         >
           <App />
