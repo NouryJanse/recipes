@@ -1,8 +1,15 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { Recipe } from './Recipe';
 import * as recipes from '../../data.json';
+// import { PrismaClient } from '@prisma/client';
+// const prisma = new PrismaClient();
 
-const recipePrint = (title: string): Recipe => {
+const recipePrint = async (title: string): Promise<Recipe> => {
+  // const posts = await prisma.post.findMany({
+  //   where: { published: true },
+  //   include: { author: true },
+  // });
+
   const recipe: Recipe = {
     id: 0,
     title,
