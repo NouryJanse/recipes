@@ -27,9 +27,7 @@ async function initAuth0API(data) {
 export const initiateAuth0Thunk = createAsyncThunk(
   "users/initAuth0",
   async (data, state) => {
-    console.log(state.getState());
     const response = await initAuth0API(data);
-    console.log(response);
     return response;
   }
 );

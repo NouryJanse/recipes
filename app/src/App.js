@@ -5,11 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Button } from "./components";
-import {
-  userSlice,
-  storeToken,
-  storeUser,
-} from "./redux/reducers/users/userSlice";
+import { storeToken, storeUser } from "./redux/reducers/users/userSlice";
 import { useEffect } from "react";
 
 const endpoint = process.env.REACT_APP_AUTH0_URL;
@@ -66,7 +62,7 @@ function App({ auth0 }) {
   //   return <div>Loading...</div>;
   // }
 
-  if (user) {
+  if (user && Object.keys(user).length) {
     return (
       <div>
         <Home user={user} logout={auth0.logout} />

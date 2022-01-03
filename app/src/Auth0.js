@@ -63,7 +63,7 @@ class Auth0 {
 
   logout = async () => {
     try {
-      this.auth0Client.logout({
+      await this.auth0Client.logout({
         returnTo: "http://localhost:3000/",
       });
     } catch (error) {
