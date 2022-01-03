@@ -1,81 +1,79 @@
 import "./bootstrap-grid.css";
 import "./bootstrap-reboot.css";
 import Home from "./containers/Home";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useApi } from "./useApi";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Button } from "./components";
-import { fetchRecipes } from "./redux/reducers/recipes/recipeSlice";
+import {
+  userSlice,
+  storeToken,
+  storeUser,
+} from "./redux/reducers/users/userSlice";
+import { useEffect } from "react";
 
 const endpoint = process.env.REACT_APP_AUTH0_URL;
 
-function App() {
-  const opts = {
-    audience: `${endpoint}/`,
-    scope: "read:users",
-  };
+function App({ auth0 }) {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userSlice.data.user);
 
-  const {
-    logout,
-    getAccessTokenWithPopup,
-    isAuthenticated,
-    isLoading,
-    loginWithRedirect,
-    user,
-  } = useAuth0();
-
-  const { error, refresh, data } = useApi(`${endpoint}/users/`, opts);
-
-  const getTokenAndTryAgain = async () => {
-    await getAccessTokenWithPopup(opts);
-    refresh();
-  };
+  useEffect(() => {
+    if (auth0.token) {
+      dispatch(storeToken(auth0.token));
+    }
+    if (auth0.user) {
+      dispatch(storeUser(auth0.user));
+    }
+  }, [auth0, auth0.isAuthenticated, auth0.user]);
 
   const fetchRecipe = async () => {
     const response = await axios.get("http://localhost:1337/api/recipes/1", {
       headers: {
-        Authorization: `Bearer ${data}`,
+        Authorization: "Bearer " + auth0.token,
       },
     });
     console.log(response.data);
   };
 
+  const loginUser = async () => {
+    const user = await auth0.login();
+    dispatch(storeUser(user));
+  };
+
   const loginButton = (
     <div>
-      <Button onClick={() => loginWithRedirect()} label="Login" />
-      <Button onClick={fetchRecipe} label="Fetch recipe" />
+      <Button onClick={() => loginUser()} label="Login" />
     </div>
   );
 
-  if (error) {
-    if (error.error === "login_required") {
-      return loginButton;
-    }
-    if (error.error === "consent_required") {
-      return (
-        <Button
-          onClick={getTokenAndTryAgain}
-          label="Consent to reading users"
-        />
-      );
-    }
-    return <div>Oops {error.message}</div>;
-  }
+  // if (error) {
+  //   if (error.error === "login_required") {
+  //     return loginButton;
+  //   }
+  //   if (error.error === "consent_required") {
+  //     return (
+  //       <Button
+  //         // onClick={getTokenAndTryAgain}
+  //         label="Consent to reading users"
+  //       />
+  //     );
+  //   }
+  //   return <div>Oops {error.message}</div>;
+  // }
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (isAuthenticated) {
+  if (user) {
     return (
       <div>
-        <Button onClick={fetchRecipe} label="Fetch recipe" />
-        <Home user={user} logout={logout} />
+        <Home user={user} logout={auth0.logout} />
       </div>
     );
   } else {
-    return loginButton;
+    return <div>{loginButton}</div>;
   }
 }
 
