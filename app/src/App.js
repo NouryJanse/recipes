@@ -1,57 +1,77 @@
-import './bootstrap-grid.css';
-import './bootstrap-reboot.css';
-import RecipesList from './containers/RecipesList';
-import CreateRecipe from './containers/CreateRecipe';
-import EditRecipe from './containers/EditRecipe';
-import { Recipe } from './components';
+import "./bootstrap-grid.css";
+import "./bootstrap-reboot.css";
+import Home from "./containers/Home";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Routes, Route, Link } from 'react-router-dom';
+import { Button } from "./components";
+import { storeToken, storeUser } from "./redux/reducers/users/userSlice";
+import { useEffect } from "react";
 
-function App() {
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-xs-12 col-sm-6">
-          <h1>Recipes by Noury</h1>
-        </div>
-      </div>
+const endpoint = process.env.REACT_APP_AUTH0_URL;
 
-      <div className="row">
-        <nav>
-          <Link to="/"><p>Home</p></Link>
-          <Link to="/recipes"><p>Recipes</p></Link>
-          <Link to="/create"><p>Create new recipe</p></Link>
-        </nav>        
-        <div className="col-xs-12">
-          <Routes>
-            <Route path="/" element={<div>Welcome!</div>} />
+function App({ auth0 }) {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userSlice.data.user);
 
-            <Route path="/create" element={<CreateRecipe />} />
+  useEffect(() => {
+    if (auth0.token) {
+      dispatch(storeToken(auth0.token));
+    }
+    if (auth0.user) {
+      dispatch(storeUser(auth0.user));
+    }
+  }, [auth0, auth0.isAuthenticated, auth0.user, auth0.isLoading]);
 
-            <Route path="/recipes" element={<RecipesList />}>
-              <Route
-                index
-                element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>Select an invoice</p>
-                  </main>
-                }
-              />              
-              <Route path=":recipeId" element={<Recipe />} />
-              <Route path=":recipeId/edit" element={<EditRecipe />} />
-            </Route>
+  const fetchRecipe = async () => {
+    const response = await axios.get("http://localhost:1337/api/recipes/1", {
+      headers: {
+        Authorization: "Bearer " + auth0.token,
+      },
+    });
+    console.log(response.data);
+  };
 
-            <Route
-              path="*"
-              element={
-                <p>There's nothing here!</p>
-              }
-            />            
-          </Routes>          
-        </div>
-      </div>
+  const loginUser = async () => {
+    const user = await auth0.login();
+    dispatch(storeUser(user));
+  };
+
+  const loginButton = (
+    <div>
+      <Button onClick={() => loginUser()} label="Login" />
     </div>
   );
+
+  // if (error) {
+  //   if (error.error === "login_required") {
+  //     return loginButton;
+  //   }
+  //   if (error.error === "consent_required") {
+  //     return (
+  //       <Button
+  //         // onClick={getTokenAndTryAgain}
+  //         label="Consent to reading users"
+  //       />
+  //     );
+  //   }
+  //   return <div>Oops {error.message}</div>;
+  // }
+
+  if (auth0.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (user && Object.keys(user).length) {
+    return (
+      <div>
+        {auth0.isLoading}
+        <Home user={user} logout={auth0.logout} />
+      </div>
+    );
+  } else {
+    return <div>{loginButton}</div>;
+  }
 }
 
 export default App;

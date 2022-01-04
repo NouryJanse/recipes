@@ -1,7 +1,15 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { Recipe } from './Recipe';
+import * as recipes from '../../data.json';
+// import { PrismaClient } from '@prisma/client';
+// const prisma = new PrismaClient();
 
-const recipePrint = (title: string): Recipe => {
+const recipePrint = async (title: string): Promise<Recipe> => {
+  // const posts = await prisma.post.findMany({
+  //   where: { published: true },
+  //   include: { author: true },
+  // });
+
   const recipe: Recipe = {
     id: 0,
     title,
@@ -18,11 +26,13 @@ const postRecipeOps = async (
 
 const getRecipesOps = async () => {
   console.log(recipePrint('test'));
-  return { recipes: [{}, {}] };
+  return { recipes: recipes.recipes };
 };
 
-const getRecipeOps = async () => {
-  return { recipes: [{}, {}] };
+const getRecipeOps = (request: any, reply: FastifyReply) => {
+  const user = request.user;
+  console.log(user);
+  return reply.code(201).send({ title: 'frieten' });
 };
 
 const updateRecipeOps = async () => {

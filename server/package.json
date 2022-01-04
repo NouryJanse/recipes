@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@prisma/client": "^3.7.0",
     "dotenv": "^10.0.0",
     "eslint-config-airbnb": "^19.0.2",
     "fastify": "^3.25.0",
+    "fastify-auth0-verify": "^0.7.0",
     "fastify-autoload": "^3.9.0",
     "fastify-cors": "^6.0.2",
     "fastify-plugin": "^3.0.0",
@@ -16,7 +18,7 @@
     "start": "node ./dist/index.js",
     "build": "rm -rf dist && tsc",
     "check": "tsc --noemit",
-    "watch": "NODE_ENV=dev ts-node-dev --respawn index.ts",
+    "watch": "NODE_ENV=dev ts-node-dev --files --respawn index.ts",
     "lint": "eslint --ext .ts .",
     "lint-and-fix": "eslint . --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc.json '*.ts' --write"
@@ -32,6 +34,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
     "prettier": "^2.5.1",
+    "prisma": "^3.7.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.4"
   }

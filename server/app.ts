@@ -1,6 +1,7 @@
 import path from 'path';
 import AutoLoad from 'fastify-autoload';
 import fp from 'fastify-plugin';
+import fastifyAuth0 from 'fastify-auth0-verify';
 import { fastifySwagger } from 'fastify-swagger';
 import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify';
 
@@ -11,6 +12,11 @@ export default fp(
     next: (error?: FastifyError) => void,
   ): void => {
     // Place your custom code here!
+    server.register(fastifyAuth0, {
+      domain: process.env.AUTH0_DOMAIN,
+      secret: process.env.AUTH0_SECRET,
+    });
+
     server.register(fastifySwagger, {
       exposeRoute: true,
       routePrefix: '/docs',
