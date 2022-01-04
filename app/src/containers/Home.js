@@ -3,8 +3,18 @@ import RecipesList from "./RecipesList";
 import CreateRecipe from "./CreateRecipe";
 import EditRecipe from "./EditRecipe";
 import { Recipe, Button } from "../components";
+import axios from "axios";
 
 const Home = ({ user, logout }) => {
+  const fetchRecipe = async () => {
+    const response = await axios.get("http://localhost:1337/api/recipes/1", {
+      headers: {
+        Authorization: "Bearer " + user.token,
+      },
+    });
+    console.log(response.data);
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -28,6 +38,7 @@ const Home = ({ user, logout }) => {
             <p>{user.email}</p>
             Hello {user.name}{" "}
             <Button onClick={() => logout()} label="Log out" />
+            <Button onClick={() => fetchRecipe()} label="Fetch recipe" />
           </div>
         </nav>
 

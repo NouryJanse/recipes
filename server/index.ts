@@ -4,8 +4,8 @@ import cors from 'fastify-cors';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import App from './app';
 
-dotenv.config({ path: '../config/.env.dev' });
-if (!process.env.PORT) dotenv.config({ path: '../../config/.env.dev' });
+dotenv.config({ path: './.env' });
+if (!process.env.PORT) dotenv.config({ path: '../.env.dev' });
 
 const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> =
   Fastify({ logger: true, pluginTimeout: 10000 });

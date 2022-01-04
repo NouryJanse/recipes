@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@prisma/client": "^3.7.0",
+    "prisma": "^3.7.0",    
     "dotenv": "^10.0.0",
     "eslint-config-airbnb": "^19.0.2",
     "fastify": "^3.25.0",
@@ -34,7 +35,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
     "prettier": "^2.5.1",
-    "prisma": "^3.7.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.4"
   }
