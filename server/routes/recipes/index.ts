@@ -13,7 +13,10 @@ export default fp(
     _opts: FastifyPluginOptions,
     next: (error?: FastifyError) => void,
   ): void => {
-    server.post('/api/recipes', ops.postRecipeOps);
+    server.post('/api/recipes', {
+      handler: ops.postRecipeOps,
+      preValidation: server.authenticate,
+    });
 
     server.get('/api/recipes', ops.getRecipesOps);
 
