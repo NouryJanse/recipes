@@ -8,6 +8,7 @@ class Auth0 {
     this.auth0Client = null;
     this.user = null;
     this.error = null;
+    this.isLoading = false;
   }
 
   initiate = async ({
@@ -19,6 +20,7 @@ class Auth0 {
     scope,
   }) => {
     try {
+      this.toggleIsloading(true);
       this.auth0Client = await createAuth0Client({
         domain,
         client_id: clientId,
@@ -29,6 +31,7 @@ class Auth0 {
       });
       await this.getUser();
       await this.getTokenSilently();
+      this.toggleIsloading(false);
       return;
     } catch (error) {
       this.error = error;
@@ -38,13 +41,16 @@ class Auth0 {
 
   login = async () => {
     try {
-      return await this.auth0Client
+      this.toggleIsloading(true);
+      const login = await this.auth0Client
         .loginWithPopup({
           redirect_uri: "http://localhost:3000/",
         })
         .then(async (res) => {
           return await this.getUser();
         });
+      this.toggleIsloading(false);
+      return login;
     } catch (error) {
       this.error = error;
       console.error(error);
@@ -74,14 +80,20 @@ class Auth0 {
 
   getTokenSilently = async () => {
     try {
+      this.toggleIsloading(true);
       this.token = await this.auth0Client.getTokenSilently({
         scope: "read:current_user",
       });
+      this.toggleIsloading(false);
       return this.token;
     } catch (error) {
       this.error = error;
       console.error(error);
     }
+  };
+
+  toggleIsloading = (state = false) => {
+    this.isLoading = state;
   };
 }
 

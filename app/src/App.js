@@ -21,7 +21,7 @@ function App({ auth0 }) {
     if (auth0.user) {
       dispatch(storeUser(auth0.user));
     }
-  }, [auth0, auth0.isAuthenticated, auth0.user]);
+  }, [auth0, auth0.isAuthenticated, auth0.user, auth0.isLoading]);
 
   const fetchRecipe = async () => {
     const response = await axios.get("http://localhost:1337/api/recipes/1", {
@@ -58,13 +58,14 @@ function App({ auth0 }) {
   //   return <div>Oops {error.message}</div>;
   // }
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (auth0.isLoading) {
+    return <div>Loading...</div>;
+  }
 
   if (user && Object.keys(user).length) {
     return (
       <div>
+        {auth0.isLoading}
         <Home user={user} logout={auth0.logout} />
       </div>
     );
