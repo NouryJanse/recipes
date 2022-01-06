@@ -29,7 +29,6 @@ class Auth0 {
         audience,
         scope,
       });
-      await this.getUser();
       await this.getTokenSilently();
       this.toggleIsloading(false);
       return;
@@ -42,13 +41,16 @@ class Auth0 {
   login = async () => {
     try {
       this.toggleIsloading(true);
+
       const login = await this.auth0Client
         .loginWithPopup({
           redirect_uri: "http://localhost:3000/",
         })
         .then(async (res) => {
+          console.log(res);
           return await this.getUser();
         });
+
       this.toggleIsloading(false);
       return login;
     } catch (error) {
@@ -87,8 +89,13 @@ class Auth0 {
       this.toggleIsloading(false);
       return this.token;
     } catch (error) {
-      this.error = error;
-      console.error(error);
+      if (error.error !== "login_required") {
+        this.error = error;
+        console.error(error);
+        throw error;
+      } else {
+        console.log("login required");
+      }
     }
   };
 

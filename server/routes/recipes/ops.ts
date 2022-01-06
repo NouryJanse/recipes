@@ -4,10 +4,11 @@ import * as recipes from '../../data.json';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-const getRecipe = async (): Promise<any> => {
+const getRecipes = async (): Promise<any> => {
   try {
-    const allUsers = await prisma.recipe.findMany();
-    console.log(allUsers);
+    const recipes = await prisma.recipe.findMany();
+    console.log(recipes);
+    return recipes;
   } catch (error) {
     console.error(error);
   } finally {
@@ -17,11 +18,11 @@ const getRecipe = async (): Promise<any> => {
   }
 };
 
-const createRecipe = async (): Promise<any> => {
+const createRecipe = async (name: string): Promise<any> => {
   try {
     const response = await prisma.recipe.create({
       data: {
-        name: 'test',
+        name,
       },
     });
     console.log(response);
@@ -43,13 +44,13 @@ const recipePrint = async (title: string): Promise<Recipe> => {
 };
 
 const postRecipeOps = async (
-  request: FastifyRequest,
+  request: any,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   const user = request.user;
 
   console.log(user, request.body);
-  const recipes = await createRecipe();
+  const recipes = await createRecipe(request.body.name);
   console.log(recipes);
   return reply.code(201).send({ title: 'test' });
 };

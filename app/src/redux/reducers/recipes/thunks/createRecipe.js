@@ -19,8 +19,8 @@ async function createRecipeAPI(data, token) {
   const response = await axios.post(
     "http://localhost:1337/api/recipes",
     {
-      test: "test",
-      biem: "hoi",
+      name: data.title,
+      description: data.description,
     },
     {
       headers: {
