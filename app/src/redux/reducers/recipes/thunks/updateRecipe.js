@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 async function updateRecipeAPI(data, token) {
-  console.log(data);
   const response = await axios.put(
     `http://localhost:1337/api/recipes/${data.id}`,
     {
