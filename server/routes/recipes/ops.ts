@@ -1,13 +1,13 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
+import { PrismaClient } from '@prisma/client';
 import { Recipe } from './Recipe';
 import * as recipes from '../../data.json';
-import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 const getRecipes = async (): Promise<any> => {
   try {
     const recipes = await prisma.recipe.findMany();
-    console.log(recipes);
     return recipes;
   } catch (error) {
     console.error(error);
@@ -40,13 +40,13 @@ const createRecipe = async (
   }
 };
 
-const recipePrint = async (title: string): Promise<Recipe> => {
-  const recipe: Recipe = {
-    id: 0,
-    title,
-  };
-  return recipe;
-};
+// const recipePrint = async (title: string): Promise<Recipe> => {
+//   const recipe: Recipe = {
+//     id: 0,
+//     title,
+//   };
+//   return recipe;
+// };
 
 const postRecipeOps = async (
   request: any,

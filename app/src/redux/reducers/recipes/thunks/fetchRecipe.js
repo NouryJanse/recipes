@@ -9,7 +9,6 @@ async function fetchRecipeAPI() {
 export const fetchRecipeThunk = createAsyncThunk(
   "recipes/fetchRecipe",
   async (data) => {
-    console.log(data);
     const response = await fetchRecipeAPI();
     return response;
   }

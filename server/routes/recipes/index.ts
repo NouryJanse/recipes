@@ -1,15 +1,10 @@
-import {
-  FastifyInstance,
-  FastifyPluginOptions,
-  FastifyError,
-  FastifyReply,
-} from 'fastify';
+import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify';
 import fp from 'fastify-plugin';
 import ops from './ops';
 
 export default fp(
   (
-    server: any,
+    server: FastifyInstance,
     _opts: FastifyPluginOptions,
     next: (error?: FastifyError) => void,
   ): void => {

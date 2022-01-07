@@ -10,7 +10,7 @@ import fp from 'fastify-plugin';
 
 export default fp(
   (
-    server: any,
+    server: FastifyInstance,
     _opts: FastifyPluginOptions,
     next: (error?: FastifyError) => void,
   ): void => {
@@ -22,7 +22,7 @@ export default fp(
         // 1. validation authorisation of webhook
         // 2. get data from request.body and process it
 
-        console.log(request.body);
+        // console.log(request.body);
         // const user = request.user;
         return reply.code(201).send({ title: 'test' });
       },
@@ -37,7 +37,7 @@ export default fp(
         // 1. validation authorisation of webhook
         // 2. get data from request.body and process it
 
-        console.log(request.body);
+        // console.log(request.body);
         // const user = request.user;
         return reply.code(201).send({ title: 'test' });
       },
