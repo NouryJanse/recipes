@@ -1,67 +1,45 @@
-import { removeRecipeById } from '../../redux/reducers/recipes/recipeSlice';
-import { RecipeContainer } from './styled';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import {
-    Button
-} from '../index';
+import { removeRecipeById } from "../../redux/reducers/recipes/recipeSlice";
+import { RecipeContainer } from "./styled";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { Button } from "../index";
 
 const Recipe = (data) => {
-    let recipe = data.recipe;
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    let params = useParams();
-    const recipes = useSelector((state) => state.recipeSlice.data.recipes);
+  let recipe = data.recipe;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  let params = useParams();
+  const recipes = useSelector((state) => state.recipeSlice.data.recipes);
 
-    if (params.recipeId) {
-        recipe = recipes.find(recipe => {
-            return recipe.id === params.recipeId;
-        });
-    }
+  if (params.recipeId) {
+    recipe = recipes.find((recipe) => {
+      return recipe.id === Number.parseInt(params.recipeId);
+    });
+  }
 
-    const onDelete = async (recipeId) => {
-        if (!recipeId) return;
-        
-        await dispatch(
-            removeRecipeById(recipeId)
-        );
+  const onDelete = async (recipeId) => {
+    if (!recipeId) return;
 
-        navigate('/recipes');
-    }
+    await dispatch(removeRecipeById(recipeId));
 
-    if (!recipe) return (<p>Error, no recipe found.</p>);
+    navigate("/recipes");
+  };
 
-    return (
-        <RecipeContainer>
-            <h2>
-                {recipe.title}
-            </h2>
+  if (!recipe) return <p>Error, no recipe found.</p>;
 
-            {
-                recipe.description &&
-                <p>
-                    {recipe.description}
-                </p>
-            }
+  return (
+    <RecipeContainer>
+      <h2>{recipe.title}</h2>
 
-            <Link 
-                to={`/recipes/${recipe.id}/edit`}
-            >
-                Edit
-            </Link>
+      {recipe.description && <p>{recipe.description}</p>}
 
-            <Button
-                label={"Delete"}
-                onClick={() => onDelete(recipe.id)}
-            />
+      <Link to={`/recipes/${recipe.id}/edit`}>Edit</Link>
 
-            <Link 
-                to={`/recipes`}
-            >
-                Back to home
-            </Link>
-        </RecipeContainer>
-    )
-}
+      <Button label={"Delete"} onClick={() => onDelete(recipe.id)} />
+
+      <Link to={`/recipes`}>Back to home</Link>
+    </RecipeContainer>
+  );
+};
 
 export default Recipe;

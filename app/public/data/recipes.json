@@ -2,7 +2,7 @@
     "recipes": [
         {
             "id": "aio23ag",
-            "title": "Pasta Cherry Tomaat",
+            "name": "Pasta Cherry Tomaat",
             "description": "",
             "img_url": "",
             "kitchen": "",
@@ -10,7 +10,7 @@
         },
         {
             "id": "82hjaaw",
-            "title": "Rendang",
+            "name": "Rendang",
             "description": "",
             "img_url": "",
             "kitchen": "",
@@ -19,7 +19,7 @@
         },
         {
             "id": "jadsgih",
-            "title": "Stamppot",
+            "name": "Stamppot",
             "description": "",
             "img_url": "",
             "kitchen": "",

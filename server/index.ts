@@ -1,26 +1,16 @@
 import * as dotenv from 'dotenv';
-import Fastify, { FastifyInstance, FastifyReply } from 'fastify';
+import Fastify, { FastifyInstance } from 'fastify';
 import cors from 'fastify-cors';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import App from './app';
 
-dotenv.config({ path: '../config/.env.dev' });
-if (!process.env.PORT) dotenv.config({ path: '../../config/.env.dev' });
+dotenv.config({ path: './.env' });
+if (!process.env.PORT) dotenv.config({ path: '../.env.dev' });
 
 const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> =
   Fastify({ logger: true, pluginTimeout: 10000 });
 
 fastify.register(App);
-
-fastify.register(function (server: any, _options, done) {
-  server.get('/verify', {
-    handler: function (request: any, reply: FastifyReply) {
-      reply.send(request.user);
-    },
-    preValidation: server.authenticate,
-  });
-  done();
-});
 
 fastify.register(cors, {
   origin: '*',

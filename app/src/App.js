@@ -1,7 +1,6 @@
 import "./bootstrap-grid.css";
 import "./bootstrap-reboot.css";
 import Home from "./containers/Home";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Button } from "./components";
@@ -22,15 +21,6 @@ function App({ auth0 }) {
       dispatch(storeUser(auth0.user));
     }
   }, [auth0, auth0.isAuthenticated, auth0.user, auth0.isLoading]);
-
-  const fetchRecipe = async () => {
-    const response = await axios.get("http://localhost:1337/api/recipes/1", {
-      headers: {
-        Authorization: "Bearer " + auth0.token,
-      },
-    });
-    console.log(response.data);
-  };
 
   const loginUser = async () => {
     const user = await auth0.login();

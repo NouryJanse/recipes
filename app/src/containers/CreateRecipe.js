@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { addRecipe } from "../redux/reducers/recipes/recipeSlice";
+import { createRecipe } from "../redux/reducers/recipes/recipeSlice";
 import { useNavigate } from "react-router-dom";
 
 import { Textfield, Button } from "../components";
@@ -20,7 +20,7 @@ const CreateRecipe = () => {
   }
 
   const onSubmit = async (data) => {
-    await dispatch(addRecipe(data));
+    await dispatch(createRecipe(data));
 
     navigate("/recipes");
   };

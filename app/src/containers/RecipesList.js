@@ -22,7 +22,7 @@ const RecipesList = () => {
             {recipes.map((recipe, i) => {
               return (
                 <Link key={i} to={`/recipes/${recipe.id}`}>
-                  <p>{recipe.title}</p>
+                  <p>{recipe.name}</p>
                 </Link>
               );
             })}
