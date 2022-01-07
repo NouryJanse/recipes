@@ -16,7 +16,7 @@ export default fp(
   ): void => {
     server.post('/api/users/login', {
       handler: async (
-        request: FastifyRequest,
+        _request: FastifyRequest,
         reply: FastifyReply,
       ): Promise<FastifyReply> => {
         // 1. validation authorisation of webhook
@@ -24,14 +24,14 @@ export default fp(
 
         // console.log(request.body);
         // const user = request.user;
-        return reply.code(201).send({ title: 'test' });
+        return reply.code(200).send({ title: 'test' });
       },
       // preValidation: server.authenticate,
     });
 
     server.post('/api/users/register', {
       handler: async (
-        request: FastifyRequest,
+        _request: FastifyRequest,
         reply: FastifyReply,
       ): Promise<FastifyReply> => {
         // 1. validation authorisation of webhook

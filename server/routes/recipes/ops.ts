@@ -21,7 +21,7 @@ const getRecipes = async (): Promise<any> => {
 const createRecipe = async (
   name: string,
   description: string,
-  _id: number,
+  _authorId: number,
 ): Promise<any> => {
   try {
     return await prisma.recipe.create({
@@ -40,13 +40,48 @@ const createRecipe = async (
   }
 };
 
-// const recipePrint = async (title: string): Promise<Recipe> => {
-//   const recipe: Recipe = {
-//     id: 0,
-//     title,
-//   };
-//   return recipe;
-// };
+const updateRecipe = async (
+  id: number,
+  name: string,
+  description: string,
+  _authorId: number,
+): Promise<any> => {
+  try {
+    return await prisma.recipe.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        description,
+        // authorId: id,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  } finally {
+    async () => {
+      await prisma.$disconnect();
+    };
+  }
+};
+
+const deleteRecipe = async (id: number): Promise<any> => {
+  if (!id) return false;
+  try {
+    return await prisma.recipe.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  } finally {
+    async () => {
+      await prisma.$disconnect();
+    };
+  }
+};
 
 const postRecipeOps = async (
   request: any,
@@ -56,7 +91,7 @@ const postRecipeOps = async (
   const recipe = await createRecipe(
     request.body.name,
     request.body.description,
-    request.body.id,
+    request.body.authorId,
   );
   const recipes = await getRecipes();
   return reply.code(201).send({ recipes });
@@ -71,12 +106,25 @@ const getRecipeOps = async (_request: any, reply: FastifyReply) => {
   return reply.code(201).send({ title: 'frieten', recipes });
 };
 
-const updateRecipeOps = async () => {
-  return { recipes: [{}, {}] };
+const updateRecipeOps = async (
+  request: any,
+  reply: FastifyReply,
+): Promise<FastifyReply> => {
+  // const user = request.user;
+  const recipe = await updateRecipe(
+    Number.parseInt(request.params.id),
+    request.body.name,
+    request.body.description,
+    request.body.authorId,
+  );
+  const recipes = await getRecipes();
+  return reply.code(201).send({ recipes });
 };
 
-const deleteRecipeOps = async () => {
-  return { title: 'Pasta' };
+const deleteRecipeOps = async (request: any, reply: FastifyReply) => {
+  const res = await deleteRecipe(Number.parseInt(request.params.id));
+  const recipes = await getRecipes();
+  return reply.code(201).send({ recipes });
 };
 
 export default {

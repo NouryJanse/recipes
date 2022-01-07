@@ -1,4 +1,4 @@
-import { removeRecipeById } from "../../redux/reducers/recipes/recipeSlice";
+import { deleteRecipe } from "../../redux/reducers/recipes/recipeSlice";
 import { RecipeContainer } from "./styled";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -19,9 +19,7 @@ const Recipe = (data) => {
 
   const onDelete = async (recipeId) => {
     if (!recipeId) return;
-
-    await dispatch(removeRecipeById(recipeId));
-
+    await dispatch(deleteRecipe(recipeId));
     navigate("/recipes");
   };
 
@@ -29,14 +27,10 @@ const Recipe = (data) => {
 
   return (
     <RecipeContainer>
-      <h2>{recipe.title}</h2>
-
+      <h2>{recipe.name}</h2>
       {recipe.description && <p>{recipe.description}</p>}
-
       <Link to={`/recipes/${recipe.id}/edit`}>Edit</Link>
-
       <Button label={"Delete"} onClick={() => onDelete(recipe.id)} />
-
       <Link to={`/recipes`}>Back to home</Link>
     </RecipeContainer>
   );
