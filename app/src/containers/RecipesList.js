@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchRecipes } from "../redux/reducers/recipes/recipeSlice";
+import { getRecipes } from "../redux/reducers/recipes/recipeSlice";
 import { Outlet, Link, useParams } from "react-router-dom";
 
 const RecipesList = () => {
@@ -10,7 +10,7 @@ const RecipesList = () => {
 
   useEffect(() => {
     if (!recipes.length) {
-      dispatch(fetchRecipes());
+      dispatch(getRecipes());
     }
   }, [dispatch, recipes]);
 

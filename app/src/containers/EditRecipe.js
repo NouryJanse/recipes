@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-// import { editRecipeById } from '../redux/reducers/recipes/recipeSlice';
-// import { updateRecipe } from "../redux/reducers/recipes/recipeSlice";
+import { updateRecipe } from "../redux/reducers/recipes/recipeSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { RecipeContainer } from "../components/Recipe/styled";
 import { Button, Textfield } from "../components/index";
 
 const EditRecipe = (data) => {
   let recipe = data.recipe;
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   let params = useParams();
   const recipes = useSelector((state) => state.recipeSlice.data.recipes);
 
@@ -28,12 +28,12 @@ const EditRecipe = (data) => {
 
   const dispatchEdit = async (data, recipe) => {
     const payload = { id: recipe.id, ...recipe, ...data };
-    // dispatch(editRecipeById(payload));
-    // await dispatch(saveRecipe(payload));
+    await dispatch(updateRecipe(payload));
+    navigate(`/recipes/${recipe.id}`);
   };
 
   const onSave = async (data) => {
-    // dispatchEdit(data, recipe);
+    dispatchEdit(data, recipe);
   };
 
   useEffect(() => {
@@ -80,6 +80,11 @@ const EditRecipe = (data) => {
 
         <Button type="submit" label="Save recipe" />
 
+        {params.recipeId && (
+          <Link to={`/recipes/${params.recipeId}`}>
+            Back to recipe {recipe.name}
+          </Link>
+        )}
         <Link to={`/recipes`}>Back to recipes</Link>
       </form>
     </RecipeContainer>

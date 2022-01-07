@@ -33,11 +33,11 @@ function App({ auth0 }) {
     </div>
   );
 
-  // if (error) {
-  //   if (error.error === "login_required") {
+  // if (auth0.error) {
+  //   if (auth0.error === "login_required") {
   //     return loginButton;
   //   }
-  //   if (error.error === "consent_required") {
+  //   if (auth0.error === "consent_required") {
   //     return (
   //       <Button
   //         // onClick={getTokenAndTryAgain}

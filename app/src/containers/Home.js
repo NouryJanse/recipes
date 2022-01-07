@@ -28,7 +28,6 @@ const Home = ({ user, logout }) => {
             <p>{user.email}</p>
             Hello {user.name}{" "}
             <Button onClick={() => logout()} label="Log out" />
-            {/* <Button onClick={() => fetchRecipe()} label="Fetch recipe" /> */}
           </div>
         </nav>
 

@@ -48,7 +48,7 @@ class Auth0 {
           redirect_uri: "http://localhost:3000/",
         })
         .then(async (res) => {
-          console.log(res);
+          await this.getTokenSilently();
           return await this.getUser();
         });
 
