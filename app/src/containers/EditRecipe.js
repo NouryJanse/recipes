@@ -9,13 +9,13 @@ import { Button, Textfield } from "../components/index";
 
 const EditRecipe = (data) => {
   let recipe = data.recipe;
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   let params = useParams();
   const recipes = useSelector((state) => state.recipeSlice.data.recipes);
 
   if (params.recipeId) {
     recipe = recipes.find((recipe) => {
-      return recipe.id === params.recipeId;
+      return recipe.id === Number.parseInt(params.recipeId);
     });
   }
 
@@ -38,7 +38,7 @@ const EditRecipe = (data) => {
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
-      if (name === "title") {
+      if (name === "name") {
         // dispatchEdit(value, recipe);
       }
     });
@@ -54,10 +54,10 @@ const EditRecipe = (data) => {
 
         <Textfield
           type="text"
-          label="Recipe title*"
-          name="title"
-          defaultValue={recipe.title}
-          placeholder="Fill in a title"
+          label="Recipe name*"
+          name="name"
+          defaultValue={recipe.name}
+          placeholder="Fill in a name"
           validation={{
             required: "Did you forget to name your recipe?",
           }}
@@ -67,10 +67,10 @@ const EditRecipe = (data) => {
 
         <Textfield
           type="text"
-          label="Recipe title*"
+          label="Recipe description*"
           name="description"
           defaultValue={recipe.description}
-          placeholder="Fill in a title"
+          placeholder="Fill in a description"
           validation={{
             required: "Did you forget to name your recipe?",
           }}

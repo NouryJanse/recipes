@@ -18,14 +18,19 @@ const getRecipes = async (): Promise<any> => {
   }
 };
 
-const createRecipe = async (name: string): Promise<any> => {
+const createRecipe = async (
+  name: string,
+  description: string,
+  _id: number,
+): Promise<any> => {
   try {
-    const response = await prisma.recipe.create({
+    return await prisma.recipe.create({
       data: {
         name,
+        description,
+        // authorId: id,
       },
     });
-    console.log(response);
   } catch (error) {
     console.error(error);
   } finally {
@@ -48,22 +53,21 @@ const postRecipeOps = async (
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   const user = request.user;
-
-  console.log(user, request.body);
-  const recipes = await createRecipe(request.body.name);
-  console.log(recipes);
-  return reply.code(201).send({ title: 'test' });
+  const recipe = await createRecipe(
+    request.body.name,
+    request.body.description,
+    request.body.id,
+  );
+  const recipes = await getRecipes();
+  return reply.code(201).send({ recipes });
 };
 
-const getRecipesOps = async () => {
-  console.log(recipePrint('test'));
-  return { recipes: recipes.recipes };
+const getRecipesOps = async (_request: FastifyRequest, reply: FastifyReply) => {
+  const recipes = await getRecipes();
+  return reply.code(200).send({ recipes });
 };
 
-const getRecipeOps = async (request: any, reply: FastifyReply) => {
-  const user = request.user;
-  console.log(user, request.body);
-  // const recipes = await addRecipe();
+const getRecipeOps = async (_request: any, reply: FastifyReply) => {
   return reply.code(201).send({ title: 'frieten', recipes });
 };
 

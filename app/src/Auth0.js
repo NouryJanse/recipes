@@ -24,12 +24,13 @@ class Auth0 {
       this.auth0Client = await createAuth0Client({
         domain,
         client_id: clientId,
-        useRefreshTokens,
+        useRefreshTokens: true,
         cacheLocation,
         audience,
         scope,
       });
       await this.getTokenSilently();
+      await this.getUser();
       this.toggleIsloading(false);
       return;
     } catch (error) {

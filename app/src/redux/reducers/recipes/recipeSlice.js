@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchRecipeThunk } from "./thunks/fetchRecipe";
 import { fetchRecipesThunk } from "./thunks/fetchRecipes";
-// import { getRecipeThunk } from "./thunks/getRecipe";
 import { createRecipeThunk } from "./thunks/createRecipe";
 // import { updateRecipeThunk } from "./thunks/updateRecipe";
 // import { deleteRecipeThunk } from "./thunks/deleteRecipe";
@@ -14,6 +14,7 @@ const initialState = {
 };
 
 export const createRecipe = createRecipeThunk;
+export const fetchRecipe = fetchRecipeThunk;
 export const fetchRecipes = fetchRecipesThunk;
 
 export const recipeSlice = createSlice({
@@ -46,11 +47,33 @@ export const recipeSlice = createSlice({
       state.status.fetchRecipes = "loading";
       state.error = {};
     },
+    [fetchRecipes.rejected]: (state, action) => {
+      console.log(action);
+      state.status.fetchRecipes = "rejected";
+      state.error = {};
+    },
     [fetchRecipes.fulfilled]: (state, action) => {
+      console.log(action.payload);
       state.data.recipes = action.payload.recipes;
       state.status.fetchRecipes = "fulfilled";
       state.error = {};
     },
+
+    [fetchRecipe.pending]: (state, action) => {
+      state.status.fetchRecipe = "loading";
+      state.error = {};
+    },
+    [fetchRecipe.rejected]: (state, action) => {
+      console.log(action);
+      state.status.fetchRecipe = "rejected";
+      state.error = {};
+    },
+    [fetchRecipe.fulfilled]: (state, action) => {
+      state.data.recipe = action.payload.recipes;
+      state.status.fetchRecipe = "fulfilled";
+      state.error = {};
+    },
+
     [createRecipe.pending]: (state, action) => {
       console.log(action);
       state.status.createRecipe = "loading";
@@ -63,11 +86,7 @@ export const recipeSlice = createSlice({
     },
     [createRecipe.fulfilled]: (state, action) => {
       console.log(action);
-      // if (action.payload.id) {
-      //   state.data.recipes = state.data.recipes.map((recipe) => {
-      //     return recipe.id === action.payload.id ? action.payload : recipe;
-      //   });
-      // }
+      state.data.recipes = action.payload.recipes;
       state.status.saveRecipe = "fulfilled";
       state.error = {};
     },
