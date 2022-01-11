@@ -11,14 +11,7 @@ class Auth0 {
     this.isLoading = false;
   }
 
-  initiate = async ({
-    domain,
-    clientId,
-    audience,
-    useRefreshTokens,
-    cacheLocation,
-    scope,
-  }) => {
+  initiate = async ({ domain, clientId, audience, cacheLocation, scope }) => {
     try {
       this.toggleIsloading(true);
       this.auth0Client = await createAuth0Client({

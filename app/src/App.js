@@ -7,8 +7,6 @@ import { Button } from "./components";
 import { storeToken, storeUser } from "./redux/reducers/users/userSlice";
 import { useEffect } from "react";
 
-const endpoint = process.env.REACT_APP_AUTH0_URL;
-
 function App({ auth0 }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userSlice.data.user);
@@ -33,20 +31,20 @@ function App({ auth0 }) {
     </div>
   );
 
-  // if (auth0.error) {
-  //   if (auth0.error === "login_required") {
-  //     return loginButton;
-  //   }
-  //   if (auth0.error === "consent_required") {
-  //     return (
-  //       <Button
-  //         // onClick={getTokenAndTryAgain}
-  //         label="Consent to reading users"
-  //       />
-  //     );
-  //   }
-  //   return <div>Oops {error.message}</div>;
-  // }
+  if (auth0.error) {
+    if (auth0.error === "login_required") {
+      return loginButton;
+    }
+    if (auth0.error === "consent_required") {
+      return (
+        <Button
+          // onClick={getTokenAndTryAgain}
+          label="Consent to reading users"
+        />
+      );
+    }
+    return <div>Oops {auth0.error.message}</div>;
+  }
 
   if (auth0.isLoading) {
     return <div>Loading...</div>;

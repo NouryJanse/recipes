@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRecipes } from "../redux/reducers/recipes/recipeSlice";
 import { Outlet, Link, useParams } from "react-router-dom";
+import { useInterval } from "../polling";
 
 const RecipesList = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,10 @@ const RecipesList = () => {
       dispatch(getRecipes());
     }
   }, [dispatch, recipes]);
+
+  const interval = useInterval(() => {
+    dispatch(getRecipes());
+  }, 5000);
 
   return (
     <div>

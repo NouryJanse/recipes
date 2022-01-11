@@ -13,7 +13,6 @@ const redirectURI = process.env.REACT_APP_AUTH0_REDIRECT_URI;
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
-const useRefreshTokens = process.env.REACT_APP_AUTH0_REFRESH_TOKENS;
 const cacheLocation = process.env.REACT_APP_AUTH0_LOCATION;
 const scope = process.env.REACT_APP_AUTH0_SCOPE;
 
@@ -23,7 +22,6 @@ auth0
     domain,
     clientId,
     audience,
-    useRefreshTokens,
     cacheLocation,
     scope,
   })
