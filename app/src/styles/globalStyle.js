@@ -57,6 +57,32 @@ export const GlobalStyle = createGlobalStyle`
     nav {
         margin-bottom: 40px;
     }
+
+    .sprites {
+        position: absolute;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    svg {
+        position: absolute;
+        right: 12px;
+        top: calc(50%);
+        width: 10px;
+        height: 6px;
+        stroke-width: 2px;
+        stroke: #9098a9;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        pointer-events: none;
+
+        &:hover {
+            stroke: #0077FF;
+        }
+    }
 `;
 
 // GlobalStyle.propTypes = {

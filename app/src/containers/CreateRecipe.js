@@ -1,10 +1,18 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { createRecipe } from "../redux/reducers/recipes/recipeSlice";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { createRecipe } from '../redux/reducers/recipes/recipeSlice';
+import { useNavigate } from 'react-router-dom';
 
-import { Textfield, Button } from "../components";
+import { Textfield, Button, Textarea, Dropdown } from '../components';
+
+const options = [
+  { title: 'Make choice', name: 'Make choice', disabled: true, selected: true },
+  { title: 'Breakfast', name: 'breakfast' },
+  { title: 'Lunch', name: 'lunch' },
+  { title: 'Aperitivo', name: 'aperitivo' },
+  { title: 'Dinner', name: 'dinner' },
+];
 
 const CreateRecipe = () => {
   const dispatch = useDispatch();
@@ -22,7 +30,7 @@ const CreateRecipe = () => {
   const onSubmit = async (data) => {
     await dispatch(createRecipe(data));
 
-    navigate("/recipes");
+    navigate('/recipes');
   };
 
   return (
@@ -33,24 +41,33 @@ const CreateRecipe = () => {
         name="title"
         placeholder="Fill in a title"
         validation={{
-          required: "Did you forget to name your recipe?",
+          required: 'Did you forget to name your recipe?',
         }}
         register={register}
-        errors={errors.title?.type === "required" && "Title is required"}
+        errors={errors.title?.type === 'required' && 'Title is required'}
       />
 
-      <Textfield
-        type="text"
+      <Textarea
         label="Recipe description*"
         name="description"
         placeholder="Fill in a description"
         validation={{
-          required: "Did you forget to fill in the description of your recipe?",
+          required: 'Did you forget to fill in the description of your recipe?',
         }}
         register={register}
-        errors={
-          errors.description?.type === "required" && "Description is required"
-        }
+        errors={errors.description?.type === 'required' && 'Description is required'}
+      />
+
+      <Dropdown
+        label="Course*"
+        name="course"
+        placeholder="Fill in the course"
+        validation={{
+          required: 'Did you forget to fill in the course of your recipe?',
+        }}
+        register={register}
+        errors={errors.description?.type === 'required' && 'Course is required'}
+        options={options}
       />
 
       <Button type="submit" label="Save recipe" />
