@@ -7,8 +7,10 @@ import App from './app';
 dotenv.config({ path: './.env' });
 if (!process.env.PORT) dotenv.config({ path: '../.env.dev' });
 
-const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> =
-  Fastify({ logger: true, pluginTimeout: 10000 });
+const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({
+  logger: true,
+  pluginTimeout: 10000,
+});
 
 fastify.register(App);
 

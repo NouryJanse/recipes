@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Textfield, Button, Textarea, Dropdown } from '../components';
 
 const options = [
-  { title: 'Make choice', name: 'Make choice', disabled: true, selected: true },
+  { title: 'Make choice', name: '', disabled: true },
   { title: 'Breakfast', name: 'breakfast' },
   { title: 'Lunch', name: 'lunch' },
   { title: 'Aperitivo', name: 'aperitivo' },

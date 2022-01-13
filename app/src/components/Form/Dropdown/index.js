@@ -14,7 +14,7 @@ const Dropdown = ({ label, name, validation, register, disabled, options, defaul
           name={name}
           {...register(name, validation)}
           disabled={disabled}
-          value={options.find((option) => option.selected).name}
+          value={options?.find((option) => option?.selected)?.name}
         >
           {options.map((option, i) => {
             return (

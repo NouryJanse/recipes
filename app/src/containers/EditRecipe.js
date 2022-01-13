@@ -44,7 +44,7 @@ const EditRecipe = (data) => {
   };
 
   const recipeCourse = () => {
-    return options.find((option) => option.name === recipe.course).title;
+    return options.find((option) => option?.name === recipe.course)?.title;
   };
 
   useEffect(() => {
