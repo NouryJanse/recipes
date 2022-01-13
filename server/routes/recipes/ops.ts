@@ -49,6 +49,7 @@ const updateRecipe = async (
   name: string,
   description: string,
   _authorId: number,
+  course: string,
 ): Promise<any> => {
   try {
     const recipe = await prisma.recipe.update({
@@ -59,6 +60,7 @@ const updateRecipe = async (
         name,
         description,
         // authorId: id,
+        course,
       },
     });
     cache.del('recipes');
@@ -118,6 +120,7 @@ const updateRecipeOps = async (request: any, reply: FastifyReply): Promise<Fasti
     request.body.name,
     request.body.description,
     request.body.authorId,
+    request.body.course,
   );
   const recipes = await getRecipes();
   return reply.code(201).send({ recipes });
