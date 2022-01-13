@@ -24,12 +24,18 @@ const getRecipes = async (): Promise<any> => {
   }
 };
 
-const createRecipe = async (name: string, description: string, _authorId: number): Promise<any> => {
+const createRecipe = async (
+  name: string,
+  description: string,
+  _authorId: number,
+  course: string,
+): Promise<any> => {
   try {
     const recipe = await prisma.recipe.create({
       data: {
         name,
         description,
+        course,
         // authorId: id,
       },
     });
@@ -99,6 +105,7 @@ const postRecipeOps = async (request: any, reply: FastifyReply): Promise<Fastify
     request.body.name,
     request.body.description,
     request.body.authorId,
+    request.body.course,
   );
   const recipes = await getRecipes();
   return reply.code(201).send({ recipes });
