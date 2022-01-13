@@ -1,23 +1,30 @@
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { updateRecipe } from "../redux/reducers/recipes/recipeSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { RecipeContainer } from "../components/Recipe/styled";
-import { Button, Textfield } from "../components/index";
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { updateRecipe } from '../redux/reducers/recipes/recipeSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { RecipeContainer } from '../components/Recipe/styled';
+import { Button, Textfield, Textarea, Dropdown } from '../components/index';
+import { useState } from 'react';
+import { useRef } from 'react';
+
+// shoudld be moved to fixed constants externally
+const options = [
+  { title: 'Make a choice', name: 'choice' },
+  { title: 'Breakfast', name: 'breakfast' },
+  { title: 'Lunch', name: 'lunch' },
+  { title: 'Aperitivo', name: 'aperitivo' },
+  { title: 'Dinner', name: 'dinner' },
+];
 
 const EditRecipe = (data) => {
-  let recipe = data.recipe;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  let [recipe, setRecipe] = useState(data.recipe);
+  let [id, setId] = useState();
   let params = useParams();
+  const hasURLParams = useRef(false);
   const recipes = useSelector((state) => state.recipeSlice.data.recipes);
-
-  if (params.recipeId) {
-    recipe = recipes.find((recipe) => {
-      return recipe.id === Number.parseInt(params.recipeId);
-    });
-  }
 
   const {
     register,
@@ -36,21 +43,40 @@ const EditRecipe = (data) => {
     dispatchEdit(data, recipe);
   };
 
+  const recipeCourse = () => {
+    return options.find((option) => option.name === recipe.course).title;
+  };
+
   useEffect(() => {
-    const subscription = watch((value, { name, type }) => {
-      if (name === "name") {
-        // dispatchEdit(value, recipe);
+    if (hasURLParams.current === false || !recipe || !id) {
+      if (!typeof params.recipeId !== undefined) {
+        setId(params.recipeId);
       }
+
+      if (id !== undefined) {
+        setRecipe(
+          recipes.find((recipe) => {
+            return recipe.id === Number.parseInt(id);
+          }),
+        );
+      }
+      hasURLParams.current = true;
+    }
+
+    const subscription = watch((value, { name, type }) => {
+      setRecipe({ ...recipe, ...value });
     });
     return () => subscription.unsubscribe();
-  }, [watch, recipe]);
+  }, [watch, recipe, id, recipes]);
 
   if (!recipe) return <p>Error, no recipe found.</p>;
 
   return (
     <RecipeContainer>
       <form onSubmit={handleSubmit(onSave)}>
-        <h2>Editing recipe {recipe.title}</h2>
+        <h2>
+          Editing {recipe.name} - {recipeCourse()}
+        </h2>
 
         <Textfield
           type="text"
@@ -59,31 +85,41 @@ const EditRecipe = (data) => {
           defaultValue={recipe.name}
           placeholder="Fill in a name"
           validation={{
-            required: "Did you forget to name your recipe?",
+            required: 'Did you forget to name your recipe?',
           }}
           register={register}
-          errors={errors.title?.type === "required" && "Title is required"}
+          errors={errors.title?.type === 'required' && 'Title is required'}
         />
 
-        <Textfield
-          type="text"
+        <Textarea
           label="Recipe description*"
           name="description"
           defaultValue={recipe.description}
           placeholder="Fill in a description"
           validation={{
-            required: "Did you forget to name your recipe?",
+            required: 'Did you forget to name your recipe?',
           }}
           register={register}
-          errors={errors.title?.type === "required" && "Title is required"}
+          errors={errors.title?.type === 'required' && 'Title is required'}
+        />
+
+        <Dropdown
+          label="Course*"
+          name="course"
+          placeholder="Fill in the course"
+          defaultValue={recipe.course}
+          validation={{
+            required: 'Did you forget to fill in the course of your recipe?',
+          }}
+          register={register}
+          errors={errors.description?.type === 'required' && 'Course is required'}
+          options={options}
         />
 
         <Button type="submit" label="Save recipe" />
 
         {params.recipeId && (
-          <Link to={`/recipes/${params.recipeId}`}>
-            Back to recipe {recipe.name}
-          </Link>
+          <Link to={`/recipes/${params.recipeId}`}>Back to recipe {recipe.name}</Link>
         )}
         <Link to={`/recipes`}>Back to recipes</Link>
       </form>
