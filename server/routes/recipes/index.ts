@@ -8,21 +8,31 @@ export default fp(
     _opts: FastifyPluginOptions,
     next: (error?: FastifyError) => void,
   ): void => {
+    // CREATE RECIPE
     server.post('/api/recipes', {
       handler: ops.postRecipeOps,
       preValidation: server.authenticate,
     });
 
-    server.get('/api/recipes', ops.getRecipesOps);
+    // GET RECIPES
+    server.get('/api/recipes', { handler: ops.getRecipesOps });
 
+    // GET RECIPE
     server.get('/api/recipes/:id', {
       handler: ops.getRecipeOps,
+    });
+
+    // UPDATE RECIPE
+    server.put('/api/recipes/:id', {
+      handler: ops.updateRecipeOps,
       preValidation: server.authenticate,
     });
 
-    server.put('/api/recipes/:id', ops.updateRecipeOps);
-
-    server.delete('/api/recipes/:id', ops.deleteRecipeOps);
+    // DELETE RECIPE
+    server.delete('/api/recipes/:id', {
+      handler: ops.deleteRecipeOps,
+      preValidation: server.authenticate,
+    });
 
     next();
   },
