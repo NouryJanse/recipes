@@ -1,11 +1,11 @@
-import "./bootstrap-grid.css";
-import "./bootstrap-reboot.css";
-import Home from "./containers/Home";
-import { useDispatch, useSelector } from "react-redux";
+import './bootstrap-grid.css';
+import './bootstrap-reboot.css';
+import Home from './containers/Home';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Button } from "./components";
-import { storeToken, storeUser } from "./redux/reducers/users/userSlice";
-import { useEffect } from "react";
+import { Button } from './components';
+import { storeToken, storeUser } from './redux/reducers/users/userSlice';
+import { useEffect, Fragment } from 'react';
 
 function App({ auth0 }) {
   const dispatch = useDispatch();
@@ -32,10 +32,10 @@ function App({ auth0 }) {
   );
 
   if (auth0.error) {
-    if (auth0.error === "login_required") {
+    if (auth0.error === 'login_required') {
       return loginButton;
     }
-    if (auth0.error === "consent_required") {
+    if (auth0.error === 'consent_required') {
       return (
         <Button
           // onClick={getTokenAndTryAgain}
@@ -52,10 +52,9 @@ function App({ auth0 }) {
 
   if (user && Object.keys(user).length) {
     return (
-      <div>
-        {auth0.isLoading}
+      <Fragment>
         <Home user={user} logout={auth0.logout} />
-      </div>
+      </Fragment>
     );
   } else {
     return <div>{loginButton}</div>;

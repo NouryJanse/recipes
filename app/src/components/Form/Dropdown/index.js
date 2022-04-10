@@ -24,9 +24,9 @@ const Dropdown = ({ label, name, validation, register, disabled, options, defaul
             );
           })}
         </StyledDropdown>
-        <svg>
+        {/* <svg>
           <use xlinkHref="#select-arrow-down"></use>
-        </svg>
+        </svg> */}
       </StyledLabel>
       <svg className="sprites">
         <symbol id="select-arrow-down" viewBox="0 0 10 6">

@@ -3,10 +3,15 @@ import { useForm } from 'react-hook-form';
 import { updateRecipe } from '../redux/reducers/recipes/recipeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { RecipeContainer } from '../components/Recipe/styled';
 import { Button, Textfield, Textarea, Dropdown } from '../components/index';
 import { useState } from 'react';
 import { useRef } from 'react';
+
+import styled from 'styled-components';
+
+const EditRecipeContainer = styled.div`
+  margin-bottom: 32px;
+`;
 
 // shoudld be moved to fixed constants externally
 const options = [
@@ -72,7 +77,7 @@ const EditRecipe = (data) => {
   if (!recipe) return <p>Error, no recipe found.</p>;
 
   return (
-    <RecipeContainer>
+    <EditRecipeContainer>
       <form onSubmit={handleSubmit(onSave)}>
         <h2>
           Editing {recipe.name} - {recipeCourse()}
@@ -123,7 +128,7 @@ const EditRecipe = (data) => {
         )}
         <Link to={`/recipes`}>Back to recipes</Link>
       </form>
-    </RecipeContainer>
+    </EditRecipeContainer>
   );
 };
 

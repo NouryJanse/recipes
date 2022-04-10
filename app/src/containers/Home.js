@@ -1,57 +1,50 @@
-import { Routes, Route, Link } from "react-router-dom";
-import RecipesList from "./RecipesList";
-import CreateRecipe from "./CreateRecipe";
-import EditRecipe from "./EditRecipe";
-import { Recipe, Button } from "../components";
+import { Routes, Route, Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Navigation from './Navigation';
+import RecipesList from './RecipesList';
+import CreateRecipe from './CreateRecipe';
+import EditRecipe from './EditRecipe';
+import { RecipeDetail } from '../components';
+import { toggleNav } from '../redux/reducers/application/applicationSlice';
 
 const Home = ({ user, logout }) => {
+  const dispatch = useDispatch();
+  const application = useSelector((state) => state.applicationSlice.data);
+
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-xs-12 col-sm-6">
-          <h1>Recipes by Noury</h1>
-        </div>
-      </div>
+    <div className="rootContainer">
+      <Navigation user={user} logout={logout} />
 
-      <div className="row">
-        <nav>
-          <Link to="/">
-            <p>Home</p>
-          </Link>
-          <Link to="/recipes">
-            <p>Recipes</p>
-          </Link>
-          <Link to="/create">
-            <p>Create new recipe</p>
-          </Link>
-          <div>
-            <p>{user.email}</p>
-            Hello {user.name}{" "}
-            <Button onClick={() => logout()} label="Log out" />
+      <div className={`container content ${application.navMenuIsOpened ? `opened` : `closed`}`}>
+        <div className="row">
+          <div className="col-xs-12">
+            <h1>Recipes by Noury</h1>
           </div>
-        </nav>
+        </div>
 
-        <div className="col-xs-12">
-          <Routes>
-            <Route path="/" element={<div>Welcome!</div>} />
+        <div className="row">
+          <div className="col-xs-12">
+            <Routes>
+              <Route path="/" element={<div>Welcome!</div>} />
 
-            <Route path="/create" element={<CreateRecipe />} />
+              <Route path="/create" element={<CreateRecipe />} />
 
-            <Route path="/recipes" element={<RecipesList />}>
-              <Route
-                index
-                element={
-                  <main style={{ padding: "1rem" }}>
-                    <p>Select an invoice</p>
-                  </main>
-                }
-              />
-              <Route path=":recipeId" element={<Recipe />} />
-              <Route path=":recipeId/edit" element={<EditRecipe />} />
-            </Route>
+              <Route path="/recipes" element={<RecipesList />}>
+                <Route
+                  index
+                  element={
+                    <main style={{ padding: '1rem' }}>
+                      <p>Select an invoice</p>
+                    </main>
+                  }
+                />
+                <Route path=":recipeId" element={<RecipeDetail />} />
+                <Route path=":recipeId/edit" element={<EditRecipe />} />
+              </Route>
 
-            <Route path="*" element={<p>There's nothing here!</p>} />
-          </Routes>
+              <Route path="*" element={<p>There's nothing here!</p>} />
+            </Routes>
+          </div>
         </div>
       </div>
     </div>

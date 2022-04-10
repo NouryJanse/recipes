@@ -1,11 +1,11 @@
-import { deleteRecipe } from '../../redux/reducers/recipes/recipeSlice';
+import { deleteRecipe } from '../../../redux/reducers/recipes/recipeSlice';
 import { RecipeContainer } from './styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Button } from '../index';
-import { formatNLDateTime } from '../../helpers/DateHelper';
+import { Button } from '../../index';
+import { formatNLDateTime } from '../../../helpers/DateHelper';
 
-const Recipe = (data) => {
+const RecipeCard = (data) => {
   let recipe = data.recipe;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,16 +28,17 @@ const Recipe = (data) => {
 
   return (
     <RecipeContainer>
-      <h2>{recipe.name}</h2>
+      <h2>
+        {recipe.name} - <i>{recipe.course}</i>
+      </h2>
       <p>Last updated: {formatNLDateTime(recipe.updatedAt)}</p>
       <p>Created at: {formatNLDateTime(recipe.createdAt)}</p>
       {recipe.description && <p>{recipe.description}</p>}
-      <i>{recipe.course}</i>
-      <Link to={`/recipes/${recipe.id}/edit`}>Edit</Link>
-      <Button label={'Delete'} onClick={() => onDelete(recipe.id)} />
-      <Link to={`/recipes`}>Back to home</Link>
+      <Link to={`/recipes/${recipe.id}`}>Detail</Link>
+      {/* <Button label={'Delete'} onClick={() => onDelete(recipe.id)} /> */}
+      {/* <Link to={`/recipes`}>Back to home</Link> */}
     </RecipeContainer>
   );
 };
 
-export default Recipe;
+export default RecipeCard;

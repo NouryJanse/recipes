@@ -32,30 +32,60 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'opensans';
         font-weight: 400;
         margin-bottom: 8px;
-    }
-
-    .Toastify__toast {
-        border-radius: 0;
-    }
-
-    .Toastify__close-button {
-        
-    }
-
-    .Toastify__progress-bar {
-        
-    }
-
-    .Toastify__toast--success {
-        
-    }
-
-    .Toastify__toast--error {
-        
+        word-break: break-word;
     }
 
     nav {
-        margin-bottom: 40px;
+        min-height: 95vh;
+        max-height: 100vh;
+        width: 8vw;
+        max-width: 160px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: fixed;
+        transition: 0.3s;
+        align-items: center;
+        
+        .navLink {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            
+            .toggleContent {
+                margin: 0;
+                opacity: 0;
+                color: black;
+                max-height: 32px;
+            }
+        }
+
+        &.opened {
+            width: 24vw;
+
+            .navLink {
+                .toggleContent {
+                    transition-delay: 400ms;
+                    transition: 200ms opacity;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .content {
+        transition: margin-left 0.3s;
+        margin-left: 8vw;
+
+        &.opened {
+            margin-left: 24vw;
+        }
+    }
+
+    .rootContainer {
+        display: flex;
+        flex-direction: row;
+        padding: 16px;
     }
 
     .sprites {
@@ -66,7 +96,7 @@ export const GlobalStyle = createGlobalStyle`
         user-select: none;
     }
 
-    svg {
+    svg.sprites {
         position: absolute;
         right: 12px;
         top: calc(50%);
