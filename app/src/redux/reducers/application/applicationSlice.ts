@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import ApplicationState from '../../../types/ApplicationState'
 
 const initialState = {
   data: { navMenuIsOpened: false },
@@ -34,6 +35,6 @@ export const applicationSlice = createSlice({
 
 export const { toggleNav } = applicationSlice.actions
 
-// export const selectRecipes = (state) => state.recipes.data;
+export const selectApplication = (state: ApplicationState) => state.data.application
 
 export default applicationSlice.reducer

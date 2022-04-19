@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { Recipe } from '../../../../types/Recipe'
+import Recipe from '../../../../types/Recipe'
 
 async function deleteRecipeAPI(data: Recipe, token: string) {
   const response = await axios.delete(`http://localhost:1337/api/recipes/${data.id}`, {

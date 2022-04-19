@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { ReducerState } from 'react'
 
 import { initiateAuth0Thunk } from './thunks/userAuthentication'
 

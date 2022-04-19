@@ -1,15 +1,16 @@
-import { Routes, Route, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Navigation from './Navigation';
-import RecipesList from './RecipesList';
-import CreateRecipe from './CreateRecipe';
-import EditRecipe from './EditRecipe';
-import { RecipeDetail } from '../components';
-import { toggleNav } from '../redux/reducers/application/applicationSlice';
+import { Routes, Route, Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import Navigation from './Navigation'
+import RecipesList from './RecipesList'
+import CreateRecipe from './CreateRecipe'
+import EditRecipe from './EditRecipe'
+import { RecipeDetail } from '../components'
+import { toggleNav } from '../redux/reducers/application/applicationSlice'
+import RootState from '../types/RootState'
 
-const Home = ({ user, logout }) => {
-  const dispatch = useDispatch();
-  const application = useSelector((state) => state.applicationSlice.data);
+const Home = ({ user, logout }: any) => {
+  const dispatch = useDispatch()
+  const application = useSelector((state: RootState) => state.applicationSlice.data)
 
   return (
     <div className="rootContainer">
@@ -48,7 +49,7 @@ const Home = ({ user, logout }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

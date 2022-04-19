@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { store } from './redux/store'
 // import { GlobalStyle } from './styles/globalStyle'
 // import { GlobalFonts } from './styles/fonts'
-// import App from './App'
+import App from './App'
 import Auth0 from './Auth0'
 import { CacheLocation } from '@auth0/auth0-spa-js'
 
@@ -35,7 +35,7 @@ if (container) {
             <BrowserRouter>
               {/* <GlobalStyle /> */}
               {/* <GlobalFonts /> */}
-              {/* <App auth0={auth0} /> */}
+              <App auth0={auth0} />
             </BrowserRouter>
           </Provider>
         </React.StrictMode>,

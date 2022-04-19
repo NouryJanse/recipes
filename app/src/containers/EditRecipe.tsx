@@ -1,17 +1,18 @@
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { updateRecipe } from '../redux/reducers/recipes/recipeSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Button, Textfield, Textarea, Dropdown } from '../components/index';
-import { useState } from 'react';
-import { useRef } from 'react';
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { updateRecipe } from '../redux/reducers/recipes/recipeSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import { Button, Textfield, Textarea, Dropdown } from '../components/index'
+import { useState } from 'react'
+import { useRef } from 'react'
+import RootState from '../types/RootState'
 
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const EditRecipeContainer = styled.div`
   margin-bottom: 32px;
-`;
+`
 
 // shoudld be moved to fixed constants externally
 const options = [
@@ -20,61 +21,61 @@ const options = [
   { title: 'Lunch', name: 'lunch' },
   { title: 'Aperitivo', name: 'aperitivo' },
   { title: 'Dinner', name: 'dinner' },
-];
+]
 
 const EditRecipe = (data) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  let [recipe, setRecipe] = useState(data.recipe);
-  let [id, setId] = useState();
-  let params = useParams();
-  const hasURLParams = useRef(false);
-  const recipes = useSelector((state) => state.recipeSlice.data.recipes);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  let [recipe, setRecipe] = useState(data.recipe)
+  let [id, setId] = useState()
+  let params = useParams()
+  const hasURLParams = useRef(false)
+  const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm();
+  } = useForm()
 
   const dispatchEdit = async (data, recipe) => {
-    const payload = { id: recipe.id, ...recipe, ...data };
-    await dispatch(updateRecipe(payload));
-    navigate(`/recipes/${recipe.id}`);
-  };
+    const payload = { id: recipe.id, ...recipe, ...data }
+    await dispatch(updateRecipe(payload))
+    navigate(`/recipes/${recipe.id}`)
+  }
 
   const onSave = async (data) => {
-    dispatchEdit(data, recipe);
-  };
+    dispatchEdit(data, recipe)
+  }
 
   const recipeCourse = () => {
-    return options.find((option) => option?.name === recipe.course)?.title;
-  };
+    return options.find((option) => option?.name === recipe.course)?.title
+  }
 
   useEffect(() => {
     if (hasURLParams.current === false || !recipe || !id) {
       if (!typeof params.recipeId !== undefined) {
-        setId(params.recipeId);
+        setId(params.recipeId)
       }
 
       if (id !== undefined) {
         setRecipe(
           recipes.find((recipe) => {
-            return recipe.id === Number.parseInt(id);
+            return recipe.id === Number.parseInt(id)
           }),
-        );
+        )
       }
-      hasURLParams.current = true;
+      hasURLParams.current = true
     }
 
     const subscription = watch((value, { name, type }) => {
-      setRecipe({ ...recipe, ...value });
-    });
-    return () => subscription.unsubscribe();
-  }, [watch, recipe, id, recipes]);
+      setRecipe({ ...recipe, ...value })
+    })
+    return () => subscription.unsubscribe()
+  }, [watch, recipe, id, recipes])
 
-  if (!recipe) return <p>Error, no recipe found.</p>;
+  if (!recipe) return <p>Error, no recipe found.</p>
 
   return (
     <EditRecipeContainer>
@@ -129,7 +130,7 @@ const EditRecipe = (data) => {
         <Link to={`/recipes`}>Back to recipes</Link>
       </form>
     </EditRecipeContainer>
-  );
-};
+  )
+}
 
-export default EditRecipe;
+export default EditRecipe

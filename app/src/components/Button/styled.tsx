@@ -1,6 +1,8 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const ButtonStyle = styled.button`
+interface IBtn {}
+
+export const ButtonStyle = styled.button<IBtn>`
   height: 50px;
   background-color: #0d6efd;
   padding: 8px;
@@ -24,4 +26,4 @@ export const ButtonStyle = styled.button`
   &:hover {
     background-color: #0352c7;
   }
-`;
+`

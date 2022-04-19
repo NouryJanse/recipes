@@ -1,10 +1,10 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { createRecipe } from '../redux/reducers/recipes/recipeSlice';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { createRecipe } from '../redux/reducers/recipes/recipeSlice'
+import { useNavigate } from 'react-router-dom'
 
-import { Textfield, Button, Textarea, Dropdown } from '../components';
+import { Textfield, Button, Textarea, Dropdown } from '../components'
 
 const options = [
   { title: 'Make choice', name: '', disabled: true },
@@ -12,33 +12,33 @@ const options = [
   { title: 'Lunch', name: 'lunch' },
   { title: 'Aperitivo', name: 'aperitivo' },
   { title: 'Dinner', name: 'dinner' },
-];
+]
 
 const CreateRecipe = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
   if (errors) {
     // console.error(errors, new Error(errors));
   }
 
   const onSubmit = async (data) => {
-    await dispatch(createRecipe(data));
+    await dispatch(createRecipe(data))
 
-    navigate('/recipes');
-  };
+    navigate('/recipes')
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Textfield
         type="text"
         label="Recipe title*"
-        name="title"
+        name="name"
         placeholder="Fill in a title"
         validation={{
           required: 'Did you forget to name your recipe?',
@@ -72,7 +72,7 @@ const CreateRecipe = () => {
 
       <Button type="submit" label="Save recipe" />
     </form>
-  );
-};
+  )
+}
 
-export default CreateRecipe;
+export default CreateRecipe

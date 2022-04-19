@@ -30,7 +30,6 @@ class Auth0 {
     domain: string
     clientId: string
     audience: string
-    cacheLocation: string
     scope: string
   }) => {
     try {
@@ -56,6 +55,8 @@ class Auth0 {
     try {
       this.toggleIsloading(true)
 
+      if (!this.auth0Client) return
+
       const login = await this.auth0Client
         .loginWithPopup({
           redirect_uri: 'http://localhost:3000/',
@@ -74,6 +75,7 @@ class Auth0 {
 
   getUser = async () => {
     try {
+      if (!this.auth0Client) return
       this.user = await this.auth0Client.getUser()
       return this.user
     } catch (error) {
@@ -83,6 +85,7 @@ class Auth0 {
 
   logout = async () => {
     try {
+      if (!this.auth0Client) return
       await this.auth0Client.logout({
         returnTo: 'http://localhost:3000/',
       })
@@ -94,6 +97,7 @@ class Auth0 {
   getTokenSilently = async () => {
     try {
       this.toggleIsloading(true)
+      if (!this.auth0Client) return
       this.token = await this.auth0Client.getTokenSilently({
         scope: 'read:current_user',
       })
