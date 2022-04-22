@@ -1,9 +1,7 @@
-import { createGlobalStyle } from 'styled-components';
+import FontWOFF from './open-sans-v27-latin-600.woff'
+import FontWOFF2 from './open-sans-v27-latin-600.woff2'
 
-import FontWOFF from './open-sans-v27-latin-600.woff';
-import FontWOFF2 from './open-sans-v27-latin-600.woff2';
-
-export default createGlobalStyle`
+export const OpenSans600 = `
     @font-face {
         font-display: swap;
         font-family: 'opensans';
@@ -12,4 +10,4 @@ export default createGlobalStyle`
         font-weight: 600;
         font-style: normal;
     }
-`;
+`

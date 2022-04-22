@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import createAuth0Client, { CacheLocation } from '@auth0/auth0-spa-js'
+import createAuth0Client from '@auth0/auth0-spa-js'
 
-const redirectURI: string = process.env.REACT_APP_AUTH0_REDIRECT_URI as string
+// const redirectURI: string = process.env.REACT_APP_AUTH0_REDIRECT_URI as string
 const domain: string = process.env.REACT_APP_AUTH0_DOMAIN as string
 const clientId: string = process.env.REACT_APP_AUTH0_CLIENT_ID as string
 const audience: string = process.env.REACT_APP_AUTH0_AUDIENCE as string
-const cacheLocation: CacheLocation = process.env.REACT_APP_AUTH0_LOCATION as CacheLocation
 const scope: string = process.env.REACT_APP_AUTH0_SCOPE as string
 
 async function initAuth0API() {

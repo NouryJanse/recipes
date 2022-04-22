@@ -56,7 +56,7 @@ const EditRecipe = (data: any) => {
 
   useEffect(() => {
     if (hasURLParams.current === false || !recipe || !id) {
-      if (typeof params.recipeId !== undefined) {
+      if (!typeof params.recipeId !== undefined) {
         setId(params.recipeId)
       }
 
@@ -70,12 +70,12 @@ const EditRecipe = (data: any) => {
       hasURLParams.current = true
     }
 
-    // can be destructured: name, type
-    const subscription = watch((value, {}) => {
+    // can be destructured: {name, type}
+    const subscription = watch((value) => {
       setRecipe({ ...recipe, ...value })
     })
     return () => subscription.unsubscribe()
-  }, [watch, recipe, id, recipes])
+  }, [watch, recipe, id, recipes, params])
 
   if (!recipe) return <p>Error, no recipe found.</p>
 

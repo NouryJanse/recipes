@@ -19,7 +19,7 @@ function App({ auth0 }: any) {
     if (auth0.user) {
       dispatch(storeUser(auth0.user))
     }
-  }, [auth0, auth0.isAuthenticated, auth0.user, auth0.isLoading])
+  }, [auth0, auth0.isAuthenticated, auth0.user, auth0.isLoading, dispatch])
 
   const loginUser = async () => {
     const user = await auth0.login()

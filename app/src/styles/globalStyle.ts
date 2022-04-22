@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 // import { themeProps } from '../styles/theme';
 
@@ -113,7 +113,7 @@ export const GlobalStyle = createGlobalStyle`
             stroke: #0077FF;
         }
     }
-`;
+`
 
 // GlobalStyle.propTypes = {
 //     ...themeProps,
