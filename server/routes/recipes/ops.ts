@@ -12,7 +12,11 @@ const getRecipes = async (): Promise<any> => {
       return cache.get('recipes');
     }
 
-    const recipes = await prisma.recipe.findMany();
+    const recipes = await prisma.recipe.findMany({
+      orderBy: {
+        updatedAt: 'desc',
+      },
+    });
     cache.set('recipes', recipes);
     return recipes;
   } catch (error) {
