@@ -1,6 +1,17 @@
-import { FieldRowStyle, LabelStyle, InputStyle } from './styled';
+import { FieldRowStyle, LabelStyle, InputStyle } from './styled'
 
-import { ErrorMessage } from '../../index';
+import { ErrorMessage } from '../../index'
+
+interface TextField {
+  name: string
+  type: string
+  label: string
+  placeholder: string
+  defaultValue?: string
+  register: Function
+  validation: string | object
+  errors: string | boolean | HTMLElement
+}
 
 const Textfield = ({
   name = '',
@@ -11,7 +22,7 @@ const Textfield = ({
   register,
   validation,
   errors,
-}) => {
+}: TextField) => {
   return (
     <FieldRowStyle>
       <LabelStyle htmlFor={name}>{label}</LabelStyle>
@@ -26,7 +37,7 @@ const Textfield = ({
       />
       {errors && <ErrorMessage message={errors}></ErrorMessage>}
     </FieldRowStyle>
-  );
-};
+  )
+}
 
-export default Textfield;
+export default Textfield

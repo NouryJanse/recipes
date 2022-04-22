@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
-import appReducer from './rootSlice'
-import thunkMiddleware from 'redux-thunk'
+import { useDispatch } from 'react-redux'
+import rootReducer from './rootSlice'
+// import thunkMiddleware from 'redux-thunk'
 
 export const store = configureStore({
-  reducer: appReducer,
-  middleware: [thunkMiddleware],
+  reducer: rootReducer,
+  //   middleware: [thunkMiddleware],
 })
+
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch = () => useDispatch<AppDispatch>() // Export a hook that can be reused to resolve types

@@ -1,6 +1,6 @@
-import { StyledTextArea, StyledLabel } from './styled';
+import { StyledTextArea, StyledLabel } from './styled'
 
-const TextArea = ({ label, defaultValue, placeholder, name, validation, register }) => {
+const TextArea = ({ label, defaultValue, placeholder, name, validation, register }: any) => {
   return (
     <div>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
@@ -10,10 +10,9 @@ const TextArea = ({ label, defaultValue, placeholder, name, validation, register
         placeholder={placeholder}
         defaultValue={defaultValue}
         {...register(name, validation)}
-        placeholder={placeholder}
       ></StyledTextArea>
     </div>
-  );
-};
+  )
+}
 
-export default TextArea;
+export default TextArea

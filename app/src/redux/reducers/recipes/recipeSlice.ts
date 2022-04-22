@@ -18,10 +18,10 @@ const initialState = {
   error: {},
 }
 
-export const createRecipe = createRecipeThunk
-export const updateRecipe = updateRecipeThunk
 export const getRecipe = getRecipeThunk
 export const getRecipes = getRecipesThunk
+export const createRecipe = createRecipeThunk
+export const updateRecipe = updateRecipeThunk
 export const deleteRecipe = deleteRecipeThunk
 
 export const recipeSlice = createSlice({
@@ -37,7 +37,10 @@ export const recipeSlice = createSlice({
       state.status.getRecipes = 'rejected'
       state.error = {}
     })
-    builder.addCase(getRecipes.fulfilled, (state, _action) => {
+    builder.addCase(getRecipes.fulfilled, (state, action) => {
+      if (action !== null && action.payload) {
+        state.data.recipes = action.payload['recipes']
+      }
       state.status.getRecipes = 'fulfilled'
       state.error = {}
     })
@@ -101,8 +104,6 @@ export const recipeSlice = createSlice({
     })
   },
 })
-
-export const {} = recipeSlice.actions
 
 export const selectRecipes = (state: RecipeState) => state.data.recipes
 

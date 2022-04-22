@@ -13,6 +13,7 @@ export const applicationSlice = createSlice({
   initialState,
   reducers: {
     toggleNav: (state) => {
+      console.log(state)
       state.data.navMenuIsOpened = !state.data.navMenuIsOpened
     },
   },
@@ -35,6 +36,6 @@ export const applicationSlice = createSlice({
 
 export const { toggleNav } = applicationSlice.actions
 
-export const selectApplication = (state: ApplicationState) => state.data.application
+export const selectApplication = (state: ApplicationState) => state.data
 
 export default applicationSlice.reducer

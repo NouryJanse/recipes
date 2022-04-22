@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getRecipes } from '../redux/reducers/recipes/recipeSlice'
-import { Outlet, Link, useParams } from 'react-router-dom'
+import { Outlet, useParams } from 'react-router-dom'
 import { useInterval } from '../polling'
 import Recipe from '../types/Recipe'
 import RootState from '../types/RootState'
@@ -15,11 +15,13 @@ const RecipesList = () => {
 
   useEffect(() => {
     if (!recipes.length) {
+      // @ts-ignore:next-line
       dispatch(getRecipes())
     }
   }, [dispatch, recipes])
 
   useInterval(() => {
+    // @ts-ignore:next-line
     dispatch(getRecipes())
   }, 5000)
 

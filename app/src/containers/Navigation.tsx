@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom'
 import { Button, Icon } from '../components'
 import { GoThreeBars, GoX, GoHome, GoPlus, GoListUnordered } from 'react-icons/go'
 import { MdLogout } from 'react-icons/md'
-// import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleNav } from '../redux/reducers/application/applicationSlice'
+import RootState from '../types/RootState'
 
-const Navigation = ({ user, logout }) => {
+const Navigation = ({ logout }: any) => {
   const dispatch = useDispatch()
-  const application = useSelector((state) => state.applicationSlice.data)
+  const application = useSelector((state: RootState) => state.applicationSlice.data)
   let login = application.navMenuIsOpened ? `Log out` : <MdLogout />
 
   return (
@@ -20,19 +20,19 @@ const Navigation = ({ user, logout }) => {
             dispatch(toggleNav())
           }}
         >
-          {!application.navMenuIsOpened && <Icon icon={<GoThreeBars style={{}} />} />}
-          {application.navMenuIsOpened && <Icon icon={<GoX style={{ color: 'black' }} />} />}
+          {!application.navMenuIsOpened && <Icon iconElement={<GoThreeBars style={{}} />} />}
+          {application.navMenuIsOpened && <Icon iconElement={<GoX style={{ color: 'black' }} />} />}
         </div>
         <Link to="/" className="navLink">
-          <Icon icon={<GoHome style={{ color: 'black' }} />} />
+          <Icon iconElement={<GoHome style={{ color: 'black' }} />} />
           <p className="toggleContent">Home</p>
         </Link>
         <Link to="/recipes" className="navLink">
-          <Icon icon={<GoListUnordered style={{ color: 'black' }} />} />
+          <Icon iconElement={<GoListUnordered style={{ color: 'black' }} />} />
           <p className="toggleContent">Recipes</p>
         </Link>
         <Link to="/create" className="navLink">
-          <Icon icon={<GoPlus style={{ color: 'black' }} />} />
+          <Icon iconElement={<GoPlus style={{ color: 'black' }} />} />
           <p className="toggleContent">New</p>
         </Link>
       </div>

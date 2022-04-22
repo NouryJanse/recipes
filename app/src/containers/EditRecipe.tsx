@@ -14,7 +14,7 @@ const EditRecipeContainer = styled.div`
   margin-bottom: 32px;
 `
 
-// shoudld be moved to fixed constants externally
+// should be moved to fixed constants externally
 const options = [
   { title: 'Make a choice', name: 'choice' },
   { title: 'Breakfast', name: 'breakfast' },
@@ -23,11 +23,11 @@ const options = [
   { title: 'Dinner', name: 'dinner' },
 ]
 
-const EditRecipe = (data) => {
+const EditRecipe = (data: any) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   let [recipe, setRecipe] = useState(data.recipe)
-  let [id, setId] = useState()
+  let [id, setId] = useState<string | undefined>('')
   let params = useParams()
   const hasURLParams = useRef(false)
   const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
@@ -39,13 +39,14 @@ const EditRecipe = (data) => {
     watch,
   } = useForm()
 
-  const dispatchEdit = async (data, recipe) => {
+  const dispatchEdit = async (data: any, recipe: any) => {
     const payload = { id: recipe.id, ...recipe, ...data }
+    // @ts-ignore:next-line
     await dispatch(updateRecipe(payload))
     navigate(`/recipes/${recipe.id}`)
   }
 
-  const onSave = async (data) => {
+  const onSave = async (data: any) => {
     dispatchEdit(data, recipe)
   }
 
@@ -55,21 +56,22 @@ const EditRecipe = (data) => {
 
   useEffect(() => {
     if (hasURLParams.current === false || !recipe || !id) {
-      if (!typeof params.recipeId !== undefined) {
+      if (typeof params.recipeId !== undefined) {
         setId(params.recipeId)
       }
 
       if (id !== undefined) {
         setRecipe(
           recipes.find((recipe) => {
-            return recipe.id === Number.parseInt(id)
+            return recipe.id === Number.parseInt(id!)
           }),
         )
       }
       hasURLParams.current = true
     }
 
-    const subscription = watch((value, { name, type }) => {
+    // can be destructured: name, type
+    const subscription = watch((value, {}) => {
       setRecipe({ ...recipe, ...value })
     })
     return () => subscription.unsubscribe()

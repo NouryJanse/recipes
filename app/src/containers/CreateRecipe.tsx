@@ -7,11 +7,11 @@ import { useNavigate } from 'react-router-dom'
 import { Textfield, Button, Textarea, Dropdown } from '../components'
 
 const options = [
-  { title: 'Make choice', name: '', disabled: true },
-  { title: 'Breakfast', name: 'breakfast' },
-  { title: 'Lunch', name: 'lunch' },
-  { title: 'Aperitivo', name: 'aperitivo' },
-  { title: 'Dinner', name: 'dinner' },
+  { title: 'Make choice', text: '', disabled: true },
+  { title: 'Breakfast', text: 'breakfast' },
+  { title: 'Lunch', text: 'lunch' },
+  { title: 'Aperitivo', text: 'aperitivo' },
+  { title: 'Dinner', text: 'dinner' },
 ]
 
 const CreateRecipe = () => {
@@ -27,7 +27,8 @@ const CreateRecipe = () => {
     // console.error(errors, new Error(errors));
   }
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: object) => {
+    // @ts-ignore:next-line
     await dispatch(createRecipe(data))
 
     navigate('/recipes')

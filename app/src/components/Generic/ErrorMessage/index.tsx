@@ -1,13 +1,11 @@
-import { StyledErrorMessage } from './styled';
+import { StyledErrorMessage } from './styled'
 
-const ErrorMessage = ({
-    message = ""
-}) => {
-    return (
-        <StyledErrorMessage>
-            {message}
-        </StyledErrorMessage>
-    )
+interface ErrorMessageType {
+  message?: any
 }
 
-export default ErrorMessage;
+const ErrorMessage = ({ message }: ErrorMessageType) => {
+  return <StyledErrorMessage>{message}</StyledErrorMessage>
+}
+
+export default ErrorMessage

@@ -1,10 +1,9 @@
-import { StyledDropdown, StyledOption, StyledLabel } from './styled';
-import { useState, useEffect } from 'react';
+import { StyledDropdown, StyledOption, StyledLabel } from './styled'
 
-const Dropdown = ({ label, name, validation, register, disabled, options, defaultValue }) => {
-  options = options.map((option) => {
-    return option.name === defaultValue ? { ...option, selected: true } : option;
-  });
+const Dropdown = ({ label, name, validation, register, disabled, options, defaultValue }: any) => {
+  options = options.map((option: HTMLOptionElement) => {
+    return option.text === defaultValue ? { ...option, selected: true } : option
+  })
   return (
     <div>
       <StyledLabel htmlFor={name}>
@@ -14,14 +13,14 @@ const Dropdown = ({ label, name, validation, register, disabled, options, defaul
           name={name}
           {...register(name, validation)}
           disabled={disabled}
-          value={options?.find((option) => option?.selected)?.name}
+          value={options?.find((option: HTMLOptionElement) => option?.selected)?.name}
         >
-          {options.map((option, i) => {
+          {options.map((option: HTMLOptionElement, i: number) => {
             return (
-              <StyledOption key={i} value={option.name} disabled={option.disabled}>
+              <StyledOption key={i} value={option.text} disabled={option.disabled}>
                 {option.title}
               </StyledOption>
-            );
+            )
           })}
         </StyledDropdown>
         {/* <svg>
@@ -34,7 +33,7 @@ const Dropdown = ({ label, name, validation, register, disabled, options, defaul
         </symbol>
       </svg>
     </div>
-  );
-};
+  )
+}
 
-export default Dropdown;
+export default Dropdown

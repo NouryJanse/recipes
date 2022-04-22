@@ -1,7 +1,12 @@
-import { StyledIcon } from './styled';
+import { ReactNode } from 'react'
+import { StyledIcon } from './styled'
 
-const Icon = ({ icon }) => {
-  return <StyledIcon>{icon}</StyledIcon>;
-};
+interface IconType {
+  iconElement: ReactNode
+}
 
-export default Icon;
+const Icon = ({ iconElement }: IconType) => {
+  return <StyledIcon>{iconElement}</StyledIcon>
+}
+
+export default Icon
