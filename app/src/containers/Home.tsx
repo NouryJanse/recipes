@@ -18,7 +18,7 @@ const Home = ({ user, logout }: any) => {
       <div className={`container content ${application.navMenuIsOpened ? `opened` : `closed`}`}>
         <div className="row">
           <div className="col-xs-12">
-            <h1>Recipes by Noury</h1>
+            <h1 className="underline">Recipes by Noury</h1>
           </div>
         </div>
 

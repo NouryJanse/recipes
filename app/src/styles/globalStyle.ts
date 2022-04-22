@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-
+import './tailwind.output.css'
 // import { themeProps } from '../styles/theme';
 
 export const GlobalStyle = createGlobalStyle`
@@ -114,7 +114,3 @@ export const GlobalStyle = createGlobalStyle`
         }
     }
 `
-
-// GlobalStyle.propTypes = {
-//     ...themeProps,
-// };

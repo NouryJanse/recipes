@@ -1,5 +1,3 @@
-import './bootstrap-grid.css'
-import './bootstrap-reboot.css'
 import Home from './containers/Home'
 import { useDispatch, useSelector } from 'react-redux'
 

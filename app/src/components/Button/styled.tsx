@@ -1,29 +1,32 @@
-import styled from 'styled-components'
+import tw from 'tailwind-styled-components'
 
 interface IBtn {}
 
-export const ButtonStyle = styled.button<IBtn>`
-  height: 50px;
-  background-color: #0d6efd;
-  padding: 8px;
-  border-radius: 4px;
-  margin: 0 0 8px 0;
-  border: 2px solid transparent;
-  text-decoration: none;
-  outline: none;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 200ms ease-in-out;
+export const ButtonStyle = tw.button<IBtn>`
+  flex
+  outline-none  
+  align-middle
+  justify-center
+  p-2
+  mt-0
+  mr-1
+  mb-0
+  ml-0
+  rounded
 
-  &:focus {
-    outline: none;
-    border: 2px solid blue;
-    margin: 0;
-  }
+  bg-blue
+  text-white
 
-  &:hover {
-    background-color: #0352c7;
-  }
+  no-underline
+  border-2
+  border-solid
+  border-transparent  
+  transition-colors
+  
+  hover:bg-blueDark
+
+  focus:outline-none
+  focus:m-0
+  focus:border-2
+  focus:border-solid
 `
