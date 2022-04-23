@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { updateRecipe } from '../../redux/reducers/recipes/recipeSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { Button, Textfield, Textarea, Dropdown } from '../../components/index'
+import { Button, Textfield, Textarea, Dropdown, ImagePicker } from '../../components/index'
 import { useState } from 'react'
 import { useRef } from 'react'
 import RootState from '../../types/RootState'
@@ -39,15 +39,16 @@ const EditRecipe = (data: any) => {
     watch,
   } = useForm()
 
+  const onSave = async (data: any) => {
+    dispatchEdit(data, recipe)
+  }
+
   const dispatchEdit = async (data: any, recipe: any) => {
+    console.log(data)
     const payload = { id: recipe.id, ...recipe, ...data }
     // @ts-ignore:next-line
     await dispatch(updateRecipe(payload))
     navigate(`/recipes/${recipe.id}`)
-  }
-
-  const onSave = async (data: any) => {
-    dispatchEdit(data, recipe)
   }
 
   const recipeCourse = () => {
@@ -71,10 +72,10 @@ const EditRecipe = (data: any) => {
     }
 
     // can be destructured: {name, type}
-    const subscription = watch((value) => {
-      setRecipe({ ...recipe, ...value })
-    })
-    return () => subscription.unsubscribe()
+    // const subscription = watch((value) => {
+    //   setRecipe({ ...recipe, ...value })
+    // })
+    // return () => subscription.unsubscribe()
   }, [watch, recipe, id, recipes, params])
 
   if (!recipe) return <p>Error, no recipe found.</p>
@@ -123,6 +124,18 @@ const EditRecipe = (data: any) => {
           errors={errors.description?.type === 'required' && 'Course is required'}
           options={options}
         />
+
+        <ImagePicker
+          label="Images"
+          name="images"
+          register={register}
+          validation={{
+            required: 'Did you forget to add images to your recipe?',
+          }}
+        />
+
+        <br />
+        <br />
 
         <Button type="submit" label="Save recipe" />
 

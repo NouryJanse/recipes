@@ -5,7 +5,6 @@ import { Outlet, useParams } from 'react-router-dom'
 import { useInterval } from '../../polling'
 import Recipe from '../../types/Recipe'
 import RootState from '../../types/RootState'
-
 import { RecipeCard } from '../../components'
 
 const RecipesList = () => {

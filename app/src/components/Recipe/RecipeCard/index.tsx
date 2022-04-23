@@ -38,7 +38,6 @@ const RecipeCard = (data: any) => {
       {recipe.description && <p>{recipe.description}</p>}
       <Link to={`/recipes/${recipe.id}`}>Detail</Link>
       <Button label={'Delete'} onClick={() => onDelete(recipe.id)} />
-      <Link to={`/recipes`}>Back to home</Link>
     </RecipeContainer>
   )
 }

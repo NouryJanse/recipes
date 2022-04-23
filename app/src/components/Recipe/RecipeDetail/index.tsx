@@ -37,7 +37,7 @@ const Recipe = (data: any) => {
       <i>{recipe.course}</i>
       <Link to={`/recipes/${recipe.id}/edit`}>Edit</Link>
       <Button label={'Delete'} onClick={() => onDelete(recipe.id)} />
-      <Link to={`/recipes`}>Back to home</Link>
+      <Link to={`/recipes`}>Back to Recipes</Link>
     </RecipeContainer>
   )
 }
