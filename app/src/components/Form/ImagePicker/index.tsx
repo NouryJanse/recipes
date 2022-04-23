@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { UseFormRegister } from 'react-hook-form'
+import { StyledLabel } from './styled'
 
 interface File {
   name: string
@@ -15,24 +15,35 @@ const ImagePicker = ({
   images,
   label,
   register,
+  setValue,
 }: {
   name: string
   images?: Image[]
   label: string
   register: any
   validation?: any
+  setValue: any
 }) => {
-  let [files, setFiles] = useState<string[]>([])
+  let [files, setFiles] = useState(images as any)
+  let [filesHTML, setFilesHTML] = useState([] as any)
 
-  const onDrop = useCallback((acceptedFiles: any) => {
-    const newFiles = acceptedFiles.map((file: any) => (
-      <li key={file.path}>
-        {file.path} - {file.size} bytes
-      </li>
-    ))
-    const updatedFiles = [...files, ...newFiles]
-    console.log(updatedFiles)
-    setFiles(updatedFiles)
+  function readAsDataURL(file: any) {
+    return new Promise((resolve, _reject) => {
+      let fileReader = new FileReader()
+      fileReader.onload = function () {
+        return resolve({
+          data: fileReader.result,
+          name: file.name,
+          size: file.size,
+          type: file.type,
+        })
+      }
+      fileReader.readAsDataURL(file)
+    })
+  }
+
+  const onDrop = useCallback(async (acceptedFiles: any) => {
+    setFiles((prevState: any) => [...prevState, ...acceptedFiles])
   }, [])
 
   const {
@@ -43,28 +54,42 @@ const ImagePicker = ({
     isDragReject,
     isFileDialogActive,
     isFocused,
-  } = useDropzone({ onDrop })
-
-  const test = [images, label]
+  } = useDropzone({ onDrop, accept: 'image/jpeg, image/png' })
 
   useEffect(() => {
-    console.log(files)
-  }, [files])
+    Promise.all(
+      files.map((f: File) => {
+        return readAsDataURL(f)
+      }),
+    ).then((files) => setValue(name, files))
+
+    setFilesHTML(
+      [...files].map((file: any) => (
+        <li key={file.path}>
+          {file.path} - {file.size} bytes
+        </li>
+      )),
+    )
+  }, [files, name, setValue])
+
+  useEffect(() => {
+    register(`${name}`)
+  }, [register, name])
 
   return (
-    <section className="container">
+    <StyledLabel htmlFor={name}>
       <div {...getRootProps({ className: 'dropzone' })}>
-        <input name={name} {...getInputProps()} {...register(name)} />
+        <input type="file" name={'testlala'} {...getInputProps()} />
+        <p>{label}</p>
+        {!!files.length && (
+          <div>
+            <h4>Selected images</h4>
 
-        <p>Drag 'n' drop some files here, or click to select files</p>
+            <ul>{filesHTML}</ul>
+          </div>
+        )}
       </div>
-
-      <aside>
-        <h4>Files</h4>
-
-        <ul>{files}</ul>
-      </aside>
-    </section>
+    </StyledLabel>
   )
 }
 

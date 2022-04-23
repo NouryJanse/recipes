@@ -35,8 +35,9 @@ const EditRecipe = (data: any) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
     watch,
+    setValue,
   } = useForm()
 
   const onSave = async (data: any) => {
@@ -85,6 +86,7 @@ const EditRecipe = (data: any) => {
       <form onSubmit={handleSubmit(onSave)}>
         <h2>
           Editing {recipe.name} - {recipeCourse()}
+          {isDirty && 'yes'}
         </h2>
 
         <Textfield
@@ -126,18 +128,22 @@ const EditRecipe = (data: any) => {
         />
 
         <ImagePicker
-          label="Images"
+          label="Drag 'n' drop some files here, or click to select files"
           name="images"
           register={register}
+          images={[]}
           validation={{
             required: 'Did you forget to add images to your recipe?',
           }}
+          setValue={setValue}
         />
 
         <br />
         <br />
 
         <Button type="submit" label="Save recipe" />
+
+        <br />
 
         {params.recipeId && (
           <Link to={`/recipes/${params.recipeId}`}>Back to recipe {recipe.name}</Link>
