@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Button } from './components'
 import { storeToken, storeUser } from './redux/reducers/users/userSlice'
-import { useEffect, Fragment } from 'react'
+import { useEffect } from 'react'
 import RootState from './types/RootState'
 
 function App({ auth0 }: any) {
@@ -51,9 +51,9 @@ function App({ auth0 }: any) {
 
   if (user && Object.keys(user).length) {
     return (
-      <Fragment>
+      <>
         <Home user={user} logout={auth0.logout} />
-      </Fragment>
+      </>
     )
   } else {
     return <div>{loginButton}</div>

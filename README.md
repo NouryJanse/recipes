@@ -49,3 +49,15 @@ Hapi
 Sentry
 Logrocket
 Datadog
+
+#### Architecture plan
+
+- React web app
+- Redux
+
+- Fastify back-end
+- Prisma
+- GraphQL
+
+- Next consumer
+- Static Render / ISR
