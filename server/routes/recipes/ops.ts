@@ -1,6 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { PrismaClient } from '@prisma/client';
-import * as recipes from '../../data.json';
 import NodeCache from 'node-cache';
 
 const prisma = new PrismaClient();

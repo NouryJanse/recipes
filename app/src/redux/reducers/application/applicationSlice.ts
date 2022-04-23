@@ -13,7 +13,6 @@ export const applicationSlice = createSlice({
   initialState,
   reducers: {
     toggleNav: (state) => {
-      console.log(state)
       state.data.navMenuIsOpened = !state.data.navMenuIsOpened
     },
   },

@@ -1,10 +1,10 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { createRecipe } from '../redux/reducers/recipes/recipeSlice'
+import { createRecipe } from '../../redux/reducers/recipes/recipeSlice'
 import { useNavigate } from 'react-router-dom'
 
-import { Textfield, Button, Textarea, Dropdown } from '../components'
+import { Textfield, Button, Textarea, Dropdown } from '../../components'
 
 const options = [
   { title: 'Make choice', text: '', disabled: true },

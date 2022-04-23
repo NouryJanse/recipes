@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
-import { Button, Icon } from '../components'
+import { Button, Icon } from '../../components'
 import { GoThreeBars, GoX, GoHome, GoPlus, GoListUnordered } from 'react-icons/go'
 import { MdLogout } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleNav } from '../redux/reducers/application/applicationSlice'
-import RootState from '../types/RootState'
+import { toggleNav } from '../../redux/reducers/application/applicationSlice'
+import RootState from '../../types/RootState'
 
 const Navigation = ({ logout }: any) => {
   const dispatch = useDispatch()

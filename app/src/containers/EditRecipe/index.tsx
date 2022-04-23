@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { updateRecipe } from '../redux/reducers/recipes/recipeSlice'
+import { updateRecipe } from '../../redux/reducers/recipes/recipeSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { Button, Textfield, Textarea, Dropdown } from '../components/index'
+import { Button, Textfield, Textarea, Dropdown } from '../../components/index'
 import { useState } from 'react'
 import { useRef } from 'react'
-import RootState from '../types/RootState'
+import RootState from '../../types/RootState'
 
 import styled from 'styled-components'
 

@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import Navigation from './Navigation'
-import RecipesList from './RecipesList'
-import CreateRecipe from './CreateRecipe'
-import EditRecipe from './EditRecipe'
-import { RecipeDetail } from '../components'
+import Navigation from '../Navigation'
+import RecipesList from '../RecipesList'
+import CreateRecipe from '../CreateRecipe'
+import EditRecipe from '../EditRecipe/'
+import { RecipeDetail } from '../../components'
 // import { toggleNav } from '../redux/reducers/application/applicationSlice'
-import RootState from '../types/RootState'
+import RootState from '../../types/RootState'
 
 const Home = ({ user, logout }: any) => {
   const application = useSelector((state: RootState) => state.applicationSlice.data)
