@@ -19,6 +19,22 @@ model Recipe {
   authorId    Int?
   author      User?     @relation(fields: [authorId], references: [id])
   course      String    @db.VarChar(500)
+  Image       Image[]
+}
+
+model Ingredient {
+  id   Int    @unique @default(autoincrement())
+  name String @unique @db.VarChar(255)
+}
+
+model Image {
+  id       Int     @unique @default(autoincrement())
+  url      String  @unique @db.VarChar(500)
+  width    Int?
+  height   Int?
+  position Int?
+  recipeId Int?
+  recipe   Recipe? @relation(fields: [recipeId], references: [id])
 }
 
 model User {

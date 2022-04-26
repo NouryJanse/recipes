@@ -1,108 +1,13 @@
-import { FastifyRequest, FastifyReply } from 'fastify';
 import { PrismaClient } from '@prisma/client';
+import { FastifyRequest, FastifyReply } from 'fastify';
 import NodeCache from 'node-cache';
+import { getRecipes, createRecipe, updateRecipe, deleteRecipe, saveImage } from './model';
+import { Image } from '@prisma/client';
 
-const prisma = new PrismaClient();
 const cache = new NodeCache({ stdTTL: 15 });
 
-const getRecipes = async (): Promise<any> => {
-  try {
-    if (cache.has('recipes')) {
-      return cache.get('recipes');
-    }
-
-    const recipes = await prisma.recipe.findMany({
-      orderBy: {
-        updatedAt: 'desc',
-      },
-    });
-    cache.set('recipes', recipes);
-    return recipes;
-  } catch (error) {
-    console.error(error);
-  } finally {
-    async () => {
-      await prisma.$disconnect();
-    };
-  }
-};
-
-const createRecipe = async (
-  name: string,
-  description: string,
-  _authorId: number,
-  course: string,
-): Promise<any> => {
-  try {
-    const recipe = await prisma.recipe.create({
-      data: {
-        name,
-        description,
-        course,
-        // authorId: id,
-      },
-    });
-    cache.del('recipes');
-    return recipe;
-  } catch (error) {
-    console.error(error);
-  } finally {
-    async () => {
-      await prisma.$disconnect();
-    };
-  }
-};
-
-const updateRecipe = async (
-  id: number,
-  name: string,
-  description: string,
-  _authorId: number,
-  course: string,
-): Promise<any> => {
-  try {
-    const recipe = await prisma.recipe.update({
-      where: {
-        id,
-      },
-      data: {
-        name,
-        description,
-        // authorId: id,
-        course,
-      },
-    });
-    cache.del('recipes');
-    return recipe;
-  } catch (error) {
-    console.error(error);
-  } finally {
-    async () => {
-      await prisma.$disconnect();
-    };
-  }
-};
-
-const deleteRecipe = async (id: number): Promise<any> => {
-  if (!id) return false;
-  try {
-    await prisma.recipe.delete({
-      where: {
-        id,
-      },
-    });
-    cache.del('recipes');
-    return;
-  } catch (error) {
-    console.error(error);
-  } finally {
-    async () => {
-      await prisma.$disconnect();
-    };
-  }
-};
-
-const postRecipeOps = async (request: any, reply: FastifyReply): Promise<FastifyReply> => {
+const createRecipeOps = async (request: any, reply: FastifyReply): Promise<FastifyReply> => {
+  // console.log(request.body.images);
   const user = request.user;
   const recipe = await createRecipe(
     request.body.name,
@@ -111,20 +16,36 @@ const postRecipeOps = async (request: any, reply: FastifyReply): Promise<Fastify
     request.body.course,
   );
   const recipes = await getRecipes();
+  cache.del('recipes');
   return reply.code(201).send({ recipes });
 };
 
 const getRecipesOps = async (_request: FastifyRequest, reply: FastifyReply) => {
+  if (cache.has('recipes')) {
+    return cache.get('recipes');
+  }
   const recipes = await getRecipes();
+  cache.set('recipes', recipes);
   return reply.code(200).send({ recipes });
 };
 
 const getRecipeOps = async (_request: any, reply: FastifyReply) => {
-  return reply.code(201).send({ title: 'frieten', recipes });
+  return reply.code(201).send({ title: 'frieten' });
 };
 
 const updateRecipeOps = async (request: any, reply: FastifyReply): Promise<FastifyReply> => {
   // const user = request.user;
+  console.log(request.body.images);
+
+  const promises = request.body.images.map((image: Image) => {
+    image.recipeId = +request.params.id;
+    return saveImage(image);
+  });
+
+  Promise.all(promises).then((result) => {
+    console.log(result);
+  });
+
   const recipe = await updateRecipe(
     Number.parseInt(request.params.id),
     request.body.name,
@@ -132,6 +53,7 @@ const updateRecipeOps = async (request: any, reply: FastifyReply): Promise<Fasti
     request.body.authorId,
     request.body.course,
   );
+  cache.del('recipes');
   const recipes = await getRecipes();
   return reply.code(201).send({ recipes });
 };
@@ -139,11 +61,12 @@ const updateRecipeOps = async (request: any, reply: FastifyReply): Promise<Fasti
 const deleteRecipeOps = async (request: any, reply: FastifyReply) => {
   const res = await deleteRecipe(Number.parseInt(request.params.id));
   const recipes = await getRecipes();
+  cache.del('recipes');
   return reply.code(201).send({ recipes });
 };
 
 export default {
-  postRecipeOps,
+  createRecipeOps,
   getRecipesOps,
   getRecipeOps,
   updateRecipeOps,

@@ -10,7 +10,7 @@ export default fp(
   ): void => {
     // CREATE RECIPE
     server.post('/api/recipes', {
-      handler: ops.postRecipeOps,
+      handler: ops.createRecipeOps,
       preValidation: server.authenticate,
     });
 
