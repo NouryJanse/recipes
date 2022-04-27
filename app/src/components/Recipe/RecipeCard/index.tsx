@@ -13,7 +13,7 @@ const RecipeCard = (data: any) => {
   let params = useParams()
   const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
 
-  if (params.recipeId) {
+  if (params.recipeId && recipes) {
     recipe = recipes.find((recipe) => {
       return recipe.id === Number.parseInt(params.recipeId!)
     })
@@ -38,7 +38,6 @@ const RecipeCard = (data: any) => {
       {recipe.description && <p>{recipe.description}</p>}
       <Link to={`/recipes/${recipe.id}`}>Detail</Link>
       <Button label={'Delete'} onClick={() => onDelete(recipe.id)} />
-      <Link to={`/recipes`}>Back to home</Link>
     </RecipeContainer>
   )
 }

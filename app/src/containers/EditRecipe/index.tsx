@@ -1,9 +1,19 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { updateRecipe } from '../../redux/reducers/recipes/recipeSlice'
+import { uploadImageService } from '../../redux/reducers/recipes/services'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { Button, Textfield, Textarea, Dropdown } from '../../components/index'
+import { Image } from '../../types/Image'
+import {
+  Button,
+  Textfield,
+  Textarea,
+  Dropdown,
+  ImagePicker,
+  ImagePreviewList,
+  ImageSortableList,
+} from '../../components/index'
 import { useState } from 'react'
 import { useRef } from 'react'
 import RootState from '../../types/RootState'
@@ -26,28 +36,33 @@ const options = [
 const EditRecipe = (data: any) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  let [initialRecipeLoad, setInitialRecipeLoad] = useState(false)
   let [recipe, setRecipe] = useState(data.recipe)
   let [id, setId] = useState<string | undefined>('')
+  let [imagePreviewList, setImageViewList] = useState<Image[]>([])
+  let [imageSortableList, setImageSortableList] = useState<Image[]>([])
   let params = useParams()
   const hasURLParams = useRef(false)
   const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
+  const formRef = useRef()
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
     watch,
+    setValue,
+    trigger,
   } = useForm()
-
-  const dispatchEdit = async (data: any, recipe: any) => {
-    const payload = { id: recipe.id, ...recipe, ...data }
-    // @ts-ignore:next-line
-    await dispatch(updateRecipe(payload))
-    navigate(`/recipes/${recipe.id}`)
-  }
 
   const onSave = async (data: any) => {
     dispatchEdit(data, recipe)
+  }
+
+  const dispatchEdit = async (data: any, recipe: any) => {
+    // @ts-ignore:next-line
+    await dispatch(updateRecipe({ id: recipe.id, ...recipe, ...data }))
+    // navigate(`/recipes/${recipe.id}`)
   }
 
   const recipeCourse = () => {
@@ -60,30 +75,80 @@ const EditRecipe = (data: any) => {
         setId(params.recipeId)
       }
 
-      if (id !== undefined) {
+      if (id !== undefined && recipes && recipes.length) {
         setRecipe(
           recipes.find((recipe) => {
             return recipe.id === Number.parseInt(id!)
           }),
         )
       }
-      hasURLParams.current = true
+    }
+
+    if (recipe?.images?.length > 0 && !initialRecipeLoad) {
+      setImageSortableList(recipe?.images ? recipe.images : [])
+      setInitialRecipeLoad(true)
     }
 
     // can be destructured: {name, type}
-    const subscription = watch((value) => {
-      setRecipe({ ...recipe, ...value })
-    })
-    return () => subscription.unsubscribe()
-  }, [watch, recipe, id, recipes, params])
+    // const subscription = watch((value) => {
+    //   setRecipe({ ...recipe, ...value })
+    // })
+    // return () => subscription.unsubscribe()
+  }, [watch, recipe, id, recipes, params, imageSortableList])
 
-  if (!recipe) return <p>Error, no recipe found.</p>
+  const pushSelectedImage = (image: Image) => {
+    setImageViewList((prevState: Image[]) => [...prevState, image])
+  }
+
+  const handleImageUpload = async (image: Image) => {
+    const res = await uploadImageService(image)
+
+    if (res.url) {
+      setImageViewList((prevState: Image[]) => [
+        ...prevState.filter((currentImage) => currentImage.data !== image.data),
+      ])
+
+      const uploadedImage: Image = {
+        id: res.asset_id,
+        name: res.public_id,
+        url: res.url,
+        width: res.width,
+        height: res.height,
+      }
+      setImageSortableList((prevState: Image[]) =>
+        [...prevState, uploadedImage].map((value, index) => {
+          return { ...value, id: index }
+        }),
+      )
+      setValue('images', [...imageSortableList, uploadedImage])
+      handleSubmit(onSave)()
+    } else {
+      throw 'Error occurred'
+    }
+  }
+
+  const handleSortedImages = (images: Image[]) => {
+    setImageSortableList(images)
+    setValue(
+      'images',
+      images.map((image: Image, index: number) => {
+        return {
+          ...image,
+          position: index + 1,
+        }
+      }),
+    )
+    handleSubmit(onSave)()
+  }
+
+  if (!recipe) return <p>Error, no recipe found or still loading the recipe from the server.</p>
 
   return (
     <EditRecipeContainer>
-      <form onSubmit={handleSubmit(onSave)}>
+      <form onSubmit={handleSubmit(onSave)} {...formRef}>
         <h2>
           Editing {recipe.name} - {recipeCourse()}
+          {isDirty && 'yes'}
         </h2>
 
         <Textfield
@@ -123,6 +188,24 @@ const EditRecipe = (data: any) => {
           errors={errors.description?.type === 'required' && 'Course is required'}
           options={options}
         />
+
+        <ImagePicker
+          label="Drag 'n' drop some files here, or click to select files"
+          name="images"
+          register={register}
+          validation={{
+            required: 'Did you forget to add images to your recipe?',
+          }}
+          onSelectedImageCallback={pushSelectedImage}
+        />
+
+        {!!imagePreviewList.length && (
+          <ImagePreviewList images={imagePreviewList} callbackUploadImages={handleImageUpload} />
+        )}
+
+        {!!imageSortableList.length && (
+          <ImageSortableList images={imageSortableList} callbackSortedImages={handleSortedImages} />
+        )}
 
         <Button type="submit" label="Save recipe" />
 

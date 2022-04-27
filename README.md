@@ -4,51 +4,45 @@
 
 ...
 
-## Others...
-
-...
-
 ## Architectural considerations
 
-## Front-End
+## Web app Front-End
 
-React
-Redux with Redux Toolkit
-React Router
-Styled Components
-Axios
+- React
+- Redux with Redux Toolkit
+- React Router
+- Styled Components
+- Axios
+
+## Consumer Front-End
+
+> This features:
+
+- a recipes overview list
+- a recipes detail page which shows how to cook using the recipe
+- a shopping list feature that allows users to generate shopping lists for doing groceries
+
+- Next.js
 
 ### Back-End
 
-DB structures
-PostgreSQL: known for enterprise reliability and vast featureset
-MongoDB NoSQL
+- PostgreSQL: SQL is best for relationships between entities, postgresql is known for it's enterprise reliability and vast featureset
 
 #### ORM's
 
-Prisma: big investors, serious continuous development, nice abstraction over SQL layer
-
-Other options
-Sequelize
-TypeORM
-Mongoose
+- Prisma: big investors, serious continuous development, nice abstraction over SQL layer
+- Other considered options: Sequelize, TypeORM, Mongoose
 
 #### Frameworks
 
-Fastify: high performance routing
-
-Nestjs
-Adonisjs
-Express
-Meteor
-Koa
-Hapi
+- Fastify: high performance routing
+- Considered: Nestjs, AdonisJS, Express, Meteor, Koa, Hapi
 
 #### Logging
 
-Sentry
-Logrocket
-Datadog
+- Sentry
+- Logrocket
+- Datadog
 
 #### Architecture plan
 
@@ -57,7 +51,7 @@ Datadog
 
 - Fastify back-end
 - Prisma
-- GraphQL
+- Server side communication from REST to GraphQL
 
 - Next consumer
 - Static Render / ISR

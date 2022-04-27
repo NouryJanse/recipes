@@ -8,9 +8,9 @@ export const ButtonStyle = tw.button<IBtn>`
   align-middle
   justify-center
   p-2
-  mt-0
+  mt-2
   mr-1
-  mb-0
+  mb-2
   ml-0
   rounded
 

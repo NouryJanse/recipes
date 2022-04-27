@@ -30,15 +30,15 @@ if (container) {
     })
     .then(() => {
       root.render(
-        <React.StrictMode>
-          <Provider store={store}>
-            <BrowserRouter>
-              <GlobalStyle />
-              <Fonts />
-              <App auth0={auth0} />
-            </BrowserRouter>
-          </Provider>
-        </React.StrictMode>,
+        // <React.StrictMode>
+        <Provider store={store}>
+          <BrowserRouter>
+            <GlobalStyle />
+            <Fonts />
+            <App auth0={auth0} />
+          </BrowserRouter>
+        </Provider>,
+        // </React.StrictMode>,
       )
     })
 }
