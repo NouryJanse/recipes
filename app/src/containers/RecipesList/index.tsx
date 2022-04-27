@@ -13,28 +13,26 @@ const RecipesList = () => {
   let params = useParams()
 
   useEffect(() => {
-    if (!recipes.length) {
+    if (!recipes || recipes?.length < 1) {
       // @ts-ignore:next-line
       dispatch(getRecipes())
     }
   }, [dispatch, recipes])
 
-  useInterval(() => {
-    // @ts-ignore:next-line
-    dispatch(getRecipes())
-  }, 5000)
+  // useInterval(() => {
+  //   // @ts-ignore:next-line
+  //   dispatch(getRecipes())
+  // }, 5000)
+
+  if (recipes?.length < 1) return null
 
   return (
     <div>
       <div className="">
-        {!params.recipeId ? (
+        {!params.recipeId && recipes?.length ? (
           <div>
             {recipes.map((recipe: Recipe, i: number) => {
-              return (
-                // <Link key={i} to={`/recipes/${recipe.id}`}>
-                <RecipeCard key={i} recipe={recipe} />
-                // </Link>
-              )
+              return <RecipeCard key={i} recipe={recipe} />
             })}
           </div>
         ) : (

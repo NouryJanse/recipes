@@ -24,7 +24,6 @@ const createIngredient = async (name: string): Promise<any> => {
 };
 
 const createIngredientOps = async (request: any, reply: FastifyReply): Promise<FastifyReply> => {
-  console.log(request.body);
   const user = request.user;
   const recipe = await createIngredient(request.body.name);
   // const recipes = await getRecipes();

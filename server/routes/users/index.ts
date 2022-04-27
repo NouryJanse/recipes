@@ -15,14 +15,10 @@ export default fp(
     next: (error?: FastifyError) => void,
   ): void => {
     server.post('/api/users/login', {
-      handler: async (
-        _request: FastifyRequest,
-        reply: FastifyReply,
-      ): Promise<FastifyReply> => {
+      handler: async (_request: FastifyRequest, reply: FastifyReply): Promise<FastifyReply> => {
         // 1. validation authorisation of webhook
         // 2. get data from request.body and process it
 
-        // console.log(request.body);
         // const user = request.user;
         return reply.code(200).send({ title: 'test' });
       },
@@ -30,14 +26,10 @@ export default fp(
     });
 
     server.post('/api/users/register', {
-      handler: async (
-        _request: FastifyRequest,
-        reply: FastifyReply,
-      ): Promise<FastifyReply> => {
+      handler: async (_request: FastifyRequest, reply: FastifyReply): Promise<FastifyReply> => {
         // 1. validation authorisation of webhook
         // 2. get data from request.body and process it
 
-        // console.log(request.body);
         // const user = request.user;
         return reply.code(201).send({ title: 'test' });
       },

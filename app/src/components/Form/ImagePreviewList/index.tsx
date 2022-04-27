@@ -1,4 +1,5 @@
 import { Image } from '../../../types/Image'
+import { Button } from '../../'
 
 const ImagePreviewList = ({
   images,
@@ -15,13 +16,13 @@ const ImagePreviewList = ({
             <span>
               {image.name} - {image.size} bytes
             </span>
-            <button
+            <img src={image.data} />
+            <Button
               type="button"
+              label={`Upload to CDN`}
               onClick={() => callbackUploadImages(image)}
-              className="bg-black text-white"
-            >
-              Upload
-            </button>
+              // classNames="bg-black text-white"
+            />
           </div>
         )
       })}

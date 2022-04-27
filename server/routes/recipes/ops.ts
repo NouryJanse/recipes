@@ -7,7 +7,6 @@ import { Image } from '@prisma/client';
 const cache = new NodeCache({ stdTTL: 15 });
 
 const createRecipeOps = async (request: any, reply: FastifyReply): Promise<FastifyReply> => {
-  // console.log(request.body.images);
   const user = request.user;
   const recipe = await createRecipe(
     request.body.name,
@@ -34,17 +33,15 @@ const getRecipeOps = async (_request: any, reply: FastifyReply) => {
 };
 
 const updateRecipeOps = async (request: any, reply: FastifyReply): Promise<FastifyReply> => {
-  // const user = request.user;
-  console.log(request.body.images);
-
-  const promises = request.body.images.map((image: Image) => {
-    image.recipeId = +request.params.id;
-    return saveImage(image);
-  });
-
-  Promise.all(promises).then((result) => {
-    console.log(result);
-  });
+  if (request?.body?.images?.length > 0) {
+    const promises = request.body.images.map((image: Image) => {
+      image.recipeId = +request.params.id;
+      return saveImage(image);
+    });
+    Promise.all(promises).then((result) => {
+      return result;
+    });
+  }
 
   const recipe = await updateRecipe(
     Number.parseInt(request.params.id),

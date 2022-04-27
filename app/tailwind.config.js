@@ -2,7 +2,7 @@ module.exports = {
   content: [
     './src/index.tsx',
     './src/app.tsx',
-    './src/components/**/*.{html,tsx}',
+    './src/components/**/*.{html,tsx,ts}',
     './src/containers/**/*.{html,tsx}',
     './src/stories/**/*.{html,tsx}',
   ],
@@ -27,7 +27,7 @@ module.exports = {
       zinc: colors.zinc,
       neutral: colors.neutral,
       stone: colors.stone,
-      red: colors.red,
+      red: '#F93943',
       orange: colors.orange,
       amber: colors.amber,
       yellow: colors.yellow,

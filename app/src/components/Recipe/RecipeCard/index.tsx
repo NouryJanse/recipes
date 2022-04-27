@@ -13,7 +13,7 @@ const RecipeCard = (data: any) => {
   let params = useParams()
   const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
 
-  if (params.recipeId) {
+  if (params.recipeId && recipes) {
     recipe = recipes.find((recipe) => {
       return recipe.id === Number.parseInt(params.recipeId!)
     })

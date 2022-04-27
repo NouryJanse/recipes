@@ -1,93 +1,46 @@
-import { useEffect, useCallback, useState } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { StyledLabel } from './styled'
-
-interface File {
-  name: string
-  path?: string
-  size?: number
-}
-
-interface Image {}
+import { readAsDataURLViaPromise } from '../../../helpers/FileSystemHelper'
+import classNames from 'classnames'
 
 const ImagePicker = ({
   name,
-  images,
   label,
   register,
-  setValue,
+  onSelectedImageCallback,
 }: {
   name: string
-  images?: Image[]
   label: string
   register: any
   validation?: any
-  setValue: any
+  onSelectedImageCallback: any
 }) => {
-  let [files, setFiles] = useState(images as any)
-  let [filesHTML, setFilesHTML] = useState([] as any)
-
-  function readAsDataURL(file: any) {
-    return new Promise((resolve, _reject) => {
-      let fileReader = new FileReader()
-      fileReader.onload = function () {
-        return resolve({
-          data: fileReader.result,
-          name: file.name,
-          size: file.size,
-          type: file.type,
-        })
-      }
-      fileReader.readAsDataURL(file)
-    })
-  }
-
   const onDrop = useCallback(async (acceptedFiles: any) => {
-    setFiles((prevState: any) => [...prevState, ...acceptedFiles])
+    const file = await readAsDataURLViaPromise(acceptedFiles[0])
+    onSelectedImageCallback(file)
   }, [])
 
-  const {
-    getRootProps,
-    getInputProps,
-    isDragAccept,
-    isDragActive,
-    isDragReject,
-    isFileDialogActive,
-    isFocused,
-  } = useDropzone({ onDrop, accept: 'image/jpeg, image/png' })
-
-  useEffect(() => {
-    Promise.all(
-      files.map((f: File) => {
-        return readAsDataURL(f)
-      }),
-    ).then((files) => setValue(name, files))
-
-    setFilesHTML(
-      [...files].map((file: any) => (
-        <li key={file.path}>
-          {file.path} - {file.size} bytes
-        </li>
-      )),
-    )
-  }, [files, name, setValue])
+  const { getRootProps, getInputProps, isDragActive, isFileDialogActive, isFocused } = useDropzone({
+    onDrop,
+    accept: 'image/jpeg, image/png',
+    multiple: false,
+  })
 
   useEffect(() => {
     register(`${name}`)
   }, [register, name])
 
+  const btnClass = classNames({
+    'border-blue text-red pt-2': isDragActive || isFileDialogActive,
+    'border-transparent': !isDragActive && !isFileDialogActive,
+  })
+
   return (
-    <StyledLabel htmlFor={name}>
+    <StyledLabel htmlFor={name} className={btnClass}>
       <div {...getRootProps({ className: 'dropzone' })}>
         <input type="file" name={'testlala'} {...getInputProps()} />
         <p>{label}</p>
-        {!!files.length && (
-          <div>
-            <h4>Selected images</h4>
-
-            <ul>{filesHTML}</ul>
-          </div>
-        )}
       </div>
     </StyledLabel>
   )

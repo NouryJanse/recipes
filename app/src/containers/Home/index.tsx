@@ -34,7 +34,7 @@ const Home = ({ user, logout }: any) => {
                   index
                   element={
                     <main style={{ padding: '1rem' }}>
-                      <p>Select an invoice</p>
+                      <p>No recipes data available, probably the API endpoint is down.</p>
                     </main>
                   }
                 />

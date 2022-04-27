@@ -18,6 +18,7 @@ const createRecipe = async (
         // authorId: id,
       },
     });
+
     return recipe;
   } catch (error) {
     console.error(error);
@@ -39,12 +40,16 @@ const getRecipes = async (): Promise<any> => {
         updatedAt: 'desc',
       },
       include: {
-        Image: true,
+        Image: {
+          orderBy: {
+            position: 'asc',
+          },
+        },
       },
     });
+
     recipes = recipes.map((recipe) => {
       if (recipe.Image && recipe.Image.length) {
-        console.log(recipe);
         // @ts-ignore: weird error because relation typings are not generated
         recipe.images = recipe.Image;
         recipe.Image = [];
@@ -52,6 +57,7 @@ const getRecipes = async (): Promise<any> => {
       }
       return recipe;
     });
+
     return recipes;
   } catch (error) {
     console.error(error);
@@ -81,6 +87,7 @@ const updateRecipe = async (
         course,
       },
     });
+
     return recipe;
   } catch (error) {
     console.error(error);
@@ -93,12 +100,14 @@ const updateRecipe = async (
 
 const deleteRecipe = async (id: number): Promise<any> => {
   if (!id) return false;
+
   try {
     await prisma.recipe.delete({
       where: {
         id,
       },
     });
+
     return;
   } catch (error) {
     console.error(error);
@@ -110,17 +119,26 @@ const deleteRecipe = async (id: number): Promise<any> => {
 };
 
 const saveImage = async (image: Image): Promise<any> => {
+  const data = {
+    url: image.url,
+    ...(image.width && { width: image.width }),
+    ...(image.height && { height: image.height }),
+    ...(image.recipeId && { recipeId: image.recipeId }),
+  };
   // if (!id) return false;
   try {
-    const dbImage = await prisma.image.create({
-      data: {
-        url: image.url,
+    const dbImage = await prisma.image.upsert({
+      where: { id: image.id },
+      update: {
+        ...(image.position && { position: image.position }),
+        ...(image.url && { url: image.url }),
         ...(image.width && { width: image.width }),
         ...(image.height && { height: image.height }),
-        ...(image.recipeId && { recipeId: image.recipeId }),
       },
+      create: data,
     });
-    return;
+
+    return dbImage;
   } catch (error) {
     console.error(error);
   } finally {
