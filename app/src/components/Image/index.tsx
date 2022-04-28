@@ -1,7 +1,30 @@
 import { ImageStyle } from './styles'
+import classNames from 'classnames'
 
-const ImageComponent = ({ src, alt = '' }: { src: string; alt?: string }) => {
-  return <ImageStyle src={src} alt={alt} />
+const ImageComponent = ({
+  src,
+  alt = '',
+  width = 0,
+  height = 0,
+}: {
+  src: string
+  alt?: string
+  width?: number
+  height?: number
+}) => {
+  const dimensions = {
+    ...(width > 0 && { width }),
+    ...(height > 0 && { height }),
+  }
+  const otherClasses = classNames({
+    'w-full': width === 0,
+    'h-auto': height === 0,
+  })
+  if (dimensions.hasOwnProperty('width') || dimensions.hasOwnProperty('height')) {
+    return <ImageStyle src={src} alt={alt} {...dimensions} {...otherClasses} />
+  } else {
+    return <ImageStyle src={src} alt={alt} {...dimensions} />
+  }
 }
 
 export default ImageComponent

@@ -3,7 +3,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 async function getRecipeAPI() {
   const response = await axios.get('http://localhost:1337/api/recipes')
-  console.log(response)
   return response.data
 }
 

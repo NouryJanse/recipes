@@ -9,7 +9,6 @@ const ImageSortableList = ({
   images: any
   callbackSortedImages: (images: Image[]) => void
 }) => {
-  console.log(images)
   const handleOnDragEnd = (result: any) => {
     if (!result.destination) return
     const items: Image[] = Array.from(images)
@@ -37,7 +36,7 @@ const ImageSortableList = ({
                             {...provided.dragHandleProps}
                           >
                             <div className="max-w-xs">
-                              <ImageComponent src={url} />
+                              <ImageComponent src={url} width={200} height={100} />
                             </div>
                             <br />
                             <br />

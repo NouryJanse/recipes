@@ -15,7 +15,6 @@ interface Recipe {
 }
 
 const updateRecipeAPI = async (data: Recipe, token: string) => {
-  console.log(data)
   try {
     const requestBody = {
       name: data.name,
