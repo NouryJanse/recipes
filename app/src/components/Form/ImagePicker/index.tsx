@@ -16,12 +16,15 @@ const ImagePicker = ({
   validation?: any
   onSelectedImageCallback: any
 }) => {
-  const onDrop = useCallback(async (acceptedFiles: any) => {
-    const file = await readAsDataURLViaPromise(acceptedFiles[0])
-    onSelectedImageCallback(file)
-  }, [])
+  const onDrop = useCallback(
+    async (acceptedFiles: any) => {
+      const file = await readAsDataURLViaPromise(acceptedFiles[0])
+      onSelectedImageCallback(file)
+    },
+    [onSelectedImageCallback],
+  )
 
-  const { getRootProps, getInputProps, isDragActive, isFileDialogActive, isFocused } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, isFileDialogActive } = useDropzone({
     onDrop,
     accept: 'image/jpeg, image/png',
     multiple: false,

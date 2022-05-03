@@ -108,7 +108,7 @@ class Auth0 {
         console.error(error)
         throw error
       } else {
-        console.log('login required')
+        console.info('login required')
       }
     }
   }

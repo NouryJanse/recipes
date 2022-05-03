@@ -2,27 +2,25 @@
 
 ## About
 
-...
+An app that generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others.
 
 ## Architectural considerations
 
+...
+
 ## Web app Front-End
 
-- React
-- Redux with Redux Toolkit
-- React Router
-- Styled Components
-- Axios
+- an account environment
+- creator feature for new and maintenance of recipes
+-
 
 ## Consumer Front-End
 
-> This features:
+> Roadmap features:
 
 - a recipes overview list
 - a recipes detail page which shows how to cook using the recipe
 - a shopping list feature that allows users to generate shopping lists for doing groceries
-
-- Next.js
 
 ### Back-End
 
@@ -40,18 +38,30 @@
 
 #### Logging
 
+To be implemented in the future:
+
 - Sentry
 - Logrocket
 - Datadog
 
 #### Architecture plan
 
-- React web app
-- Redux
+A creator single page web app
+
+- React
+- Redux with Redux Toolkit
+- React Router
+- Styled Components
+- Tailwind styling
+- Axios
+
+A data platform that allows multichannel communication
 
 - Fastify back-end
 - Prisma
 - Server side communication from REST to GraphQL
+
+A consumer high performance website
 
 - Next consumer
 - Static Render / ISR

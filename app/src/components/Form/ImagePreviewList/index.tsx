@@ -16,7 +16,7 @@ const ImagePreviewList = ({
             <span>
               {image.name} - {image.size} bytes
             </span>
-            <img src={image.data} />
+            <img src={image.data} alt="title" />
             <Button
               type="button"
               label={`Upload to CDN`}

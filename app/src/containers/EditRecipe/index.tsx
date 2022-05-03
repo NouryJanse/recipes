@@ -141,7 +141,9 @@ const EditRecipe = (data: any) => {
     handleSubmit(onSave)()
   }
 
-  if (!recipe) return <p>Error, no recipe found or still loading the recipe from the server.</p>
+  if (!recipe) {
+    return <p>Error, no recipe found or still loading the recipe from the server.</p>
+  }
 
   return (
     <EditRecipeContainer>
