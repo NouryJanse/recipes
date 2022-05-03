@@ -8,7 +8,7 @@ export default fp(
     _opts: FastifyPluginOptions,
     next: (error?: FastifyError) => void,
   ): void => {
-    // CREATE RECIPE
+    // CREATE INGREDIENT
     server.post('/api/ingredients', {
       handler: ops.createIngredientOps,
       preValidation: server.authenticate,

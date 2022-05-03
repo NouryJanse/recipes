@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 import { FastifyRequest, FastifyReply } from 'fastify';
 import NodeCache from 'node-cache';
 import { getRecipes, createRecipe, updateRecipe, deleteRecipe, saveImage } from './model';

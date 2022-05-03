@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from '@prisma/client';
+import { PrismaClient, Recipe } from '@prisma/client';
 const prisma = new PrismaClient();
 
 import { Image } from '@prisma/client';
@@ -8,20 +8,21 @@ const createRecipe = async (
   description: string,
   _authorId: number,
   course: string,
-): Promise<any> => {
+): Promise<Recipe | false> => {
   try {
     const recipe = await prisma.recipe.create({
       data: {
         name,
         description,
         course,
-        // authorId: id,
       },
     });
+    console.log(recipe);
 
     return recipe;
   } catch (error) {
     console.error(error);
+    return false;
   } finally {
     async () => {
       await prisma.$disconnect();
@@ -29,11 +30,7 @@ const createRecipe = async (
   }
 };
 
-// type RecipeWithImage = Prisma.RecipeGetPayload<{
-//   include: { Image: true };
-// }>;
-
-const getRecipes = async (): Promise<any> => {
+const getRecipes = async (): Promise<Recipe[] | false> => {
   try {
     let recipes = await prisma.recipe.findMany({
       orderBy: {
@@ -61,6 +58,7 @@ const getRecipes = async (): Promise<any> => {
     return recipes;
   } catch (error) {
     console.error(error);
+    return false;
   } finally {
     async () => {
       await prisma.$disconnect();
@@ -74,7 +72,7 @@ const updateRecipe = async (
   description: string,
   _authorId: number,
   course: string,
-): Promise<any> => {
+): Promise<Recipe | false> => {
   try {
     const recipe = await prisma.recipe.update({
       where: {
@@ -83,7 +81,6 @@ const updateRecipe = async (
       data: {
         name,
         description,
-        // authorId: id,
         course,
       },
     });
@@ -91,6 +88,7 @@ const updateRecipe = async (
     return recipe;
   } catch (error) {
     console.error(error);
+    return false;
   } finally {
     async () => {
       await prisma.$disconnect();
@@ -98,7 +96,7 @@ const updateRecipe = async (
   }
 };
 
-const deleteRecipe = async (id: number): Promise<any> => {
+const deleteRecipe = async (id: number): Promise<boolean> => {
   if (!id) return false;
 
   try {
@@ -108,9 +106,10 @@ const deleteRecipe = async (id: number): Promise<any> => {
       },
     });
 
-    return;
+    return true;
   } catch (error) {
     console.error(error);
+    return false;
   } finally {
     async () => {
       await prisma.$disconnect();
@@ -118,7 +117,7 @@ const deleteRecipe = async (id: number): Promise<any> => {
   }
 };
 
-const saveImage = async (image: Image): Promise<any> => {
+const saveImage = async (image: Image): Promise<Image | false> => {
   const data = {
     url: image.url,
     ...(image.width && { width: image.width }),
@@ -141,12 +140,12 @@ const saveImage = async (image: Image): Promise<any> => {
     return dbImage;
   } catch (error) {
     console.error(error);
+    return false;
   } finally {
     async () => {
       await prisma.$disconnect();
     };
   }
-  return image.width;
 };
 
 export { getRecipes, createRecipe, updateRecipe, deleteRecipe, saveImage };
