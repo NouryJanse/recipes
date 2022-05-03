@@ -4,10 +4,6 @@
 
 An app that generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others.
 
-## Architectural considerations
-
-...
-
 ## Web app Front-End
 
 - an account environment
@@ -16,13 +12,15 @@ An app that generates groceries shopping lists from recipes. Recipes that you ca
 
 ## Consumer Front-End
 
-> Roadmap features:
+Roadmap features:
 
 - a recipes overview list
 - a recipes detail page which shows how to cook using the recipe
 - a shopping list feature that allows users to generate shopping lists for doing groceries
 
-### Back-End
+## Back-End
+
+#### SQL
 
 - PostgreSQL: SQL is best for relationships between entities, postgresql is known for it's enterprise reliability and vast featureset
 
@@ -44,7 +42,7 @@ To be implemented in the future:
 - Logrocket
 - Datadog
 
-#### Architecture plan
+## Architecture plan
 
 A creator single page web app
 
