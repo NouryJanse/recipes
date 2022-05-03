@@ -1,6 +1,6 @@
-import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify';
-import fp from 'fastify-plugin';
-import ops from './ops';
+import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify'
+import fp from 'fastify-plugin'
+import ops from './ops'
 
 export default fp(
   (
@@ -12,8 +12,8 @@ export default fp(
     server.post('/api/ingredients', {
       handler: ops.createIngredientOps,
       preValidation: server.authenticate,
-    });
+    })
 
-    next();
+    next()
   },
-);
+)

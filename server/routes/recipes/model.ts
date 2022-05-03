@@ -1,7 +1,7 @@
-import { PrismaClient, Recipe } from '@prisma/client';
-const prisma = new PrismaClient();
+import { PrismaClient, Recipe } from '@prisma/client'
+const prisma = new PrismaClient()
 
-import { Image } from '@prisma/client';
+import { Image } from '@prisma/client'
 
 const createRecipe = async (
   name: string,
@@ -16,19 +16,19 @@ const createRecipe = async (
         description,
         course,
       },
-    });
-    console.log(recipe);
+    })
+    console.log(recipe)
 
-    return recipe;
+    return recipe
   } catch (error) {
-    console.error(error);
-    return false;
+    console.error(error)
+    return false
   } finally {
-    async () => {
-      await prisma.$disconnect();
-    };
+    ;async () => {
+      await prisma.$disconnect()
+    }
   }
-};
+}
 
 const getRecipes = async (): Promise<Recipe[] | false> => {
   try {
@@ -43,28 +43,28 @@ const getRecipes = async (): Promise<Recipe[] | false> => {
           },
         },
       },
-    });
+    })
 
     recipes = recipes.map((recipe) => {
       if (recipe.Image && recipe.Image.length) {
         // @ts-ignore: weird error because relation typings are not generated
-        recipe.images = recipe.Image;
-        recipe.Image = [];
-        return recipe;
+        recipe.images = recipe.Image
+        recipe.Image = []
+        return recipe
       }
-      return recipe;
-    });
+      return recipe
+    })
 
-    return recipes;
+    return recipes
   } catch (error) {
-    console.error(error);
-    return false;
+    console.error(error)
+    return false
   } finally {
-    async () => {
-      await prisma.$disconnect();
-    };
+    ;async () => {
+      await prisma.$disconnect()
+    }
   }
-};
+}
 
 const updateRecipe = async (
   id: number,
@@ -83,39 +83,39 @@ const updateRecipe = async (
         description,
         course,
       },
-    });
+    })
 
-    return recipe;
+    return recipe
   } catch (error) {
-    console.error(error);
-    return false;
+    console.error(error)
+    return false
   } finally {
-    async () => {
-      await prisma.$disconnect();
-    };
+    ;async () => {
+      await prisma.$disconnect()
+    }
   }
-};
+}
 
 const deleteRecipe = async (id: number): Promise<boolean> => {
-  if (!id) return false;
+  if (!id) return false
 
   try {
     await prisma.recipe.delete({
       where: {
         id,
       },
-    });
+    })
 
-    return true;
+    return true
   } catch (error) {
-    console.error(error);
-    return false;
+    console.error(error)
+    return false
   } finally {
-    async () => {
-      await prisma.$disconnect();
-    };
+    ;async () => {
+      await prisma.$disconnect()
+    }
   }
-};
+}
 
 const saveImage = async (image: Image): Promise<Image | false> => {
   const data = {
@@ -123,7 +123,7 @@ const saveImage = async (image: Image): Promise<Image | false> => {
     ...(image.width && { width: image.width }),
     ...(image.height && { height: image.height }),
     ...(image.recipeId && { recipeId: image.recipeId }),
-  };
+  }
   // if (!id) return false;
   try {
     const dbImage = await prisma.image.upsert({
@@ -135,17 +135,17 @@ const saveImage = async (image: Image): Promise<Image | false> => {
         ...(image.height && { height: image.height }),
       },
       create: data,
-    });
+    })
 
-    return dbImage;
+    return dbImage
   } catch (error) {
-    console.error(error);
-    return false;
+    console.error(error)
+    return false
   } finally {
-    async () => {
-      await prisma.$disconnect();
-    };
+    ;async () => {
+      await prisma.$disconnect()
+    }
   }
-};
+}
 
-export { getRecipes, createRecipe, updateRecipe, deleteRecipe, saveImage };
+export { getRecipes, createRecipe, updateRecipe, deleteRecipe, saveImage }
