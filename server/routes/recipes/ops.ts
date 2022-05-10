@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import NodeCache from 'node-cache'
-import { getRecipes, createRecipe, updateRecipe, deleteRecipe, saveImage } from './model'
+import { createRecipe, getRecipes, getRecipe, updateRecipe, deleteRecipe, saveImage } from './model'
 import { Image } from '@prisma/client'
 
 const cache = new NodeCache({ stdTTL: 15 })
@@ -50,8 +50,10 @@ const updateRecipeOps = async (request: any, reply: FastifyReply): Promise<Fasti
     request.body.course,
   )
   cache.del('recipes')
-  const recipes = await getRecipes()
-  return reply.code(201).send({ recipes })
+  if (recipe && recipe.id) {
+    return reply.code(201).send(recipe)
+  }
+  return reply.code(201).send()
 }
 
 const deleteRecipeOps = async (request: any, reply: FastifyReply) => {

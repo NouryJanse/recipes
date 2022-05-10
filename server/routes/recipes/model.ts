@@ -66,6 +66,24 @@ const getRecipes = async (): Promise<Recipe[] | false> => {
   }
 }
 
+const getRecipe = async (id: number): Promise<Recipe | null | false> => {
+  try {
+    const recipe = await prisma.recipe.findUnique({
+      where: {
+        id,
+      },
+    })
+    return recipe
+  } catch (error) {
+    console.error(error)
+    return false
+  } finally {
+    ;async () => {
+      await prisma.$disconnect()
+    }
+  }
+}
+
 const updateRecipe = async (
   id: number,
   name: string,
@@ -148,4 +166,4 @@ const saveImage = async (image: Image): Promise<Image | false> => {
   }
 }
 
-export { getRecipes, createRecipe, updateRecipe, deleteRecipe, saveImage }
+export { createRecipe, getRecipes, getRecipe, updateRecipe, deleteRecipe, saveImage }
