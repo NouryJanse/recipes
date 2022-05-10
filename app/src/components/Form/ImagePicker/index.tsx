@@ -34,16 +34,21 @@ const ImagePicker = ({
     register(`${name}`)
   }, [register, name])
 
-  const btnClass = classNames({
-    'border-blue text-red pt-2': isDragActive || isFileDialogActive,
-    'border-transparent': !isDragActive && !isFileDialogActive,
+  const labelClass = classNames({
+    'border-blue': isDragActive || isFileDialogActive,
+    'border-grey': !isDragActive && !isFileDialogActive,
+  })
+
+  const paragraphClass = classNames({
+    'font-bold text-blue': isDragActive || isFileDialogActive,
+    'font-normal': !isDragActive && !isFileDialogActive,
   })
 
   return (
-    <StyledLabel htmlFor={name} className={btnClass}>
-      <div {...getRootProps({ className: 'dropzone' })}>
+    <StyledLabel htmlFor={name} className={labelClass}>
+      <div {...getRootProps({ className: 'dropzone' })} className="m-0 p-0">
         <input type="file" name={'testlala'} {...getInputProps()} />
-        <p>{label}</p>
+        <p className={paragraphClass}>{label}</p>
       </div>
     </StyledLabel>
   )

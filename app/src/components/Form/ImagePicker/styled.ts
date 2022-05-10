@@ -1,12 +1,17 @@
 import tw from 'tailwind-styled-components'
 
 export const StyledLabel = tw.label`
-flex
+block
 border-2
 border-black
 border-dashed	
-mt-1
-mb-1
+p-2
+pt-3
+align-center
+justify-center
+h-full
 text-black
 relative
+text-center
+w-full
 `

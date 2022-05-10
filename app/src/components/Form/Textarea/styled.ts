@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const StyledTextArea = styled.textarea`
   display: flex;
@@ -10,14 +10,12 @@ export const StyledTextArea = styled.textarea`
   transition: padding 200ms ease-in-out;
   width: 99%;
   min-height: 80px;
-  margin-bottom: 16px;
 
   &:focus {
     padding-left: 16px;
   }
-`;
+`
 
 export const StyledLabel = styled.label`
-  margin-bottom: 8px;
   color: black;
-`;
+`

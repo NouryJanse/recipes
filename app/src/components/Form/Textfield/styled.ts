@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const InputStyle = styled.input`
   display: flex;
@@ -11,14 +11,13 @@ export const InputStyle = styled.input`
   &:focus {
     padding-left: 16px;
   }
-`;
+`
 
 export const FieldRowStyle = styled.div`
   width: 200px;
-  margin-bottom: 16px;
-`;
+`
 
 export const LabelStyle = styled.label`
   margin-bottom: 8px;
   color: black;
-`;
+`

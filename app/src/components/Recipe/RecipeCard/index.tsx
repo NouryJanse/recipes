@@ -30,7 +30,7 @@ const RecipeCard = (data: any) => {
 
   return (
     <RecipeContainer>
-      <h2>
+      <h2 className="font-bold">
         {recipe.name} - <i>{recipe.course}</i>
       </h2>
       <p>Last updated: {formatNLDateTime(recipe.updatedAt)}</p>
