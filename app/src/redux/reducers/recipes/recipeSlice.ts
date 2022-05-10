@@ -6,6 +6,7 @@ import { updateRecipeThunk } from './thunks/updateRecipe'
 import { deleteRecipeThunk } from './thunks/deleteRecipe'
 import RecipeState from '../../../types/RecipeState'
 import Recipe from '../../../types/Recipe'
+import REDUX_STATE from '../../../constants/REDUX_STATE'
 
 const initialState = {
   data: { recipes: [] as Recipe[], recipe: {} },
@@ -31,16 +32,16 @@ export const recipeSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getRecipes.pending, (state, _action) => {
-      state.status.getRecipes = 'loading'
+      state.status.getRecipes = REDUX_STATE.LOADING
       state.error = {}
     })
     builder.addCase(getRecipes.rejected, (state, _action) => {
-      state.status.getRecipes = 'rejected'
+      state.status.getRecipes = REDUX_STATE.REJECTED
       console.error('An error occurred')
       state.error = {}
     })
     builder.addCase(getRecipes.fulfilled, (state, action) => {
-      state.status.getRecipes = 'fulfilled'
+      state.status.getRecipes = REDUX_STATE.FULFILLED
       if (action !== null && action.payload) {
         state.data.recipes = action.payload?.recipes?.length
           ? action.payload.recipes
@@ -50,7 +51,7 @@ export const recipeSlice = createSlice({
     })
 
     builder.addCase(getRecipe.pending, (state, _action) => {
-      state.status.getRecipe = 'loading'
+      state.status.getRecipe = REDUX_STATE.LOADING
       state.error = {}
     })
     builder.addCase(getRecipe.rejected, (state, _action) => {
@@ -59,7 +60,7 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
     builder.addCase(getRecipe.fulfilled, (state, action) => {
-      state.status.getRecipe = 'fulfilled'
+      state.status.getRecipe = REDUX_STATE.FULFILLED
       if (action !== null && action.payload) {
         state.data.recipe = action.payload['recipes']
       }
@@ -67,11 +68,11 @@ export const recipeSlice = createSlice({
     })
 
     builder.addCase(updateRecipe.pending, (state, _action) => {
-      state.status.updateRecipe = 'loading'
+      state.status.updateRecipe = REDUX_STATE.LOADING
       state.error = {}
     })
     builder.addCase(updateRecipe.rejected, (state, _action) => {
-      state.status.updateRecipe = 'rejected'
+      state.status.updateRecipe = REDUX_STATE.REJECTED
       console.error('An error occurred')
       state.error = {}
     })
@@ -83,35 +84,35 @@ export const recipeSlice = createSlice({
         })
         state.data.recipes = newRecipes
       }
-      state.status.updateRecipe = 'fulfilled'
+      state.status.updateRecipe = REDUX_STATE.FULFILLED
       state.error = {}
     })
 
     builder.addCase(createRecipe.pending, (state, _action) => {
-      state.status.createRecipe = 'loading'
+      state.status.createRecipe = REDUX_STATE.LOADING
       state.error = {}
     })
     builder.addCase(createRecipe.rejected, (state, _action) => {
-      state.status.createRecipe = 'rejected'
+      state.status.createRecipe = REDUX_STATE.REJECTED
       console.error('An error occurred')
       state.error = {}
     })
     builder.addCase(createRecipe.fulfilled, (state, _action) => {
-      state.status.createRecipe = 'fulfilled'
+      state.status.createRecipe = REDUX_STATE.FULFILLED
       state.error = {}
     })
 
     builder.addCase(deleteRecipe.pending, (state, _action) => {
-      state.status.deleteRecipe = 'loading'
+      state.status.deleteRecipe = REDUX_STATE.LOADING
       state.error = {}
     })
     builder.addCase(deleteRecipe.rejected, (state, _action) => {
-      state.status.deleteRecipe = 'rejected'
+      state.status.deleteRecipe = REDUX_STATE.REJECTED
       console.error('An error occurred')
       state.error = {}
     })
     builder.addCase(deleteRecipe.fulfilled, (state, _action) => {
-      state.status.deleteRecipe = 'fulfilled'
+      state.status.deleteRecipe = REDUX_STATE.FULFILLED
       state.error = {}
     })
   },

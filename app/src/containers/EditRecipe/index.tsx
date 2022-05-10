@@ -29,7 +29,7 @@ const EditRecipeContainer = styled.div`
 
 // should be moved to fixed constants externally
 const options = [
-  { text: 'Make a choice', value: 'Make a choice', disabled: true },
+  { text: 'Make a choice', value: 'Make a choice', disabled: false },
   { text: 'Breakfast', value: 'breakfast', disabled: false },
   { text: 'Lunch', value: 'lunch', disabled: false },
   { text: 'Aperitivo', value: 'aperitivo', disabled: false },

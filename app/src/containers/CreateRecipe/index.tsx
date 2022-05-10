@@ -6,10 +6,11 @@ import { useNavigate } from 'react-router-dom'
 
 import { Textfield, Button, Textarea, Dropdown } from '../../components'
 import RootState from '../../types/RootState'
+import REDUX_STATE from '../../constants/REDUX_STATE'
 
 // should be moved to fixed constants externally
 const options = [
-  { text: 'Make a choice', value: 'Make a choice', disabled: true },
+  { text: 'Make a choice', value: 'Make a choice', disabled: false },
   { text: 'Breakfast', value: 'breakfast', disabled: false },
   { text: 'Lunch', value: 'lunch', disabled: false },
   { text: 'Aperitivo', value: 'aperitivo', disabled: false },
@@ -27,16 +28,12 @@ const CreateRecipe = () => {
     setValue,
   } = useForm()
 
-  if (errors) {
-    // console.error(errors, new Error(errors));
-  }
-
   const onSubmit = async (data: object) => {
     // @ts-ignore:next-line
     const response = await dispatch(createRecipe(data))
-    if (status.createRecipe === 'successfull') {
+    if (status.createRecipe === REDUX_STATE.FULFILLED) {
       navigate('/recipes')
-    } else if (status.createRecipe === 'rejected') {
+    } else if (status.createRecipe === REDUX_STATE.REJECTED) {
       console.log(response)
       console.log(status.createRecipe)
     } else {
