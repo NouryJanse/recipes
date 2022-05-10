@@ -36,6 +36,7 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(getRecipes.rejected, (state, _action) => {
       state.status.getRecipes = 'rejected'
+      console.error('An error occurred')
       state.error = {}
     })
     builder.addCase(getRecipes.fulfilled, (state, action) => {
@@ -54,6 +55,7 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(getRecipe.rejected, (state, _action) => {
       state.status.getRecipe = 'rejected'
+      console.error('An error occurred')
       state.error = {}
     })
     builder.addCase(getRecipe.fulfilled, (state, action) => {
@@ -70,6 +72,7 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(updateRecipe.rejected, (state, _action) => {
       state.status.updateRecipe = 'rejected'
+      console.error('An error occurred')
       state.error = {}
     })
     builder.addCase(updateRecipe.fulfilled, (state, action) => {
@@ -90,6 +93,7 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(createRecipe.rejected, (state, _action) => {
       state.status.createRecipe = 'rejected'
+      console.error('An error occurred')
       state.error = {}
     })
     builder.addCase(createRecipe.fulfilled, (state, _action) => {
@@ -103,6 +107,7 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(deleteRecipe.rejected, (state, _action) => {
       state.status.deleteRecipe = 'rejected'
+      console.error('An error occurred')
       state.error = {}
     })
     builder.addCase(deleteRecipe.fulfilled, (state, _action) => {

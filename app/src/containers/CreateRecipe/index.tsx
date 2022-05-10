@@ -1,26 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createRecipe } from '../../redux/reducers/recipes/recipeSlice'
 import { useNavigate } from 'react-router-dom'
 
 import { Textfield, Button, Textarea, Dropdown } from '../../components'
+import RootState from '../../types/RootState'
 
+// should be moved to fixed constants externally
 const options = [
-  { title: 'Make choice', text: '', disabled: true },
-  { title: 'Breakfast', text: 'breakfast' },
-  { title: 'Lunch', text: 'lunch' },
-  { title: 'Aperitivo', text: 'aperitivo' },
-  { title: 'Dinner', text: 'dinner' },
+  { text: 'Make a choice', value: 'Make a choice', disabled: true },
+  { text: 'Breakfast', value: 'breakfast', disabled: false },
+  { text: 'Lunch', value: 'lunch', disabled: false },
+  { text: 'Aperitivo', value: 'aperitivo', disabled: false },
+  { text: 'Dinner', value: 'dinner', disabled: false },
 ]
 
 const CreateRecipe = () => {
+  const status = useSelector((state: RootState) => state.recipeSlice.status)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm()
 
   if (errors) {
@@ -29,10 +33,22 @@ const CreateRecipe = () => {
 
   const onSubmit = async (data: object) => {
     // @ts-ignore:next-line
-    await dispatch(createRecipe(data))
-
-    navigate('/recipes')
+    const response = await dispatch(createRecipe(data))
+    if (status.createRecipe === 'successfull') {
+      navigate('/recipes')
+    } else if (status.createRecipe === 'rejected') {
+      console.log(response)
+      console.log(status.createRecipe)
+    } else {
+      //
+    }
   }
+
+  useEffect(() => {
+    if (status.createRecipe === 'rejected') {
+      throw 'shits going wrong'
+    }
+  }, [status])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -62,12 +78,14 @@ const CreateRecipe = () => {
       <Dropdown
         label="Course*"
         name="course"
-        placeholder="Fill in the course"
-        validation={{
-          required: 'Did you forget to fill in the course of your recipe?',
-        }}
-        register={register}
-        errors={errors.description?.type === 'required' && 'Course is required'}
+        disabled={false}
+        defaultValue={''}
+        onChange={(course) => setValue('course', course)}
+        // validation={{
+        //   required: 'Did you forget to fill in the course of your recipe?',
+        // }}
+        // register={register}
+        // errors={errors.description?.type === 'required' && 'Course is required'}
         options={options}
       />
 

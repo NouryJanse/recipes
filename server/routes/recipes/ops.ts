@@ -6,16 +6,22 @@ import { Image } from '@prisma/client'
 const cache = new NodeCache({ stdTTL: 15 })
 
 const createRecipeOps = async (request: any, reply: FastifyReply): Promise<FastifyReply> => {
-  const user = request.user
-  const recipe = await createRecipe(
-    request.body.name,
-    request.body.description,
-    request.body.authorId,
-    request.body.course,
-  )
-  const recipes = await getRecipes()
-  cache.del('recipes')
-  return reply.code(201).send({ recipes })
+  try {
+    const user = request.user
+    const recipe = await createRecipe(
+      request.body.name,
+      request.body.description,
+      request.body.authorId,
+      request.body.course,
+    )
+    if (!recipe) throw 'An error occurred'
+    const recipes = await getRecipes()
+    cache.del('recipes')
+    return reply.code(201).send({ recipes })
+  } catch (error) {
+    console.error(error)
+    return reply.code(500).send({})
+  }
 }
 
 const getRecipesOps = async (_request: FastifyRequest, reply: FastifyReply) => {
@@ -57,10 +63,15 @@ const updateRecipeOps = async (request: any, reply: FastifyReply): Promise<Fasti
 }
 
 const deleteRecipeOps = async (request: any, reply: FastifyReply) => {
-  const res = await deleteRecipe(Number.parseInt(request.params.id))
-  const recipes = await getRecipes()
-  cache.del('recipes')
-  return reply.code(201).send({ recipes })
+  try {
+    const res = await deleteRecipe(Number.parseInt(request.params.id))
+    const recipes = await getRecipes()
+    cache.del('recipes')
+    return reply.code(201).send({ recipes })
+  } catch (error) {
+    console.error(error)
+    return reply.code(500).send({})
+  }
 }
 
 export default {

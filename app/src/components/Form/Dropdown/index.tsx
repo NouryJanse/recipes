@@ -1,3 +1,4 @@
+import { Option } from '../../../types/Option'
 import { StyledDropdown, StyledOption, StyledLabel } from './styled'
 
 const Dropdown = ({
@@ -9,7 +10,14 @@ const Dropdown = ({
   options,
   defaultValue,
   onChange,
-}: any) => {
+}: {
+  label: string
+  name: string
+  disabled: boolean
+  options: {}[]
+  defaultValue: string
+  onChange: (changedValue: string) => void
+}) => {
   return (
     <div>
       <StyledLabel htmlFor={name}>
@@ -22,7 +30,8 @@ const Dropdown = ({
           onChange={(e) => onChange(e.target.value)}
           defaultValue={defaultValue}
         >
-          {options.map((option: HTMLOptionElement, i: number) => {
+          {options.map((option: any, i: number) => {
+            console.log(options)
             return (
               <StyledOption key={i} value={option.value} disabled={option.disabled}>
                 {option.text}

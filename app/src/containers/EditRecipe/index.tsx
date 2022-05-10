@@ -21,22 +21,19 @@ import { useRef } from 'react'
 import RootState from '../../types/RootState'
 import styled from 'styled-components'
 import isLoading from '../../helpers/LoadingHelper'
+import { Option } from '../../types/Option'
 
 const EditRecipeContainer = styled.div`
   margin-bottom: 32px;
 `
 
 // should be moved to fixed constants externally
-interface Option {
-  text: string
-  value: string
-}
 const options = [
-  { text: 'Make a choice', value: 'choice' },
-  { text: 'Breakfast', value: 'breakfast' },
-  { text: 'Lunch', value: 'lunch' },
-  { text: 'Aperitivo', value: 'aperitivo' },
-  { text: 'Dinner', value: 'dinner' },
+  { text: 'Make a choice', value: 'Make a choice', disabled: true },
+  { text: 'Breakfast', value: 'breakfast', disabled: false },
+  { text: 'Lunch', value: 'lunch', disabled: false },
+  { text: 'Aperitivo', value: 'aperitivo', disabled: false },
+  { text: 'Dinner', value: 'dinner', disabled: false },
 ]
 
 const EditRecipe = (data: any) => {
@@ -205,13 +202,13 @@ const EditRecipe = (data: any) => {
           <Dropdown
             label="Course*"
             name="course"
-            placeholder="Fill in the course"
             defaultValue={recipe.course}
-            validation={{
-              required: 'Did you forget to fill in the course of your recipe?',
-            }}
-            register={register}
-            errors={errors.description?.type === 'required' && 'Course is required'}
+            disabled={false}
+            // validation={{
+            //   required: 'Did you forget to fill in the course of your recipe?',
+            // }}
+            // register={register}
+            // errors={errors.description?.type === 'required' && 'Course is required'}
             options={options}
             onChange={dropDownHandler}
           />
