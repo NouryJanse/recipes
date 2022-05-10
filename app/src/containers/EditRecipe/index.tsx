@@ -13,6 +13,7 @@ import {
   ImagePicker,
   ImagePreviewList,
   ImageSortableList,
+  FieldContainer,
 } from '../../components/index'
 import { useState } from 'react'
 import { useRef } from 'react'
@@ -26,25 +27,26 @@ const EditRecipeContainer = styled.div`
 
 // should be moved to fixed constants externally
 const options = [
-  { title: 'Make a choice', name: 'choice' },
-  { title: 'Breakfast', name: 'breakfast' },
-  { title: 'Lunch', name: 'lunch' },
-  { title: 'Aperitivo', name: 'aperitivo' },
-  { title: 'Dinner', name: 'dinner' },
+  { text: 'Make a choice', value: 'choice' },
+  { text: 'Breakfast', value: 'breakfast' },
+  { text: 'Lunch', value: 'lunch' },
+  { text: 'Aperitivo', value: 'aperitivo' },
+  { text: 'Dinner', value: 'dinner' },
 ]
 
 const EditRecipe = (data: any) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  let [initialRecipeLoad, setInitialRecipeLoad] = useState(false)
-  let [recipe, setRecipe] = useState(data.recipe)
-  let [id, setId] = useState<string | undefined>('')
-  let [imagePreviewList, setImageViewList] = useState<Image[]>([])
-  let [imageSortableList, setImageSortableList] = useState<Image[]>([])
-  let params = useParams()
+  const [initialRecipeLoad, setInitialRecipeLoad] = useState(false)
+  const [recipe, setRecipe] = useState(data.recipe)
+  const [id, setId] = useState<string | undefined>('')
+  const [imagePreviewList, setImageViewList] = useState<Image[]>([])
+  const [imageSortableList, setImageSortableList] = useState<Image[]>([])
+  const params = useParams()
   const hasURLParams = useRef(false)
   const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
   const formRef = useRef()
+  const [btnClasses, setBtnClasses] = useState('')
 
   const {
     register,
@@ -52,7 +54,6 @@ const EditRecipe = (data: any) => {
     formState: { errors, isDirty, isValid },
     watch,
     setValue,
-    trigger,
   } = useForm()
 
   const onSave = async (data: any) => {
@@ -65,11 +66,8 @@ const EditRecipe = (data: any) => {
     // navigate(`/recipes/${recipe.id}`)
   }
 
-  const recipeCourse = () => {
-    return options.find((option) => option?.name === recipe.course)?.title
-  }
-
   useEffect(() => {
+    if (isDirty) setBtnClasses('font-bold')
     if (hasURLParams.current === false || !recipe || !id) {
       if (!typeof params.recipeId !== undefined) {
         setId(params.recipeId)
@@ -94,7 +92,7 @@ const EditRecipe = (data: any) => {
     //   setRecipe({ ...recipe, ...value })
     // })
     // return () => subscription.unsubscribe()
-  }, [watch, recipe, id, recipes, params, imageSortableList])
+  }, [watch, recipe, id, recipes, params, imageSortableList, isDirty])
 
   const pushSelectedImage = (image: Image) => {
     setImageViewList((prevState: Image[]) => [...prevState, image])
@@ -141,6 +139,11 @@ const EditRecipe = (data: any) => {
     handleSubmit(onSave)()
   }
 
+  const dropDownHandler = async (course: string) => {
+    await setValue('course', course)
+    await handleSubmit(onSave)()
+  }
+
   if (!recipe) {
     return <p>Error, no recipe found or still loading the recipe from the server.</p>
   }
@@ -148,58 +151,66 @@ const EditRecipe = (data: any) => {
   return (
     <EditRecipeContainer>
       <form onSubmit={handleSubmit(onSave)} {...formRef}>
-        <h2>
-          Editing {recipe.name} - {recipeCourse()}
-          {isDirty && 'yes'}
+        <h2 className="font-bold">
+          Editing {recipe.name} - {recipe.course}
         </h2>
 
-        <Textfield
-          type="text"
-          label="Recipe name*"
-          name="name"
-          defaultValue={recipe.name}
-          placeholder="Fill in a name"
-          validation={{
-            required: 'Did you forget to name your recipe?',
-          }}
-          register={register}
-          errors={errors.title?.type === 'required' && 'Title is required'}
-        />
+        <FieldContainer>
+          <Textfield
+            type="text"
+            label="Recipe name*"
+            name="name"
+            defaultValue={recipe.name}
+            placeholder="Fill in a name"
+            validation={{
+              required: 'Did you forget to name your recipe?',
+            }}
+            register={register}
+            errors={errors.title?.type === 'required' && 'Title is required'}
+          />
+        </FieldContainer>
 
-        <Textarea
-          label="Recipe description*"
-          name="description"
-          defaultValue={recipe.description}
-          placeholder="Fill in a description"
-          validation={{
-            required: 'Did you forget to name your recipe?',
-          }}
-          register={register}
-          errors={errors.title?.type === 'required' && 'Title is required'}
-        />
+        <FieldContainer>
+          <Textarea
+            label="Recipe description*"
+            name="description"
+            defaultValue={recipe.description}
+            placeholder="Fill in a description"
+            validation={{
+              required: 'Did you forget to name your recipe?',
+            }}
+            register={register}
+            errors={errors.title?.type === 'required' && 'Title is required'}
+          />
+        </FieldContainer>
 
-        <Dropdown
-          label="Course*"
-          name="course"
-          placeholder="Fill in the course"
-          defaultValue={recipe.course}
-          validation={{
-            required: 'Did you forget to fill in the course of your recipe?',
-          }}
-          register={register}
-          errors={errors.description?.type === 'required' && 'Course is required'}
-          options={options}
-        />
+        <FieldContainer>
+          <Dropdown
+            label="Course*"
+            name="course"
+            placeholder="Fill in the course"
+            defaultValue={recipe.course}
+            validation={{
+              required: 'Did you forget to fill in the course of your recipe?',
+            }}
+            register={register}
+            errors={errors.description?.type === 'required' && 'Course is required'}
+            options={options}
+            onChange={dropDownHandler}
+          />
+        </FieldContainer>
 
-        <ImagePicker
-          label="Drag 'n' drop some files here, or click to select files"
-          name="images"
-          register={register}
-          validation={{
-            required: 'Did you forget to add images to your recipe?',
-          }}
-          onSelectedImageCallback={pushSelectedImage}
-        />
+        <FieldContainer>
+          <ImagePicker
+            label="Drag 'n' drop some files here, or click to select files"
+            name="images"
+            register={register}
+            validation={{
+              required: 'Did you forget to add images to your recipe?',
+            }}
+            onSelectedImageCallback={pushSelectedImage}
+          />
+        </FieldContainer>
 
         {!!imagePreviewList.length && (
           <ImagePreviewList images={imagePreviewList} callbackUploadImages={handleImageUpload} />
@@ -209,7 +220,7 @@ const EditRecipe = (data: any) => {
           <ImageSortableList images={imageSortableList} callbackSortedImages={handleSortedImages} />
         )}
 
-        <Button type="submit" label="Save recipe" />
+        <Button type="submit" label="Save recipe" classNames={btnClasses} />
 
         {params.recipeId && (
           <Link to={`/recipes/${params.recipeId}`}>Back to recipe {recipe.name}</Link>
