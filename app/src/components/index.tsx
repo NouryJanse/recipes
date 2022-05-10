@@ -1,5 +1,6 @@
 export { default as ErrorMessage } from './Generic/ErrorMessage'
 export { default as Icon } from './Generic/Icon'
+export { default as Loader } from './Generic/Loader'
 
 export { default as Button } from './Button'
 export { default as ImageComponent } from './Image'

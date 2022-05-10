@@ -14,18 +14,23 @@ import {
   ImagePreviewList,
   ImageSortableList,
   FieldContainer,
+  Loader,
 } from '../../components/index'
 import { useState } from 'react'
 import { useRef } from 'react'
 import RootState from '../../types/RootState'
-
 import styled from 'styled-components'
+import isLoading from '../../helpers/LoadingHelper'
 
 const EditRecipeContainer = styled.div`
   margin-bottom: 32px;
 `
 
 // should be moved to fixed constants externally
+interface Option {
+  text: string
+  value: string
+}
 const options = [
   { text: 'Make a choice', value: 'choice' },
   { text: 'Breakfast', value: 'breakfast' },
@@ -35,6 +40,8 @@ const options = [
 ]
 
 const EditRecipe = (data: any) => {
+  const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
+  const status = useSelector((state: RootState) => state.recipeSlice.status)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [initialRecipeLoad, setInitialRecipeLoad] = useState(false)
@@ -44,7 +51,6 @@ const EditRecipe = (data: any) => {
   const [imageSortableList, setImageSortableList] = useState<Image[]>([])
   const params = useParams()
   const hasURLParams = useRef(false)
-  const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
   const formRef = useRef()
   const [btnClasses, setBtnClasses] = useState('')
 
@@ -144,6 +150,14 @@ const EditRecipe = (data: any) => {
     await handleSubmit(onSave)()
   }
 
+  const courseName = (courseValue: string, options: Option[]): string => {
+    const option = options.find((option) => {
+      if (option.value && option.value === courseValue) return option
+    })
+    if (option) return option.text
+    return ''
+  }
+
   if (!recipe) {
     return <p>Error, no recipe found or still loading the recipe from the server.</p>
   }
@@ -151,9 +165,12 @@ const EditRecipe = (data: any) => {
   return (
     <EditRecipeContainer>
       <form onSubmit={handleSubmit(onSave)} {...formRef}>
-        <h2 className="font-bold">
-          Editing {recipe.name} - {recipe.course}
-        </h2>
+        <div className="flex">
+          <h2 className="font-bold">
+            Editing {recipe.name} - {courseName(recipe.course, options)}
+          </h2>
+          <div>{isLoading(status) && <Loader size={28} speed={2} />}</div>
+        </div>
 
         <FieldContainer>
           <Textfield

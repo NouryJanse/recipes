@@ -5,9 +5,10 @@ import { createRecipeThunk } from './thunks/createRecipe'
 import { updateRecipeThunk } from './thunks/updateRecipe'
 import { deleteRecipeThunk } from './thunks/deleteRecipe'
 import RecipeState from '../../../types/RecipeState'
+import Recipe from '../../../types/Recipe'
 
 const initialState = {
-  data: { recipes: [], recipe: {} },
+  data: { recipes: [] as Recipe[], recipe: {} },
   status: {
     getRecipe: 'initial',
     getRecipes: 'initial',
@@ -38,12 +39,12 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
     builder.addCase(getRecipes.fulfilled, (state, action) => {
+      state.status.getRecipes = 'fulfilled'
       if (action !== null && action.payload) {
         state.data.recipes = action.payload?.recipes?.length
           ? action.payload.recipes
           : action.payload
       }
-      state.status.getRecipes = 'fulfilled'
       state.error = {}
     })
 
@@ -56,10 +57,10 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
     builder.addCase(getRecipe.fulfilled, (state, action) => {
+      state.status.getRecipe = 'fulfilled'
       if (action !== null && action.payload) {
         state.data.recipe = action.payload['recipes']
       }
-      state.status.getRecipe = 'fulfilled'
       state.error = {}
     })
 
@@ -72,8 +73,12 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
     builder.addCase(updateRecipe.fulfilled, (state, action) => {
+      const recipes: Recipe[] = state.data.recipes
       if (action !== null && action.payload) {
-        state.data.recipe = action.payload['recipes']
+        const newRecipes: Recipe[] = recipes.map((recipe: Recipe) => {
+          return recipe.id === action.payload.id ? action.payload : recipe
+        })
+        state.data.recipes = newRecipes
       }
       state.status.updateRecipe = 'fulfilled'
       state.error = {}
