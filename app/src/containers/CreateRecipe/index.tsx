@@ -4,18 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createRecipe } from '../../redux/reducers/recipes/recipeSlice'
 import { useNavigate } from 'react-router-dom'
 
-import { Textfield, Button, Textarea, Dropdown } from '../../components'
+import { Textfield, Button, Textarea, Dropdown, FieldContainer } from '../../components'
 import RootState from '../../types/RootState'
 import REDUX_STATE from '../../constants/REDUX_STATE'
-
-// should be moved to fixed constants externally
-const options = [
-  { text: 'Make a choice', value: 'Make a choice', disabled: false },
-  { text: 'Breakfast', value: 'breakfast', disabled: false },
-  { text: 'Lunch', value: 'lunch', disabled: false },
-  { text: 'Aperitivo', value: 'aperitivo', disabled: false },
-  { text: 'Dinner', value: 'dinner', disabled: false },
-]
+import RECIPE_COURSE_OPTIONS from '../../constants/RECIPE_COURSE_OPTIONS'
 
 const CreateRecipe = () => {
   const status = useSelector((state: RootState) => state.recipeSlice.status)
@@ -37,54 +29,60 @@ const CreateRecipe = () => {
       console.log(response)
       console.log(status.createRecipe)
     } else {
-      //
+      // this situation is not handled yet..
     }
   }
 
   useEffect(() => {
     if (status.createRecipe === 'rejected') {
-      throw 'shits going wrong'
+      throw new Error('An error occurred, the recipe was not created.')
     }
   }, [status])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Textfield
-        type="text"
-        label="Recipe title*"
-        name="name"
-        placeholder="Fill in a title"
-        validation={{
-          required: 'Did you forget to name your recipe?',
-        }}
-        register={register}
-        errors={errors.title?.type === 'required' && 'Title is required'}
-      />
+      <FieldContainer>
+        <Textfield
+          name="name"
+          type="text"
+          label="Recipe title*"
+          placeholder="Fill in a title"
+          validation={{
+            required: 'Did you forget to name your recipe?',
+          }}
+          register={register}
+          errors={errors.name?.type === 'required' && 'Title is required'}
+        />
+      </FieldContainer>
 
-      <Textarea
-        label="Recipe description*"
-        name="description"
-        placeholder="Fill in a description"
-        validation={{
-          required: 'Did you forget to fill in the description of your recipe?',
-        }}
-        register={register}
-        errors={errors.description?.type === 'required' && 'Description is required'}
-      />
+      <FieldContainer>
+        <Textarea
+          name="description"
+          label="Recipe description*"
+          placeholder="Fill in a description"
+          validation={{
+            required: 'Did you forget to fill in the description of your recipe?',
+          }}
+          register={register}
+          errors={errors.description?.type === 'required' && 'Description is required'}
+        />
+      </FieldContainer>
 
-      <Dropdown
-        label="Course*"
-        name="course"
-        disabled={false}
-        defaultValue={''}
-        onChange={(course) => setValue('course', course)}
-        // validation={{
-        //   required: 'Did you forget to fill in the course of your recipe?',
-        // }}
-        // register={register}
-        // errors={errors.description?.type === 'required' && 'Course is required'}
-        options={options}
-      />
+      <FieldContainer>
+        <Dropdown
+          name="course"
+          label="Course*"
+          defaultValue={''}
+          disabled={false}
+          onChange={(course) => setValue('course', course)}
+          validation={{
+            required: 'Did you forget to fill in the course of your recipe?',
+          }}
+          register={register}
+          errors={errors.description?.type === 'required' && 'Course is required'}
+          options={RECIPE_COURSE_OPTIONS}
+        />
+      </FieldContainer>
 
       <Button type="submit" label="Save recipe" />
     </form>
