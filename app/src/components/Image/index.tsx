@@ -4,8 +4,8 @@ import classNames from 'classnames'
 const ImageComponent = ({
   src,
   alt = '',
-  width = 0,
-  height = 0,
+  width,
+  height,
 }: {
   src: string
   alt?: string
@@ -13,8 +13,8 @@ const ImageComponent = ({
   height?: number
 }) => {
   const dimensions = {
-    ...(width > 0 && { width }),
-    ...(height > 0 && { height }),
+    ...((width === undefined || width > 0) && { width }),
+    ...((height === undefined || height > 0) && { height }),
   }
   const otherClasses = classNames({
     'w-full': width === 0,

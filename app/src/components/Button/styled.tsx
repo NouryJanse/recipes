@@ -1,8 +1,11 @@
 import tw from 'tailwind-styled-components'
 
-interface IBtn {}
+interface TWStyledButtonParameter {
+  $primary: boolean
+  $secondary: boolean
+}
 
-export const ButtonStyle = tw.button<IBtn>`
+export const ButtonStyle = tw.button`
   flex
   outline-none  
   align-middle
@@ -14,19 +17,17 @@ export const ButtonStyle = tw.button<IBtn>`
   ml-0
   rounded
 
-  bg-blue
-  text-white
-
   no-underline
   border-2
   border-solid
   border-transparent  
   transition-colors
   
-  hover:bg-blueDark
-
-  focus:outline-none
-  focus:m-0
   focus:border-2
   focus:border-solid
+  focus:border-blue
+
+  ${(p: TWStyledButtonParameter) => (p.$primary ? 'bg-blue text-white hover:bg-blueDark' : '')}
+  ${(p: TWStyledButtonParameter) =>
+    p.$secondary ? 'bg-white text-blue hover:bg-blueDark hover:text-white' : ''}
 `

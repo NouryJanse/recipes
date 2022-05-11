@@ -1,13 +1,12 @@
-import { Image } from '../../../types/Image'
+import { ImageData } from '../../../types/ImageData'
 import { Button } from '../../'
 
-const ImagePreviewList = ({
-  images,
-  callbackUploadImages,
-}: {
-  images: Image[] | undefined
+interface ImagePreviewListProps {
+  images: ImageData[] | undefined
   callbackUploadImages: (image: any) => Promise<any>
-}) => {
+}
+
+const ImagePreviewList = ({ images, callbackUploadImages }: ImagePreviewListProps) => {
   return (
     <div>
       {images?.map((image, index) => {

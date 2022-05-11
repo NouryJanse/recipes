@@ -36,7 +36,7 @@ const Recipe = (data: any) => {
       {recipe.description && <p>{recipe.description}</p>}
       <i>{recipe.course}</i>
       <Link to={`/recipes/${recipe.id}/edit`}>Edit</Link>
-      <Button label={'Delete'} onClick={() => onDelete(recipe.id)} />
+      <Button type="button" label={'Delete'} onClick={() => onDelete(recipe.id)} />
       <Link to={`/recipes`}>Back to Recipes</Link>
     </RecipeContainer>
   )

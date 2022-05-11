@@ -14,7 +14,7 @@ export const InputStyle = styled.input`
 `
 
 export const FieldRowStyle = styled.div`
-  width: 200px;
+  width: 320px;
 `
 
 export const LabelStyle = styled.label`

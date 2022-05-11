@@ -1,16 +1,20 @@
 import { deleteRecipe } from '../../../redux/reducers/recipes/recipeSlice'
 import { RecipeContainer } from './styled'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Button } from '../../index'
 import { formatNLDateTime } from '../../../helpers/DateHelper'
 import RootState from '../../../types/RootState'
+import { useState, useEffect } from 'react'
+import ImageComponent from '../../Image'
+import { Image } from '../../../types/Image'
 
 const RecipeCard = (data: any) => {
   let recipe = data.recipe
   const dispatch = useDispatch()
   const navigate = useNavigate()
   let params = useParams()
+  const [mainImage, setMainImage] = useState({} as Image)
   const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
 
   if (params.recipeId && recipes) {
@@ -26,18 +30,52 @@ const RecipeCard = (data: any) => {
     navigate('/recipes')
   }
 
+  useEffect(() => {
+    if (recipe?.images?.length) {
+      setMainImage(recipe.images[0])
+    }
+  }, [recipe])
+
   if (!recipe) return <p>Error, no recipe found.</p>
 
   return (
     <RecipeContainer>
-      <h2 className="font-bold">
-        {recipe.name} - <i>{recipe.course}</i>
-      </h2>
-      <p>Last updated: {formatNLDateTime(recipe.updatedAt)}</p>
-      <p>Created at: {formatNLDateTime(recipe.createdAt)}</p>
-      {recipe.description && <p>{recipe.description}</p>}
-      <Link to={`/recipes/${recipe.id}`}>Detail</Link>
-      <Button label={'Delete'} onClick={() => onDelete(recipe.id)} />
+      <div className="flex flex-col md:flex-row justify-between">
+        <div className="md:flex-1">
+          <h2 className="font-bold">
+            {recipe.name} - <i>{recipe.course}</i>
+          </h2>
+          <p>Last updated at {formatNLDateTime(recipe.updatedAt)}</p>
+          <p>Created at at {formatNLDateTime(recipe.createdAt)}</p>
+          {recipe.description && <p>{recipe.description}</p>}
+        </div>
+        <div className="md:flex-1">{mainImage && <ImageComponent src={mainImage.url} />}</div>
+      </div>
+
+      <div className="flex justify-end">
+        <Button
+          type="button"
+          label="Detail"
+          onClick={() => {
+            navigate(`/recipes/${recipe.id}`)
+          }}
+          buttonStyle="secondary"
+        ></Button>
+        <Button
+          type="button"
+          label="Edit"
+          onClick={() => {
+            navigate(`/recipes/${recipe.id}/edit`)
+          }}
+          buttonStyle="secondary"
+        ></Button>
+        <Button
+          type="button"
+          label={'Delete'}
+          onClick={() => onDelete(recipe.id)}
+          buttonStyle="primary"
+        />
+      </div>
     </RecipeContainer>
   )
 }

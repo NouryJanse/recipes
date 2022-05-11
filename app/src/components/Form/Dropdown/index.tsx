@@ -1,23 +1,28 @@
-import { Option } from '../../../types/Option'
+import ErrorMessage from '../../Generic/ErrorMessage'
 import { StyledDropdown, StyledOption, StyledLabel } from './styled'
+
+interface DropdownProps {
+  label: string
+  name: string
+  disabled: boolean
+  register: Function
+  validation: string | object
+  errors: string | boolean | HTMLElement
+  options: {}[]
+  defaultValue: string
+  onChange?: (changedValue: string) => void
+}
 
 const Dropdown = ({
   label,
   name,
-  // validation,
-  // register,
+  validation,
+  register,
   disabled,
   options,
+  errors,
   defaultValue,
-  onChange,
-}: {
-  label: string
-  name: string
-  disabled: boolean
-  options: {}[]
-  defaultValue: string
-  onChange: (changedValue: string) => void
-}) => {
+}: DropdownProps) => {
   return (
     <div>
       <StyledLabel htmlFor={name}>
@@ -25,13 +30,11 @@ const Dropdown = ({
         <StyledDropdown
           id={name}
           name={name}
-          // {...register(name, validation)}
+          {...register(name, validation)}
           disabled={disabled}
-          onChange={(e) => onChange(e.target.value)}
           defaultValue={defaultValue}
         >
           {options.map((option: any, i: number) => {
-            console.log(options)
             return (
               <StyledOption key={i} value={option.value} disabled={option.disabled}>
                 {option.text}
@@ -48,6 +51,7 @@ const Dropdown = ({
           <polyline points="1 1 5 5 9 1"></polyline>
         </symbol>
       </svg>
+      {errors && <ErrorMessage message={errors}></ErrorMessage>}
     </div>
   )
 }

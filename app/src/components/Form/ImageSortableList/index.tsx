@@ -1,14 +1,14 @@
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 import { Image } from '../../../types/Image'
+import Button from '../../Button'
 import ImageComponent from '../../Image'
 
-const ImageSortableList = ({
-  images,
-  callbackSortedImages,
-}: {
+interface ImageSortableListProps {
   images: any
   callbackSortedImages: (images: Image[]) => void
-}) => {
+}
+
+const ImageSortableList = ({ images, callbackSortedImages }: ImageSortableListProps) => {
   const handleOnDragEnd = (result: any) => {
     if (!result.destination) return
     const items: Image[] = Array.from(images)
@@ -35,12 +35,10 @@ const ImageSortableList = ({
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
                           >
-                            <div className="max-w-xs">
+                            <div className="max-w-xs mb-8">
                               <ImageComponent src={url} width={200} height={100} />
+                              {/* <Button type="button" label="x" onClick={}/> */}
                             </div>
-                            <br />
-                            <br />
-                            <br />
                           </li>
                         )}
                       </Draggable>

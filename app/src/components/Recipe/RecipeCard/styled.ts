@@ -1,5 +1,10 @@
-import styled from 'styled-components';
+import tw from 'tailwind-styled-components'
 
-export const RecipeContainer = styled.div`
-    margin-bottom: 32px;
-`;
+export const RecipeContainer = tw.div`
+  mb-6
+  p-4
+  border-2
+  rounded-md
+  border-transparent
+  bg-gray-200
+`

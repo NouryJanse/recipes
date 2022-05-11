@@ -2,7 +2,7 @@ import { FieldRowStyle, LabelStyle, InputStyle } from './styled'
 
 import { ErrorMessage } from '../../index'
 
-interface TextField {
+interface TextFieldProps {
   name: string
   type: string
   label: string
@@ -22,7 +22,7 @@ const Textfield = ({
   register,
   validation,
   errors,
-}: TextField) => {
+}: TextFieldProps) => {
   return (
     <FieldRowStyle>
       <LabelStyle htmlFor={name}>{label}</LabelStyle>

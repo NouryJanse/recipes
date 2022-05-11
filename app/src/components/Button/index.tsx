@@ -5,17 +5,28 @@ const Button = ({
   onClick,
   disabled = false,
   label,
-  classNames = '',
+  classes = '',
+  children,
+  buttonStyle = 'primary',
 }: {
-  type?: 'submit' | 'reset' | 'button'
+  type: 'submit' | 'reset' | 'button'
   onClick?: any
   disabled?: boolean
-  label: string | JSX.Element
-  classNames?: string
+  label?: string | JSX.Element
+  classes?: string
+  children?: JSX.Element
+  buttonStyle?: 'primary' | 'secondary'
 }) => {
   return (
-    <ButtonStyle type={type} disabled={disabled} onClick={onClick} className={classNames}>
-      {label}
+    <ButtonStyle
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      className={classes}
+      $primary={buttonStyle === 'primary'}
+      $secondary={buttonStyle === 'secondary'}
+    >
+      {children ? children : label}
     </ButtonStyle>
   )
 }
