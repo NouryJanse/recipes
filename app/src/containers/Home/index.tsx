@@ -5,11 +5,11 @@ import RecipesList from '../RecipesList'
 import CreateRecipe from '../CreateRecipe'
 import EditRecipe from '../EditRecipe/'
 import { RecipeDetail } from '../../components'
-// import { toggleNav } from '../redux/reducers/application/applicationSlice'
 import RootState from '../../types/RootState'
 
-const Home = ({ user, logout }: any) => {
+const Home = ({ logout }: any) => {
   const application = useSelector((state: RootState) => state.applicationSlice.data)
+  const user = useSelector((state: RootState) => state.userSlice.data.user)
 
   return (
     <div className="rootContainer">
@@ -18,14 +18,14 @@ const Home = ({ user, logout }: any) => {
       <div className={`container content ${application.navMenuIsOpened ? `opened` : `closed`}`}>
         <div className="row">
           <div className="col-xs-12">
-            <h1 className="underline">Recipes by Noury</h1>
+            <h1 className="underline mb-4 xs:text-sm md:text-xl">Recipes by Noury</h1>
           </div>
         </div>
 
         <div className="row">
           <div className="col-xs-12">
             <Routes>
-              <Route path="/" element={<div>Welcome!</div>} />
+              <Route path="/" element={<div>Welcome {user.name}!</div>} />
 
               <Route path="/create" element={<CreateRecipe />} />
 

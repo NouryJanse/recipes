@@ -26,7 +26,7 @@ function App({ auth0 }: any) {
 
   const loginButton = (
     <div>
-      <Button onClick={() => loginUser()} label="Login" />
+      <Button type="button" onClick={() => loginUser()} label="Login" />
     </div>
   )
 
@@ -35,12 +35,7 @@ function App({ auth0 }: any) {
       return loginButton
     }
     if (auth0.error === 'consent_required') {
-      return (
-        <Button
-          // onClick={getTokenAndTryAgain}
-          label="Consent to reading users"
-        />
-      )
+      return <Button type="button" label="Consent to reading users" />
     }
     return <div>Oops {auth0.error.message}</div>
   }
@@ -52,7 +47,7 @@ function App({ auth0 }: any) {
   if (user && Object.keys(user).length) {
     return (
       <>
-        <Home user={user} logout={auth0.logout} />
+        <Home logout={auth0.logout} />
       </>
     )
   } else {

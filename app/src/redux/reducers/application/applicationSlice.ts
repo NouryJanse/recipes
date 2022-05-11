@@ -4,7 +4,7 @@ import ApplicationState from '../../../types/ApplicationState'
 const initialState = {
   data: { navMenuIsOpened: false },
   status: {
-    // fetchRecipes: 'initial',
+    state: 'initial',
   },
 }
 

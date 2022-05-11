@@ -106,9 +106,9 @@ class Auth0 {
     } catch (error: any) {
       if (error?.error !== 'login_required') {
         console.error(error)
-        throw error
+        throw new Error(error)
       } else {
-        console.info('login required')
+        this.error = 'login_required'
       }
     }
   }

@@ -9,10 +9,12 @@ import RootState from '../../types/RootState'
 const Navigation = ({ logout }: any) => {
   const dispatch = useDispatch()
   const application = useSelector((state: RootState) => state.applicationSlice.data)
-  let login = application.navMenuIsOpened ? `Log out` : <MdLogout />
+  const user = useSelector((state: RootState) => state.userSlice.data.user)
+  const menuIsOpened = application.navMenuIsOpened
+  let login = menuIsOpened ? `Log out` : <MdLogout />
 
   return (
-    <nav className={`${application.navMenuIsOpened ? `opened` : `closed`}`}>
+    <nav className={`${menuIsOpened ? `opened` : `closed`}`}>
       <div>
         <div
           className="logo"
@@ -20,8 +22,8 @@ const Navigation = ({ logout }: any) => {
             dispatch(toggleNav())
           }}
         >
-          {!application.navMenuIsOpened && <Icon iconElement={<GoThreeBars style={{}} />} />}
-          {application.navMenuIsOpened && <Icon iconElement={<GoX style={{ color: 'black' }} />} />}
+          {!menuIsOpened && <Icon iconElement={<GoThreeBars style={{}} />} />}
+          {menuIsOpened && <Icon iconElement={<GoX style={{ color: 'black' }} />} />}
         </div>
         <Link to="/" className="navLink">
           <Icon iconElement={<GoHome style={{ color: 'black' }} />} />
@@ -37,8 +39,8 @@ const Navigation = ({ logout }: any) => {
         </Link>
       </div>
       <div>
-        {/* <p className={`${application.navMenuIsOpened ? `opened` : `closed`}`}>Hello {user.name}</p> */}
-        <Button onClick={() => logout()} label={login} />
+        <p className={`${menuIsOpened ? `visible` : `invisible`}`}>Logged in as {user.name}</p>
+        <Button type="button" onClick={() => logout()} label={login} />
       </div>
     </nav>
   )

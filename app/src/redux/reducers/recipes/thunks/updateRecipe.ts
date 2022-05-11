@@ -39,8 +39,7 @@ const updateRecipeThunk = createAsyncThunk(
   'recipes/updateRecipe',
   async (data: Recipe, state: any) => {
     const user = state.getState()?.userSlice?.data?.user
-    const response = await updateRecipeAPI({ ...data, authorId: user.sub }, user.token)
-    return response
+    return await updateRecipeAPI({ ...data, authorId: user.sub }, user.token)
   },
 )
 

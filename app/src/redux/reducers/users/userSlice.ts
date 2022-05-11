@@ -1,22 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
+import User from '../../../types/User'
+import UserState from '../../../types/UserState'
 
 import { initiateAuth0Thunk } from './thunks/userAuthentication'
 
 const initialState = {
   data: {
-    users: [
-      {
-        name: 'Firstname lastname',
-        username: 'user',
-        password: 'password',
-      },
-      {
-        name: 'Firstname lastname',
-        username: 'leet',
-        password: '1337',
-      },
-    ],
-    user: {},
+    user: {
+      name: 'test',
+    } as User,
   },
 }
 
@@ -26,10 +18,10 @@ export const userSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    storeToken: (state: any, action) => {
+    storeToken: (state: UserState, action) => {
       state.data.user.token = action.payload
     },
-    storeUser: (state: any, action) => {
+    storeUser: (state: UserState, action) => {
       const user = { token: state.data.user.token, ...action.payload }
       state.data.user = user
     },
@@ -52,7 +44,4 @@ export const userSlice = createSlice({
 })
 
 export const { storeToken, storeUser } = userSlice.actions
-
-export const selectUsers = (state: any) => state.users.data
-
 export default userSlice.reducer
