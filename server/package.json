@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@prisma/client": "^3.8.0",
+    "@prisma/client": "^3.14.0",
     "dotenv": "^10.0.0",
     "eslint-config-airbnb": "^19.0.2",
     "fastify": "^3.25.0",
@@ -24,7 +24,8 @@
     "watch": "NODE_ENV=dev ts-node-dev --files --respawn --exit-child index.ts",
     "lint": "eslint --ext .ts .",
     "lint-and-fix": "eslint . --ext .ts --fix",
-    "prettier-format": "prettier --config .prettierrc.json '*.ts' --write"
+    "prettier-format": "prettier --config .prettierrc.json '*.ts' --write",
+    "migrate-dev": "npx prisma generate && npx prisma migrate dev --name init"
   },
   "devDependencies": {
     "@types/node": "^17.0.1",

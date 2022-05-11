@@ -17,7 +17,6 @@ const createRecipe = async (
         course,
       },
     })
-    console.log(recipe)
 
     return recipe
   } catch (error) {
@@ -141,11 +140,11 @@ const saveImage = async (image: Image): Promise<Image | false> => {
     ...(image.width && { width: image.width }),
     ...(image.height && { height: image.height }),
     ...(image.recipeId && { recipeId: image.recipeId }),
+    cloudinaryId: image.cloudinaryId,
   }
-  // if (!id) return false;
   try {
     const dbImage = await prisma.image.upsert({
-      where: { id: image.id },
+      where: { cloudinaryId: image.cloudinaryId },
       update: {
         ...(image.position && { position: image.position }),
         ...(image.url && { url: image.url }),
