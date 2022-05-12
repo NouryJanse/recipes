@@ -1,18 +1,27 @@
-import React from 'react'
-
 import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import Button from './index'
 
 export default {
-  title: 'Button',
+  label: 'Button',
   component: Button,
+  onClick: () => {
+    console.log('test')
+  },
 } as ComponentMeta<typeof Button>
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />
 
-export const Primary = Template.bind({})
+const generalArgs = { label: 'Button', buttonStyle: 'primary' }
 
+export const Primary = Template.bind({})
 Primary.args = {
-  label: 'Button',
+  ...generalArgs,
+  buttonStyle: 'primary',
+}
+
+export const Secondary = Template.bind({})
+Secondary.args = {
+  ...generalArgs,
+  buttonStyle: 'secondary',
 }

@@ -10,7 +10,7 @@ const Button = ({
   buttonStyle = 'primary',
 }: {
   type: 'submit' | 'reset' | 'button'
-  onClick?: any
+  onClick?: () => void
   disabled?: boolean
   label?: string | JSX.Element
   classes?: string
