@@ -1,8 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import Home from '.'
+import { renderWithStore } from '../../helpers/testHelper'
 
-test('renders learn react link', () => {
-  render(<Home />)
-  const linkElement = screen.getByText(/learn react/i)
-  expect(linkElement).toBeInTheDocument()
+const setup = () => renderWithStore(<Home />)
+
+it('renders the nav bar', () => {
+  setup()
+  const Navigation = screen.getByTestId('Navigation')
+  expect(Navigation).toBeInTheDocument
 })

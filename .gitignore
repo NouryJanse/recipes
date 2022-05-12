@@ -8,7 +8,8 @@ server/node_modules
 .pnp.js
 
 # testing
-/coverage
+app/coverage
+server/coverage
 
 # production
 app/build
