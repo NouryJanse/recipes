@@ -10,7 +10,7 @@ interface TextFieldProps {
   defaultValue?: string
   register: Function
   validation: string | object
-  errors: string | boolean | HTMLElement
+  errors: string | boolean
 }
 
 const Textfield = ({

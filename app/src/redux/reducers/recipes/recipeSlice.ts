@@ -8,7 +8,7 @@ import RecipeState from '../../../types/RecipeState'
 import Recipe from '../../../types/Recipe'
 import REDUX_STATE from '../../../constants/REDUX_STATE'
 
-const initialState = {
+export const initialState = {
   data: { recipes: [] as Recipe[], recipe: {} },
   status: {
     getRecipe: 'initial',

@@ -1,7 +1,8 @@
+import { ReactNode } from 'react'
 import { StyledErrorMessage } from './styled'
 
 interface ErrorMessageType {
-  message?: any
+  message?: ReactNode | string | boolean
 }
 
 const ErrorMessage = ({ message }: ErrorMessageType) => {

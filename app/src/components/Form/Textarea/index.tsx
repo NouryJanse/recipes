@@ -8,7 +8,7 @@ interface TextAreaProps {
   name: string
   register: Function
   validation: string | object
-  errors: string | boolean | HTMLElement
+  errors: string | boolean
 }
 
 const TextArea = ({

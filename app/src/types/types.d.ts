@@ -1,9 +1,9 @@
-export default interface Recipe {
+interface Recipe {
   id: number
   name?: string
   description?: string
   authorId: string
   course?: string
-  createdAt?: string
-  updatedAt?: string
+  createdAt?: Date
+  updatedAt?: Date
 }

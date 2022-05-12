@@ -5,19 +5,23 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { Button } from '../../index'
 import { formatNLDateTime } from '../../../helpers/DateHelper'
 import RootState from '../../../types/RootState'
+import { useEffect, useState } from 'react'
 
-const Recipe = (data: any) => {
-  let recipe = data.recipe
+const RecipeDetail = () => {
+  const [recipe, setRecipe] = useState<Recipe>({} as Recipe)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   let params = useParams()
   const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
 
-  if (params.recipeId !== undefined) {
-    recipe = recipes.find((recipe) => {
-      return recipe.id === Number.parseInt(params.recipeId!)
-    })
-  }
+  useEffect(() => {
+    if (params.recipeId !== undefined) {
+      let localRecipe = recipes.find((recipe) => {
+        return recipe.id === Number.parseInt(params.recipeId!)
+      })
+      if (localRecipe) setRecipe(localRecipe as Recipe)
+    }
+  }, [params.recipeId])
 
   const onDelete = async (recipeId: number) => {
     if (!recipeId) return
@@ -31,8 +35,8 @@ const Recipe = (data: any) => {
   return (
     <RecipeContainer>
       <h2>{recipe.name}</h2>
-      <p>Last updated: {formatNLDateTime(recipe.updatedAt)}</p>
-      <p>Created at: {formatNLDateTime(recipe.createdAt)}</p>
+      {recipe.updatedAt && <p>Last updated: {formatNLDateTime(recipe.updatedAt)}</p>}
+      {recipe.createdAt && <p>Created at: {formatNLDateTime(recipe.createdAt)}</p>}
       {recipe.description && <p>{recipe.description}</p>}
       <i>{recipe.course}</i>
       <Link to={`/recipes/${recipe.id}/edit`}>Edit</Link>
@@ -42,4 +46,4 @@ const Recipe = (data: any) => {
   )
 }
 
-export default Recipe
+export default RecipeDetail

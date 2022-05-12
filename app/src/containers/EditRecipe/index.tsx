@@ -100,7 +100,7 @@ const EditRecipe = (data: any) => {
       debouncedSubmit(data, recipe)
     })
     return () => subscription.unsubscribe()
-  }, [watch, recipe])
+  }, [watch, recipe, debouncedSubmit])
 
   const pushSelectedImage = (image: ImageData) => {
     setImageViewList((prevState: ImageData[]) => [...prevState, image])

@@ -10,6 +10,10 @@ interface Auth0 {
   isLoading: boolean
 }
 
+interface Error {
+  error: string
+}
+
 class Auth0 {
   constructor(redirectURI = '', scope = '') {
     this.redirect_uri = redirectURI
@@ -103,10 +107,11 @@ class Auth0 {
       })
       this.toggleIsloading(false)
       return this.token
-    } catch (error: any) {
-      if (error?.error !== 'login_required') {
-        console.error(error)
-        throw new Error(error)
+    } catch (error) {
+      const TypedError = error as Error
+      if (TypedError?.error !== 'login_required') {
+        console.error(TypedError.error)
+        throw new Error(TypedError.error)
       } else {
         this.error = 'login_required'
       }

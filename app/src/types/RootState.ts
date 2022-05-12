@@ -4,6 +4,6 @@ import UserState from './UserState'
 
 export default interface RootState {
   recipeSlice: RecipeState
-  applicationSlice: ApplicationState
   userSlice: UserState
+  applicationSlice: ApplicationState
 }

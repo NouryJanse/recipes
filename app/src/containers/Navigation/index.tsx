@@ -14,7 +14,7 @@ const Navigation = ({ logout }: any) => {
   let login = menuIsOpened ? `Log out` : <MdLogout />
 
   return (
-    <nav className={`${menuIsOpened ? `opened` : `closed`}`}>
+    <nav className={`${menuIsOpened ? `opened` : `closed`}`} data-testid="Navigation">
       <div>
         <div
           className="logo"

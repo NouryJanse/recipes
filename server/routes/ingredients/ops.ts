@@ -1,5 +1,5 @@
 import { Ingredient, PrismaClient } from '@prisma/client'
-import { FastifyReply } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import NodeCache from 'node-cache'
 
 const prisma = new PrismaClient()
@@ -24,7 +24,10 @@ const createIngredient = async (name: string): Promise<Ingredient | false> => {
   }
 }
 
-const createIngredientOps = async (request: any, reply: FastifyReply): Promise<FastifyReply> => {
+const createIngredientOps = async (
+  request: FastifyRequest<{ Body: RecipeBody; Params: RecipeParams }>,
+  reply: FastifyReply,
+): Promise<FastifyReply> => {
   const user = request.user
   const recipe = await createIngredient(request.body.name)
   if (recipe) {

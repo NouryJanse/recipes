@@ -5,7 +5,10 @@ import { Image } from '@prisma/client'
 
 const cache = new NodeCache({ stdTTL: 15 })
 
-const createRecipeOps = async (request: any, reply: FastifyReply): Promise<FastifyReply> => {
+const createRecipeOps = async (
+  request: FastifyRequest<{ Body: RecipeBody }>,
+  reply: FastifyReply,
+): Promise<FastifyReply> => {
   try {
     const user = request.user
     const recipe = await createRecipe(
@@ -24,7 +27,10 @@ const createRecipeOps = async (request: any, reply: FastifyReply): Promise<Fasti
   }
 }
 
-const getRecipesOps = async (_request: FastifyRequest, reply: FastifyReply) => {
+const getRecipesOps = async (
+  _request: FastifyRequest<{ Body: RecipeBody }>,
+  reply: FastifyReply,
+) => {
   if (cache.has('recipes')) {
     return cache.get('recipes')
   }
@@ -33,11 +39,17 @@ const getRecipesOps = async (_request: FastifyRequest, reply: FastifyReply) => {
   return reply.code(200).send({ recipes })
 }
 
-const getRecipeOps = async (_request: any, reply: FastifyReply) => {
+const getRecipeOps = async (
+  _request: FastifyRequest<{ Body: RecipeBody }>,
+  reply: FastifyReply,
+) => {
   return reply.code(201).send({ title: 'frieten' })
 }
 
-const updateRecipeOps = async (request: any, reply: FastifyReply): Promise<FastifyReply> => {
+const updateRecipeOps = async (
+  request: FastifyRequest<{ Body: RecipeBody; Params: RecipeParams }>,
+  reply: FastifyReply,
+): Promise<FastifyReply> => {
   if (request?.body?.images?.length > 0) {
     const promises = request.body.images.map((image: Image) => {
       image.recipeId = +request.params.id
@@ -62,7 +74,10 @@ const updateRecipeOps = async (request: any, reply: FastifyReply): Promise<Fasti
   return reply.code(201).send()
 }
 
-const deleteRecipeOps = async (request: any, reply: FastifyReply) => {
+const deleteRecipeOps = async (
+  request: FastifyRequest<{ Body: RecipeBody; Params: RecipeParams }>,
+  reply: FastifyReply,
+) => {
   try {
     const res = await deleteRecipe(Number.parseInt(request.params.id))
     const recipes = await getRecipes()

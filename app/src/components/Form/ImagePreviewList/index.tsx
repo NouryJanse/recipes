@@ -3,7 +3,7 @@ import { Button } from '../../'
 
 interface ImagePreviewListProps {
   images: ImageData[] | undefined
-  callbackUploadImages: (image: any) => Promise<any>
+  callbackUploadImages: (image: ImageData) => Promise<any>
 }
 
 const ImagePreviewList = ({ images, callbackUploadImages }: ImagePreviewListProps) => {

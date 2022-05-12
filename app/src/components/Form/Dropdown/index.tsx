@@ -1,3 +1,4 @@
+import { Option } from '../../../types/Option'
 import ErrorMessage from '../../Generic/ErrorMessage'
 import { StyledDropdown, StyledOption, StyledLabel } from './styled'
 
@@ -7,8 +8,8 @@ interface DropdownProps {
   disabled: boolean
   register: Function
   validation: string | object
-  errors: string | boolean | HTMLElement
-  options: {}[]
+  errors: string | boolean
+  options: Option[]
   defaultValue: string
   onChange?: (changedValue: string) => void
 }
@@ -34,7 +35,7 @@ const Dropdown = ({
           disabled={disabled}
           defaultValue={defaultValue}
         >
-          {options.map((option: any, i: number) => {
+          {options.map((option: Option, i: number) => {
             return (
               <StyledOption key={i} value={option.value} disabled={option.disabled}>
                 {option.text}

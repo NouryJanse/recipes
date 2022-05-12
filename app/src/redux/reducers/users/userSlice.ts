@@ -4,10 +4,10 @@ import UserState from '../../../types/UserState'
 
 import { initiateAuth0Thunk } from './thunks/userAuthentication'
 
-const initialState = {
+export const initialState = {
   data: {
     user: {
-      name: 'test',
+      name: 'initial',
     } as User,
   },
 }
@@ -15,7 +15,7 @@ const initialState = {
 export const initAuth0 = initiateAuth0Thunk
 
 export const userSlice = createSlice({
-  name: 'users',
+  name: 'userSlice',
   initialState,
   reducers: {
     storeToken: (state: UserState, action) => {

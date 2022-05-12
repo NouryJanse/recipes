@@ -18,14 +18,13 @@
   },
   "scripts": {
     "prod": "yarn build && node ./dist/index.js",
-    "prisma-update": "npx prisma generate && npx prisma migrate dev --name init",
     "build": "rm -rf dist && tsc",
     "check": "tsc --noemit",
     "watch": "NODE_ENV=dev ts-node-dev --files --respawn --exit-child index.ts",
     "lint": "eslint --ext .ts .",
     "lint-and-fix": "eslint . --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc.json '*.ts' --write",
-    "migrate-dev": "npx prisma generate && npx prisma migrate dev --name init"
+    "prisma-update": "npx prisma generate && npx prisma migrate dev --name init"
   },
   "devDependencies": {
     "@types/node": "^17.0.1",

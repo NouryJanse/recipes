@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import ApplicationState from '../../../types/ApplicationState'
 
-const initialState = {
+export const initialState = {
   data: { navMenuIsOpened: false },
   status: {
     state: 'initial',
@@ -9,7 +9,7 @@ const initialState = {
 }
 
 export const applicationSlice = createSlice({
-  name: 'application',
+  name: 'applicationSlice',
   initialState,
   reducers: {
     toggleNav: (state) => {

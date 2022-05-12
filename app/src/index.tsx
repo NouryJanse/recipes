@@ -6,6 +6,7 @@ import { GlobalStyle } from './styles/globalStyle'
 import Fonts from './styles/fonts/'
 import App from './App'
 import Auth0 from './Auth0'
+// import { StrictMode } from 'react'
 
 const redirectURI: string = process.env.REACT_APP_AUTH0_REDIRECT_URI as string
 const domain: string = process.env.REACT_APP_AUTH0_DOMAIN as string
@@ -15,7 +16,7 @@ const scope: string = process.env.REACT_APP_AUTH0_SCOPE as string
 
 const container = document.getElementById('root')
 if (container) {
-  const root = createRoot(container)
+  const root = createRoot(container!)
 
   const auth0 = new Auth0(redirectURI, scope)
   auth0
@@ -27,7 +28,8 @@ if (container) {
     })
     .then(() => {
       root.render(
-        // <React.StrictMode> -- commented because of React DnD component not being allowed
+        // -- commented because of React DnD component not being allowed
+        // <StrictMode>
         <Provider store={store}>
           <BrowserRouter>
             <GlobalStyle />
@@ -35,7 +37,7 @@ if (container) {
             <App auth0={auth0} />
           </BrowserRouter>
         </Provider>,
-        // </React.StrictMode>,
+        // </StrictMode>,
       )
     })
 }
