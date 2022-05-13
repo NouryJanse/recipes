@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit'
 import { getRecipeThunk } from './thunks/getRecipe'
 import { getRecipesThunk } from './thunks/getRecipes'
 import { createRecipeThunk } from './thunks/createRecipe'
+import { createRecipeImageThunk } from './thunks/createRecipeImage'
 import { updateRecipeThunk } from './thunks/updateRecipe'
 import { deleteRecipeThunk } from './thunks/deleteRecipe'
 import RecipeState from '../../../types/RecipeState'
-import Recipe from '../../../types/Recipe'
-import REDUX_STATE from '../../../constants/REDUX_STATE'
+import { REDUX_STATE } from '../../../constants/'
 
 export const initialState = {
   data: { recipes: [] as Recipe[], recipe: {} },
@@ -14,6 +14,7 @@ export const initialState = {
     getRecipe: 'initial',
     getRecipes: 'initial',
     createRecipe: 'initial',
+    createRecipeImage: 'initial',
     updateRecipe: 'initial',
     deleteRecipe: 'initial',
   },
@@ -23,6 +24,7 @@ export const initialState = {
 export const getRecipe = getRecipeThunk
 export const getRecipes = getRecipesThunk
 export const createRecipe = createRecipeThunk
+export const createRecipeImage = createRecipeImageThunk
 export const updateRecipe = updateRecipeThunk
 export const deleteRecipe = deleteRecipeThunk
 
@@ -85,6 +87,31 @@ export const recipeSlice = createSlice({
         state.data.recipes = newRecipes
       }
       state.status.updateRecipe = REDUX_STATE.FULFILLED
+      state.error = {}
+    })
+
+    builder.addCase(createRecipeImage.pending, (state, _action) => {
+      state.status.updateRecipe = REDUX_STATE.LOADING
+      state.error = {}
+    })
+    builder.addCase(createRecipeImage.rejected, (state, _action) => {
+      state.status.createRecipeImage = REDUX_STATE.REJECTED
+      console.error('An error occurred')
+      state.error = {}
+    })
+    builder.addCase(createRecipeImage.fulfilled, (state, action) => {
+      const recipes: Recipe[] = state.data.recipes.map((recipe: Recipe) => {
+        if (recipe.id === action.payload.recipeId) {
+          return {
+            ...recipe,
+            images: recipe?.images?.length ? [...recipe.images, action.payload] : [action.payload],
+          }
+        } else {
+          return recipe
+        }
+      })
+      state.data.recipes = recipes
+      state.status.createRecipeImage = REDUX_STATE.FULFILLED
       state.error = {}
     })
 

@@ -50,16 +50,6 @@ const updateRecipeOps = async (
   request: FastifyRequest<{ Body: RecipeBody; Params: RecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
-  if (request?.body?.images?.length > 0) {
-    const promises = request.body.images.map((image: Image) => {
-      image.recipeId = +request.params.id
-      return saveImage(image)
-    })
-    Promise.all(promises).then((result) => {
-      return result
-    })
-  }
-
   const recipe = await updateRecipe(
     Number.parseInt(request.params.id),
     request.body.name,
@@ -72,6 +62,20 @@ const updateRecipeOps = async (
     return reply.code(201).send(recipe)
   }
   return reply.code(201).send()
+}
+
+const createRecipeImageOps = async (
+  request: FastifyRequest<{ Body: CloudinaryImage; Params: RecipeParams }>,
+  reply: FastifyReply,
+): Promise<FastifyReply> => {
+  const recipeId = +request.params.id
+  if (request?.body?.asset_id) {
+    const image: Image | false = await saveImage(request.body, recipeId)
+    if (typeof image) {
+      return reply.code(201).send(image)
+    }
+  }
+  return reply.code(500).send()
 }
 
 const deleteRecipeOps = async (
@@ -94,5 +98,6 @@ export default {
   getRecipesOps,
   getRecipeOps,
   updateRecipeOps,
+  createRecipeImageOps,
   deleteRecipeOps,
 }

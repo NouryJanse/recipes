@@ -134,24 +134,23 @@ const deleteRecipe = async (id: number): Promise<boolean> => {
   }
 }
 
-const saveImage = async (image: Image): Promise<Image | false> => {
-  const data = {
-    url: image.url,
-    ...(image.width && { width: image.width }),
-    ...(image.height && { height: image.height }),
-    ...(image.recipeId && { recipeId: image.recipeId }),
-    cloudinaryId: image.cloudinaryId,
-  }
+const saveImage = async (image: CloudinaryImage, recipeId: number): Promise<Image | false> => {
   try {
-    const dbImage = await prisma.image.upsert({
-      where: { cloudinaryId: image.cloudinaryId },
+    const dbImage: Image = await prisma.image.upsert({
+      where: { cloudinaryId: image.asset_id },
       update: {
         ...(image.position && { position: image.position }),
         ...(image.url && { url: image.url }),
         ...(image.width && { width: image.width }),
         ...(image.height && { height: image.height }),
       },
-      create: data,
+      create: {
+        url: image.url,
+        ...(image.width && { width: image.width }),
+        ...(image.height && { height: image.height }),
+        cloudinaryId: image.asset_id,
+        recipeId,
+      },
     })
 
     return dbImage
