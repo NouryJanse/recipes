@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { updateRecipe } from '../../redux/reducers/recipes/recipeSlice'
+import { updateRecipe, createRecipeImage } from '../../redux/reducers/recipes/recipeSlice'
 import { uploadImageService } from '../../redux/reducers/recipes/services'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
@@ -21,44 +21,42 @@ import RootState from '../../types/RootState'
 import styled from 'styled-components'
 import isLoading from '../../helpers/LoadingHelper'
 import { Option } from '../../types/Option'
-import RECIPE_COURSE_OPTIONS from '../../constants/RECIPE_COURSE_OPTIONS'
-import Recipe from '../../types/Recipe'
-import { Image } from '../../types/Image'
+import { RECIPE_COURSE_OPTIONS } from '../../constants/'
 import { ImageData } from '../../types/ImageData'
 import { debounce } from 'ts-debounce'
+import { Image } from '../../types/Image'
 
 const EditRecipeContainer = styled.div`
   margin-bottom: 32px;
 `
 
-const EditRecipe = (data: any) => {
+const EditRecipe = () => {
+  const dispatch = useDispatch()
+  const params = useParams()
+  const formRef = useRef()
+
   const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
   const status = useSelector((state: RootState) => state.recipeSlice.status)
-  const dispatch = useDispatch()
+
   const [initialRecipeLoad, setInitialRecipeLoad] = useState(false)
-  const [recipe, setRecipe] = useState(data.recipe)
   const [id, setId] = useState<string | undefined>('')
+  const [recipe, setRecipe] = useState<Recipe>()
   const [imagePreviewList, setImageViewList] = useState<ImageData[]>([])
-  const [imageSortableList, setImageSortableList] = useState<ImageData[]>([])
-  const params = useParams()
-  const hasURLParams = useRef(false)
-  const formRef = useRef()
+  const [imageSortableList, setImageSortableList] = useState<Image[]>([])
   const [btnClasses, setBtnClasses] = useState('')
+
+  const hasURLParams = useRef(false)
 
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isDirty,
-      // isValid
-    },
+    formState: { errors, isDirty },
     watch,
     setValue,
   } = useForm()
 
-  const onSave = async (data: any) => {
-    dispatchEdit(data, recipe)
+  const onSave = async (data: RecipeFormProps) => {
+    if (recipe) dispatchEdit(data, recipe)
   }
 
   const dispatchEdit = async (data: any, recipe: Recipe) => {
@@ -69,6 +67,7 @@ const EditRecipe = (data: any) => {
 
   useEffect(() => {
     if (isDirty) setBtnClasses('font-bold')
+
     if (hasURLParams.current === false || !recipe || !id) {
       if (!typeof params.recipeId !== undefined) {
         setId(params.recipeId)
@@ -83,7 +82,7 @@ const EditRecipe = (data: any) => {
       }
     }
 
-    if (recipe?.images?.length > 0 && !initialRecipeLoad) {
+    if (recipe && recipe.images && !initialRecipeLoad) {
       setImageSortableList(recipe?.images ? recipe.images : [])
       setInitialRecipeLoad(true)
     }
@@ -107,27 +106,15 @@ const EditRecipe = (data: any) => {
   }
 
   const handleImageUpload = async (image: ImageData) => {
-    const res = await uploadImageService(image)
-
-    if (res.url) {
+    const uploadedImage: CloudinaryImage = await uploadImageService(image)
+    // @ts-ignore:next-line
+    await dispatch(createRecipeImage({ ...uploadedImage, recipeId: recipe.id }))
+    if (uploadedImage.url) {
       setImageViewList((prevState: ImageData[]) => [
         ...prevState.filter((currentImage) => currentImage.data !== image.data),
       ])
-
-      const uploadedImage: ImageData = {
-        name: res.public_id,
-        url: res.url,
-        width: res.width,
-        height: res.height,
-        cloudinaryId: res.asset_id,
-      }
-      setImageSortableList((prevState: ImageData[]) =>
-        [...prevState, uploadedImage].map((value, index) => {
-          return { ...value, id: index }
-        }),
-      )
-      setValue('images', [...imageSortableList, uploadedImage])
-      handleSubmit(onSave)()
+      setInitialRecipeLoad(false)
+      setImageSortableList(recipe?.images ? recipe.images : [])
     } else {
       throw new Error('An error occurred, the recipe was not edited.')
     }
@@ -137,7 +124,7 @@ const EditRecipe = (data: any) => {
     setImageSortableList(images)
     setValue(
       'images',
-      images.map((image: Image, index: number) => {
+      images.map((image: ImageData, index: number) => {
         return {
           ...image,
           position: index + 1,
@@ -165,7 +152,8 @@ const EditRecipe = (data: any) => {
       <form onSubmit={handleSubmit(onSave)} {...formRef}>
         <div className="flex">
           <h2 className="font-bold">
-            Editing {recipe.name} - {courseName(recipe.course, RECIPE_COURSE_OPTIONS)}
+            Editing {recipe.name} -{' '}
+            {courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}
           </h2>
           <div>{isLoading(status) && <Loader size={28} speed={2} />}</div>
         </div>
@@ -203,7 +191,7 @@ const EditRecipe = (data: any) => {
           <Dropdown
             name="course"
             label="Course*"
-            defaultValue={recipe.course}
+            defaultValue={recipe.course ? recipe.course : ''}
             disabled={false}
             validation={{
               required: 'Did you forget to fill in the course of your recipe?',

@@ -7,13 +7,13 @@ import EditRecipe from '../EditRecipe/'
 import { RecipeDetail } from '../../components'
 import RootState from '../../types/RootState'
 
-const Home = ({ logout }: any) => {
+const Home = ({ logout }: { logout: () => void }) => {
   const application = useSelector((state: RootState) => state.applicationSlice.data)
   const user = useSelector((state: RootState) => state.userSlice.data.user)
 
   return (
     <div className="rootContainer">
-      <Navigation user={user} logout={logout} />
+      <Navigation logout={logout} />
 
       <div className={`container content ${application.navMenuIsOpened ? `opened` : `closed`}`}>
         <div className="row">

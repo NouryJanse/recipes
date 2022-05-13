@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toggleNav } from '../../redux/reducers/application/applicationSlice'
 import RootState from '../../types/RootState'
 
-const Navigation = ({ logout }: any) => {
+const Navigation = ({ logout }: { logout: () => void }) => {
   const dispatch = useDispatch()
   const application = useSelector((state: RootState) => state.applicationSlice.data)
   const user = useSelector((state: RootState) => state.userSlice.data.user)

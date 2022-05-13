@@ -1,12 +1,12 @@
-import Home from './containers/Home'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import Home from './containers/Home'
 
 import { Button } from './components'
 import { storeToken, storeUser } from './redux/reducers/users/userSlice'
-import { useEffect } from 'react'
 import RootState from './types/RootState'
 
-function App({ auth0 }: any) {
+function App({ auth0 }: { auth0: any }) {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.userSlice.data.user)
 
@@ -20,15 +20,11 @@ function App({ auth0 }: any) {
   }, [auth0, auth0.isAuthenticated, auth0.user, auth0.isLoading, dispatch])
 
   const loginUser = async () => {
-    const user = await auth0.login()
-    dispatch(storeUser(user))
+    const auth0User = await auth0.login()
+    dispatch(storeUser(auth0User))
   }
 
-  const loginButton = (
-    <div>
-      <Button type="button" onClick={() => loginUser()} label="Login" />
-    </div>
-  )
+  const loginButton = <Button type="button" onClick={() => loginUser()} label="Login" />
 
   if (auth0.error) {
     if (auth0.error === 'login_required') {
@@ -44,15 +40,10 @@ function App({ auth0 }: any) {
     return <div>Loading...</div>
   }
 
-  if (user && Object.keys(user).length) {
-    return (
-      <>
-        <Home logout={auth0.logout} />
-      </>
-    )
-  } else {
-    return <div>{loginButton}</div>
+  if (user.token !== undefined) {
+    return <Home logout={auth0.logout} />
   }
+  return <div>{loginButton}</div>
 }
 
 export default App

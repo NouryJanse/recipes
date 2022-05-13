@@ -1,5 +1,5 @@
-export function readAsDataURLViaPromise(file: File) {
-  if (!file.size) return false
+export const readAsDataURLViaPromise = (file: File): Promise<{} | boolean> => {
+  if (!file.size) return new Promise(() => false)
 
   return new Promise((resolve, _reject) => {
     let fileReader = new FileReader()

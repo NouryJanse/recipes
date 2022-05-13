@@ -3,20 +3,23 @@ import { useDropzone } from 'react-dropzone'
 import { StyledLabel } from './styled'
 import { readAsDataURLViaPromise } from '../../../helpers/FileSystemHelper'
 import classNames from 'classnames'
+import { ImageData } from '../../../types/ImageData'
 
 interface ImagePickerProps {
   name: string
   label: string
-  register: any
-  validation?: any
-  onSelectedImageCallback: any
+  register: Function
+  validation?: string | object
+  onSelectedImageCallback: (image: ImageData) => void
 }
 
 const ImagePicker = ({ name, label, register, onSelectedImageCallback }: ImagePickerProps) => {
   const onDrop = useCallback(
-    async (acceptedFiles: any) => {
+    async (acceptedFiles: File[]) => {
       const file = await readAsDataURLViaPromise(acceptedFiles[0])
-      onSelectedImageCallback(file)
+      if (file && typeof file === 'object') {
+        onSelectedImageCallback(file as ImageData)
+      }
     },
     [onSelectedImageCallback],
   )

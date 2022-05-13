@@ -4,6 +4,45 @@ interface Recipe {
   description?: string
   authorId: string
   course?: string
-  createdAt?: Date
-  updatedAt?: Date
+  createdAt?: string
+  updatedAt?: string
+  images?: Image[]
+}
+
+interface CloudinaryImage {
+  access_mode: string
+  asset_id: string
+  bytes: number
+  created_at: Date
+  etag: string
+  folder: string
+  format: string
+  height: number
+  pages: number
+  placeholder: boolean
+  public_id: string
+  resource_type: string
+  tags: []
+  type: string
+  url: string
+  version: number
+  version_id: string
+  width: number
+}
+
+interface RecipeFormProps {}
+
+interface Auth0Interface {
+  redirect_uri?: string
+  scope?: string
+  token?: string
+  auth0Client?: Auth0Client
+  user?: object
+  error?: string
+  isLoading?: boolean
+  isAuthenticated?: boolean
+}
+
+interface Error {
+  error: string
 }

@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import Recipe from '../../../../types/Recipe'
 
 async function createRecipeAPI(recipe: Recipe, token: string) {
   const response = await axios.post(

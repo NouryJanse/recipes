@@ -21,7 +21,7 @@ const RecipeDetail = () => {
       })
       if (localRecipe) setRecipe(localRecipe as Recipe)
     }
-  }, [params.recipeId])
+  }, [params.recipeId, recipes])
 
   const onDelete = async (recipeId: number) => {
     if (!recipeId) return

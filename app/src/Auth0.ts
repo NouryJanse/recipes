@@ -1,20 +1,15 @@
 import createAuth0Client, { Auth0Client } from '@auth0/auth0-spa-js'
 
-interface Auth0 {
-  redirect_uri: string
-  scope: string
+class Auth0 implements Auth0Interface {
+  redirect_uri?: string
+  scope?: string
   token?: string
   auth0Client?: Auth0Client
   user?: object
   error?: string
-  isLoading: boolean
-}
+  isLoading?: boolean
+  isAuthenticated?: boolean
 
-interface Error {
-  error: string
-}
-
-class Auth0 {
   constructor(redirectURI = '', scope = '') {
     this.redirect_uri = redirectURI
     this.scope = scope
@@ -106,6 +101,7 @@ class Auth0 {
         scope: 'read:current_user',
       })
       this.toggleIsloading(false)
+      this.error = undefined
       return this.token
     } catch (error) {
       const TypedError = error as Error

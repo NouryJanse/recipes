@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Textfield, Button, Textarea, Dropdown, FieldContainer } from '../../components'
 import RootState from '../../types/RootState'
-import REDUX_STATE from '../../constants/REDUX_STATE'
-import RECIPE_COURSE_OPTIONS from '../../constants/RECIPE_COURSE_OPTIONS'
+import { RECIPE_COURSE_OPTIONS, REDUX_STATE } from '../../constants/'
 
 const CreateRecipe = () => {
   const status = useSelector((state: RootState) => state.recipeSlice.status)

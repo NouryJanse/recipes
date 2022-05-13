@@ -1,15 +1,15 @@
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
 import { Image } from '../../../types/Image'
 import Button from '../../Button'
 import ImageComponent from '../../Image'
 
 interface ImageSortableListProps {
-  images: any
+  images: Image[]
   callbackSortedImages: (images: Image[]) => void
 }
 
 const ImageSortableList = ({ images, callbackSortedImages }: ImageSortableListProps) => {
-  const handleOnDragEnd = (result: any) => {
+  const handleOnDragEnd = (result: DropResult) => {
     if (!result.destination) return
     const items: Image[] = Array.from(images)
     const [reorderedItem] = items.splice(result.source.index, 1)
@@ -26,7 +26,7 @@ const ImageSortableList = ({ images, callbackSortedImages }: ImageSortableListPr
             <Droppable droppableId="images">
               {(provided) => (
                 <ul className="images" {...provided.droppableProps} ref={provided.innerRef}>
-                  {images.map(({ id, url }: any, index: any) => {
+                  {images.map(({ id, url }: { id: number; url: string }, index: number) => {
                     return (
                       <Draggable key={id} draggableId={id.toString()} index={index}>
                         {(provided) => (

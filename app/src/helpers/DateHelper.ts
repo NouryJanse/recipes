@@ -14,25 +14,25 @@ export const getDateTime = () => {
   return dayjs().tz().format(longFormat)
 }
 
-export const formatDateTime = (date: Date) => {
+export const formatDateTime = (date: string) => {
   if (date) {
     return dayjs.tz(date, currentTimeZone).format(longFormat)
   }
   return
 }
 
-export const formatNLDateTime = (date: Date) => {
+export const formatNLDateTime = (date: string): string => {
   if (date) {
     return dayjs(date).tz(currentTimeZone).format(nlFormat)
   }
-  return
+  return ''
 }
 
 export const formatUTCDateTime = (date: Date) => {
   if (date) {
     return dayjs(date).tz(currentTimeZone).format(longFormat)
   }
-  return
+  return ''
 }
 
 export const getTime = () => {

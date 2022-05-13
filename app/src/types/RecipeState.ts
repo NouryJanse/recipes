@@ -1,5 +1,3 @@
-import Recipe from './Recipe'
-
 export default interface RecipeState {
   data: { recipes: Recipe[] }
   status: {
