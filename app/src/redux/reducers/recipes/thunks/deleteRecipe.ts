@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-async function deleteRecipeAPI(data: Recipe, token: string) {
+async function deleteRecipeAPI(data: Recipe, token: string): Promise<Recipe> {
   const response = await axios.delete(`http://localhost:1337/api/recipes/${data.id}`, {
     headers: {
-      Authorization: 'Bearer ' + token,
+      Authorization: `Bearer ${token}`,
     },
     data: {
       name: data.name,
@@ -15,7 +15,7 @@ async function deleteRecipeAPI(data: Recipe, token: string) {
   return response.data
 }
 
-export const deleteRecipeThunk = createAsyncThunk(
+const deleteRecipeThunk = createAsyncThunk(
   'recipes/deleteRecipe',
   async (id: number, state: any) => {
     const user = state.getState()?.userSlice?.data?.user
@@ -23,3 +23,5 @@ export const deleteRecipeThunk = createAsyncThunk(
     return response
   },
 )
+
+export default deleteRecipeThunk

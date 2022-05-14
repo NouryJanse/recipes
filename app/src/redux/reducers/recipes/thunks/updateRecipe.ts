@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+
 interface Image {
   name: string
   data: string
@@ -14,7 +15,7 @@ interface Recipe {
   images: Image[]
 }
 
-const updateRecipeAPI = async (data: Recipe, token: string) => {
+const updateRecipeAPI = async (data: Recipe, token: string): Promise<Recipe | false> => {
   try {
     const requestBody = {
       name: data.name,
@@ -26,12 +27,13 @@ const updateRecipeAPI = async (data: Recipe, token: string) => {
 
     const response = await axios.put(`http://localhost:1337/api/recipes/${data.id}`, requestBody, {
       headers: {
-        Authorization: 'Bearer ' + token,
+        Authorization: `Bearer ${token}`,
       },
     })
     return response.data
   } catch (error) {
     console.error(error)
+    return false
   }
 }
 
@@ -39,8 +41,8 @@ const updateRecipeThunk = createAsyncThunk(
   'recipes/updateRecipe',
   async (data: Recipe, state: any) => {
     const user = state.getState()?.userSlice?.data?.user
-    return await updateRecipeAPI({ ...data, authorId: user.sub }, user.token)
+    return updateRecipeAPI({ ...data, authorId: user.sub }, user.token)
   },
 )
 
-export { updateRecipeThunk }
+export default updateRecipeThunk

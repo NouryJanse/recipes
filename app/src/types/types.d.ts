@@ -30,7 +30,9 @@ interface CloudinaryImage {
   width: number
 }
 
-interface RecipeFormProps {}
+interface RecipeFormProps {
+  name: string
+}
 
 interface Auth0Interface {
   redirect_uri?: string

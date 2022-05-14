@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import Navigation from '../Navigation'
 import RecipesList from '../RecipesList'
 import CreateRecipe from '../CreateRecipe'
-import EditRecipe from '../EditRecipe/'
+import EditRecipe from '../EditRecipe'
 import { RecipeDetail } from '../../components'
 import RootState from '../../types/RootState'
 
@@ -42,7 +42,7 @@ const Home = ({ logout }: { logout: () => void }) => {
                 <Route path=":recipeId/edit" element={<EditRecipe />} />
               </Route>
 
-              <Route path="*" element={<p>There's nothing here!</p>} />
+              <Route path="*" element={`<p>There's nothing here!</p>`} />
             </Routes>
           </div>
         </div>

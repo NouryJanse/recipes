@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import { updateRecipe, createRecipeImage } from '../../redux/reducers/recipes/recipeSlice'
-import { uploadImageService } from '../../redux/reducers/recipes/services'
+import { useEffect, useState, useRef, ReactElement } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { debounce } from 'ts-debounce'
+import styled from 'styled-components'
+import { updateRecipe, createRecipeImage } from '../../redux/reducers/recipes/recipeSlice'
+import uploadImageService from '../../redux/reducers/recipes/services'
 import {
   Button,
   Textfield,
@@ -15,22 +17,19 @@ import {
   FieldContainer,
   Loader,
 } from '../../components/index'
-import { useState } from 'react'
-import { useRef } from 'react'
+
 import RootState from '../../types/RootState'
-import styled from 'styled-components'
 import isLoading from '../../helpers/LoadingHelper'
 import { Option } from '../../types/Option'
-import { RECIPE_COURSE_OPTIONS } from '../../constants/'
+import { RECIPE_COURSE_OPTIONS } from '../../constants'
 import { ImageData } from '../../types/ImageData'
-import { debounce } from 'ts-debounce'
 import { Image } from '../../types/Image'
 
 const EditRecipeContainer = styled.div`
   margin-bottom: 32px;
 `
 
-const EditRecipe = () => {
+const EditRecipe: React.FC = (): ReactElement => {
   const dispatch = useDispatch()
   const params = useParams()
   const formRef = useRef()
@@ -55,14 +54,14 @@ const EditRecipe = () => {
     setValue,
   } = useForm()
 
-  const onSave = async (data: RecipeFormProps) => {
-    if (recipe) dispatchEdit(data, recipe)
+  const dispatchEdit = async (data: any, editedRecipe: Recipe): Promise<void | false> => {
+    if (!editedRecipe.id || !data.name) return false
+    // @ts-ignore:next-line
+    await dispatch(updateRecipe({ id: editedRecipe.id, ...editedRecipe, ...data }))
   }
 
-  const dispatchEdit = async (data: any, recipe: Recipe) => {
-    if (!recipe.id || !data.name) return false
-    // @ts-ignore:next-line
-    await dispatch(updateRecipe({ id: recipe.id, ...recipe, ...data }))
+  const onSave = async (data: any): Promise<void> => {
+    if (recipe) dispatchEdit(data, recipe)
   }
 
   useEffect(() => {
@@ -76,7 +75,7 @@ const EditRecipe = () => {
       if (id !== undefined && recipes && recipes.length) {
         setRecipe(
           recipes.find((recipe) => {
-            return recipe.id === Number.parseInt(id!)
+            return recipe.id === Number(id!)
           }),
         )
       }
@@ -98,15 +97,16 @@ const EditRecipe = () => {
     const subscription = watch((data) => {
       debouncedSubmit(data, recipe)
     })
-    return () => subscription.unsubscribe()
+    return (): void => subscription.unsubscribe()
   }, [watch, recipe, debouncedSubmit])
 
-  const pushSelectedImage = (image: ImageData) => {
+  const pushSelectedImage = (image: ImageData): void => {
     setImageViewList((prevState: ImageData[]) => [...prevState, image])
   }
 
-  const handleImageUpload = async (image: ImageData) => {
-    const uploadedImage: CloudinaryImage = await uploadImageService(image)
+  const handleImageUpload = async (image: ImageData): Promise<void> => {
+    const uploadedImage: CloudinaryImage | false = await uploadImageService(image)
+    if (!uploadedImage) return
     // @ts-ignore:next-line
     await dispatch(createRecipeImage({ ...uploadedImage, recipeId: recipe.id }))
     if (uploadedImage.url) {
@@ -120,7 +120,7 @@ const EditRecipe = () => {
     }
   }
 
-  const handleSortedImages = (images: Image[]) => {
+  const handleSortedImages = (images: Image[]): void => {
     setImageSortableList(images)
     setValue(
       'images',
@@ -227,7 +227,7 @@ const EditRecipe = () => {
         {params.recipeId && (
           <Link to={`/recipes/${params.recipeId}`}>Back to recipe {recipe.name}</Link>
         )}
-        <Link to={`/recipes`}>Back to recipes</Link>
+        <Link to="/recipes">Back to recipes</Link>
       </form>
     </EditRecipeContainer>
   )

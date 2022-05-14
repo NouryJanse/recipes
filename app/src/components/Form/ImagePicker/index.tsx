@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { StyledLabel } from './styled'
-import { readAsDataURLViaPromise } from '../../../helpers/FileSystemHelper'
+import readAsDataURLViaPromise from '../../../helpers/FileSystemHelper'
 import classNames from 'classnames'
 import { ImageData } from '../../../types/ImageData'
 

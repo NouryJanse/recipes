@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-async function createRecipeAPI(recipe: Recipe, token: string) {
+async function createRecipeAPI(recipe: Recipe, token: string): Promise<Recipe> {
   const response = await axios.post(
     'http://localhost:1337/api/recipes',
     {
@@ -12,14 +12,14 @@ async function createRecipeAPI(recipe: Recipe, token: string) {
     },
     {
       headers: {
-        Authorization: 'Bearer ' + token,
+        Authorization: `Bearer ${token}`,
       },
     },
   )
   return response.data
 }
 
-export const createRecipeThunk = createAsyncThunk(
+const createRecipeThunk = createAsyncThunk(
   'recipes/createRecipe',
   async (data: Recipe, state: any) => {
     const user = state.getState()?.userSlice?.data?.user
@@ -27,3 +27,5 @@ export const createRecipeThunk = createAsyncThunk(
     return response
   },
 )
+
+export default createRecipeThunk

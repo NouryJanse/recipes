@@ -1,7 +1,5 @@
-import { PrismaClient, Recipe } from '@prisma/client'
+import { PrismaClient, Recipe, Image } from '@prisma/client'
 const prisma = new PrismaClient()
-
-import { Image } from '@prisma/client'
 
 const createRecipe = async (
   name: string,

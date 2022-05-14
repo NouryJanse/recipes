@@ -1,13 +1,20 @@
-import createAuth0Client, { Auth0Client } from '@auth0/auth0-spa-js'
+import createAuth0Client, { Auth0Client, User } from '@auth0/auth0-spa-js'
 
 class Auth0 implements Auth0Interface {
   redirect_uri?: string
+
   scope?: string
+
   token?: string
+
   auth0Client?: Auth0Client
-  user?: object
+
+  user?: User | undefined
+
   error?: string
+
   isLoading?: boolean
+
   isAuthenticated?: boolean
 
   constructor(redirectURI = '', scope = '') {
@@ -30,7 +37,7 @@ class Auth0 implements Auth0Interface {
     clientId: string
     audience: string
     scope: string
-  }) => {
+  }): Promise<void> => {
     try {
       this.toggleIsloading(true)
       this.auth0Client = await createAuth0Client({
@@ -44,59 +51,65 @@ class Auth0 implements Auth0Interface {
       await this.getTokenSilently()
       await this.getUser()
       this.toggleIsloading(false)
-      return
     } catch (error) {
       console.error(error)
     }
   }
 
-  login = async () => {
+  login = async (): Promise<User | false | undefined> => {
     try {
       this.toggleIsloading(true)
 
-      if (!this.auth0Client) return
+      if (!this.auth0Client) return false
 
-      const login = await this.auth0Client
+      const login: User | false | undefined = await this.auth0Client
         .loginWithPopup({
           redirect_uri: 'http://localhost:3000/',
         })
         .then(async () => {
-          await this.getTokenSilently()
-          return await this.getUser()
+          // await this.getTokenSilently()
+          this.getTokenSilently()
+          // return await this.getUser()
+          return this.getUser()
         })
+      console.log(login)
 
       this.toggleIsloading(false)
       return login
     } catch (error) {
       console.error(error)
+      return false
     }
   }
 
-  getUser = async () => {
+  getUser = async (): Promise<User | false | undefined> => {
     try {
-      if (!this.auth0Client) return
+      if (!this.auth0Client) return false
       this.user = await this.auth0Client.getUser()
       return this.user
     } catch (error) {
       console.error(error)
+      return false
     }
   }
 
-  logout = async () => {
+  logout = async (): Promise<boolean> => {
     try {
-      if (!this.auth0Client) return
+      if (!this.auth0Client) return false
       await this.auth0Client.logout({
         returnTo: 'http://localhost:3000/',
       })
+      return true
     } catch (error) {
       console.error(error)
+      return false
     }
   }
 
-  getTokenSilently = async () => {
+  getTokenSilently = async (): Promise<string | boolean> => {
     try {
       this.toggleIsloading(true)
-      if (!this.auth0Client) return
+      if (!this.auth0Client) return false
       this.token = await this.auth0Client.getTokenSilently({
         scope: 'read:current_user',
       })
@@ -111,10 +124,11 @@ class Auth0 implements Auth0Interface {
       } else {
         this.error = 'login_required'
       }
+      return false
     }
   }
 
-  toggleIsloading = (state = false) => {
+  toggleIsloading = (state = false): void => {
     this.isLoading = state
   }
 }

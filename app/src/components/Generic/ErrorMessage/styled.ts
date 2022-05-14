@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const StyledErrorMessage = styled.p`
-    color: red;
-    font-style: italic;
+  color: red;
+  font-style: italic;
 `

@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getRecipeThunk } from './thunks/getRecipe'
-import { getRecipesThunk } from './thunks/getRecipes'
-import { createRecipeThunk } from './thunks/createRecipe'
-import { createRecipeImageThunk } from './thunks/createRecipeImage'
-import { updateRecipeThunk } from './thunks/updateRecipe'
-import { deleteRecipeThunk } from './thunks/deleteRecipe'
+import getRecipeThunk from './thunks/getRecipe'
+import getRecipesThunk from './thunks/getRecipes'
+import createRecipeThunk from './thunks/createRecipe'
+import createRecipeImageThunk from './thunks/createRecipeImage'
+import updateRecipeThunk from './thunks/updateRecipe'
+import deleteRecipeThunk from './thunks/deleteRecipe'
 import RecipeState from '../../../types/RecipeState'
 import { REDUX_STATE } from '../../../constants/'
 
@@ -45,9 +45,10 @@ export const recipeSlice = createSlice({
     builder.addCase(getRecipes.fulfilled, (state, action) => {
       state.status.getRecipes = REDUX_STATE.FULFILLED
       if (action !== null && action.payload) {
-        state.data.recipes = action.payload?.recipes?.length
-          ? action.payload.recipes
-          : action.payload
+        // state.data.recipes = action.payload?.recipes?.length
+        //   ? action.payload.recipes
+        //   : action.payload
+        state.data.recipes = action.payload
       }
       state.error = {}
     })
@@ -64,7 +65,8 @@ export const recipeSlice = createSlice({
     builder.addCase(getRecipe.fulfilled, (state, action) => {
       state.status.getRecipe = REDUX_STATE.FULFILLED
       if (action !== null && action.payload) {
-        state.data.recipe = action.payload['recipes']
+        const recipe: Recipe = action.payload
+        state.data.recipe = recipe
       }
       state.error = {}
     })
@@ -80,9 +82,10 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(updateRecipe.fulfilled, (state, action) => {
       const recipes: Recipe[] = state.data.recipes
-      if (action !== null && action.payload) {
+      if (action?.payload) {
+        const updatedRecipe: Recipe = action.payload
         const newRecipes: Recipe[] = recipes.map((recipe: Recipe) => {
-          return recipe.id === action.payload.id ? action.payload : recipe
+          return recipe.id === updatedRecipe.id ? updatedRecipe : recipe
         })
         state.data.recipes = newRecipes
       }

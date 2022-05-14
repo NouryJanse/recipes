@@ -1,8 +1,8 @@
-export const readAsDataURLViaPromise = (file: File): Promise<{} | boolean> => {
+const readAsDataURLViaPromise = (file: File): Promise<{} | boolean> => {
   if (!file.size) return new Promise(() => false)
 
   return new Promise((resolve, _reject) => {
-    let fileReader = new FileReader()
+    const fileReader = new FileReader()
     fileReader.onload = function () {
       return resolve({
         data: fileReader.result,
@@ -14,3 +14,5 @@ export const readAsDataURLViaPromise = (file: File): Promise<{} | boolean> => {
     fileReader.readAsDataURL(file)
   })
 }
+
+export default readAsDataURLViaPromise

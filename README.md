@@ -66,6 +66,11 @@ A consumer high performance website
 - Next consumer
 - Static Render / ISR
 
+### Moving to GraphQL (Future)
+
+- Relay
+- Apollo
+
 ## Storybook
 
 Storybook is a work in progress

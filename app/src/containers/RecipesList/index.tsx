@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getRecipes } from '../../redux/reducers/recipes/recipeSlice'
 import { Outlet, useParams } from 'react-router-dom'
-// import { useInterval } from '../../polling'
+import { getRecipes } from '../../redux/reducers/recipes/recipeSlice'
 import RootState from '../../types/RootState'
 import { RecipeCard } from '../../components'
+// import { useInterval } from '../../polling'
 
 const RecipesList = () => {
   const dispatch = useDispatch()

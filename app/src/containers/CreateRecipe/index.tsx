@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { createRecipe } from '../../redux/reducers/recipes/recipeSlice'
 import { useNavigate } from 'react-router-dom'
+import { createRecipe } from '../../redux/reducers/recipes/recipeSlice'
 
 import { Textfield, Button, Textarea, Dropdown, FieldContainer } from '../../components'
 import RootState from '../../types/RootState'
-import { RECIPE_COURSE_OPTIONS, REDUX_STATE } from '../../constants/'
+import { RECIPE_COURSE_OPTIONS, REDUX_STATE } from '../../constants'
 
 const CreateRecipe = () => {
   const status = useSelector((state: RootState) => state.recipeSlice.status)
@@ -19,7 +19,7 @@ const CreateRecipe = () => {
     setValue,
   } = useForm()
 
-  const onSubmit = async (data: object) => {
+  const onSubmit = async (data: object): Promise<void> => {
     // @ts-ignore:next-line
     const response = await dispatch(createRecipe(data))
     if (status.createRecipe === REDUX_STATE.FULFILLED) {
@@ -71,9 +71,9 @@ const CreateRecipe = () => {
         <Dropdown
           name="course"
           label="Course*"
-          defaultValue={''}
+          defaultValue=""
           disabled={false}
-          onChange={(course) => setValue('course', course)}
+          onChange={(course): void => setValue('course', course)}
           validation={{
             required: 'Did you forget to fill in the course of your recipe?',
           }}

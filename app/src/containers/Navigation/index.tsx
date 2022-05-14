@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import { Button, Icon } from '../../components'
+import { useDispatch, useSelector } from 'react-redux'
 import { GoThreeBars, GoX, GoHome, GoPlus, GoListUnordered } from 'react-icons/go'
 import { MdLogout } from 'react-icons/md'
-import { useDispatch, useSelector } from 'react-redux'
+import { Button, Icon } from '../../components'
 import { toggleNav } from '../../redux/reducers/application/applicationSlice'
 import RootState from '../../types/RootState'
 
@@ -11,7 +11,7 @@ const Navigation = ({ logout }: { logout: () => void }) => {
   const application = useSelector((state: RootState) => state.applicationSlice.data)
   const user = useSelector((state: RootState) => state.userSlice.data.user)
   const menuIsOpened = application.navMenuIsOpened
-  let login = menuIsOpened ? `Log out` : <MdLogout />
+  const login = menuIsOpened ? `Log out` : <MdLogout />
 
   return (
     <nav className={`${menuIsOpened ? `opened` : `closed`}`} data-testid="Navigation">

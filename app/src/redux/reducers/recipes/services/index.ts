@@ -1,9 +1,9 @@
 import { ImageData } from '../../../../types/ImageData'
 
-const uploadImageService = async (image: ImageData): Promise<any> => {
+const uploadImageService = async (image: ImageData): Promise<CloudinaryImage | false> => {
   try {
     if (!image.data || image.data === undefined) {
-      return
+      return false
     }
     const body = new FormData()
     body.append('file', image.data)
@@ -18,4 +18,4 @@ const uploadImageService = async (image: ImageData): Promise<any> => {
   }
 }
 
-export { uploadImageService }
+export default uploadImageService

@@ -28,13 +28,12 @@ const createIngredientOps = async (
   request: FastifyRequest<{ Body: RecipeBody; Params: RecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
-  const user = request.user
+  // const user = request.user
   const recipe = await createIngredient(request.body.name)
   if (recipe) {
     return reply.code(201).send({})
-  } else {
-    return reply.code(500).send({})
   }
+  return reply.code(500).send({})
 }
 
 export default {
