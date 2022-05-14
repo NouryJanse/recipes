@@ -18,6 +18,12 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "no-param-reassign": [
+      2,
+      {
+        "props": false
+      }
+    ],
     // disable the rule for all files
     "prettier/prettier": 2, // Means error
     "@typescript-eslint/explicit-function-return-type": 0,

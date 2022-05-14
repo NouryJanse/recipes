@@ -1,7 +1,7 @@
 const readAsDataURLViaPromise = (file: File): Promise<{} | boolean> => {
   if (!file.size) return new Promise(() => false)
 
-  return new Promise((resolve, _reject) => {
+  return new Promise((resolve) => {
     const fileReader = new FileReader()
     fileReader.onload = function () {
       return resolve({

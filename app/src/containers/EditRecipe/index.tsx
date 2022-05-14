@@ -54,10 +54,11 @@ const EditRecipe: React.FC = (): ReactElement => {
     setValue,
   } = useForm()
 
-  const dispatchEdit = async (data: any, editedRecipe: Recipe): Promise<void | false> => {
+  const dispatchEdit = async (data: Recipe, editedRecipe: Recipe): Promise<boolean> => {
     if (!editedRecipe.id || !data.name) return false
     // @ts-ignore:next-line
     await dispatch(updateRecipe({ id: editedRecipe.id, ...editedRecipe, ...data }))
+    return true
   }
 
   const onSave = async (data: any): Promise<void> => {
@@ -74,8 +75,8 @@ const EditRecipe: React.FC = (): ReactElement => {
 
       if (id !== undefined && recipes && recipes.length) {
         setRecipe(
-          recipes.find((recipe) => {
-            return recipe.id === Number(id!)
+          recipes.find((currentRecipe) => {
+            return currentRecipe.id === Number(id!)
           }),
         )
       }
@@ -88,8 +89,8 @@ const EditRecipe: React.FC = (): ReactElement => {
   }, [watch, recipe, id, recipes, params, imageSortableList, isDirty, initialRecipeLoad])
 
   const debouncedSubmit = useRef(
-    debounce(async (data, recipe) => {
-      dispatchEdit(data, recipe)
+    debounce(async (data, currentRecipe) => {
+      dispatchEdit(data, currentRecipe)
     }, 1000),
   ).current
 
@@ -135,11 +136,11 @@ const EditRecipe: React.FC = (): ReactElement => {
   }
 
   const courseName = (courseValue: string, options: Option[]): string => {
-    const option = options.find((option) => {
+    const currentOption = options.find((option) => {
       if (option.value && option.value === courseValue) return option
       return null
     })
-    if (option) return option.text
+    if (currentOption) return currentOption.text
     return ''
   }
 

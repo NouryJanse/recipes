@@ -19,12 +19,14 @@ function App({ auth0 }: { auth0: any }) {
     }
   }, [auth0, auth0.isAuthenticated, auth0.user, auth0.isLoading, dispatch])
 
-  const loginUser = async () => {
+  const loginUser = async (): Promise<void> => {
     const auth0User = await auth0.login()
     dispatch(storeUser(auth0User))
   }
 
-  const loginButton = <Button type="button" onClick={() => loginUser()} label="Login" />
+  const loginButton = (
+    <Button type="button" onClick={(): Promise<void> => loginUser()} label="Login" />
+  )
 
   if (auth0.error) {
     if (auth0.error === 'login_required') {

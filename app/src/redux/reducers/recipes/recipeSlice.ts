@@ -5,8 +5,7 @@ import createRecipeThunk from './thunks/createRecipe'
 import createRecipeImageThunk from './thunks/createRecipeImage'
 import updateRecipeThunk from './thunks/updateRecipe'
 import deleteRecipeThunk from './thunks/deleteRecipe'
-import RecipeState from '../../../types/RecipeState'
-import { REDUX_STATE } from '../../../constants/'
+import { REDUX_STATE } from '../../../constants'
 
 export const initialState = {
   data: { recipes: [] as Recipe[], recipe: {} },
@@ -33,11 +32,11 @@ export const recipeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getRecipes.pending, (state, _action) => {
+    builder.addCase(getRecipes.pending, (state) => {
       state.status.getRecipes = REDUX_STATE.LOADING
       state.error = {}
     })
-    builder.addCase(getRecipes.rejected, (state, _action) => {
+    builder.addCase(getRecipes.rejected, (state) => {
       state.status.getRecipes = REDUX_STATE.REJECTED
       console.error('An error occurred')
       state.error = {}
@@ -53,11 +52,11 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
 
-    builder.addCase(getRecipe.pending, (state, _action) => {
+    builder.addCase(getRecipe.pending, (state) => {
       state.status.getRecipe = REDUX_STATE.LOADING
       state.error = {}
     })
-    builder.addCase(getRecipe.rejected, (state, _action) => {
+    builder.addCase(getRecipe.rejected, (state) => {
       state.status.getRecipe = 'rejected'
       console.error('An error occurred')
       state.error = {}
@@ -71,11 +70,11 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
 
-    builder.addCase(updateRecipe.pending, (state, _action) => {
+    builder.addCase(updateRecipe.pending, (state) => {
       state.status.updateRecipe = REDUX_STATE.LOADING
       state.error = {}
     })
-    builder.addCase(updateRecipe.rejected, (state, _action) => {
+    builder.addCase(updateRecipe.rejected, (state) => {
       state.status.updateRecipe = REDUX_STATE.REJECTED
       console.error('An error occurred')
       state.error = {}
@@ -93,11 +92,11 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
 
-    builder.addCase(createRecipeImage.pending, (state, _action) => {
+    builder.addCase(createRecipeImage.pending, (state) => {
       state.status.updateRecipe = REDUX_STATE.LOADING
       state.error = {}
     })
-    builder.addCase(createRecipeImage.rejected, (state, _action) => {
+    builder.addCase(createRecipeImage.rejected, (state) => {
       state.status.createRecipeImage = REDUX_STATE.REJECTED
       console.error('An error occurred')
       state.error = {}
@@ -109,45 +108,42 @@ export const recipeSlice = createSlice({
             ...recipe,
             images: recipe?.images?.length ? [...recipe.images, action.payload] : [action.payload],
           }
-        } else {
-          return recipe
         }
+        return recipe
       })
       state.data.recipes = recipes
       state.status.createRecipeImage = REDUX_STATE.FULFILLED
       state.error = {}
     })
 
-    builder.addCase(createRecipe.pending, (state, _action) => {
+    builder.addCase(createRecipe.pending, (state) => {
       state.status.createRecipe = REDUX_STATE.LOADING
       state.error = {}
     })
-    builder.addCase(createRecipe.rejected, (state, _action) => {
+    builder.addCase(createRecipe.rejected, (state) => {
       state.status.createRecipe = REDUX_STATE.REJECTED
       console.error('An error occurred')
       state.error = {}
     })
-    builder.addCase(createRecipe.fulfilled, (state, _action) => {
+    builder.addCase(createRecipe.fulfilled, (state) => {
       state.status.createRecipe = REDUX_STATE.FULFILLED
       state.error = {}
     })
 
-    builder.addCase(deleteRecipe.pending, (state, _action) => {
+    builder.addCase(deleteRecipe.pending, (state) => {
       state.status.deleteRecipe = REDUX_STATE.LOADING
       state.error = {}
     })
-    builder.addCase(deleteRecipe.rejected, (state, _action) => {
+    builder.addCase(deleteRecipe.rejected, (state) => {
       state.status.deleteRecipe = REDUX_STATE.REJECTED
       console.error('An error occurred')
       state.error = {}
     })
-    builder.addCase(deleteRecipe.fulfilled, (state, _action) => {
+    builder.addCase(deleteRecipe.fulfilled, (state) => {
       state.status.deleteRecipe = REDUX_STATE.FULFILLED
       state.error = {}
     })
   },
 })
-
-export const selectRecipes = (state: RecipeState) => state.data.recipes
 
 export default recipeSlice.reducer

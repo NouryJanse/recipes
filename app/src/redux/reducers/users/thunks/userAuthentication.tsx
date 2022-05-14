@@ -23,7 +23,7 @@ const initAuth0API = async (): Promise<Auth0Client | false> => {
   }
 }
 
-const initiateAuth0Thunk = createAsyncThunk('users/initAuth0', async (_data) => {
+const initiateAuth0Thunk = createAsyncThunk('users/initAuth0', async () => {
   const response = await initAuth0API()
   return response
 })
