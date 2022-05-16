@@ -1,7 +1,10 @@
 import { PrismaClient, Recipe, Image } from '@prisma/client'
+import { FastifyLoggerInstance } from 'fastify'
+
 const prisma = new PrismaClient()
 
 const createRecipe = async (
+  logger: FastifyLoggerInstance,
   name: string,
   description: string,
   _authorId: number,
@@ -18,16 +21,16 @@ const createRecipe = async (
 
     return recipe
   } catch (error) {
-    console.error(error)
+    logger.error(error)
     return false
   } finally {
-    ;async () => {
+    ;async (): Promise<void> => {
       await prisma.$disconnect()
     }
   }
 }
 
-const getRecipes = async (): Promise<Recipe[] | false> => {
+const getRecipes = async (logger: FastifyLoggerInstance): Promise<Recipe[] | false> => {
   try {
     let recipes = await prisma.recipe.findMany({
       orderBy: {
@@ -45,25 +48,26 @@ const getRecipes = async (): Promise<Recipe[] | false> => {
     recipes = recipes.map((recipe) => {
       if (recipe.Image && recipe.Image.length) {
         // @ts-ignore: weird error because relation typings are not generated
-        recipe.images = recipe.Image
-        recipe.Image = []
-        return recipe
+        return { ...recipe, images: recipe.Image, Image: [] }
       }
       return recipe
     })
 
     return recipes
   } catch (error) {
-    console.error(error)
+    logger.error(error)
     return false
   } finally {
-    ;async () => {
+    ;async (): Promise<void> => {
       await prisma.$disconnect()
     }
   }
 }
 
-const getRecipe = async (id: number): Promise<Recipe | null | false> => {
+const getRecipe = async (
+  logger: FastifyLoggerInstance,
+  id: number,
+): Promise<Recipe | null | false> => {
   try {
     const recipe = await prisma.recipe.findUnique({
       where: {
@@ -72,16 +76,17 @@ const getRecipe = async (id: number): Promise<Recipe | null | false> => {
     })
     return recipe
   } catch (error) {
-    console.error(error)
+    logger.error(error)
     return false
   } finally {
-    ;async () => {
+    ;async (): Promise<void> => {
       await prisma.$disconnect()
     }
   }
 }
 
 const updateRecipe = async (
+  logger: FastifyLoggerInstance,
   id: number,
   name: string,
   description: string,
@@ -102,16 +107,16 @@ const updateRecipe = async (
 
     return recipe
   } catch (error) {
-    console.error(error)
+    logger.error(error)
     return false
   } finally {
-    ;async () => {
+    ;async (): Promise<void> => {
       await prisma.$disconnect()
     }
   }
 }
 
-const deleteRecipe = async (id: number): Promise<boolean> => {
+const deleteRecipe = async (logger: FastifyLoggerInstance, id: number): Promise<boolean> => {
   if (!id) return false
 
   try {
@@ -123,16 +128,20 @@ const deleteRecipe = async (id: number): Promise<boolean> => {
 
     return true
   } catch (error) {
-    console.error(error)
+    logger.error(error)
     return false
   } finally {
-    ;async () => {
+    ;async (): Promise<void> => {
       await prisma.$disconnect()
     }
   }
 }
 
-const saveImage = async (image: CloudinaryImage, recipeId: number): Promise<Image | false> => {
+const saveImage = async (
+  logger: FastifyLoggerInstance,
+  image: CloudinaryImage,
+  recipeId: number,
+): Promise<Image | false> => {
   try {
     const dbImage: Image = await prisma.image.upsert({
       where: { cloudinaryId: image.asset_id },
@@ -153,10 +162,10 @@ const saveImage = async (image: CloudinaryImage, recipeId: number): Promise<Imag
 
     return dbImage
   } catch (error) {
-    console.error(error)
+    logger.error(error)
     return false
   } finally {
-    ;async () => {
+    ;async (): Promise<void> => {
       await prisma.$disconnect()
     }
   }

@@ -6,7 +6,7 @@ async function getRecipeAPI(): Promise<Recipe> {
   return response.data
 }
 
-const getRecipeThunk = createAsyncThunk('recipes/getRecipe', async (_data) => {
+const getRecipeThunk = createAsyncThunk('recipes/getRecipe', async () => {
   return getRecipeAPI()
 })
 

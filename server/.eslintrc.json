@@ -21,6 +21,7 @@
     // disable the rule for all files
     "prettier/prettier": 2, // Means error
     "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/ban-ts-comment": 1,
     "no-console": 2,
     "import/extensions": [
       "error",

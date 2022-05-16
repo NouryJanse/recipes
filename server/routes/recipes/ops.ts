@@ -12,29 +12,35 @@ const createRecipeOps = async (
   try {
     // const user = request.user
     const recipe = await createRecipe(
+      request.log,
       request.body.name,
       request.body.description,
       request.body.authorId,
       request.body.course,
     )
+
     if (!recipe) throw new Error('An error occurred')
-    const recipes = await getRecipes()
+
+    const recipes = await getRecipes(request.log)
+
     cache.del('recipes')
     return reply.code(201).send({ recipes })
   } catch (error) {
-    console.error(error)
+    request.log.error(error)
     return reply.code(500).send({})
   }
 }
 
 const getRecipesOps = async (
-  _request: FastifyRequest<{ Body: RecipeBody }>,
+  request: FastifyRequest<{ Body: RecipeBody }>,
   reply: FastifyReply,
-) => {
+): Promise<FastifyReply> => {
   if (cache.has('recipes')) {
-    return cache.get('recipes')
+    return reply.code(200).send(cache.get('recipes'))
   }
-  const recipes = await getRecipes()
+
+  const recipes = await getRecipes(request.log)
+
   cache.set('recipes', recipes)
   return reply.code(200).send(recipes)
 }
@@ -42,7 +48,7 @@ const getRecipesOps = async (
 const getRecipeOps = async (
   _request: FastifyRequest<{ Body: RecipeBody }>,
   reply: FastifyReply,
-) => {
+): Promise<FastifyReply> => {
   return reply.code(201).send({ title: 'frieten' })
 }
 
@@ -51,13 +57,16 @@ const updateRecipeOps = async (
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   const recipe = await updateRecipe(
-    Number.parseInt(request.params.id),
+    request.log,
+    Number(request.params.id),
     request.body.name,
     request.body.description,
     request.body.authorId,
     request.body.course,
   )
+
   cache.del('recipes')
+
   if (recipe && recipe.id) {
     return reply.code(201).send(recipe)
   }
@@ -69,9 +78,11 @@ const createRecipeImageOps = async (
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   const recipeId = +request.params.id
+
   if (request?.body?.asset_id) {
-    const image: Image | false = await saveImage(request.body, recipeId)
-    if (typeof image) {
+    const image: Image | false = await saveImage(request.log, request.body, recipeId)
+
+    if (image instanceof Image) {
       return reply.code(201).send(image)
     }
   }
@@ -81,14 +92,16 @@ const createRecipeImageOps = async (
 const deleteRecipeOps = async (
   request: FastifyRequest<{ Body: RecipeBody; Params: RecipeParams }>,
   reply: FastifyReply,
-) => {
+): Promise<FastifyReply> => {
   try {
-    await deleteRecipe(Number.parseInt(request.params.id))
-    const recipes = await getRecipes()
+    await deleteRecipe(request.log, Number(request.params.id))
+
+    const recipes = await getRecipes(request.log)
+
     cache.del('recipes')
     return reply.code(201).send({ recipes })
   } catch (error) {
-    console.error(error)
+    request.log.error(error)
     return reply.code(500).send({})
   }
 }

@@ -13,13 +13,14 @@
     "fastify-swagger": "^4.13.0",
     "global": "^4.4.0",
     "node-cache": "^5.1.2",
+    "pino-pretty": "^7.6.1",
     "prisma": "^3.8.0"
   },
   "scripts": {
-    "prod": "yarn build && node ./dist/index.js",
+    "dev": "NODE_ENV=dev ts-node-dev --files --respawn --exit-child index.ts",
     "build": "rm -rf dist && tsc",
+    "prod": "node ./dist/index.js",
     "check": "tsc --noemit",
-    "watch": "NODE_ENV=dev ts-node-dev --files --respawn --exit-child index.ts",
     "lint": "eslint --ext .ts .",
     "lint-and-fix": "eslint . --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc.json '*.ts' --write",
