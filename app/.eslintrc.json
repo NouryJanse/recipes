@@ -18,15 +18,23 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "@typescript-eslint/no-explicit-any": 2,
     "no-param-reassign": [
       2,
       {
         "props": false
       }
     ],
-    // disable the rule for all files
+    "react/function-component-definition": [
+      0,
+      {
+        "namedComponents": "function-declaration"
+      }
+    ],    
     "prettier/prettier": 2, // Means error
     "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/ban-ts-comment": 1,
+    "react/jsx-props-no-spreading": 1,
     "no-console": 2,
     // suppress errors for missing 'import React' in files
     "react/react-in-jsx-scope": "off",    
