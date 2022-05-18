@@ -6,6 +6,7 @@ import createRecipeImageThunk from './thunks/createRecipeImage'
 import updateRecipeThunk from './thunks/updateRecipe'
 import deleteRecipeThunk from './thunks/deleteRecipe'
 import { REDUX_STATE } from '../../../constants'
+import LogHelper from '../../../helpers/LogHelper'
 
 export const initialState = {
   data: { recipes: [] as Recipe[], recipe: {} },
@@ -38,7 +39,7 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(getRecipes.rejected, (state) => {
       state.status.getRecipes = REDUX_STATE.REJECTED
-      console.error('An error occurred')
+      LogHelper({ logType: 'error', message: 'An error occurred' })
       state.error = {}
     })
     builder.addCase(getRecipes.fulfilled, (state, action) => {
@@ -58,7 +59,7 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(getRecipe.rejected, (state) => {
       state.status.getRecipe = 'rejected'
-      console.error('An error occurred')
+      LogHelper({ logType: 'error', message: 'An error occurred' })
       state.error = {}
     })
     builder.addCase(getRecipe.fulfilled, (state, action) => {
@@ -76,10 +77,11 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(updateRecipe.rejected, (state) => {
       state.status.updateRecipe = REDUX_STATE.REJECTED
-      console.error('An error occurred')
+      LogHelper({ logType: 'error', message: 'An error occurred' })
       state.error = {}
     })
     builder.addCase(updateRecipe.fulfilled, (state, action) => {
+      // eslint-disable-next-line prefer-destructuring
       const recipes: Recipe[] = state.data.recipes
       if (action?.payload) {
         const updatedRecipe: Recipe = action.payload
@@ -98,7 +100,7 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(createRecipeImage.rejected, (state) => {
       state.status.createRecipeImage = REDUX_STATE.REJECTED
-      console.error('An error occurred')
+      LogHelper({ logType: 'error', message: 'An error occurred' })
       state.error = {}
     })
     builder.addCase(createRecipeImage.fulfilled, (state, action) => {
@@ -122,7 +124,7 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(createRecipe.rejected, (state) => {
       state.status.createRecipe = REDUX_STATE.REJECTED
-      console.error('An error occurred')
+      LogHelper({ logType: 'error', message: 'An error occurred' })
       state.error = {}
     })
     builder.addCase(createRecipe.fulfilled, (state) => {
@@ -136,7 +138,7 @@ export const recipeSlice = createSlice({
     })
     builder.addCase(deleteRecipe.rejected, (state) => {
       state.status.deleteRecipe = REDUX_STATE.REJECTED
-      console.error('An error occurred')
+      LogHelper({ logType: 'error', message: 'An error occurred' })
       state.error = {}
     })
     builder.addCase(deleteRecipe.fulfilled, (state) => {

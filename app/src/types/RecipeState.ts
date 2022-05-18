@@ -7,5 +7,5 @@ export default interface RecipeState {
     updateRecipe?: string
     deleteRecipe?: string
   }
-  error?: {}
+  error?: object
 }

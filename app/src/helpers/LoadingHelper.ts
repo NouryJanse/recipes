@@ -1,4 +1,4 @@
-const isLoading = (objectWithStates: {}): boolean => {
+const isLoading = (objectWithStates: object): boolean => {
   return Object.values(objectWithStates).some((value) => value === 'loading')
 }
 

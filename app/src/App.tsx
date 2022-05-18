@@ -1,12 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import Home from './containers/Home'
 
 import { Button } from './components'
 import { storeToken, storeUser } from './redux/reducers/users/userSlice'
 import RootState from './types/RootState'
 
-function App({ auth0 }: { auth0: any }) {
+type AppProps = {
+  auth0: Auth0Interface
+}
+
+const App: React.FC<AppProps> = ({ auth0 }): ReactElement => {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.userSlice.data.user)
 
@@ -35,7 +39,7 @@ function App({ auth0 }: { auth0: any }) {
     if (auth0.error === 'consent_required') {
       return <Button type="button" label="Consent to reading users" />
     }
-    return <div>Oops {auth0.error.message}</div>
+    return <div>Oops {auth0.error}</div>
   }
 
   if (auth0.isLoading) {

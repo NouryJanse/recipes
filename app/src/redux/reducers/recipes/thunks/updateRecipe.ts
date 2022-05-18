@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import LogHelper from '../../../../helpers/LogHelper'
 
 interface Image {
   name: string
@@ -32,7 +33,7 @@ const updateRecipeAPI = async (data: Recipe, token: string): Promise<Recipe | fa
     })
     return response.data
   } catch (error) {
-    console.error(error)
+    LogHelper({ logType: 'error', message: 'An error occurred' })
     return false
   }
 }

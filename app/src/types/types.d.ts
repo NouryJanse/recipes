@@ -43,6 +43,8 @@ interface Auth0Interface {
   error?: string
   isLoading?: boolean
   isAuthenticated?: boolean
+  login: () => void
+  logout: () => void
 }
 
 interface Error {

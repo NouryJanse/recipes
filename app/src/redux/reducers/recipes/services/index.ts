@@ -1,3 +1,4 @@
+import LogHelper from '../../../../helpers/LogHelper'
 import { ImageData } from '../../../../types/ImageData'
 
 const uploadImageService = async (image: ImageData): Promise<CloudinaryImage | false> => {
@@ -13,7 +14,7 @@ const uploadImageService = async (image: ImageData): Promise<CloudinaryImage | f
       body,
     }).then((r) => r.json())
   } catch (error) {
-    console.error(error)
+    LogHelper({ logType: 'error', message: 'An error occurred' })
     return false
   }
 }

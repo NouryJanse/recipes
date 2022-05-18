@@ -1,4 +1,5 @@
 import createAuth0Client, { Auth0Client, User } from '@auth0/auth0-spa-js'
+import LogHelper from './helpers/LogHelper'
 
 class Auth0 implements Auth0Interface {
   redirect_uri?: string
@@ -52,7 +53,7 @@ class Auth0 implements Auth0Interface {
       await this.getUser()
       this.toggleIsloading(false)
     } catch (error) {
-      console.error(error)
+      LogHelper({ logType: 'error', message: error as string })
     }
   }
 
@@ -72,12 +73,11 @@ class Auth0 implements Auth0Interface {
           // return await this.getUser()
           return this.getUser()
         })
-      console.log(login)
 
       this.toggleIsloading(false)
       return login
     } catch (error) {
-      console.error(error)
+      LogHelper({ logType: 'error', message: error as string })
       return false
     }
   }
@@ -88,7 +88,7 @@ class Auth0 implements Auth0Interface {
       this.user = await this.auth0Client.getUser()
       return this.user
     } catch (error) {
-      console.error(error)
+      LogHelper({ logType: 'error', message: error as string })
       return false
     }
   }
@@ -101,7 +101,7 @@ class Auth0 implements Auth0Interface {
       })
       return true
     } catch (error) {
-      console.error(error)
+      LogHelper({ logType: 'error', message: error as string })
       return false
     }
   }
@@ -119,7 +119,7 @@ class Auth0 implements Auth0Interface {
     } catch (error) {
       const TypedError = error as Error
       if (TypedError?.error !== 'login_required') {
-        console.error(TypedError.error)
+        LogHelper({ logType: 'error', message: error as string })
         throw new Error(TypedError.error)
       } else {
         this.error = 'login_required'
