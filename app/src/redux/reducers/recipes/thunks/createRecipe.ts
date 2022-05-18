@@ -1,14 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import RootState from '../../../../types/RootState'
+import User from '../../../../types/User'
 
 async function createRecipeAPI(recipe: Recipe, token: string): Promise<Recipe> {
   const response = await axios.post(
     'http://localhost:1337/api/recipes',
     {
-      id: recipe.id,
       name: recipe.name,
       description: recipe.description,
       course: recipe.course,
+      userId: recipe.authorId,
     },
     {
       headers: {
@@ -21,9 +23,10 @@ async function createRecipeAPI(recipe: Recipe, token: string): Promise<Recipe> {
 
 const createRecipeThunk = createAsyncThunk(
   'recipes/createRecipe',
-  async (data: Recipe, state: any) => {
-    const user = state.getState()?.userSlice?.data?.user
-    const response = await createRecipeAPI({ ...data, id: user.sub }, user.token)
+  async (data: Recipe, thunkApi) => {
+    const state = thunkApi.getState() as RootState
+    const user: User = state.userSlice?.data?.user
+    const response = await createRecipeAPI({ ...data, authorId: user.sub }, user.token)
     return response
   },
 )

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
-import { Image } from '../../../types/Image'
+import Image from '../../../types/Image'
 import Button from '../../Button'
 import ImageComponent from '../../Image'
 

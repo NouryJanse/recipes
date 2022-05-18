@@ -35,7 +35,9 @@ const Button: React.FC<ButtonProps> = ({
 }
 
 Button.defaultProps = {
-  onClick: Function,
+  onClick: (): boolean => {
+    return true
+  },
   disabled: false,
   label: '',
   classes: '',

@@ -23,7 +23,7 @@ import isLoading from '../../helpers/LoadingHelper'
 import { Option } from '../../types/Option'
 import { RECIPE_COURSE_OPTIONS } from '../../constants'
 import { ImageData } from '../../types/ImageData'
-import { Image } from '../../types/Image'
+import Image from '../../types/Image'
 
 const EditRecipeContainer = styled.div`
   margin-bottom: 32px;
@@ -61,8 +61,10 @@ const EditRecipe: React.FC = (): ReactElement => {
     return true
   }
 
-  const onSave = async (data: any): Promise<void> => {
-    if (recipe) dispatchEdit(data, recipe)
+  // for now this any is allowed, otherwise the whole form needs to be refactored for typing
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  const onSave = async (formData: any): Promise<void> => {
+    if (recipe) dispatchEdit(formData, recipe)
   }
 
   useEffect(() => {

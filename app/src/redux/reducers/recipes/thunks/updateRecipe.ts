@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import LogHelper from '../../../../helpers/LogHelper'
+import RootState from '../../../../types/RootState'
 
 interface Image {
   name: string
@@ -40,8 +41,9 @@ const updateRecipeAPI = async (data: Recipe, token: string): Promise<Recipe | fa
 
 const updateRecipeThunk = createAsyncThunk(
   'recipes/updateRecipe',
-  async (data: Recipe, state: any) => {
-    const user = state.getState()?.userSlice?.data?.user
+  async (data: Recipe, thunkApi) => {
+    const state = thunkApi.getState() as RootState
+    const user = state.userSlice?.data?.user
     return updateRecipeAPI({ ...data, authorId: user.sub }, user.token)
   },
 )

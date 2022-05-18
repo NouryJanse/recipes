@@ -7,8 +7,7 @@ async function getRecipesAPI(): Promise<Recipe[]> {
 }
 
 const getRecipesThunk = createAsyncThunk('recipes/getRecipes', async () => {
-  const response = await getRecipesAPI()
-  return response
+  return getRecipesAPI()
 })
 
 export default getRecipesThunk

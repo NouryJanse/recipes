@@ -68,9 +68,7 @@ class Auth0 implements Auth0Interface {
           redirect_uri: 'http://localhost:3000/',
         })
         .then(async () => {
-          // await this.getTokenSilently()
           this.getTokenSilently()
-          // return await this.getUser()
           return this.getUser()
         })
 

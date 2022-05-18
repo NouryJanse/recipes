@@ -1,3 +1,6 @@
+interface CloudinaryImageWithRecipeId extends CloudinaryImage {
+  recipeId: number
+}
 interface Recipe {
   id: number
   name?: string

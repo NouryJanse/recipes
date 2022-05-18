@@ -1,4 +1,4 @@
-export interface Image {
+export default interface Image {
   id: number
   url: string
   width: number

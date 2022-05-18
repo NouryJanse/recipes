@@ -45,9 +45,6 @@ export const recipeSlice = createSlice({
     builder.addCase(getRecipes.fulfilled, (state, action) => {
       state.status.getRecipes = REDUX_STATE.FULFILLED
       if (action !== null && action.payload) {
-        // state.data.recipes = action.payload?.recipes?.length
-        //   ? action.payload.recipes
-        //   : action.payload
         state.data.recipes = action.payload
       }
       state.error = {}

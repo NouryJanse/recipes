@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { Image } from '../../../../types/Image'
+import Image from '../../../../types/Image'
+import RootState from '../../../../types/RootState'
 
 const createRecipeImageAPI = async (
   data: CloudinaryImage,
@@ -17,8 +18,9 @@ const createRecipeImageAPI = async (
 
 const createRecipeImageThunk = createAsyncThunk(
   'recipes/createRecipeImage',
-  async (data: any, state: any) => {
-    const user = state.getState()?.userSlice?.data?.user
+  async (data: CloudinaryImageWithRecipeId, thunkApi) => {
+    const state = thunkApi.getState() as RootState
+    const user = state.userSlice?.data?.user
     const image: CloudinaryImage = data
     return createRecipeImageAPI(image, data.recipeId, user.token)
   },

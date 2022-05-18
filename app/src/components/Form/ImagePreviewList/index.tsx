@@ -24,7 +24,6 @@ const ImagePreviewList: React.FC<ImagePreviewListProps> = ({
               type="button"
               label="Upload to CDN"
               onClick={(): Promise<void> => callbackUploadImages(image)}
-              // classNames="bg-black text-white"
             />
           </div>
         )
