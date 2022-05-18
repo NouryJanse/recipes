@@ -1,14 +1,14 @@
-import { useEffect } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { createRecipe } from '../../redux/reducers/recipes/recipeSlice'
 
+import { createRecipe } from '../../redux/reducers/recipes/recipeSlice'
 import { Textfield, Button, Textarea, Dropdown, FieldContainer } from '../../components'
 import RootState from '../../types/RootState'
 import { RECIPE_COURSE_OPTIONS, REDUX_STATE } from '../../constants'
 
-const CreateRecipe = () => {
+const CreateRecipe: React.FC = (): ReactElement => {
   const status = useSelector((state: RootState) => state.recipeSlice.status)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -25,8 +25,8 @@ const CreateRecipe = () => {
     if (status.createRecipe === REDUX_STATE.FULFILLED) {
       navigate('/recipes')
     } else if (status.createRecipe === REDUX_STATE.REJECTED) {
-      console.log(response)
-      console.log(status.createRecipe)
+      // console.log(response)
+      // console.log(status.createRecipe)
     } else {
       // this situation is not handled yet..
     }

@@ -1,12 +1,18 @@
+import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { GoThreeBars, GoX, GoHome, GoPlus, GoListUnordered } from 'react-icons/go'
 import { MdLogout } from 'react-icons/md'
+
 import { Button, Icon } from '../../components'
 import { toggleNav } from '../../redux/reducers/application/applicationSlice'
 import RootState from '../../types/RootState'
 
-const Navigation = ({ logout }: { logout: () => void }) => {
+type NavigationProps = {
+  logout: () => void
+}
+
+const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
   const dispatch = useDispatch()
   const application = useSelector((state: RootState) => state.applicationSlice.data)
   const user = useSelector((state: RootState) => state.userSlice.data.user)
@@ -17,8 +23,13 @@ const Navigation = ({ logout }: { logout: () => void }) => {
     <nav className={`${menuIsOpened ? `opened` : `closed`}`} data-testid="Navigation">
       <div>
         <div
+          role="button"
+          tabIndex={0}
           className="logo"
-          onClick={() => {
+          onKeyDown={(e: React.KeyboardEvent): React.KeyboardEvent => {
+            return e
+          }}
+          onClick={(): void => {
             dispatch(toggleNav())
           }}
         >
@@ -40,7 +51,7 @@ const Navigation = ({ logout }: { logout: () => void }) => {
       </div>
       <div>
         <p className={`${menuIsOpened ? `visible` : `invisible`}`}>Logged in as {user.name}</p>
-        <Button type="button" onClick={() => logout()} label={login} />
+        <Button type="button" onClick={(): void => logout()} label={login} />
       </div>
     </nav>
   )

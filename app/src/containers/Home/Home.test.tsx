@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react'
 import Home from '.'
-import { renderWithStore } from '../../helpers/testHelper'
+import renderWithStore from '../../helpers/TestHelper'
 
 const setup = () => renderWithStore(<Home logout={() => {}} />)
 

@@ -1,5 +1,7 @@
+import React, { ReactElement } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+
 import Navigation from '../Navigation'
 import RecipesList from '../RecipesList'
 import CreateRecipe from '../CreateRecipe'
@@ -7,7 +9,11 @@ import EditRecipe from '../EditRecipe'
 import { RecipeDetail } from '../../components'
 import RootState from '../../types/RootState'
 
-const Home = ({ logout }: { logout: () => void }) => {
+type HomeProps = {
+  logout: () => void
+}
+
+const Home: React.FC<HomeProps> = ({ logout }): ReactElement => {
   const application = useSelector((state: RootState) => state.applicationSlice.data)
   const user = useSelector((state: RootState) => state.userSlice.data.user)
 

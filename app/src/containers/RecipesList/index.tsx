@@ -1,15 +1,16 @@
-import { useEffect } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Outlet, useParams } from 'react-router-dom'
+
 import { getRecipes } from '../../redux/reducers/recipes/recipeSlice'
 import RootState from '../../types/RootState'
 import { RecipeCard } from '../../components'
-// import { useInterval } from '../../polling'
+// import useInterval from '../../polling'
 
-const RecipesList = () => {
+const RecipesList: React.FC = (): ReactElement | null => {
   const dispatch = useDispatch()
   const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
-  let params = useParams()
+  const params = useParams()
 
   useEffect(() => {
     if (!recipes || recipes?.length < 1) {
@@ -30,8 +31,8 @@ const RecipesList = () => {
       <div className="">
         {!params.recipeId && recipes?.length ? (
           <div>
-            {recipes.map((recipe: Recipe, i: number) => {
-              return <RecipeCard key={i} recipe={recipe} />
+            {recipes.map((recipe: Recipe) => {
+              return <RecipeCard key={recipe.id} recipe={recipe} />
             })}
           </div>
         ) : (
