@@ -1,40 +1,39 @@
-import { deleteRecipe } from '../../../redux/reducers/recipes/recipeSlice'
-import { RecipeContainer } from './styled'
+import React, { useState, useEffect, ReactElement } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import RecipeContainer from './styled'
+
+import { deleteRecipe } from '../../../redux/reducers/recipes/recipeSlice'
 import { Button } from '../../index'
 import { formatNLDateTime } from '../../../helpers/DateHelper'
 import RootState from '../../../types/RootState'
-import { useState, useEffect } from 'react'
 import ImageComponent from '../../Image'
 import { Image } from '../../../types/Image'
 
-const RecipeCard = (data: any) => {
-  let recipe = data.recipe
+type RecipeCardProps = {
+  recipe: Recipe
+}
+
+const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }): ReactElement => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  let params = useParams()
-  const [mainImage, setMainImage] = useState({} as Image)
+
   const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
+  const [mainImage, setMainImage] = useState({} as Image)
 
-  if (params.recipeId && recipes) {
-    recipe = recipes.find((recipe) => {
-      return recipe.id === Number.parseInt(params.recipeId!)
-    })
-  }
-
-  const onDelete = async (recipeId: number) => {
-    if (!recipeId) return
+  const onDelete = async (recipeId: number): Promise<boolean> => {
+    if (!recipeId) return false
     // @ts-ignore:next-line
     await dispatch(deleteRecipe(recipeId))
     navigate('/recipes')
+    return true
   }
 
   useEffect(() => {
     if (recipe?.images?.length) {
       setMainImage(recipe.images[0])
     }
-  }, [recipe])
+  }, [recipe, recipes])
 
   if (!recipe) return <p>Error, no recipe found.</p>
 
@@ -45,34 +44,36 @@ const RecipeCard = (data: any) => {
           <h2 className="font-bold">
             {recipe.name} - <i>{recipe.course}</i>
           </h2>
-          <p>Last updated at {formatNLDateTime(recipe.updatedAt)}</p>
-          <p>Created at at {formatNLDateTime(recipe.createdAt)}</p>
+          {recipe.updatedAt && <p>Last updated at {formatNLDateTime(`${recipe.updatedAt}`)}</p>}
+          {recipe.createdAt && <p>Created at at {formatNLDateTime(recipe.createdAt)}</p>}
           {recipe.description && <p>{recipe.description}</p>}
         </div>
-        <div className="md:flex-1">{mainImage && <ImageComponent src={mainImage.url} />}</div>
+        <div className="md:flex-1">
+          {mainImage && <ImageComponent alt="text" src={mainImage.url} />}
+        </div>
       </div>
 
       <div className="flex justify-end">
         <Button
           type="button"
           label="Detail"
-          onClick={() => {
+          onClick={(): void => {
             navigate(`/recipes/${recipe.id}`)
           }}
           buttonStyle="secondary"
-        ></Button>
+        />
         <Button
           type="button"
           label="Edit"
-          onClick={() => {
+          onClick={(): void => {
             navigate(`/recipes/${recipe.id}/edit`)
           }}
           buttonStyle="secondary"
-        ></Button>
+        />
         <Button
           type="button"
-          label={'Delete'}
-          onClick={() => onDelete(recipe.id)}
+          label="Delete"
+          onClick={(): Promise<boolean> => onDelete(recipe.id)}
           buttonStyle="primary"
         />
       </div>

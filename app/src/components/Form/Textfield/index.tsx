@@ -1,19 +1,21 @@
+import React, { ReactElement } from 'react'
+import { UseFormRegister, FieldValues } from 'react-hook-form'
 import { FieldRowStyle, LabelStyle, InputStyle } from './styled'
 
 import { ErrorMessage } from '../../index'
 
-interface TextFieldProps {
+type TextFieldProps = {
   name: string
   type: string
   label: string
   placeholder: string
-  defaultValue?: string
-  register: Function
-  validation: string | object
+  register: UseFormRegister<FieldValues>
+  validation: object
   errors: string | boolean
+  defaultValue?: string
 }
 
-const Textfield = ({
+const Textfield: React.FC<TextFieldProps> = ({
   name = '',
   type = '',
   label = '',
@@ -22,22 +24,26 @@ const Textfield = ({
   register,
   validation,
   errors,
-}: TextFieldProps) => {
+}): ReactElement => {
   return (
     <FieldRowStyle>
       <LabelStyle htmlFor={name}>{label}</LabelStyle>
 
       <InputStyle
+        {...register(name, validation)}
         id={name}
         name={name}
         type={type}
         defaultValue={defaultValue}
-        {...register(name, validation)}
         placeholder={placeholder}
       />
-      {errors && <ErrorMessage message={errors}></ErrorMessage>}
+      {errors && <ErrorMessage message={errors} />}
     </FieldRowStyle>
   )
+}
+
+Textfield.defaultProps = {
+  defaultValue: '',
 }
 
 export default Textfield

@@ -1,5 +1,3 @@
-import Recipe from './Recipe'
-
 export default interface RecipeState {
   data: { recipes: Recipe[] }
   status: {
@@ -9,5 +7,5 @@ export default interface RecipeState {
     updateRecipe?: string
     deleteRecipe?: string
   }
-  error?: {}
+  error?: object
 }

@@ -1,17 +1,20 @@
-import { ImageStyle } from './styles'
 import classNames from 'classnames'
+import React, { ReactElement } from 'react'
+import ImageStyle from './styles'
 
-const ImageComponent = ({
-  src,
-  alt = '',
-  width,
-  height,
-}: {
+type ImageComponentProps = {
   src: string
-  alt?: string
+  alt: string
   width?: number
   height?: number
-}) => {
+}
+
+const ImageComponent: React.FC<ImageComponentProps> = ({
+  src,
+  alt,
+  width,
+  height,
+}): ReactElement => {
   const dimensions = {
     ...((width === undefined || width > 0) && { width }),
     ...((height === undefined || height > 0) && { height }),
@@ -20,11 +23,15 @@ const ImageComponent = ({
     'w-full': width === 0,
     'h-auto': height === 0,
   })
-  if (dimensions.hasOwnProperty('width') || dimensions.hasOwnProperty('height')) {
+  if (dimensions.width || dimensions.height) {
     return <ImageStyle src={src} alt={alt} {...dimensions} {...otherClasses} />
-  } else {
-    return <ImageStyle src={src} alt={alt} {...dimensions} />
   }
+  return <ImageStyle src={src} alt={alt} {...dimensions} />
+}
+
+ImageComponent.defaultProps = {
+  width: undefined,
+  height: undefined,
 }
 
 export default ImageComponent

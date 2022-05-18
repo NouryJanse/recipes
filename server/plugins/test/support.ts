@@ -1,5 +1,5 @@
-import fp from 'fastify-plugin';
-import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify';
+import fp from 'fastify-plugin'
+import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify'
 
 export default fp(
   (
@@ -8,8 +8,8 @@ export default fp(
     next: (error?: FastifyError) => void,
   ): void => {
     server.decorate('someSupport', () => {
-      return 'hugs';
-    });
-    next();
+      return 'hugs'
+    })
+    next()
   },
-);
+)

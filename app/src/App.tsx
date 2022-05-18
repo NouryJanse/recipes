@@ -1,12 +1,16 @@
-import Home from './containers/Home'
 import { useDispatch, useSelector } from 'react-redux'
+import React, { ReactElement, useEffect } from 'react'
+import Home from './containers/Home'
 
 import { Button } from './components'
 import { storeToken, storeUser } from './redux/reducers/users/userSlice'
-import { useEffect } from 'react'
 import RootState from './types/RootState'
 
-function App({ auth0 }: any) {
+type AppProps = {
+  auth0: Auth0Interface
+}
+
+const App: React.FC<AppProps> = ({ auth0 }): ReactElement => {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.userSlice.data.user)
 
@@ -19,15 +23,13 @@ function App({ auth0 }: any) {
     }
   }, [auth0, auth0.isAuthenticated, auth0.user, auth0.isLoading, dispatch])
 
-  const loginUser = async () => {
-    const user = await auth0.login()
-    dispatch(storeUser(user))
+  const loginUser = async (): Promise<void> => {
+    const auth0User = await auth0.login()
+    dispatch(storeUser(auth0User))
   }
 
   const loginButton = (
-    <div>
-      <Button type="button" onClick={() => loginUser()} label="Login" />
-    </div>
+    <Button type="button" onClick={(): Promise<void> => loginUser()} label="Login" />
   )
 
   if (auth0.error) {
@@ -37,22 +39,17 @@ function App({ auth0 }: any) {
     if (auth0.error === 'consent_required') {
       return <Button type="button" label="Consent to reading users" />
     }
-    return <div>Oops {auth0.error.message}</div>
+    return <div>Oops {auth0.error}</div>
   }
 
   if (auth0.isLoading) {
     return <div>Loading...</div>
   }
 
-  if (user && Object.keys(user).length) {
-    return (
-      <>
-        <Home logout={auth0.logout} />
-      </>
-    )
-  } else {
-    return <div>{loginButton}</div>
+  if (user.token !== undefined) {
+    return <Home logout={auth0.logout} />
   }
+  return <div>{loginButton}</div>
 }
 
 export default App

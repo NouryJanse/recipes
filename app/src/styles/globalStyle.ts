@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 import './tailwind.output.css'
 // import { themeProps } from '../styles/theme';
 
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
     html {
         box-sizing: border-box;
         font-family: 'opensans';
@@ -114,3 +114,4 @@ export const GlobalStyle = createGlobalStyle`
         }
     }
 `
+export default GlobalStyle

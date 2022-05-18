@@ -1,8 +1,9 @@
 export interface Image {
   id: number
-  name: string
+  url: string
   width: number
   height: number
-  url: string
   position: number
+  recipeId: number
+  cloudinaryId: string
 }

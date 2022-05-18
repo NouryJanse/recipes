@@ -1,6 +1,7 @@
 import FontWOFF from './open-sans-v27-latin-300italic.woff'
 import FontWOFF2 from './open-sans-v27-latin-300italic.woff2'
 
+// eslint-disable-next-line import/prefer-default-export
 export const OpenSans300Italic = `
     @font-face {
         font-display: swap;

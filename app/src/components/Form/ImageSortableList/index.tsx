@@ -1,20 +1,25 @@
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import React, { ReactElement } from 'react'
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
 import { Image } from '../../../types/Image'
 import Button from '../../Button'
 import ImageComponent from '../../Image'
 
-interface ImageSortableListProps {
-  images: any
+type ImageSortableListProps = {
+  images: Image[]
   callbackSortedImages: (images: Image[]) => void
 }
 
-const ImageSortableList = ({ images, callbackSortedImages }: ImageSortableListProps) => {
-  const handleOnDragEnd = (result: any) => {
-    if (!result.destination) return
+const ImageSortableList: React.FC<ImageSortableListProps> = ({
+  images,
+  callbackSortedImages,
+}: ImageSortableListProps): ReactElement => {
+  const handleOnDragEnd = (result: DropResult): boolean => {
+    if (!result.destination) return false
     const items: Image[] = Array.from(images)
     const [reorderedItem] = items.splice(result.source.index, 1)
     items.splice(result.destination.index, 0, reorderedItem)
     callbackSortedImages(items)
+    return true
   }
 
   return (
@@ -24,19 +29,19 @@ const ImageSortableList = ({ images, callbackSortedImages }: ImageSortableListPr
           Sort your images ({images.length}) here:
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="images">
-              {(provided) => (
+              {(provided): ReactElement => (
                 <ul className="images" {...provided.droppableProps} ref={provided.innerRef}>
-                  {images.map(({ id, url }: any, index: any) => {
+                  {images.map(({ id, url }: { id: number; url: string }, index: number) => {
                     return (
                       <Draggable key={id} draggableId={id.toString()} index={index}>
-                        {(provided) => (
+                        {(providedTwo): ReactElement => (
                           <li
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
+                            ref={providedTwo.innerRef}
+                            {...providedTwo.draggableProps}
+                            {...providedTwo.dragHandleProps}
                           >
                             <div className="max-w-xs mb-8">
-                              <ImageComponent src={url} width={200} height={100} />
+                              <ImageComponent alt="alt-text" src={url} width={200} height={100} />
                               {/* <Button type="button" label="x" onClick={}/> */}
                             </div>
                           </li>

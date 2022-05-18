@@ -1,6 +1,6 @@
 import tw from 'tailwind-styled-components'
 
-export const StyledLabel = tw.label`
+const StyledLabel = tw.label`
   block
   border-2
   border-black
@@ -16,3 +16,5 @@ export const StyledLabel = tw.label`
   w-full
   hover:cursor-pointer
 `
+
+export default StyledLabel

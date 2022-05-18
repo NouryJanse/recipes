@@ -1,6 +1,8 @@
 import tw from 'tailwind-styled-components'
 
-export const ImageStyle = tw.img`
+const ImageStyle = tw.img`
   flex
   object-contain
 `
+
+export default ImageStyle

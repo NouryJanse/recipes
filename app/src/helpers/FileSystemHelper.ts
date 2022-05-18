@@ -1,9 +1,9 @@
-export function readAsDataURLViaPromise(file: File) {
+const readAsDataURLViaPromise = (file: File): Promise<object> | boolean => {
   if (!file.size) return false
 
-  return new Promise((resolve, _reject) => {
-    let fileReader = new FileReader()
-    fileReader.onload = function () {
+  return new Promise((resolve) => {
+    const fileReader = new FileReader()
+    fileReader.onload = (): void => {
       return resolve({
         data: fileReader.result,
         name: file.name,
@@ -14,3 +14,5 @@ export function readAsDataURLViaPromise(file: File) {
     fileReader.readAsDataURL(file)
   })
 }
+
+export default readAsDataURLViaPromise

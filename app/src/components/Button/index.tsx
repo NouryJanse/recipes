@@ -1,14 +1,7 @@
-import { ButtonStyle } from './styled'
+import React, { ReactElement } from 'react'
+import ButtonStyle from './styled'
 
-const Button = ({
-  type,
-  onClick,
-  disabled = false,
-  label,
-  classes = '',
-  children,
-  buttonStyle = 'primary',
-}: {
+type ButtonProps = {
   type: 'submit' | 'reset' | 'button'
   onClick?: () => void
   disabled?: boolean
@@ -16,7 +9,17 @@ const Button = ({
   classes?: string
   children?: JSX.Element
   buttonStyle?: 'primary' | 'secondary'
-}) => {
+}
+
+const Button: React.FC<ButtonProps> = ({
+  type,
+  onClick,
+  disabled,
+  label,
+  classes,
+  children,
+  buttonStyle,
+}): ReactElement => {
   return (
     <ButtonStyle
       type={type}
@@ -26,9 +29,18 @@ const Button = ({
       $primary={buttonStyle === 'primary'}
       $secondary={buttonStyle === 'secondary'}
     >
-      {children ? children : label}
+      {children || label}
     </ButtonStyle>
   )
+}
+
+Button.defaultProps = {
+  onClick: Function,
+  disabled: false,
+  label: '',
+  classes: '',
+  children: undefined,
+  buttonStyle: 'primary',
 }
 
 export default Button

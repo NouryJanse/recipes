@@ -23,7 +23,7 @@ export const StyledDropdown = styled.select`
 `
 
 export const StyledOption = styled.option`
-  color: ${(props) => (props.selected ? 'lightgrey' : 'black')};
+  color: ${(props): string => (props.selected ? 'lightgrey' : 'black')};
 `
 
 export const StyledLabel = styled.label`

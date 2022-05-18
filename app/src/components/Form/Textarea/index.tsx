@@ -1,17 +1,19 @@
+import React, { ReactElement } from 'react'
+import { UseFormRegister, FieldValues } from 'react-hook-form'
 import ErrorMessage from '../../Generic/ErrorMessage'
 import { StyledTextArea, StyledLabel } from './styled'
 
-interface TextAreaProps {
+type TextAreaProps = {
   label: string
-  defaultValue?: string
   placeholder: string
   name: string
-  register: Function
-  validation: string | object
+  register: UseFormRegister<FieldValues>
+  validation: object
   errors: string | boolean
+  defaultValue?: string
 }
 
-const TextArea = ({
+const TextArea: React.FC<TextAreaProps> = ({
   label,
   defaultValue = '',
   placeholder = '',
@@ -19,20 +21,24 @@ const TextArea = ({
   validation,
   register,
   errors,
-}: TextAreaProps) => {
+}): ReactElement => {
   return (
     <div>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
       <StyledTextArea
+        {...register(name, validation)}
         id={name}
         name={name}
         placeholder={placeholder}
         defaultValue={defaultValue}
-        {...register(name, validation)}
-      ></StyledTextArea>
-      {errors && <ErrorMessage message={errors}></ErrorMessage>}
+      />
+      {errors && <ErrorMessage message={errors} />}
     </div>
   )
+}
+
+TextArea.defaultProps = {
+  defaultValue: '',
 }
 
 export default TextArea

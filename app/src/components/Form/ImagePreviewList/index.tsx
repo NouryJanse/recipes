@@ -1,25 +1,29 @@
+import React, { ReactElement } from 'react'
 import { ImageData } from '../../../types/ImageData'
-import { Button } from '../../'
+import { Button } from '../..'
 
 interface ImagePreviewListProps {
   images: ImageData[] | undefined
-  callbackUploadImages: (image: ImageData) => Promise<any>
+  callbackUploadImages: (image: ImageData) => Promise<void>
 }
 
-const ImagePreviewList = ({ images, callbackUploadImages }: ImagePreviewListProps) => {
+const ImagePreviewList: React.FC<ImagePreviewListProps> = ({
+  images,
+  callbackUploadImages,
+}): ReactElement => {
   return (
     <div>
-      {images?.map((image, index) => {
+      {images?.map((image) => {
         return (
-          <div key={index}>
+          <div key={image.name}>
             <span>
               {image.name} - {image.size} bytes
             </span>
             <img src={image.data} alt="title" />
             <Button
               type="button"
-              label={`Upload to CDN`}
-              onClick={() => callbackUploadImages(image)}
+              label="Upload to CDN"
+              onClick={(): Promise<void> => callbackUploadImages(image)}
               // classNames="bg-black text-white"
             />
           </div>

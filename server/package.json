@@ -5,7 +5,6 @@
   "dependencies": {
     "@prisma/client": "^3.14.0",
     "dotenv": "^10.0.0",
-    "eslint-config-airbnb": "^19.0.2",
     "fastify": "^3.25.0",
     "fastify-auth0-verify": "^0.7.0",
     "fastify-autoload": "^3.9.0",
@@ -14,13 +13,14 @@
     "fastify-swagger": "^4.13.0",
     "global": "^4.4.0",
     "node-cache": "^5.1.2",
+    "pino-pretty": "^7.6.1",
     "prisma": "^3.8.0"
   },
   "scripts": {
-    "prod": "yarn build && node ./dist/index.js",
+    "dev": "NODE_ENV=dev ts-node-dev --files --respawn --exit-child index.ts",
     "build": "rm -rf dist && tsc",
+    "prod": "node ./dist/index.js",
     "check": "tsc --noemit",
-    "watch": "NODE_ENV=dev ts-node-dev --files --respawn --exit-child index.ts",
     "lint": "eslint --ext .ts .",
     "lint-and-fix": "eslint . --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc.json '*.ts' --write",
@@ -32,6 +32,7 @@
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "eslint": "^8.4.1",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",

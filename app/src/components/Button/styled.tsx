@@ -5,7 +5,7 @@ interface TWStyledButtonParameter {
   $secondary: boolean
 }
 
-export const ButtonStyle = tw.button`
+const ButtonStyle = tw.button`
   flex
   outline-none  
   align-middle
@@ -27,7 +27,10 @@ export const ButtonStyle = tw.button`
   focus:border-solid
   focus:border-blue
 
-  ${(p: TWStyledButtonParameter) => (p.$primary ? 'bg-blue text-white hover:bg-blueDark' : '')}
-  ${(p: TWStyledButtonParameter) =>
+  ${(p: TWStyledButtonParameter): string =>
+    p.$primary ? 'bg-blue text-white hover:bg-blueDark' : ''}
+  ${(p: TWStyledButtonParameter): string =>
     p.$secondary ? 'bg-white text-blue hover:bg-blueDark hover:text-white' : ''}
 `
+
+export default ButtonStyle

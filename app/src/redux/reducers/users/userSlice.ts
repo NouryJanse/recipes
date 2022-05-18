@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import User from '../../../types/User'
 import UserState from '../../../types/UserState'
 
-import { initiateAuth0Thunk } from './thunks/userAuthentication'
+import initiateAuth0Thunk from './thunks/userAuthentication'
 
 export const initialState = {
   data: {

@@ -1,6 +1,7 @@
-const dayjs = require('dayjs')
-const utc = require('dayjs/plugin/utc')
-const timezone = require('dayjs/plugin/timezone')
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
@@ -10,39 +11,39 @@ const longFormat = 'YYYY-MM-DD HH:mm:ss.SSSSSS'
 const shortFormat = 'HH:mm:ss'
 dayjs.tz.setDefault(currentTimeZone)
 
-export const getDateTime = () => {
+export const getDateTime = (): string => {
   return dayjs().tz().format(longFormat)
 }
 
-export const formatDateTime = (date: Date) => {
+export const formatDateTime = (date: string): string => {
   if (date) {
     return dayjs.tz(date, currentTimeZone).format(longFormat)
   }
-  return
+  return ''
 }
 
-export const formatNLDateTime = (date: Date) => {
+export const formatNLDateTime = (date: string): string => {
   if (date) {
     return dayjs(date).tz(currentTimeZone).format(nlFormat)
   }
-  return
+  return ''
 }
 
-export const formatUTCDateTime = (date: Date) => {
+export const formatUTCDateTime = (date: Date): string => {
   if (date) {
     return dayjs(date).tz(currentTimeZone).format(longFormat)
   }
-  return
+  return ''
 }
 
-export const getTime = () => {
+export const getTime = (): string => {
   dayjs.tz.setDefault(currentTimeZone)
   return dayjs().tz().format(shortFormat)
 }
 
-export const getTodayMinusDays = (days: number) => {
+export const getTodayMinusDays = (days: number): string => {
   if (days) {
-    return dayjs.tz().endOf('day').subtract(days, 'days').format(longFormat)
+    return dayjs.tz('').endOf('day').subtract(days, 'days').format(longFormat)
   }
-  return
+  return ''
 }
