@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-export const StyledIcon = styled.div`
+const StyledIcon = styled.div`
   display: flex;
   position: relative;
 
@@ -9,4 +9,6 @@ export const StyledIcon = styled.div`
     width: 32px;
     margin: 8px;
   }
-`;
+`
+
+export default StyledIcon

@@ -1,19 +1,26 @@
-import { useEffect, useCallback } from 'react'
+import React, { useEffect, useCallback, ReactElement } from 'react'
+import { UseFormRegister, FieldValues } from 'react-hook-form'
 import { useDropzone } from 'react-dropzone'
-import { StyledLabel } from './styled'
-import readAsDataURLViaPromise from '../../../helpers/FileSystemHelper'
 import classNames from 'classnames'
+
+import StyledLabel from './styled'
+import readAsDataURLViaPromise from '../../../helpers/FileSystemHelper'
 import { ImageData } from '../../../types/ImageData'
 
-interface ImagePickerProps {
+type ImagePickerProps = {
   name: string
   label: string
-  register: Function
-  validation?: string | object
+  register: UseFormRegister<FieldValues>
   onSelectedImageCallback: (image: ImageData) => void
+  validation: object
 }
 
-const ImagePicker = ({ name, label, register, onSelectedImageCallback }: ImagePickerProps) => {
+const ImagePicker: React.FC<ImagePickerProps> = ({
+  name,
+  label,
+  register,
+  onSelectedImageCallback,
+}): ReactElement => {
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       const file = await readAsDataURLViaPromise(acceptedFiles[0])
@@ -47,7 +54,7 @@ const ImagePicker = ({ name, label, register, onSelectedImageCallback }: ImagePi
   return (
     <div {...getRootProps({ className: 'dropzone' })} className="m-0 p-0">
       <StyledLabel htmlFor={name} className={labelClass}>
-        <input type="file" name={'testlala'} {...getInputProps()} />
+        <input type="file" {...getInputProps()} />
         <p className={paragraphClass}>{label}</p>
       </StyledLabel>
     </div>

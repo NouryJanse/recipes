@@ -1,11 +1,11 @@
-import { ReactNode } from 'react'
-import { StyledErrorMessage } from './styled'
+import React, { ReactElement, ReactNode } from 'react'
+import StyledErrorMessage from './styled'
 
-interface ErrorMessageType {
-  message?: ReactNode | string | boolean
+type ErrorMessageType = {
+  message: ReactNode | string | boolean
 }
 
-const ErrorMessage = ({ message }: ErrorMessageType) => {
+const ErrorMessage: React.FC<ErrorMessageType> = ({ message }): ReactElement => {
   return <StyledErrorMessage>{message}</StyledErrorMessage>
 }
 

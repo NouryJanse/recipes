@@ -1,6 +1,11 @@
-import { StyledFieldContainer } from './styled'
+import React, { ReactElement } from 'react'
+import StyledFieldContainer from './styled'
 
-const FieldContainer = ({ children }: { children: JSX.Element }) => {
+interface FieldContainerProps {
+  children: JSX.Element
+}
+
+const FieldContainer: React.FC<FieldContainerProps> = ({ children }): ReactElement => {
   return <StyledFieldContainer>{children}</StyledFieldContainer>
 }
 

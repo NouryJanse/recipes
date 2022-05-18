@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
-export const RecipeContainer = styled.div`
+const RecipeContainer = styled.div`
   margin-bottom: 32px;
 `
+
+export default RecipeContainer
