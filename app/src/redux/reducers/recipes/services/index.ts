@@ -1,5 +1,4 @@
 import LogHelper from '../../../../helpers/LogHelper'
-import { ImageData } from '../../../../types/ImageData'
 
 const uploadImageService = async (image: ImageData): Promise<CloudinaryImage | false> => {
   try {
@@ -7,7 +6,7 @@ const uploadImageService = async (image: ImageData): Promise<CloudinaryImage | f
       return false
     }
     const body = new FormData()
-    body.append('file', image.data)
+    body.append('file', image.data.toString())
     body.append('upload_preset', 'ej4yq8qc')
     return await fetch('https://api.cloudinary.com/v1_1/dqnks1cyu/image/upload', {
       method: 'POST',

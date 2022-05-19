@@ -1,7 +1,6 @@
 import React, { ChangeEventHandler, ReactElement } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
 
-import { Option } from '../../../types/Option'
 import ErrorMessage from '../../Generic/ErrorMessage'
 import { StyledDropdown, StyledOption, StyledLabel } from './styled'
 

@@ -3,20 +3,6 @@ import axios from 'axios'
 import LogHelper from '../../../../helpers/LogHelper'
 import RootState from '../../../../types/RootState'
 
-interface Image {
-  name: string
-  data: string
-  src: string
-}
-interface Recipe {
-  id: number
-  name: string
-  description: string
-  authorId: string
-  course: string
-  images: Image[]
-}
-
 const updateRecipeAPI = async (data: Recipe, token: string): Promise<Recipe | false> => {
   try {
     const requestBody = {
@@ -24,7 +10,7 @@ const updateRecipeAPI = async (data: Recipe, token: string): Promise<Recipe | fa
       description: data.description,
       authorId: data.authorId,
       course: data.course,
-      ...(data?.images?.length > 0 && { images: data.images }),
+      ...(data.images && data.images.length > 0 && { images: data.images }),
     }
 
     const response = await axios.put(`http://localhost:1337/api/recipes/${data.id}`, requestBody, {

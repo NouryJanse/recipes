@@ -24,10 +24,8 @@ import {
 
 import RootState from '../../types/RootState'
 import isLoading from '../../helpers/LoadingHelper'
-import { Option } from '../../types/Option'
 import { RECIPE_COURSE_OPTIONS } from '../../constants'
-import { ImageData } from '../../types/ImageData'
-import Image from '../../types/Image'
+import courseName from './helpers'
 
 const EditRecipeContainer = styled.div`
   margin-bottom: 32px;
@@ -144,15 +142,6 @@ const EditRecipe: React.FC = (): ReactElement => {
   const deleteImage = async (imageId: number): Promise<void> => {
     // @ts-ignore:next-line
     dispatch(deleteRecipeImage(imageId))
-  }
-
-  const courseName = (courseValue: string, options: Option[]): string => {
-    const currentOption = options.find((option) => {
-      if (option.value && option.value === courseValue) return option
-      return null
-    })
-    if (currentOption) return currentOption.text
-    return ''
   }
 
   if (!recipe) {

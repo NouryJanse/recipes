@@ -12,6 +12,22 @@ interface Recipe {
   updatedAt?: string
   images?: Image[]
 }
+interface Option {
+  id: number
+  text: string
+  value: string
+  disabled: boolean
+}
+
+interface Image {
+  id: number
+  url: string
+  width: number
+  height: number
+  position: number
+  recipeId: number
+  cloudinaryId: string
+}
 
 interface CloudinaryImage {
   access_mode: string
@@ -42,6 +58,12 @@ interface RecipeFormProps {
   name: string
 }
 
+interface User {
+  name: string
+  token: string
+  sub: string
+}
+
 interface Auth0Interface {
   redirect_uri?: string
   scope?: string
@@ -57,4 +79,17 @@ interface Auth0Interface {
 
 interface Error {
   error: string
+}
+
+interface ImageData {
+  id?: number
+  name?: string
+  width?: number
+  height?: number
+  url?: string
+  path?: string
+  size?: string
+  data?: string | undefined
+  position?: number
+  cloudinaryId?: string
 }

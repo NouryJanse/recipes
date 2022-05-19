@@ -8,7 +8,6 @@ import { Button } from '../../index'
 import { formatNLDateTime } from '../../../helpers/DateHelper'
 import RootState from '../../../types/RootState'
 import ImageComponent from '../../Image'
-import Image from '../../../types/Image'
 
 type RecipeCardProps = {
   recipe: Recipe

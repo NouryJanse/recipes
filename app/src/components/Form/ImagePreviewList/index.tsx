@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { ImageData } from '../../../types/ImageData'
 import { Button } from '../..'
 
 interface ImagePreviewListProps {
@@ -19,7 +18,7 @@ const ImagePreviewList: React.FC<ImagePreviewListProps> = ({
             <span>
               {image.name} - {image.size} bytes
             </span>
-            <img src={image.data} alt="title" />
+            <img src={image.data.toString()} alt="title" />
             <Button
               type="button"
               label="Upload to CDN"

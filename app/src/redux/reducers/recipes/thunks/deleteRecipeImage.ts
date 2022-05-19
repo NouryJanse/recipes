@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import Image from '../../../../types/Image'
 import RootState from '../../../../types/RootState'
 
 const deleteRecipeImageAPI = async (imageId: number, token: string): Promise<Image> => {

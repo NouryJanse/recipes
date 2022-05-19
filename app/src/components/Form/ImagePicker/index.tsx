@@ -5,7 +5,6 @@ import classNames from 'classnames'
 
 import StyledLabel from './styled'
 import readAsDataURLViaPromise from '../../../helpers/FileSystemHelper'
-import { ImageData } from '../../../types/ImageData'
 
 type ImagePickerProps = {
   name: string
