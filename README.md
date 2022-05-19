@@ -2,7 +2,7 @@
 
 ## About
 
-An app that generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others.
+An app that generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others. Note that this app is a work in progress and that its purpose is mostly to demonstrate my experience and current skillset.
 
 ## Web app Front-End
 
