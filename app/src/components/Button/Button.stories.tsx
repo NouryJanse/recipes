@@ -5,8 +5,8 @@ import Button from './index'
 export default {
   label: 'Button',
   component: Button,
-  onClick: () => {
-    console.log('test')
+  onClick: (): string => {
+    return ''
   },
 } as ComponentMeta<typeof Button>
 

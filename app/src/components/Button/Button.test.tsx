@@ -17,7 +17,7 @@ it('renders with type reset', async () => {
 })
 
 it('renders with type submit and a disabled property', async () => {
-  render(<Button type="submit" label="test button" disabled={true} />)
+  render(<Button type="submit" label="test button" disabled />)
   const ButtonComponent = screen.getByRole('button')
   expect(ButtonComponent).toBeInTheDocument()
   expect(ButtonComponent).toHaveAttribute('type', 'submit')
@@ -32,8 +32,8 @@ it('renders with a class', async () => {
 })
 
 it('renders with a child component', async () => {
-  const child = <div data-testid="childOfButton">I'm the child</div>
-  const { queryByTestId } = render(<Button type="submit" children={child} />)
+  const child = <div data-testid="childOfButton">Im the child</div>
+  const { queryByTestId } = render(<Button type="submit">{child}</Button>)
   const renderedChild = queryByTestId('childOfButton')
   const renderedButton = screen.getByRole('button')
 

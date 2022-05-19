@@ -1,6 +1,7 @@
-interface CloudinaryImageWithRecipeId extends CloudinaryImage {
-  recipeId: number
-}
+declare module 'DateHelper'
+declare module '*.woff'
+declare module '*.woff2'
+
 interface Recipe {
   id: number
   name?: string
@@ -31,6 +32,10 @@ interface CloudinaryImage {
   version: number
   version_id: string
   width: number
+}
+
+interface CloudinaryImageWithRecipeId extends CloudinaryImage {
+  recipeId: number
 }
 
 interface RecipeFormProps {
