@@ -2,20 +2,6 @@
   "name": "recipes-server",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@prisma/client": "^3.14.0",
-    "dotenv": "^10.0.0",
-    "fastify": "^3.25.0",
-    "fastify-auth0-verify": "^0.7.0",
-    "fastify-autoload": "^3.9.0",
-    "fastify-cors": "^6.0.2",
-    "fastify-plugin": "^3.0.0",
-    "fastify-swagger": "^4.13.0",
-    "global": "^4.4.0",
-    "node-cache": "^5.1.2",
-    "pino-pretty": "^7.6.1",
-    "prisma": "^3.8.0"
-  },
   "scripts": {
     "dev": "NODE_ENV=dev ts-node-dev --files --respawn --exit-child index.ts",
     "build": "rm -rf dist && tsc",
@@ -24,7 +10,25 @@
     "lint": "eslint --ext .ts .",
     "lint-and-fix": "eslint . --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc.json '*.ts' --write",
-    "prisma-update": "npx prisma generate && npx prisma migrate dev --name init"
+    "prisma-update": "npx prisma generate && npx prisma migrate dev --name init",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.14.0",
+    "@types/jest": "^27.5.1",
+    "dotenv": "^10.0.0",
+    "fastify": "^3.25.0",
+    "fastify-auth0-verify": "^0.7.0",
+    "fastify-autoload": "^3.9.0",
+    "fastify-cors": "^6.0.2",
+    "fastify-plugin": "^3.0.0",
+    "fastify-swagger": "^4.13.0",
+    "global": "^4.4.0",
+    "jest": "^28.1.0",
+    "node-cache": "^5.1.2",
+    "pino-pretty": "^7.6.1",
+    "prisma": "^3.8.0",
+    "ts-jest": "^28.0.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.1",
