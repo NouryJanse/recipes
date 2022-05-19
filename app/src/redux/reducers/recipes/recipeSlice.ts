@@ -8,6 +8,7 @@ import updateRecipeThunk from './thunks/updateRecipe'
 import deleteRecipeThunk from './thunks/deleteRecipe'
 import { REDUX_STATE } from '../../../constants'
 import LogHelper from '../../../helpers/LogHelper'
+import replaceRecipeWithIdInArrayWithRecipes from './helpers'
 
 export const initialState = {
   data: { recipes: [] as Recipe[] },
@@ -71,10 +72,7 @@ export const recipeSlice = createSlice({
       const recipes: Recipe[] = state.data.recipes
       if (action?.payload) {
         const updatedRecipe: Recipe = action.payload as Recipe
-        const newRecipes: Recipe[] = recipes.map((recipe: Recipe) => {
-          return recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-        })
-        state.data.recipes = newRecipes
+        state.data.recipes = replaceRecipeWithIdInArrayWithRecipes(recipes, updatedRecipe)
       }
       state.status.getRecipe = REDUX_STATE.FULFILLED
       state.error = {}
@@ -94,10 +92,7 @@ export const recipeSlice = createSlice({
       const recipes: Recipe[] = state.data.recipes
       if (action?.payload) {
         const updatedRecipe: Recipe = action.payload
-        const newRecipes: Recipe[] = recipes.map((recipe: Recipe) => {
-          return recipe.id === updatedRecipe.id ? updatedRecipe : recipe
-        })
-        state.data.recipes = newRecipes
+        state.data.recipes = replaceRecipeWithIdInArrayWithRecipes(recipes, updatedRecipe)
       }
       state.status.updateRecipe = REDUX_STATE.FULFILLED
       state.error = {}

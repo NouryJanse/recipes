@@ -1,6 +1,7 @@
 import { Image } from '@prisma/client'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import NodeCache from 'node-cache'
+import { formatRecipeImages } from './helpers'
 import {
   createRecipe,
   getRecipes,
@@ -77,7 +78,10 @@ const updateRecipeOps = async (
   cache.del('recipes')
 
   if (recipe && recipe.id) {
-    return reply.code(201).send(recipe)
+    let recipeWithImage = await getRecipe(request.log, Number(recipe.id))
+    if (recipeWithImage) {
+      return reply.code(201).send(formatRecipeImages([recipeWithImage])[0])
+    }
   }
   return reply.code(201).send()
 }

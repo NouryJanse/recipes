@@ -1,5 +1,6 @@
 import { PrismaClient, Recipe, Image } from '@prisma/client'
 import { FastifyLoggerInstance } from 'fastify'
+import { formatRecipeImages } from './helpers'
 
 const prisma = new PrismaClient()
 
@@ -45,15 +46,7 @@ const getRecipes = async (logger: FastifyLoggerInstance): Promise<Recipe[] | fal
       },
     })
 
-    recipes = recipes.map((recipe) => {
-      if (recipe.Image && recipe.Image.length) {
-        // @ts-ignore: weird error because relation typings are not generated
-        return { ...recipe, images: recipe.Image, Image: [] }
-      }
-      return recipe
-    })
-
-    return recipes
+    return formatRecipeImages(recipes)
   } catch (error) {
     logger.error(error)
     return false
@@ -72,6 +65,13 @@ const getRecipe = async (
     const recipe = await prisma.recipe.findUnique({
       where: {
         id: recipeId,
+      },
+      include: {
+        Image: {
+          orderBy: {
+            position: 'asc',
+          },
+        },
       },
     })
     return recipe

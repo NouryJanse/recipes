@@ -50,7 +50,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }): ReactElement => {
           {recipe.description && <p>{recipe.description}</p>}
         </div>
         <div className="md:flex-1">
-          {mainImage && <ImageComponent alt="text" src={mainImage.url} />}
+          {mainImage && mainImage.url && <ImageComponent alt="text" src={mainImage.url} />}
         </div>
       </div>
 
