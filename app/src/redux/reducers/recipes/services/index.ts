@@ -1,14 +1,17 @@
 import LogHelper from '../../../../helpers/LogHelper'
 
+const cloudinaryId: string = process.env.REACT_APP_CLOUDINARY_ID as string
+const uploadPreset: string = process.env.REACT_APP_CLOUDINARY_PRESET_ID as string
+
 const uploadImageService = async (image: ImageData): Promise<CloudinaryImage | false> => {
   try {
-    if (!image.data || image.data === undefined) {
+    if (!image.data || image.data === undefined || !cloudinaryId || !uploadPreset) {
       return false
     }
     const body = new FormData()
     body.append('file', image.data.toString())
-    body.append('upload_preset', 'ej4yq8qc')
-    return await fetch('https://api.cloudinary.com/v1_1/dqnks1cyu/image/upload', {
+    body.append('upload_preset', uploadPreset.toString())
+    return await fetch(`https://api.cloudinary.com/v1_1/${cloudinaryId.toString()}/image/upload`, {
       method: 'POST',
       body,
     }).then((r) => r.json())
