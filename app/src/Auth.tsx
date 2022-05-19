@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux'
 import React, { ReactElement, useEffect } from 'react'
-import Home from './containers/Home'
+import Home from './Home'
 
 import { Button } from './components'
 import { storeToken, storeUser } from './redux/reducers/users/userSlice'
 import RootState from './types/RootState'
 
-type AppProps = {
+type AuthProps = {
   auth0: Auth0Interface
 }
 
-const App: React.FC<AppProps> = ({ auth0 }): ReactElement => {
+const Auth: React.FC<AuthProps> = ({ auth0 }): ReactElement => {
   const dispatch = useDispatch()
   const user = useSelector((state: RootState) => state.userSlice.data.user)
 
@@ -52,4 +52,4 @@ const App: React.FC<AppProps> = ({ auth0 }): ReactElement => {
   return <div>{loginButton}</div>
 }
 
-export default App
+export default Auth

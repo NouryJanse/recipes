@@ -5,7 +5,7 @@ import { store } from './redux/store'
 
 import GlobalStyle from './styles/globalStyle'
 import Fonts from './styles/fonts'
-import App from './App'
+import Auth from './Auth'
 import Auth0 from './Auth0'
 // import { StrictMode } from 'react'
 
@@ -35,7 +35,7 @@ if (container) {
           <BrowserRouter>
             <GlobalStyle />
             <Fonts />
-            <App auth0={auth0} />
+            <Auth auth0={auth0} />
           </BrowserRouter>
         </Provider>,
         // </StrictMode>,
