@@ -62,16 +62,21 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
     builder.addCase(getRecipe.rejected, (state) => {
-      state.status.getRecipe = 'rejected'
+      state.status.getRecipe = REDUX_STATE.REJECTED
       LogHelper({ logType: 'error', message: 'An error occurred' })
       state.error = {}
     })
     builder.addCase(getRecipe.fulfilled, (state, action) => {
-      state.status.getRecipe = REDUX_STATE.FULFILLED
-      if (action !== null && action.payload) {
-        // const recipe: Recipe = action.payload
-        // state.data.recipe = recipe
+      // eslint-disable-next-line prefer-destructuring
+      const recipes: Recipe[] = state.data.recipes
+      if (action?.payload) {
+        const updatedRecipe: Recipe = action.payload as Recipe
+        const newRecipes: Recipe[] = recipes.map((recipe: Recipe) => {
+          return recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+        })
+        state.data.recipes = newRecipes
       }
+      state.status.getRecipe = REDUX_STATE.FULFILLED
       state.error = {}
     })
 
@@ -123,7 +128,7 @@ export const recipeSlice = createSlice({
     })
 
     builder.addCase(deleteRecipeImage.pending, (state) => {
-      state.status.updateRecipe = REDUX_STATE.LOADING
+      state.status.deleteRecipeImage = REDUX_STATE.LOADING
       state.error = {}
     })
     builder.addCase(deleteRecipeImage.rejected, (state) => {

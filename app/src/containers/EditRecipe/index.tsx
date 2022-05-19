@@ -8,6 +8,7 @@ import {
   updateRecipe,
   createRecipeImage,
   deleteRecipeImage,
+  getRecipe,
 } from '../../redux/reducers/recipes/recipeSlice'
 import { uploadImageService } from '../../redux/reducers/recipes/services'
 import {
@@ -89,8 +90,10 @@ const EditRecipe: React.FC = (): ReactElement => {
     if (recipe && recipe.images && !initialRecipeLoad) {
       setImageSortableList(recipe?.images ? recipe.images : [])
       setInitialRecipeLoad(true)
+    } else if (recipe && !recipe.images) {
+      setImageSortableList([])
     }
-  }, [watch, recipe, id, recipes, params, imageSortableList, isDirty, initialRecipeLoad])
+  }, [watch, recipe, id, recipes, params, isDirty, initialRecipeLoad])
 
   const debouncedSubmit = useRef(
     debounce(async (data, currentRecipe) => {
@@ -141,7 +144,10 @@ const EditRecipe: React.FC = (): ReactElement => {
 
   const deleteImage = async (imageId: number): Promise<void> => {
     // @ts-ignore:next-line
-    dispatch(deleteRecipeImage(imageId))
+    await dispatch(deleteRecipeImage(imageId))
+    // @ts-ignore:next-line
+    await dispatch(getRecipe(recipe.id))
+    setInitialRecipeLoad(false)
   }
 
   if (!recipe) {

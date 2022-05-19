@@ -8,6 +8,7 @@ import {
   deleteRecipe,
   saveImage,
   deleteImage,
+  getRecipe,
 } from './model'
 
 const cache = new NodeCache({ stdTTL: 15 })
@@ -53,10 +54,11 @@ const getRecipesOps = async (
 }
 
 const getRecipeOps = async (
-  _request: FastifyRequest<{ Body: RecipeBody }>,
+  request: FastifyRequest<{ Params: { id: number } }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
-  return reply.code(201).send({ title: 'frieten' })
+  const recipes = await getRecipe(request.log, Number(request.params.id))
+  return reply.code(200).send(recipes)
 }
 
 const updateRecipeOps = async (

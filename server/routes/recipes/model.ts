@@ -66,12 +66,12 @@ const getRecipes = async (logger: FastifyLoggerInstance): Promise<Recipe[] | fal
 
 const getRecipe = async (
   logger: FastifyLoggerInstance,
-  id: number,
+  recipeId: number,
 ): Promise<Recipe | null | false> => {
   try {
     const recipe = await prisma.recipe.findUnique({
       where: {
-        id,
+        id: recipeId,
       },
     })
     return recipe
