@@ -1,7 +1,14 @@
 import { Image } from '@prisma/client'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import NodeCache from 'node-cache'
-import { createRecipe, getRecipes, updateRecipe, deleteRecipe, saveImage } from './model'
+import {
+  createRecipe,
+  getRecipes,
+  updateRecipe,
+  deleteRecipe,
+  saveImage,
+  deleteImage,
+} from './model'
 
 const cache = new NodeCache({ stdTTL: 15 })
 
@@ -81,12 +88,26 @@ const createRecipeImageOps = async (
 
   if (request?.body?.asset_id) {
     const image: Image | false = await saveImage(request.log, request.body, recipeId)
-
-    if (image instanceof Image) {
+    if (image) {
       return reply.code(201).send(image)
     }
   }
+  request.log.error('An error occurred')
   return reply.code(500).send()
+}
+
+const deleteRecipeImageOps = async (
+  request: FastifyRequest<{ Body: { imageId: number }; Params: RecipeParams }>,
+  reply: FastifyReply,
+): Promise<FastifyReply> => {
+  try {
+    const imageId = request.body.imageId
+    await deleteImage(request.log, imageId)
+    return reply.code(200).send()
+  } catch (error) {
+    request.log.error('An error occurred')
+    return reply.code(500).send()
+  }
 }
 
 const deleteRecipeOps = async (
@@ -112,5 +133,6 @@ export default {
   getRecipeOps,
   updateRecipeOps,
   createRecipeImageOps,
+  deleteRecipeImageOps,
   deleteRecipeOps,
 }

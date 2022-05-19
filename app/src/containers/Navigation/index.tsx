@@ -7,6 +7,7 @@ import { MdLogout } from 'react-icons/md'
 import { Button, Icon } from '../../components'
 import { toggleNav } from '../../redux/reducers/application/applicationSlice'
 import RootState from '../../types/RootState'
+import ROUTES from '../../constants/ROUTES'
 
 type NavigationProps = {
   logout: () => void
@@ -36,15 +37,15 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
           {!menuIsOpened && <Icon iconElement={<GoThreeBars style={{}} />} />}
           {menuIsOpened && <Icon iconElement={<GoX style={{ color: 'black' }} />} />}
         </div>
-        <Link to="/" className="navLink">
+        <Link to={ROUTES.HOME} className="navLink">
           <Icon iconElement={<GoHome style={{ color: 'black' }} />} />
           <p className="toggleContent">Home</p>
         </Link>
-        <Link to="/recipes" className="navLink">
+        <Link to={ROUTES.RECIPES_LIST} className="navLink">
           <Icon iconElement={<GoListUnordered style={{ color: 'black' }} />} />
           <p className="toggleContent">Recipes</p>
         </Link>
-        <Link to="/create" className="navLink">
+        <Link to={ROUTES.RECIPES_CREATE} className="navLink">
           <Icon iconElement={<GoPlus style={{ color: 'black' }} />} />
           <p className="toggleContent">New</p>
         </Link>

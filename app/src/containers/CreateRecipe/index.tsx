@@ -1,12 +1,16 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { createRecipe } from '../../redux/reducers/recipes/recipeSlice'
+import {
+  createRecipe,
+  getRecipes,
+  resetCreateRecipeStatus,
+} from '../../redux/reducers/recipes/recipeSlice'
 import { Textfield, Button, Textarea, Dropdown, FieldContainer } from '../../components'
 import RootState from '../../types/RootState'
-import { RECIPE_COURSE_OPTIONS, REDUX_STATE } from '../../constants'
+import { RECIPE_COURSE_OPTIONS, REDUX_STATE, ROUTES } from '../../constants'
 
 const CreateRecipe: React.FC = (): ReactElement => {
   const status = useSelector((state: RootState) => state.recipeSlice.status)
@@ -21,20 +25,23 @@ const CreateRecipe: React.FC = (): ReactElement => {
 
   const onSubmit = async (data: object): Promise<void> => {
     // @ts-ignore:next-line
-    const response = await dispatch(createRecipe(data))
-    if (status.createRecipe === REDUX_STATE.FULFILLED) {
-      navigate('/recipes')
-    } else if (status.createRecipe === REDUX_STATE.REJECTED) {
-      // console.log(response)
-      // console.log(status.createRecipe)
-    } else {
-      // this situation is not handled yet..
-    }
+    dispatch(createRecipe(data))
   }
 
   useEffect(() => {
-    if (status.createRecipe === 'rejected') {
-      throw new Error('An error occurred, the recipe was not created.')
+    switch (status.createRecipe) {
+      case REDUX_STATE.FULFILLED:
+        dispatch(resetCreateRecipeStatus())
+        // @ts-ignore:next-line
+        dispatch(getRecipes())
+        navigate(ROUTES.RECIPES_LIST)
+        break
+
+      case REDUX_STATE.REJECTED:
+        throw new Error('An error occurred, the recipe was not created.')
+
+      default:
+        break
     }
   }, [status])
 
@@ -76,9 +83,12 @@ const CreateRecipe: React.FC = (): ReactElement => {
           onChange={(course): void => setValue('course', course)}
           validation={{
             required: 'Did you forget to fill in the course of your recipe?',
+            validate: {
+              stillRequired: (value: string) => value !== 'choice',
+            },
           }}
           register={register}
-          errors={errors.description?.type === 'required' && 'Course is required'}
+          errors={errors.course?.type === 'required' && 'Course is required'}
           options={RECIPE_COURSE_OPTIONS}
         />
       </FieldContainer>

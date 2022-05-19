@@ -34,6 +34,12 @@ export default fp(
       preValidation: server.authenticate,
     })
 
+    // SAVE RECIPE IMAGE
+    server.delete('/api/recipes/image', {
+      handler: ops.deleteRecipeImageOps,
+      preValidation: server.authenticate,
+    })
+
     // DELETE RECIPE
     server.delete('/api/recipes/:id', {
       handler: ops.deleteRecipeOps,

@@ -19,4 +19,14 @@ const uploadImageService = async (image: ImageData): Promise<CloudinaryImage | f
   }
 }
 
-export default uploadImageService
+const deleteImageService = async (_imageId: number): Promise<boolean> => {
+  try {
+    // WIP
+    return true
+  } catch (error) {
+    LogHelper({ logType: 'error', message: 'An error occurred' })
+    return false
+  }
+}
+
+export { uploadImageService, deleteImageService }

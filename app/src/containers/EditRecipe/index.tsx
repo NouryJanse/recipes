@@ -4,8 +4,12 @@ import { useParams, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
 import styled from 'styled-components'
-import { updateRecipe, createRecipeImage } from '../../redux/reducers/recipes/recipeSlice'
-import uploadImageService from '../../redux/reducers/recipes/services'
+import {
+  updateRecipe,
+  createRecipeImage,
+  deleteRecipeImage,
+} from '../../redux/reducers/recipes/recipeSlice'
+import { uploadImageService } from '../../redux/reducers/recipes/services'
 import {
   Button,
   Textfield,
@@ -137,6 +141,11 @@ const EditRecipe: React.FC = (): ReactElement => {
     handleSubmit(onSave)()
   }
 
+  const deleteImage = async (imageId: number): Promise<void> => {
+    // @ts-ignore:next-line
+    dispatch(deleteRecipeImage(imageId))
+  }
+
   const courseName = (courseValue: string, options: Option[]): string => {
     const currentOption = options.find((option) => {
       if (option.value && option.value === courseValue) return option
@@ -158,7 +167,7 @@ const EditRecipe: React.FC = (): ReactElement => {
             Editing {recipe.name} -{' '}
             {courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}
           </h2>
-          <div>{isLoading(status) && <Loader size={28} speed={2} />}</div>
+          <div>{isLoading(status) && <Loader />}</div>
         </div>
 
         <FieldContainer>
@@ -222,7 +231,11 @@ const EditRecipe: React.FC = (): ReactElement => {
         )}
 
         {!!imageSortableList.length && (
-          <ImageSortableList images={imageSortableList} callbackSortedImages={handleSortedImages} />
+          <ImageSortableList
+            images={imageSortableList}
+            callbackSortedImages={handleSortedImages}
+            onDelete={deleteImage}
+          />
         )}
 
         <Button type="submit" label="Save recipe" classes={btnClasses} />

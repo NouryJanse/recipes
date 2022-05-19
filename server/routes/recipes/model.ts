@@ -171,4 +171,24 @@ const saveImage = async (
   }
 }
 
-export { createRecipe, getRecipes, getRecipe, updateRecipe, deleteRecipe, saveImage }
+const deleteImage = async (
+  logger: FastifyLoggerInstance,
+  imageId: number,
+): Promise<Image | false> => {
+  try {
+    const dbImage: Image = await prisma.image.delete({
+      where: { id: imageId },
+    })
+
+    return dbImage
+  } catch (error) {
+    logger.error(error)
+    return false
+  } finally {
+    ;async (): Promise<void> => {
+      await prisma.$disconnect()
+    }
+  }
+}
+
+export { createRecipe, getRecipes, getRecipe, updateRecipe, deleteRecipe, saveImage, deleteImage }

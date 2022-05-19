@@ -3,18 +3,20 @@ import getRecipeThunk from './thunks/getRecipe'
 import getRecipesThunk from './thunks/getRecipes'
 import createRecipeThunk from './thunks/createRecipe'
 import createRecipeImageThunk from './thunks/createRecipeImage'
+import deleteRecipeImageThunk from './thunks/deleteRecipeImage'
 import updateRecipeThunk from './thunks/updateRecipe'
 import deleteRecipeThunk from './thunks/deleteRecipe'
 import { REDUX_STATE } from '../../../constants'
 import LogHelper from '../../../helpers/LogHelper'
 
 export const initialState = {
-  data: { recipes: [] as Recipe[], recipe: {} },
+  data: { recipes: [] as Recipe[] },
   status: {
     getRecipe: 'initial',
     getRecipes: 'initial',
     createRecipe: 'initial',
     createRecipeImage: 'initial',
+    deleteRecipeImage: 'initial',
     updateRecipe: 'initial',
     deleteRecipe: 'initial',
   },
@@ -25,13 +27,18 @@ export const getRecipe = getRecipeThunk
 export const getRecipes = getRecipesThunk
 export const createRecipe = createRecipeThunk
 export const createRecipeImage = createRecipeImageThunk
+export const deleteRecipeImage = deleteRecipeImageThunk
 export const updateRecipe = updateRecipeThunk
 export const deleteRecipe = deleteRecipeThunk
 
 export const recipeSlice = createSlice({
   name: 'recipes',
   initialState,
-  reducers: {},
+  reducers: {
+    resetCreateRecipeStatus: (state) => {
+      state.status.createRecipe = REDUX_STATE.INITIAL
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getRecipes.pending, (state) => {
       state.status.getRecipes = REDUX_STATE.LOADING
@@ -62,8 +69,8 @@ export const recipeSlice = createSlice({
     builder.addCase(getRecipe.fulfilled, (state, action) => {
       state.status.getRecipe = REDUX_STATE.FULFILLED
       if (action !== null && action.payload) {
-        const recipe: Recipe = action.payload
-        state.data.recipe = recipe
+        // const recipe: Recipe = action.payload
+        // state.data.recipe = recipe
       }
       state.error = {}
     })
@@ -115,6 +122,20 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
 
+    builder.addCase(deleteRecipeImage.pending, (state) => {
+      state.status.updateRecipe = REDUX_STATE.LOADING
+      state.error = {}
+    })
+    builder.addCase(deleteRecipeImage.rejected, (state) => {
+      state.status.deleteRecipeImage = REDUX_STATE.REJECTED
+      LogHelper({ logType: 'error', message: 'An error occurred' })
+      state.error = {}
+    })
+    builder.addCase(deleteRecipeImage.fulfilled, (state, _action) => {
+      state.status.deleteRecipeImage = REDUX_STATE.FULFILLED
+      state.error = {}
+    })
+
     builder.addCase(createRecipe.pending, (state) => {
       state.status.createRecipe = REDUX_STATE.LOADING
       state.error = {}
@@ -144,5 +165,7 @@ export const recipeSlice = createSlice({
     })
   },
 })
+
+export const { resetCreateRecipeStatus } = recipeSlice.actions
 
 export default recipeSlice.reducer

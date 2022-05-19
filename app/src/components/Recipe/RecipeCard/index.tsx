@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import RecipeContainer from './styled'
 
-import { deleteRecipe } from '../../../redux/reducers/recipes/recipeSlice'
+import { deleteRecipe, getRecipes } from '../../../redux/reducers/recipes/recipeSlice'
 import { Button } from '../../index'
 import { formatNLDateTime } from '../../../helpers/DateHelper'
 import RootState from '../../../types/RootState'
@@ -25,6 +25,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }): ReactElement => {
     if (!recipeId) return false
     // @ts-ignore:next-line
     await dispatch(deleteRecipe(recipeId))
+    // @ts-ignore:next-line
+    await dispatch(getRecipes())
     navigate('/recipes')
     return true
   }

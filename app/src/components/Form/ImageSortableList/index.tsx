@@ -7,11 +7,13 @@ import ImageComponent from '../../Image'
 type ImageSortableListProps = {
   images: Image[]
   callbackSortedImages: (images: Image[]) => void
+  onDelete: (imageId: number) => void
 }
 
 const ImageSortableList: React.FC<ImageSortableListProps> = ({
   images,
   callbackSortedImages,
+  onDelete,
 }: ImageSortableListProps): ReactElement => {
   const handleOnDragEnd = (result: DropResult): boolean => {
     if (!result.destination) return false
@@ -42,7 +44,11 @@ const ImageSortableList: React.FC<ImageSortableListProps> = ({
                           >
                             <div className="max-w-xs mb-8">
                               <ImageComponent alt="alt-text" src={url} width={200} height={100} />
-                              {/* <Button type="button" label="x" onClick={}/> */}
+                              <Button
+                                type="button"
+                                label="Delete"
+                                onClick={(): void => onDelete(id)}
+                              />
                             </div>
                           </li>
                         )}
