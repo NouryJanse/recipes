@@ -2,6 +2,18 @@
   "name": "recipes-server",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "NODE_ENV=dev ts-node-dev --files --respawn --exit-child index.ts",
+    "build": "rm -rf dist && tsc",
+    "prod": "node ./dist/index.js",
+    "check": "tsc --noemit",
+    "lint": "eslint --ext .ts .",
+    "lint-and-fix": "eslint . --ext .ts --fix",
+    "prettier-format": "prettier --config .prettierrc.json '*.ts' --write",
+    "prisma-update": "npx prisma generate && npx prisma migrate dev --name init",
+    "test": "jest --coverage",
+    "test:watch": "jest --watchAll"
+  },
   "dependencies": {
     "@prisma/client": "^3.14.0",
     "dotenv": "^10.0.0",
@@ -16,19 +28,11 @@
     "pino-pretty": "^7.6.1",
     "prisma": "^3.8.0"
   },
-  "scripts": {
-    "dev": "NODE_ENV=dev ts-node-dev --files --respawn --exit-child index.ts",
-    "build": "rm -rf dist && tsc",
-    "prod": "node ./dist/index.js",
-    "check": "tsc --noemit",
-    "lint": "eslint --ext .ts .",
-    "lint-and-fix": "eslint . --ext .ts --fix",
-    "prettier-format": "prettier --config .prettierrc.json '*.ts' --write",
-    "prisma-update": "npx prisma generate && npx prisma migrate dev --name init"
-  },
   "devDependencies": {
-    "@types/node": "^17.0.1",
+    "@types/jest": "^27.5.1",
+    "@types/node": "^17.0.35",
     "@types/node-cache": "^4.2.5",
+    "@types/tap": "^15.0.7",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "eslint": "^8.4.1",
@@ -38,7 +42,10 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
+    "jest": "^28.1.0",
     "prettier": "^2.5.1",
+    "tap": "^16.2.0",
+    "ts-jest": "^28.0.2",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.4"
   }

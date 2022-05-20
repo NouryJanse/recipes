@@ -1,7 +1,7 @@
 import { Image } from '@prisma/client'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import NodeCache from 'node-cache'
-import { formatRecipeImages } from './helpers'
+import { formatRecipeImages } from '../../helpers'
 import {
   createRecipe,
   getRecipes,

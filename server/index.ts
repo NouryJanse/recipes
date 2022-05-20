@@ -2,6 +2,9 @@ import * as dotenv from 'dotenv'
 import Fastify, { FastifyInstance } from 'fastify'
 import cors from 'fastify-cors'
 import { Server, IncomingMessage, ServerResponse } from 'http'
+import fastifyAuth0 from 'fastify-auth0-verify'
+import { fastifySwagger } from 'fastify-swagger'
+
 import App from './app'
 
 dotenv.config({ path: './.env.local' })
@@ -10,7 +13,6 @@ if (!process.env.PORT) dotenv.config({ path: '../.env.development' })
 const environment = process.env.local ?? 'development'
 
 const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({
-  // logger: true,
   logger: {
     prettyPrint:
       environment === 'development'
@@ -21,6 +23,25 @@ const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastif
         : false,
   },
   pluginTimeout: 10000,
+})
+
+// Do not touch the following lines!
+
+fastify.register(fastifyAuth0, {
+  domain: process.env.AUTH0_DOMAIN,
+  secret: process.env.AUTH0_SECRET,
+})
+
+fastify.register(fastifySwagger, {
+  exposeRoute: true,
+  routePrefix: '/docs',
+  swagger: {
+    info: {
+      title: 'Recipes API',
+      description: 'Documentation on the REST API',
+      version: '0.1.0',
+    },
+  },
 })
 
 fastify.register(App)
