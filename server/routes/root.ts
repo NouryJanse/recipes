@@ -25,7 +25,7 @@ export default fp(
         },
       },
       async () => {
-        return { hello: 'from root.js' }
+        return { hello: 'from root.ts' }
       },
     )
     next()

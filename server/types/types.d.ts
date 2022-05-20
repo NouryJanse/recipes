@@ -10,6 +10,11 @@ interface RecipeParams {
   id: string
 }
 
+declare module '*.json' {
+  const value: any
+  export default value
+}
+
 interface CloudinaryImage {
   access_mode: string
   asset_id: string

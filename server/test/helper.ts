@@ -7,7 +7,7 @@ import App from '../app'
 // needed for testing the application
 async function config() {
   return {
-    domain: 'test',
+    domain: process.env.AUTH0_DOMAIN, // 'dev-recipes.eu.auth0.com',
   }
 }
 

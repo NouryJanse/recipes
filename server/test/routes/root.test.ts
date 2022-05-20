@@ -1,12 +1,12 @@
 import { build } from '../helper'
 
-describe('root tests', () => {
+describe('if root call on / works', () => {
   const app = build()
 
-  test('default root route', async () => {
-    const res = await app.inject({
+  it('shows hello from root.ts', async () => {
+    const response = await app.inject({
       url: '/',
     })
-    expect(JSON.parse(res.payload)).toEqual({ root: true })
+    expect(JSON.parse(response.payload)).toEqual({ hello: 'from root.ts' })
   })
 })
