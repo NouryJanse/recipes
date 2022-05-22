@@ -19,7 +19,6 @@ const createRecipeOps = async (
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
-    // const user = request.user
     const recipe = await createRecipe(
       request.log,
       request.body.name,
@@ -44,12 +43,12 @@ const getRecipesOps = async (
   request: FastifyRequest<{ Body: RecipeBody }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
+  // improve the cache by implementing an id system so that individual recipes can be invalidated
   if (cache.has('recipes')) {
     return reply.code(200).send(cache.get('recipes'))
   }
 
   const recipes = await getRecipes(request.log)
-
   cache.set('recipes', recipes)
   return reply.code(200).send(recipes)
 }
@@ -78,7 +77,7 @@ const updateRecipeOps = async (
   cache.del('recipes')
 
   if (recipe && recipe.id) {
-    let recipeWithImage = await getRecipe(request.log, Number(recipe.id))
+    const recipeWithImage = await getRecipe(request.log, Number(recipe.id))
     if (recipeWithImage) {
       return reply.code(201).send(formatRecipeImages([recipeWithImage])[0])
     }
@@ -107,7 +106,8 @@ const deleteRecipeImageOps = async (
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
-    const imageId = request.body.imageId
+    // improve the cache by deleting the recipe instance of that relates to this image
+    const { imageId } = request.body
     await deleteImage(request.log, imageId)
     return reply.code(200).send()
   } catch (error) {

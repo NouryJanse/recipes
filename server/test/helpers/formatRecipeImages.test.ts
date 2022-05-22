@@ -7,6 +7,7 @@ describe('formatRecipeImages', () => {
     expect(recipes[0]).toHaveProperty('Image')
     expect(recipes.length).toBe(3)
     const formattedRecipes: Recipe[] = formatRecipeImages(recipes as Recipe[])
+    expect(formattedRecipes[0]).not.toHaveProperty('Image')
     expect(formattedRecipes[0]).toHaveProperty('images')
     expect(formattedRecipes.length).toBe(3)
   })

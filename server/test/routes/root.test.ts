@@ -1,4 +1,4 @@
-import { build } from '../helper'
+import { build } from '../setupTestApplication'
 
 describe('if root call on / works', () => {
   const app = build()

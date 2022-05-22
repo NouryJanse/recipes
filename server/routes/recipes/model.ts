@@ -33,7 +33,7 @@ const createRecipe = async (
 
 const getRecipes = async (logger: FastifyLoggerInstance): Promise<Recipe[] | false> => {
   try {
-    let recipes = await prisma.recipe.findMany({
+    const recipes = await prisma.recipe.findMany({
       orderBy: {
         updatedAt: 'desc',
       },

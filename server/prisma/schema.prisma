@@ -8,7 +8,6 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DB_URL")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model Recipe {
   id          Int       @unique @default(autoincrement())
   name        String    @unique @db.VarChar(255)
