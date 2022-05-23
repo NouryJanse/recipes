@@ -9,30 +9,24 @@ import EditRecipe from './containers/EditRecipe'
 import { RecipeDetail } from './components'
 import RootState from './types/RootState'
 import ROUTES from './constants/ROUTES'
+import Home from './containers/Home'
 
 type HomeProps = {
   logout: () => void
 }
 
-const Home: React.FC<HomeProps> = ({ logout }): ReactElement => {
+const App: React.FC<HomeProps> = ({ logout }): ReactElement => {
   const application = useSelector((state: RootState) => state.applicationSlice.data)
-  const user = useSelector((state: RootState) => state.userSlice.data.user)
 
   return (
     <div className="rootContainer">
       <Navigation logout={logout} />
 
       <div className={`container content ${application.navMenuIsOpened ? `opened` : `closed`}`}>
-        <div className="row">
-          <div className="col-xs-12">
-            <h1 className="underline mb-4 xs:text-sm md:text-xl">Recipes by Noury</h1>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-xs-12">
+        <div className="">
+          <div className="">
             <Routes>
-              <Route path={ROUTES.HOME} element={<div>Welcome {user.name}!</div>} />
+              <Route path={ROUTES.HOME} element={<Home />} />
 
               <Route path={ROUTES.RECIPES_CREATE} element={<CreateRecipe />} />
 
@@ -58,4 +52,4 @@ const Home: React.FC<HomeProps> = ({ logout }): ReactElement => {
   )
 }
 
-export default Home
+export default App
