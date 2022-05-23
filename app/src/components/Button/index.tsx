@@ -3,12 +3,13 @@ import ButtonStyle from './styled'
 
 type ButtonProps = {
   type: 'submit' | 'reset' | 'button'
-  onClick?: () => void
+  onClick?: (e: Event) => void
   disabled?: boolean
   label?: string | JSX.Element
   classes?: string
   children?: JSX.Element
   buttonStyle?: 'primary' | 'secondary'
+  noedge?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -19,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   classes,
   children,
   buttonStyle,
+  noedge,
 }): ReactElement => {
   return (
     <ButtonStyle
@@ -28,6 +30,7 @@ const Button: React.FC<ButtonProps> = ({
       className={classes}
       $primary={buttonStyle === 'primary'}
       $secondary={buttonStyle === 'secondary'}
+      $noedge={noedge}
     >
       {children || label}
     </ButtonStyle>
@@ -43,6 +46,7 @@ Button.defaultProps = {
   classes: '',
   children: undefined,
   buttonStyle: 'primary',
+  noedge: false,
 }
 
 export default Button

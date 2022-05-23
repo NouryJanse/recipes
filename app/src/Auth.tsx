@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import React, { ReactElement, useEffect } from 'react'
-import Home from './Home'
+import Home from './App'
 
 import { Button } from './components'
 import { storeToken, storeUser } from './redux/reducers/users/userSlice'

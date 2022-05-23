@@ -3,6 +3,7 @@ import tw from 'tailwind-styled-components'
 interface TWStyledButtonParameter {
   $primary: boolean
   $secondary: boolean
+  $noedge: boolean
 }
 
 const ButtonStyle = tw.button`
@@ -11,10 +12,6 @@ const ButtonStyle = tw.button`
   align-middle
   justify-center
   p-2
-  mt-2
-  mr-1
-  mb-2
-  ml-0
   rounded
 
   no-underline
@@ -28,9 +25,11 @@ const ButtonStyle = tw.button`
   focus:border-blue
 
   ${(p: TWStyledButtonParameter): string =>
-    p.$primary ? 'bg-blue text-white hover:bg-blueDark' : ''}
+    p.$noedge ? 'bg-white/[.5] text-white hover:bg-white/[1.0] hover:text-black' : ''}
   ${(p: TWStyledButtonParameter): string =>
-    p.$secondary ? 'bg-white text-blue hover:bg-blueDark hover:text-white' : ''}
+    p.$primary && !p.$noedge ? 'bg-blue text-white hover:bg-blueDark' : ''}
+  ${(p: TWStyledButtonParameter): string =>
+    p.$secondary && !p.$noedge ? 'bg-white text-blue hover:bg-blueDark hover:text-white' : ''}
 `
 
 export default ButtonStyle
