@@ -1,3 +1,5 @@
+// unit test needed
+
 const LOG_TYPES = {
   LOG: 'log',
   ERROR: 'error',

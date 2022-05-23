@@ -15,7 +15,11 @@ describe('Home', () => {
     expect(text).toBeInTheDocument
   })
 
-  it('displays the home hero banner', async () => {})
+  it('displays the home hero banner', async () => {
+    setup()
+  })
 
-  it('displays the latest (3) recipes', async () => {})
+  it('displays the latest (3) recipes', async () => {
+    setup()
+  })
 })

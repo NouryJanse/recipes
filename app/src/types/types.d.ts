@@ -2,6 +2,16 @@ declare module 'DateHelper'
 declare module '*.woff'
 declare module '*.woff2'
 
+interface Image {
+  id: number
+  url: string
+  width: number
+  height: number
+  position: number
+  recipeId: number
+  cloudinaryId: string
+}
+
 interface Recipe {
   id: number
   name?: string
@@ -12,21 +22,12 @@ interface Recipe {
   updatedAt: string
   images?: Image[]
 }
+
 interface Option {
   id: number
   text: string
   value: string
   disabled: boolean
-}
-
-interface Image {
-  id: number
-  url: string
-  width: number
-  height: number
-  position: number
-  recipeId: number
-  cloudinaryId: string
 }
 
 interface CloudinaryImage {
