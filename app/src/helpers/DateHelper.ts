@@ -1,9 +1,11 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
+import relativeTime from 'dayjs/plugin/relativeTime'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
+dayjs.extend(relativeTime)
 
 const currentTimeZone = 'Europe/Amsterdam'
 const nlFormat = 'DD-MM-YYYY HH:mm:ss'
@@ -46,4 +48,15 @@ export const getTodayMinusDays = (days: number): string => {
     return dayjs.tz('').endOf('day').subtract(days, 'days').format(longFormat)
   }
   return ''
+}
+
+export const getDifferenceInText = (date: string): string => {
+  return dayjs(date).fromNow(true)
+}
+
+export const getDifferenceInFormat = (
+  date: string,
+  format: 'ms' | 's' | 'm' | 'h' | 'd' | 'w' | 'M', // ... Q, y
+): number => {
+  return dayjs().diff(date, format, true)
 }
