@@ -39,13 +39,13 @@ const GlobalStyle = createGlobalStyle`
         min-height: 95vh;
         max-height: 100vh;
         width: 8vw;
-        max-width: 160px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         position: fixed;
         transition: 0.3s;
-        align-items: center;
+        align-items: start;
+        max-width: 230px;
         
         .navLink {
             display: flex;
@@ -61,7 +61,7 @@ const GlobalStyle = createGlobalStyle`
         }
 
         &.opened {
-            width: 24vw;
+            width: 230px;
 
             .navLink {
                 .toggleContent {
@@ -75,10 +75,11 @@ const GlobalStyle = createGlobalStyle`
 
     .content {
         transition: margin-left 0.3s;
-        margin-left: 8vw;
+        margin-left: 60px;
+        width: 100%;
 
         &.opened {
-            margin-left: 24vw;
+            margin-left: 230px;
         }
     }
 

@@ -30,6 +30,7 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
           onKeyDown={(e: React.KeyboardEvent): React.KeyboardEvent => {
             return e
           }}
+          style={{ margin: '0 8px 8px 8px' }}
           onClick={(): void => {
             dispatch(toggleNav())
           }}
@@ -38,15 +39,15 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
           {menuIsOpened && <Icon iconElement={<GoX style={{ color: 'black' }} />} />}
         </div>
         <Link to={ROUTES.HOME} className="navLink">
-          <Icon iconElement={<GoHome style={{ color: 'black' }} />} />
+          <Icon iconElement={<GoHome style={{ color: 'black', margin: '8px' }} />} />
           <p className="toggleContent">Home</p>
         </Link>
         <Link to={ROUTES.RECIPES_LIST} className="navLink">
-          <Icon iconElement={<GoListUnordered style={{ color: 'black' }} />} />
+          <Icon iconElement={<GoListUnordered style={{ color: 'black', margin: '8px' }} />} />
           <p className="toggleContent">Recipes</p>
         </Link>
         <Link to={ROUTES.RECIPES_CREATE} className="navLink">
-          <Icon iconElement={<GoPlus style={{ color: 'black' }} />} />
+          <Icon iconElement={<GoPlus style={{ color: 'black', margin: '8px' }} />} />
           <p className="toggleContent">New</p>
         </Link>
       </div>

@@ -1,3 +1,5 @@
+// unit test needed
+
 const readAsDataURLViaPromise = (file: File): Promise<object> | boolean => {
   if (!file.size) return false
 

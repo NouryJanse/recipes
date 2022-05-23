@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import Home from './Home'
+import App from './App'
 import renderWithStore from './helpers/TestHelper'
 
 const setup = (): ReturnType<typeof render> =>
   renderWithStore(
-    <Home
+    <App
       logout={(): string => {
         return ''
       }}
