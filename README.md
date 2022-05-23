@@ -3,7 +3,7 @@
 ## About
 
 Welcome to my recipe app 🥗! Thank you for taking the time to read this document 🙏!
-An app that generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others. Note that this app is a work in progress and that its purpose is mostly to demonstrate my experience, current skillset at last but not least: interests as an engineer 🧑‍💻.
+An app that generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others. Note that this app is a work in progress and that its purpose is mostly to demonstrate my experience, current skillset at last but not least: interests as an engineer 🧑‍💻. Please refer to some screenshots below.
 
 ## Creator application
 
@@ -99,3 +99,8 @@ Swagger documentation can be found by navigating to /docs
   > integration testing (on the routing and underlying functionality)
 
   > unit testing the Prisma models and expected behaviours
+
+![Home on Mobile](Home-SM.png)
+![Home on Desktop](Home-XL.png)
+![All recipes](Recipes-SM.png)
+![Create Recipe](Create-MD.png)
