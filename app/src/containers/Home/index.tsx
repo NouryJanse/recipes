@@ -22,7 +22,7 @@ const Home: React.FC = (): JSX.Element => {
   }, [dispatch, recipes])
 
   return (
-    <div>
+    <>
       <span className="text-gray-600 mb-6 flex">Welcome {user.name}.</span>
       <h1 className="text-xl xl:text-4xl font-bold mb-20">Discover recipes</h1>
       <div
@@ -30,7 +30,7 @@ const Home: React.FC = (): JSX.Element => {
           backgroundImage: `url('${REPLACEMENT_IMAGES.heroBanner}')`,
           boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.2)',
         }}
-        className="p-20 mb-10 rounded-lg bg-cover"
+        className="p-10 md:p-20 mb-10 rounded-lg bg-cover"
       >
         <p className="text-white font-mono text-md xl:text-lg">Some hero component here...</p>
       </div>
@@ -79,7 +79,7 @@ const Home: React.FC = (): JSX.Element => {
           </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
 

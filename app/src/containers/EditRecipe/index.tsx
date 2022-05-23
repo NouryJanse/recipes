@@ -28,10 +28,6 @@ import isLoading from '../../helpers/LoadingHelper'
 import { RECIPE_COURSE_OPTIONS } from '../../constants'
 import courseName from './helpers'
 
-const EditRecipeContainer = styled.div`
-  margin-bottom: 32px;
-`
-
 const EditRecipe: React.FC = (): ReactElement => {
   const dispatch = useDispatch()
   const params = useParams()
@@ -45,7 +41,7 @@ const EditRecipe: React.FC = (): ReactElement => {
   const [recipe, setRecipe] = useState<Recipe>()
   const [imagePreviewList, setImageViewList] = useState<ImageData[]>([])
   const [imageSortableList, setImageSortableList] = useState<Image[]>([])
-  const [btnClasses, setBtnClasses] = useState('')
+  const [btnClasses, setBtnClasses] = useState('mb-10')
 
   const hasURLParams = useRef(false)
 
@@ -71,7 +67,7 @@ const EditRecipe: React.FC = (): ReactElement => {
   }
 
   useEffect(() => {
-    if (isDirty) setBtnClasses('font-bold')
+    if (isDirty) setBtnClasses('font-bold mb-10')
 
     if (hasURLParams.current === false || !recipe || !id) {
       if (!typeof params.recipeId !== undefined) {
@@ -155,16 +151,15 @@ const EditRecipe: React.FC = (): ReactElement => {
   }
 
   return (
-    <EditRecipeContainer>
+    <div className="pt-12">
+      <div className="flex align-center">
+        <h1 className="text-xl md:text-3xl xl:text-4xl font-bold mb-20">
+          Editing {recipe.name} -{' '}
+          {courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}
+        </h1>
+        {isLoading(status) && <Loader />}
+      </div>
       <form onSubmit={handleSubmit(onSave)} {...formRef}>
-        <div className="flex">
-          <h2 className="font-bold">
-            Editing {recipe.name} -{' '}
-            {courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}
-          </h2>
-          <div>{isLoading(status) && <Loader />}</div>
-        </div>
-
         <FieldContainer>
           <Textfield
             name="name"
@@ -236,11 +231,13 @@ const EditRecipe: React.FC = (): ReactElement => {
         <Button type="submit" label="Save recipe" classes={btnClasses} />
 
         {params.recipeId && (
-          <Link to={`/recipes/${params.recipeId}`}>Back to recipe {recipe.name}</Link>
+          <Link to={`/recipes/${params.recipeId}`}>
+            Back to <b>{recipe.name}</b>
+          </Link>
         )}
         <Link to="/recipes">Back to recipes</Link>
       </form>
-    </EditRecipeContainer>
+    </div>
   )
 }
 

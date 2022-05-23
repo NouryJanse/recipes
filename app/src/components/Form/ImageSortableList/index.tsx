@@ -42,7 +42,10 @@ const ImageSortableList: React.FC<ImageSortableListProps> = ({
                             {...providedTwo.dragHandleProps}
                           >
                             <div className="max-w-xs mb-8">
-                              <ImageComponent alt="alt-text" src={url} width={200} height={100} />
+                              <div className="mb-2">
+                                <ImageComponent alt="alt-text" src={url} width={200} height={100} />
+                              </div>
+
                               <Button
                                 type="button"
                                 label="Delete"
@@ -54,6 +57,7 @@ const ImageSortableList: React.FC<ImageSortableListProps> = ({
                       </Draggable>
                     )
                   })}
+
                   {provided.placeholder}
                 </ul>
               )}

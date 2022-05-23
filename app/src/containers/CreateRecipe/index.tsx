@@ -46,55 +46,59 @@ const CreateRecipe: React.FC = (): ReactElement => {
   }, [status])
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FieldContainer>
-        <Textfield
-          name="name"
-          type="text"
-          label="Recipe title*"
-          placeholder="Fill in a title"
-          validation={{
-            required: 'Did you forget to name your recipe?',
-          }}
-          register={register}
-          errors={errors.name?.type === 'required' && 'Title is required'}
-        />
-      </FieldContainer>
+    <div className="pt-12">
+      <h1 className="text-xl md:text-3xl xl:text-4xl font-bold mb-20">Create a delicous meal</h1>
 
-      <FieldContainer>
-        <Textarea
-          name="description"
-          label="Recipe description*"
-          placeholder="Fill in a description"
-          validation={{
-            required: 'Did you forget to fill in the description of your recipe?',
-          }}
-          register={register}
-          errors={errors.description?.type === 'required' && 'Description is required'}
-        />
-      </FieldContainer>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FieldContainer>
+          <Textfield
+            name="name"
+            type="text"
+            label="Recipe title*"
+            placeholder="Fill in a title"
+            validation={{
+              required: 'Did you forget to name your recipe?',
+            }}
+            register={register}
+            errors={errors.name?.type === 'required' && 'Title is required'}
+          />
+        </FieldContainer>
 
-      <FieldContainer>
-        <Dropdown
-          name="course"
-          label="Course*"
-          defaultValue=""
-          disabled={false}
-          onChange={(course): void => setValue('course', course)}
-          validation={{
-            required: 'Did you forget to fill in the course of your recipe?',
-            validate: {
-              stillRequired: (value: string) => value !== 'choice',
-            },
-          }}
-          register={register}
-          errors={errors.course?.type === 'required' && 'Course is required'}
-          options={RECIPE_COURSE_OPTIONS}
-        />
-      </FieldContainer>
+        <FieldContainer>
+          <Textarea
+            name="description"
+            label="Recipe description*"
+            placeholder="Fill in a description"
+            validation={{
+              required: 'Did you forget to fill in the description of your recipe?',
+            }}
+            register={register}
+            errors={errors.description?.type === 'required' && 'Description is required'}
+          />
+        </FieldContainer>
 
-      <Button type="submit" label="Save recipe" />
-    </form>
+        <FieldContainer>
+          <Dropdown
+            name="course"
+            label="Course*"
+            defaultValue=""
+            disabled={false}
+            onChange={(course): void => setValue('course', course)}
+            validation={{
+              required: 'Did you forget to fill in the course of your recipe?',
+              validate: {
+                stillRequired: (value: string) => value !== 'choice',
+              },
+            }}
+            register={register}
+            errors={errors.course?.type === 'required' && 'Course is required'}
+            options={RECIPE_COURSE_OPTIONS}
+          />
+        </FieldContainer>
+
+        <Button type="submit" label="Save recipe" />
+      </form>
+    </div>
   )
 }
 

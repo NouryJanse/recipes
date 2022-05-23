@@ -20,12 +20,8 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
   classes,
 }): ReactElement => {
   const dimensions = {
-    ...((width === undefined ||
-      width > 0 ||
-      (typeof width === 'string' && width.includes('%'))) && { width }),
-    ...((height === undefined ||
-      height > 0 ||
-      (typeof height === 'string' && height.includes('%'))) && { height }),
+    ...((width === undefined || width > 0) && { width }),
+    ...((height === undefined || height > 0) && { height }),
   }
   const otherClasses = classNames(
     {
@@ -34,11 +30,6 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
     },
     classes,
   )
-
-  /* object-fit: cover;
-    width: 100%;
-    height: 100%;
-    position: absolute; */
 
   if (dimensions.width || dimensions.height) {
     return <ImageStyle src={src} alt={alt} {...dimensions} {...otherClasses} />
