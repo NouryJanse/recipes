@@ -8,8 +8,8 @@ interface Recipe {
   description?: string
   authorId: string
   course?: string
-  createdAt?: string
-  updatedAt?: string
+  createdAt: string
+  updatedAt: string
   images?: Image[]
 }
 interface Option {

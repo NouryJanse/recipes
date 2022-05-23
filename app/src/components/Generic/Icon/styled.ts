@@ -7,7 +7,6 @@ const StyledIcon = styled.div`
   svg {
     min-height: 32px;
     width: 32px;
-    margin: 8px;
   }
 `
 

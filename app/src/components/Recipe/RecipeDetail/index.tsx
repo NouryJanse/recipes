@@ -7,6 +7,7 @@ import { deleteRecipe } from '../../../redux/reducers/recipes/recipeSlice'
 import { Button } from '../../index'
 import { formatNLDateTime } from '../../../helpers/DateHelper'
 import RootState from '../../../types/RootState'
+import ImageComponent from '../../Image'
 
 const RecipeDetail: React.FC = (): ReactElement => {
   const [recipe, setRecipe] = useState<Recipe>({} as Recipe)
@@ -37,6 +38,15 @@ const RecipeDetail: React.FC = (): ReactElement => {
   return (
     <RecipeContainer>
       <h2>{recipe.name}</h2>
+      <div
+        style={{ paddingBottom: '50vh', overflow: 'hidden', height: '50vh', position: 'relative' }}
+      >
+        {recipe.images && recipe.images.length ? (
+          <ImageComponent alt="text" src={recipe.images[0].url} width="100%" height="100%" />
+        ) : (
+          ''
+        )}
+      </div>
       {recipe.updatedAt && <p>Last updated: {formatNLDateTime(recipe.updatedAt)}</p>}
       {recipe.createdAt && <p>Created at: {formatNLDateTime(recipe.createdAt)}</p>}
       {recipe.description && <p>{recipe.description}</p>}
