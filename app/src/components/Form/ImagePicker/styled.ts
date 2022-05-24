@@ -7,7 +7,7 @@ const StyledLabel = tw.label`
   border-dashed	
   p-2
   pt-3
-  align-center
+  items-center
   justify-center
   h-full
   text-black

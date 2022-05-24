@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import { IoChevronBackOutline } from 'react-icons/io5'
 
 import RecipeContainer from './styled'
 import { deleteRecipe } from '../../../redux/reducers/recipes/recipeSlice'
@@ -65,7 +66,10 @@ const RecipeDetail: React.FC = (): ReactElement => {
 
       <Button type="button" label="Delete" onClick={(): Promise<boolean> => onDelete(recipe.id)} />
 
-      <Link to="/recipes">Back to Recipes</Link>
+      <Link to="/recipes" className="flex items-center">
+        <IoChevronBackOutline />
+        Back to Recipes
+      </Link>
     </RecipeContainer>
   )
 }

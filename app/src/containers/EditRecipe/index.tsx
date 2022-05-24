@@ -154,7 +154,7 @@ const EditRecipe: React.FC = (): ReactElement => {
 
   return (
     <div className="pt-7">
-      <div className="flex align-center">
+      <div className="flex items-center">
         <PageTitle
           text={`Editing ${recipe.name} - ${courseName(
             recipe.course ? recipe.course : '',
