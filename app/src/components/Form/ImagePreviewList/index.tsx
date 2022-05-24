@@ -14,11 +14,13 @@ const ImagePreviewList: React.FC<ImagePreviewListProps> = ({
     <div>
       {images?.map((image) => {
         return (
-          <div key={image.name}>
+          <div key={image.name} className="mb-6">
             <span>
               {image.name} - {image.size} bytes
             </span>
-            <img src={image.data.toString()} alt="title" />
+
+            <img src={image.data.toString()} alt="title" className="mb-2" />
+
             <Button
               type="button"
               label="Upload to CDN"
@@ -27,9 +29,6 @@ const ImagePreviewList: React.FC<ImagePreviewListProps> = ({
           </div>
         )
       })}
-
-      <br />
-      <br />
     </div>
   )
 }

@@ -77,6 +77,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      className="cardAnimation"
     >
       <div
         className={classNames(
@@ -93,6 +94,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
       <div className="flex flex-col sm:flex-row justify-between mt-4 sm:mt-9 md:mt-12 lg:mt-22 xl:mt-28">
         <div className="flex-row">
           <h2 className="font-bold text-white">{recipe.name}</h2>
+
           <p className="flex xl:hidden text-white">
             <i>{courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}</i>
           </p>
@@ -114,6 +116,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
                 <AiTwotoneEdit />
               </Button>
             )}
+
             {withRemovalButton && (
               <Button
                 type="button"

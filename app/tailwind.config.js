@@ -1,7 +1,7 @@
 module.exports = {
   content: [
-    './src/index.tsx',
-    './src/app.tsx',
+    './src/App.tsx',
+    './src/Auth.tsx',
     './src/components/**/*.{html,tsx,ts}',
     './src/containers/**/*.{html,tsx}',
     './src/stories/**/*.{html,tsx}',
@@ -42,6 +42,7 @@ module.exports = {
       indigo: colors.indigo,
       violet: colors.violet,
       purple: colors.purple,
+      purpleDark: 'rgb(17,14,44)',
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,

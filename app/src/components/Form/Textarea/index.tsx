@@ -25,6 +25,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   return (
     <div>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
+
       <StyledTextArea
         {...register(name, validation)}
         id={name}
@@ -32,6 +33,7 @@ const TextArea: React.FC<TextAreaProps> = ({
         placeholder={placeholder}
         defaultValue={defaultValue}
       />
+
       {errors && <ErrorMessage message={errors} />}
     </div>
   )

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import React, { ReactElement, useEffect } from 'react'
-import Home from './App'
+import App from './App'
 
 import { Button } from './components'
 import { storeToken, storeUser } from './redux/reducers/users/userSlice'
@@ -47,7 +47,7 @@ const Auth: React.FC<AuthProps> = ({ auth0 }): ReactElement => {
   }
 
   if (user.token !== undefined) {
-    return <Home logout={auth0.logout} />
+    return <App logout={auth0.logout} />
   }
   return <div>{loginButton}</div>
 }

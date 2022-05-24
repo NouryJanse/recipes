@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
-import styled from 'styled-components'
 import {
   updateRecipe,
   createRecipeImage,
@@ -27,6 +26,7 @@ import RootState from '../../types/RootState'
 import isLoading from '../../helpers/LoadingHelper'
 import { RECIPE_COURSE_OPTIONS } from '../../constants'
 import courseName from './helpers'
+import PageTitle from '../../components/Generic/PageTitle'
 
 const EditRecipe: React.FC = (): ReactElement => {
   const dispatch = useDispatch()
@@ -75,6 +75,7 @@ const EditRecipe: React.FC = (): ReactElement => {
       }
 
       if (id !== undefined && recipes && recipes.length) {
+        // push find into a helper function
         setRecipe(
           recipes.find((currentRecipe) => {
             return currentRecipe.id === Number(id!)
@@ -86,7 +87,7 @@ const EditRecipe: React.FC = (): ReactElement => {
     if (recipe && recipe.images && !initialRecipeLoad) {
       setImageSortableList(recipe?.images ? recipe.images : [])
       setInitialRecipeLoad(true)
-    } else if (recipe && !recipe.images) {
+    } else if (recipe && !recipe.images && !initialRecipeLoad) {
       setImageSortableList([])
     }
   }, [watch, recipe, id, recipes, params, isDirty, initialRecipeLoad])
@@ -147,18 +148,23 @@ const EditRecipe: React.FC = (): ReactElement => {
   }
 
   if (!recipe) {
+    // Should be styled and moved into a component in the Recipe subfolder
     return <p>Error, no recipe found or still loading the recipe from the server.</p>
   }
 
   return (
-    <div className="pt-12">
+    <div className="pt-7">
       <div className="flex align-center">
-        <h1 className="text-xl md:text-3xl xl:text-4xl font-bold mb-20">
-          Editing {recipe.name} -{' '}
-          {courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}
-        </h1>
+        <PageTitle
+          text={`Editing ${recipe.name} - ${courseName(
+            recipe.course ? recipe.course : '',
+            RECIPE_COURSE_OPTIONS,
+          )}`}
+        />
+
         {isLoading(status) && <Loader />}
       </div>
+
       <form onSubmit={handleSubmit(onSave)} {...formRef}>
         <FieldContainer>
           <Textfield
@@ -235,6 +241,7 @@ const EditRecipe: React.FC = (): ReactElement => {
             Back to <b>{recipe.name}</b>
           </Link>
         )}
+
         <Link to="/recipes">Back to recipes</Link>
       </form>
     </div>

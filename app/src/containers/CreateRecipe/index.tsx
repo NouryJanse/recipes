@@ -11,6 +11,7 @@ import {
 import { Textfield, Button, Textarea, Dropdown, FieldContainer } from '../../components'
 import RootState from '../../types/RootState'
 import { RECIPE_COURSE_OPTIONS, REDUX_STATE, ROUTES } from '../../constants'
+import PageTitle from '../../components/Generic/PageTitle'
 
 const CreateRecipe: React.FC = (): ReactElement => {
   const status = useSelector((state: RootState) => state.recipeSlice.status)
@@ -46,8 +47,8 @@ const CreateRecipe: React.FC = (): ReactElement => {
   }, [status])
 
   return (
-    <div className="pt-12">
-      <h1 className="text-xl md:text-3xl xl:text-4xl font-bold mb-20">Create a delicous meal</h1>
+    <div className="pt-7">
+      <PageTitle text="Create a delicous meal" />
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FieldContainer>

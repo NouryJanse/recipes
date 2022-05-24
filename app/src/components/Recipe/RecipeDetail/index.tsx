@@ -59,7 +59,9 @@ const RecipeDetail: React.FC = (): ReactElement => {
 
       <i>{recipe.course}</i>
 
-      <Link to={`/recipes/${recipe.id}/edit`}>Edit</Link>
+      <Link to={`/recipes/${recipe.id}/edit`}>
+        <Button type="button" label="Edit" buttonStyle="secondary" />
+      </Link>
 
       <Button type="button" label="Delete" onClick={(): Promise<boolean> => onDelete(recipe.id)} />
 
