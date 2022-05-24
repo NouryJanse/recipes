@@ -5,8 +5,8 @@ const StyledIcon = styled.div`
   position: relative;
 
   svg {
-    min-height: 32px;
-    width: 32px;
+    min-height: 24px;
+    width: 24px;
   }
 `
 
