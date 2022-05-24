@@ -1,4 +1,4 @@
-import { Image } from '@prisma/client'
+import { Image, Recipe } from '@prisma/client'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import NodeCache from 'node-cache'
 import { formatRecipeImages } from '../../helpers'
@@ -57,8 +57,11 @@ const getRecipeOps = async (
   request: FastifyRequest<{ Params: { id: number } }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
-  const recipes = await getRecipe(request.log, Number(request.params.id))
-  return reply.code(200).send(recipes)
+  const recipe: Recipe | null | false = await getRecipe(request.log, Number(request.params.id))
+  if (recipe) {
+    return reply.code(200).send(formatRecipeImages([recipe])[0])
+  }
+  return reply.code(500).send()
 }
 
 const updateRecipeOps = async (
