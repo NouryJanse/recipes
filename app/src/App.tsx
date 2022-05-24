@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import classNames from 'classnames'
 
 import Navigation from './containers/Navigation'
 import RecipesList from './containers/RecipesList'
@@ -9,22 +10,30 @@ import EditRecipe from './containers/EditRecipe'
 import { RecipeDetail } from './components'
 import RootState from './types/RootState'
 import ROUTES from './constants/ROUTES'
-import Home from './containers/Home'
+import Dashboard from './containers/Dashboard'
+import Ingredients from './containers/Ingredients'
+import Ratings from './containers/Ratings'
+import Account from './containers/Account'
 
-type HomeProps = {
+type AppProps = {
   logout: () => void
 }
 
-const App: React.FC<HomeProps> = ({ logout }): ReactElement => {
+const App: React.FC<AppProps> = ({ logout }): ReactElement => {
   const application = useSelector((state: RootState) => state.applicationSlice.data)
 
   return (
-    <div className="rootContainer">
+    <div className="flex flex-row">
       <Navigation logout={logout} />
 
-      <div className={`content ${application.navMenuIsOpened ? `opened` : `closed`}`}>
+      <div
+        className={classNames(
+          { 'ml-64': application.navMenuIsOpened, 'ml-16': !application.navMenuIsOpened },
+          'content p-3  w-full',
+        )}
+      >
         <Routes>
-          <Route path={ROUTES.HOME} element={<Home />} />
+          <Route path={ROUTES.HOME} element={<Dashboard />} />
 
           <Route path={ROUTES.RECIPES_CREATE} element={<CreateRecipe />} />
 
@@ -40,6 +49,10 @@ const App: React.FC<HomeProps> = ({ logout }): ReactElement => {
             <Route path=":recipeId" element={<RecipeDetail />} />
             <Route path=":recipeId/edit" element={<EditRecipe />} />
           </Route>
+
+          <Route path={ROUTES.INGREDIENTS} element={<Ingredients />} />
+          <Route path={ROUTES.RATINGS} element={<Ratings />} />
+          <Route path={ROUTES.ACCOUNT} element={<Account />} />
 
           <Route path="*" element={`<p>There's nothing here!</p>`} />
         </Routes>
