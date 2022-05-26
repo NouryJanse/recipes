@@ -1,9 +1,10 @@
+export { default as Badge } from './Generic/Badge'
+export { default as Button } from './Generic/Button'
 export { default as ErrorMessage } from './Generic/ErrorMessage'
 export { default as Icon } from './Generic/Icon'
-export { default as Loader } from './Generic/Loader'
-
-export { default as Button } from './Generic/Button'
 export { default as ImageComponent } from './Generic/Image'
+export { default as Loader } from './Generic/Loader'
+export { default as PageTitle } from './Generic/PageTitle'
 
 export { default as Textfield } from './Form/Textfield'
 export { default as Textarea } from './Form/Textarea'

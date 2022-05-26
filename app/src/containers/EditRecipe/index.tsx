@@ -26,7 +26,7 @@ import RootState from '../../types/RootState'
 import isLoading from '../../helpers/LoadingHelper'
 import { RECIPE_COURSE_OPTIONS } from '../../constants'
 import courseName from './helpers'
-import PageTitle from '../../components/Generic/PageTitle'
+import { PageTitle } from '../../components'
 
 const EditRecipe: React.FC = (): ReactElement => {
   const dispatch = useDispatch()

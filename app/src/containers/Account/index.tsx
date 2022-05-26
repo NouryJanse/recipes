@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import PageTitle from '../../components/Generic/PageTitle'
+import { PageTitle } from '../../components'
 
 const Account: React.FC = (): ReactElement => {
   return (

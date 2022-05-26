@@ -45,15 +45,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             )
           })}
         </StyledDropdown>
-        {/* <svg>
-          <use xlinkHref="#select-arrow-down"></use>
-        </svg> */}
       </StyledLabel>
-      <svg className="sprites">
-        <symbol id="select-arrow-down" viewBox="0 0 10 6">
-          <polyline points="1 1 5 5 9 1" />
-        </symbol>
-      </svg>
       {errors && <ErrorMessage message={errors} />}
     </div>
   )
