@@ -6,6 +6,7 @@ interface TWStyledButtonParameter {
   $tertiary: boolean
   $noedge: boolean
   $fullwidth: boolean
+  $disabled: boolean
 }
 
 const ButtonStyle = tw.button`
@@ -17,12 +18,11 @@ const ButtonStyle = tw.button`
   rounded
 
   no-underline
-  border-2
+  border-1
   border-solid
   border-transparent  
   transition-colors
   
-  focus:border-2
   focus:border-solid
   focus:border-blue
 
@@ -33,12 +33,19 @@ const ButtonStyle = tw.button`
     
   ${(p: TWStyledButtonParameter): string =>
     p.$primary && !p.$noedge ? 'bg-blue text-white hover:bg-blueDark' : ''}
+
   ${(p: TWStyledButtonParameter): string =>
-    p.$secondary && !p.$noedge ? 'bg-white text-blue hover:bg-blueDark hover:text-white' : ''}
+    p.$secondary && !p.$noedge
+      ? 'bg-white text-blue border-blueDark hover:bg-blueDark hover:text-white'
+      : ''}
+      
   ${(p: TWStyledButtonParameter): string =>
     p.$tertiary && !p.$noedge
       ? 'bg-green-400 text-gray-600 font-bold hover:bg-green-500 hover:text-white focus:border-green-500'
       : ''}
+
+  ${(p: TWStyledButtonParameter): string =>
+    p.$disabled ? 'opacity-80 bg-gray-400 hover:bg-gray-400 cursor-not-allowed' : ''}      
 `
 
 export default ButtonStyle

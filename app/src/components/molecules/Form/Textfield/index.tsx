@@ -1,46 +1,50 @@
 import React, { ReactElement } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
-import ErrorMessage from '../../Generic/ErrorMessage'
-import { StyledTextArea, StyledLabel } from './styled'
+import { FieldRowStyle, LabelStyle, InputStyle } from './styled'
 
-type TextAreaProps = {
+import { ErrorMessage } from '../../../index'
+
+type TextFieldProps = {
+  name: string
+  type: string
   label: string
   placeholder: string
-  name: string
   register: UseFormRegister<FieldValues>
   validation: object
   errors: string | boolean
   defaultValue?: string
 }
 
-const TextArea: React.FC<TextAreaProps> = ({
-  label,
-  defaultValue = '',
+const Textfield: React.FC<TextFieldProps> = ({
+  name = '',
+  type = '',
+  label = '',
   placeholder = '',
-  name,
-  validation,
+  defaultValue = '',
   register,
+  validation,
   errors,
 }): ReactElement => {
   return (
-    <div>
-      <StyledLabel htmlFor={name}>{label}</StyledLabel>
+    <FieldRowStyle>
+      <LabelStyle htmlFor={name}>{label}</LabelStyle>
 
-      <StyledTextArea
+      <InputStyle
         {...register(name, validation)}
         id={name}
         name={name}
-        placeholder={placeholder}
+        type={type}
         defaultValue={defaultValue}
+        placeholder={placeholder}
       />
 
       {errors && <ErrorMessage message={errors} />}
-    </div>
+    </FieldRowStyle>
   )
 }
 
-TextArea.defaultProps = {
+Textfield.defaultProps = {
   defaultValue: '',
 }
 
-export default TextArea
+export default Textfield

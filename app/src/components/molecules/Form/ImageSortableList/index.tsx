@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd'
-import Button from '../../Generic/Button'
-import ImageComponent from '../../Generic/Image'
+import Button from '../../../atoms/Button'
+import ImageComponent from '../../../atoms/Image'
 
 type ImageSortableListProps = {
   images: Image[]

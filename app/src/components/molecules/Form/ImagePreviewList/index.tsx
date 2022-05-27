@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Button } from '../..'
+import { Button } from '../../..'
 
 interface ImagePreviewListProps {
   images: ImageData[] | undefined

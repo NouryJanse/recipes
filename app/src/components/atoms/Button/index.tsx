@@ -35,6 +35,7 @@ const Button: React.FC<ButtonProps> = ({
       $tertiary={buttonStyle === 'tertiary'}
       $noedge={noedge}
       $fullwidth={fullwidth}
+      $disabled={disabled}
     >
       {children || label}
     </ButtonStyle>

@@ -4,11 +4,11 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { IoChevronBackOutline } from 'react-icons/io5'
 
 import RecipeContainer from './styled'
-import { deleteRecipe } from '../../../redux/reducers/recipes/recipeSlice'
-import { Button } from '../../index'
-import { formatNLDateTime } from '../../../helpers/DateHelper'
-import RootState from '../../../types/RootState'
-import REPLACEMENT_IMAGES from '../../../constants/REPLACEMENT_IMAGES'
+import { deleteRecipe } from '../../redux/reducers/recipes/recipeSlice'
+import { Button } from '../../components/index'
+import { formatNLDateTime } from '../../helpers/DateHelper'
+import RootState from '../../types/RootState'
+import REPLACEMENT_IMAGES from '../../constants/REPLACEMENT_IMAGES'
 
 const RecipeDetail: React.FC = (): ReactElement => {
   const [recipe, setRecipe] = useState<Recipe>({} as Recipe)
@@ -40,13 +40,12 @@ const RecipeDetail: React.FC = (): ReactElement => {
     <RecipeContainer>
       <div
         style={{
-          position: 'relative',
           backgroundImage: recipe.images
             ? `url('${recipe.images[0].url}')`
             : `url('${REPLACEMENT_IMAGES.recipeCard}')`,
           boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.18)',
         }}
-        className="mb-16 bg-cover bg-no-repeat bg-center relative overflow-hidden"
+        className="relative mb-16 bg-cover bg-no-repeat bg-center overflow-hidden"
       >
         <h1 className="text-xl xl:text-4xl font-bold pt-32 pb-32 pl-10 text-white">
           {recipe.name}

@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import classNames from 'classnames'
 
-import Navigation from './containers/Navigation'
+import Navigation from './components/organisms/Navigation'
 import RecipesList from './containers/RecipesList'
 import CreateRecipe from './containers/CreateRecipe'
 import EditRecipe from './containers/EditRecipe'

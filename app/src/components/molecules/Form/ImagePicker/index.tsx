@@ -4,7 +4,7 @@ import { useDropzone } from 'react-dropzone'
 import classNames from 'classnames'
 
 import StyledLabel from './styled'
-import readAsDataURLViaPromise from '../../../helpers/FileSystemHelper'
+import readAsDataURLViaPromise from '../../../../helpers/FileSystemHelper'
 
 type ImagePickerProps = {
   name: string
