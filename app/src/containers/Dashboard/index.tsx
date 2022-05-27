@@ -39,6 +39,7 @@ const Dashboard: React.FC = (): JSX.Element => {
 
       {!!recipes?.length && (
         <div>
+          {/* TODO: refactor into a recipe row component */}
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-md xl:text-3xl font-semibold">Suggested recipes for you</h2>
@@ -65,6 +66,7 @@ const Dashboard: React.FC = (): JSX.Element => {
             </div>
           </div>
 
+          {/* TODO: refactor into a recipe row component */}
           <div>
             <div className="flex mb-4">
               <h2 className="text-md xl:text-3xl font-semibold">Your recipes</h2>
