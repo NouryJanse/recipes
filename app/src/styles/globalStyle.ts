@@ -1,6 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
 import './tailwind.output.css'
-// import { themeProps } from '../styles/theme';
 
 const GlobalStyle = createGlobalStyle`
     html {
@@ -31,37 +30,19 @@ const GlobalStyle = createGlobalStyle`
     p {
         font-family: 'opensans';
         font-weight: 400;
-        margin-bottom: 8px;
         word-break: break-word;
     }
 
     nav {
-        min-height: 95vh;
-        max-height: 100vh;
-        width: 8vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        position: fixed;
+        width: 60px;
         transition: 0.3s;
-        align-items: start;
-        max-width: 230px;
         
-        .navLink {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            
-            .toggleContent {
-                margin: 0;
-                opacity: 0;
-                color: black;
-                max-height: 32px;
-            }
+        @media screen and (min-width: 600px) {
+            min-height: 100vh;
         }
 
         &.opened {
-            width: 230px;
+            width: 250px;
 
             .navLink {
                 .toggleContent {
@@ -75,26 +56,6 @@ const GlobalStyle = createGlobalStyle`
 
     .content {
         transition: margin-left 0.3s;
-        margin-left: 60px;
-        width: 100%;
-
-        &.opened {
-            margin-left: 230px;
-        }
-    }
-
-    .rootContainer {
-        display: flex;
-        flex-direction: row;
-        padding: 16px;
-    }
-
-    .sprites {
-        position: absolute;
-        width: 0;
-        height: 0;
-        pointer-events: none;
-        user-select: none;
     }
 
     svg.sprites {
@@ -114,5 +75,15 @@ const GlobalStyle = createGlobalStyle`
             stroke: #0077FF;
         }
     }
+
+    .cardAnimation {
+        animation-name: cardAni;
+        animation-duration: 750ms;
+    }
+
+    @keyframes cardAni {
+        from {transform: translateY(12px)}
+        to {transform: translateY(0px)}
+    }   
 `
 export default GlobalStyle

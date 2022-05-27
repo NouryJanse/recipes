@@ -8,10 +8,9 @@ import {
   getRecipes,
   resetCreateRecipeStatus,
 } from '../../redux/reducers/recipes/recipeSlice'
-import { Textfield, Button, Textarea, Dropdown, FieldContainer } from '../../components'
+import { Textfield, Button, Textarea, Dropdown, FieldContainer, PageTitle } from '../../components'
 import RootState from '../../types/RootState'
 import { RECIPE_COURSE_OPTIONS, REDUX_STATE, ROUTES } from '../../constants'
-import PageTitle from '../../components/Generic/PageTitle'
 
 const CreateRecipe: React.FC = (): ReactElement => {
   const status = useSelector((state: RootState) => state.recipeSlice.status)
