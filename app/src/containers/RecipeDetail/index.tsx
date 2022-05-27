@@ -4,7 +4,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { IoChevronBackOutline } from 'react-icons/io5'
 
 import RecipeContainer from './styled'
-import { deleteRecipe } from '../../redux/reducers/recipes/recipeSlice'
+import recipeSlice, { deleteRecipe } from '../../redux/reducers/recipes/recipeSlice'
 import { Button } from '../../components/index'
 import { formatNLDateTime } from '../../helpers/DateHelper'
 import RootState from '../../types/RootState'
@@ -34,7 +34,7 @@ const RecipeDetail: React.FC = (): ReactElement => {
     return true
   }
 
-  if (!recipe) return <p>Error, no recipe found.</p>
+  if (!recipe.id) return <p>Error, no recipe found.</p>
 
   return (
     <RecipeContainer>

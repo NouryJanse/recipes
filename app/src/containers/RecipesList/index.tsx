@@ -26,7 +26,14 @@ const RecipesList: React.FC = (): ReactElement | null => {
   //   dispatch(getRecipes())
   // }, 5000)
 
-  if (recipes?.length < 1) return null
+  // Should be styled and moved into a component in the Recipe subfolder
+  if (status.getRecipes === REDUX_STATE.REJECTED) {
+    return <span>Error in fetching the recipes.</span>
+  }
+
+  if (recipes?.length < 1) {
+    return null
+  }
 
   return (
     <div className="pt-7">

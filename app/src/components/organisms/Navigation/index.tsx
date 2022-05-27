@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { GoThreeBars, GoX, GoHome, GoPlus, GoListUnordered } from 'react-icons/go'
 import { MdLogout, MdSwitchAccount } from 'react-icons/md'
@@ -7,7 +7,7 @@ import { BsStarHalf } from 'react-icons/bs'
 import { GiShinyApple } from 'react-icons/gi'
 import classNames from 'classnames'
 
-import { Badge, Button, Icon } from '../..'
+import { Button, Icon } from '../..'
 import { toggleNav } from '../../../redux/reducers/application/applicationSlice'
 import RootState from '../../../types/RootState'
 import ROUTES from '../../../constants/ROUTES'
@@ -23,7 +23,6 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
   const user = useSelector((state: RootState) => state.userSlice.data.user)
   const menuIsOpen = application.navMenuIsOpened
   const login = menuIsOpen ? `Log out` : <MdLogout />
-  const location = useLocation()
 
   return (
     <nav

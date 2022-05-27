@@ -62,6 +62,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
     }
   }, [recipe, recipes])
 
+  // Should be styled and moved into a component in the Recipe subfolder
   if (!recipe) return <p>Error, no recipe found.</p>
 
   return (
