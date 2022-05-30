@@ -4,16 +4,16 @@ import { useSelector } from 'react-redux'
 import classNames from 'classnames'
 
 import Navigation from './components/organisms/Navigation'
-import RecipesList from './containers/RecipesList'
-import CreateRecipe from './containers/CreateRecipe'
-import EditRecipe from './containers/EditRecipe'
+import RecipesList from './components/pages/RecipesList'
+import CreateRecipe from './components/pages/CreateRecipe'
+import EditRecipe from './components/pages/EditRecipe'
 import { RecipeDetail } from './components'
 import RootState from './types/RootState'
 import ROUTES from './constants/ROUTES'
-import Dashboard from './containers/Dashboard'
-import Ingredients from './containers/Ingredients'
-import Ratings from './containers/Ratings'
-import Account from './containers/Account'
+import Dashboard from './components/pages/Dashboard'
+import Ingredients from './components/pages/Ingredients'
+import Ratings from './components/pages/Ratings'
+import Account from './components/pages/Account'
 
 type AppProps = {
   logout: () => void

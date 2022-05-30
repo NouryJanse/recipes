@@ -8,8 +8,8 @@ import {
   createRecipeImage,
   deleteRecipeImage,
   getRecipe,
-} from '../../redux/reducers/recipes/recipeSlice'
-import { uploadImageService } from '../../redux/reducers/recipes/services'
+} from '../../../redux/reducers/recipes/recipeSlice'
+import { uploadImageService } from '../../../redux/reducers/recipes/services'
 import {
   Button,
   Textfield,
@@ -20,13 +20,13 @@ import {
   ImageSortableList,
   FieldContainer,
   Loader,
-} from '../../components/index'
+} from '../../index'
 
-import RootState from '../../types/RootState'
-import isLoading from '../../helpers/LoadingHelper'
-import { RECIPE_COURSE_OPTIONS } from '../../constants'
+import RootState from '../../../types/RootState'
+import isLoading from '../../../helpers/LoadingHelper'
+import { RECIPE_COURSE_OPTIONS } from '../../../constants'
 import courseName from './helpers'
-import { PageTitle } from '../../components'
+import { PageTitle } from '../..'
 
 const EditRecipe: React.FC = (): ReactElement => {
   const dispatch = useDispatch()
