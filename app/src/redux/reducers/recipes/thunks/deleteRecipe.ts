@@ -6,11 +6,14 @@ async function deleteRecipeAPI(
   data: { id: number; authorId: string },
   token: string,
 ): Promise<Recipe> {
-  const response = await axios.delete(`http://localhost:1337/api/recipes/${data.id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await axios.delete(
+    `${process.env.REACT_APP_SERVER_URL}/api/recipes/${data.id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  })
+  )
   return response.data
 }
 

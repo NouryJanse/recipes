@@ -1,6 +1,7 @@
 import { Ingredient, PrismaClient } from '@prisma/client'
 import { FastifyLoggerInstance, FastifyReply, FastifyRequest } from 'fastify'
 import NodeCache from 'node-cache'
+import { HTTP_CODES } from '../../constants'
 
 const prisma = new PrismaClient()
 const cache = new NodeCache({ stdTTL: 15 })
@@ -35,9 +36,9 @@ const createIngredientOps = async (
   const recipe = await createIngredient(request.log, request.body.name)
 
   if (recipe) {
-    return reply.code(201).send({})
+    return reply.code(HTTP_CODES.CREATED).send({})
   }
-  return reply.code(500).send({})
+  return reply.code(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
 }
 
 export default {

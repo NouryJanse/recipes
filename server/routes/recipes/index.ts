@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify'
 import fp from 'fastify-plugin'
-import ops from './ops'
+import ops from './controllers'
 
 export default fp(
   (

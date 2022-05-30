@@ -3,7 +3,7 @@ import axios from 'axios'
 import RootState from '../../../../types/RootState'
 
 const deleteRecipeImageAPI = async (imageId: number, token: string): Promise<Image> => {
-  const response = await axios.delete(`http://localhost:1337/api/recipes/image`, {
+  const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/recipes/image`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

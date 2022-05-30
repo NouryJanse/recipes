@@ -1,6 +1,7 @@
 import { Image, Recipe } from '@prisma/client'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import NodeCache from 'node-cache'
+import { HTTP_CODES } from '../../constants'
 import { formatRecipeImages } from '../../helpers'
 import {
   createRecipe,
@@ -10,7 +11,7 @@ import {
   saveImage,
   deleteImage,
   getRecipe,
-} from './model'
+} from './models'
 
 const cache = new NodeCache({ stdTTL: 15 })
 
@@ -32,10 +33,10 @@ const createRecipeOps = async (
     const recipes = await getRecipes(request.log)
 
     cache.del('recipes')
-    return reply.code(201).send({ recipes })
+    return reply.code(HTTP_CODES.CREATED).send({ recipes })
   } catch (error) {
     request.log.error(error)
-    return reply.code(500).send({})
+    return reply.code(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
   }
 }
 
@@ -45,12 +46,13 @@ const getRecipesOps = async (
 ): Promise<FastifyReply> => {
   // improve the cache by implementing an id system so that individual recipes can be invalidated
   if (cache.has('recipes')) {
-    return reply.code(200).send(cache.get('recipes'))
+    return reply.code(HTTP_CODES.OK).send(cache.get('recipes'))
   }
 
   const recipes = await getRecipes(request.log)
   cache.set('recipes', recipes)
-  return reply.code(200).send(recipes)
+
+  return reply.code(HTTP_CODES.OK).send(recipes)
 }
 
 const getRecipeOps = async (
@@ -59,9 +61,10 @@ const getRecipeOps = async (
 ): Promise<FastifyReply> => {
   const recipe: Recipe | null | false = await getRecipe(request.log, Number(request.params.id))
   if (recipe) {
-    return reply.code(200).send(formatRecipeImages([recipe])[0])
+    return reply.code(HTTP_CODES.OK).send(formatRecipeImages([recipe])[0])
   }
-  return reply.code(500).send()
+
+  return reply.code(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
 }
 
 const updateRecipeOps = async (
@@ -82,10 +85,11 @@ const updateRecipeOps = async (
   if (recipe && recipe.id) {
     const recipeWithImage = await getRecipe(request.log, Number(recipe.id))
     if (recipeWithImage) {
-      return reply.code(201).send(formatRecipeImages([recipeWithImage])[0])
+      return reply.code(HTTP_CODES.CREATED).send(formatRecipeImages([recipeWithImage])[0])
     }
   }
-  return reply.code(201).send()
+  request.log.info('Not found')
+  return reply.code(HTTP_CODES.NOT_FOUND).send({})
 }
 
 const createRecipeImageOps = async (
@@ -96,11 +100,12 @@ const createRecipeImageOps = async (
   if (request.body.image.data) {
     const image: Image | false = await saveImage(request.log, request.body.image.data, recipeId)
     if (image) {
-      return reply.code(201).send(image)
+      return reply.code(HTTP_CODES.CREATED).send(image)
     }
   }
+
   request.log.error('An error occurred')
-  return reply.code(500).send()
+  return reply.code(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
 }
 
 const deleteRecipeImageOps = async (
@@ -112,10 +117,11 @@ const deleteRecipeImageOps = async (
     cache.del('recipes')
     const { imageId } = request.body
     await deleteImage(request.log, imageId)
-    return reply.code(200).send()
+
+    return reply.code(HTTP_CODES.OK).send({})
   } catch (error) {
     request.log.error('An error occurred')
-    return reply.code(500).send()
+    return reply.code(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
   }
 }
 
@@ -129,10 +135,10 @@ const deleteRecipeOps = async (
     const recipes = await getRecipes(request.log)
 
     cache.del('recipes')
-    return reply.code(201).send({ recipes })
+    return reply.code(HTTP_CODES.CREATED).send({ recipes })
   } catch (error) {
     request.log.error(error)
-    return reply.code(500).send({})
+    return reply.code(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
   }
 }
 

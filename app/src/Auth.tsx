@@ -32,6 +32,7 @@ const Auth: React.FC<AuthProps> = ({ auth0 }): ReactElement => {
     <Button type="button" onClick={(): Promise<void> => loginUser()} label="Login" />
   )
 
+  // requires refactoring into separate components as the login flow will be redesigned as well
   if (auth0.error) {
     if (auth0.error === 'login_required') {
       return loginButton

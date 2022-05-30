@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-// import ApplicationState from '../../../types/ApplicationState'
 
 export const initialState = {
-  data: { navMenuIsOpened: false },
+  data: {
+    navMenuIsOpened: false,
+    appURL: process.env.REACT_APP_PUBLIC_URL as string,
+    serverURL: process.env.REACT_APP_SERVER_URL as string,
+  },
   status: {
     state: 'initial',
   },

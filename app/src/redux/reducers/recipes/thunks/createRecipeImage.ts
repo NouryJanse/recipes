@@ -3,11 +3,15 @@ import axios from 'axios'
 import RootState from '../../../../types/RootState'
 
 const createRecipeImageAPI = async (data: any, recipeId: number, token: string): Promise<Image> => {
-  const response = await axios.post(`http://localhost:1337/api/recipes/image/${recipeId}`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}api/recipes/image/${recipeId}`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  })
+  )
   return response.data
 }
 
