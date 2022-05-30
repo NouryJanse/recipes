@@ -6,7 +6,7 @@ import ImageComponent from '../../../atoms/Image'
 type ImageSortableListProps = {
   images: Image[]
   callbackSortedImages: (images: Image[]) => void
-  onDelete: (imageId: number) => void
+  onDelete: (imageId: string) => void
 }
 
 const ImageSortableList: React.FC<ImageSortableListProps> = ({
@@ -27,36 +27,50 @@ const ImageSortableList: React.FC<ImageSortableListProps> = ({
     <div>
       {!!images.length && (
         <div>
-          Sort your images ({images.length}) here:
+          Sort your inspirational images ({images.length}) here:
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="images">
               {(provided): ReactElement => (
                 <ul className="images" {...provided.droppableProps} ref={provided.innerRef}>
-                  {images.map(({ id, url }: { id: number; url: string }, index: number) => {
-                    return (
-                      <Draggable key={id} draggableId={id.toString()} index={index}>
-                        {(providedTwo): ReactElement => (
-                          <li
-                            ref={providedTwo.innerRef}
-                            {...providedTwo.draggableProps}
-                            {...providedTwo.dragHandleProps}
-                          >
-                            <div className="max-w-xs mb-8">
-                              <div className="mb-2">
-                                <ImageComponent alt="alt-text" src={url} width={200} height={100} />
-                              </div>
+                  {images.map(
+                    (
+                      {
+                        id,
+                        url,
+                        cloudinaryPublicId,
+                      }: { id: number; url: string; cloudinaryPublicId: string },
+                      index: number,
+                    ) => {
+                      return (
+                        <Draggable key={id} draggableId={id.toString()} index={index}>
+                          {(providedTwo): ReactElement => (
+                            <li
+                              ref={providedTwo.innerRef}
+                              {...providedTwo.draggableProps}
+                              {...providedTwo.dragHandleProps}
+                            >
+                              <div className="max-w-xs mb-8">
+                                <div className="mb-2">
+                                  <ImageComponent
+                                    alt="alt-text"
+                                    src={url}
+                                    width={200}
+                                    height={100}
+                                  />
+                                </div>
 
-                              <Button
-                                type="button"
-                                label="Delete"
-                                onClick={(): void => onDelete(id)}
-                              />
-                            </div>
-                          </li>
-                        )}
-                      </Draggable>
-                    )
-                  })}
+                                <Button
+                                  type="button"
+                                  label="Delete"
+                                  onClick={(): void => onDelete(cloudinaryPublicId)}
+                                />
+                              </div>
+                            </li>
+                          )}
+                        </Draggable>
+                      )
+                    },
+                  )}
 
                   {provided.placeholder}
                 </ul>

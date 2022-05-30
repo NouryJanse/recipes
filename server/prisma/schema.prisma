@@ -32,14 +32,14 @@ model Ingredient {
 }
 
 model Image {
-  id           Int     @unique @default(autoincrement())
-  url          String  @unique @db.VarChar(500)
-  width        Int?
-  height       Int?
-  position     Int?
-  recipeId     Int?
-  cloudinaryId String  @unique @db.VarChar(255)
-  recipe       Recipe? @relation(fields: [recipeId], references: [id])
+  id                 Int     @unique @default(autoincrement())
+  url                String  @unique @db.VarChar(500)
+  width              Int?
+  height             Int?
+  position           Int?
+  recipeId           Int?
+  cloudinaryPublicId String  @unique @db.VarChar(255)
+  recipe             Recipe? @relation(fields: [recipeId], references: [id])
 }
 
 model User {

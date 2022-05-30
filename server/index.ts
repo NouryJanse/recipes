@@ -7,8 +7,8 @@ import { fastifySwagger } from 'fastify-swagger'
 
 import App from './app'
 
-dotenv.config({ path: './.env.local' })
-if (!process.env.PORT) dotenv.config({ path: '../.env.local' })
+dotenv.config({ path: './.env' })
+if (!process.env.PORT) dotenv.config({ path: '../.env' })
 
 const environment = process.env.local ?? 'development'
 

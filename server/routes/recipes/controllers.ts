@@ -3,15 +3,14 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import NodeCache from 'node-cache'
 import { HTTP_CODES } from '../../constants'
 import { formatRecipeImages } from '../../helpers'
-import {
-  createRecipe,
-  getRecipes,
-  updateRecipe,
-  deleteRecipe,
-  saveImage,
-  deleteImage,
-  getRecipe,
-} from './models'
+
+import { saveImage, deleteImage } from './models'
+
+import createRecipe from './models/createRecipe'
+import deleteRecipe from './models/deleteRecipe'
+import getRecipe from './models/getRecipe'
+import getRecipes from './models/getRecipes'
+import updateRecipe from './models/updateRecipe'
 
 const cache = new NodeCache({ stdTTL: 15 })
 
@@ -96,6 +95,7 @@ const createRecipeImageOps = async (
   request: FastifyRequest<{ Body: any; Params: FastifyRecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
+  console.log(request.body)
   const recipeId = +request.params.id
   if (request.body.image.data) {
     const image: Image | false = await saveImage(request.log, request.body.image.data, recipeId)
@@ -109,14 +109,14 @@ const createRecipeImageOps = async (
 }
 
 const deleteRecipeImageOps = async (
-  request: FastifyRequest<{ Body: { imageId: number }; Params: FastifyRecipeParams }>,
+  request: FastifyRequest<{ Body: { cloudinaryPublicId: string }; Params: FastifyRecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
     // improve the cache by deleting the recipe instance of that relates to this image - instead of all recipes
     cache.del('recipes')
-    const { imageId } = request.body
-    await deleteImage(request.log, imageId)
+    const { cloudinaryPublicId } = request.body
+    await deleteImage(request.log, cloudinaryPublicId)
 
     return reply.code(HTTP_CODES.OK).send({})
   } catch (error) {

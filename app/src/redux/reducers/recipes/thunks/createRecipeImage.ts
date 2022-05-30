@@ -4,7 +4,7 @@ import RootState from '../../../../types/RootState'
 
 const createRecipeImageAPI = async (data: any, recipeId: number, token: string): Promise<Image> => {
   const response = await axios.post(
-    `${process.env.REACT_APP_SERVER_URL}api/recipes/image/${recipeId}`,
+    `${process.env.REACT_APP_SERVER_URL}/api/recipes/image/${recipeId}`,
     data,
     {
       headers: {

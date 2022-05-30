@@ -31,4 +31,4 @@ server/.jest/*
 # env vars
 .env*
 !app/.env.local.example
-!server/.env.local.example
+!server/.env.example

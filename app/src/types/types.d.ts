@@ -9,7 +9,7 @@ interface Image {
   height: number
   position: number
   recipeId: number
-  cloudinaryId: string
+  cloudinaryPublicId: string
 }
 
 interface Recipe {

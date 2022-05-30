@@ -113,16 +113,15 @@ const EditRecipe: React.FC = (): ReactElement => {
     // const uploadedImage: CloudinaryImage | false = await uploadImageService(image)
     // if (!uploadedImage) return
     // @ts-ignore:next-line
-    await dispatch(createRecipeImage({ image, recipeId: recipe.id }))
-    // if (uploadedImage.url) {
-    //   setImageViewList((prevState: ImageData[]) => [
-    //     ...prevState.filter((currentImage) => currentImage.data !== image.data),
-    //   ])
-    //   setInitialRecipeLoad(false)
-    //   setImageSortableList(recipe?.images ? recipe.images : [])
-    // } else {
-    //   throw new Error('An error occurred, the recipe was not edited.')
-    // }
+    const response = await dispatch(createRecipeImage({ image, recipeId: recipe.id }))
+    if (response.type === 'recipes/createRecipeImage/fulfilled') {
+      setImageViewList((prevState: ImageData[]) => [
+        ...prevState.filter((currentImage) => currentImage.data !== image.data),
+      ])
+      setInitialRecipeLoad(false)
+      setImageSortableList(recipe?.images ? recipe.images : [])
+    }
+    throw new Error('An error occurred, the recipe image was not saved correctly.')
   }
 
   const handleSortedImages = (images: Image[]): void => {
@@ -139,7 +138,7 @@ const EditRecipe: React.FC = (): ReactElement => {
     handleSubmit(onSave)()
   }
 
-  const deleteImage = async (imageId: number): Promise<void> => {
+  const deleteImage = async (imageId: string): Promise<void> => {
     // @ts-ignore:next-line
     await dispatch(deleteRecipeImage(imageId))
     // @ts-ignore:next-line
