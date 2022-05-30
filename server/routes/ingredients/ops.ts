@@ -28,7 +28,7 @@ const createIngredient = async (
 }
 
 const createIngredientOps = async (
-  request: FastifyRequest<{ Body: RecipeBody; Params: RecipeParams }>,
+  request: FastifyRequest<{ Body: FastifyRecipeBody; Params: FastifyRecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   // const user = request.user

@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef } from 'react'
+import React, { ChangeEvent, ChangeEventHandler, ReactElement, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -83,7 +83,7 @@ const CreateRecipe: React.FC = (): ReactElement => {
             label="Course*"
             defaultValue=""
             disabled={false}
-            onChange={(course): void => setValue('course', course)}
+            onChange={(course: ChangeEvent): void => setValue('course', course)}
             validation={{
               required: 'Did you forget to fill in the course of your recipe?',
               validate: {

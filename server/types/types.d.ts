@@ -1,4 +1,4 @@
-interface RecipeBody {
+interface FastifyRecipeBody {
   name: string
   description: string
   authorId: number
@@ -6,7 +6,7 @@ interface RecipeBody {
   images: []
 }
 
-interface RecipeParams {
+interface FastifyRecipeParams {
   id: string
 }
 

@@ -19,7 +19,7 @@ const ImagePreviewList: React.FC<ImagePreviewListProps> = ({
               {image.name} - {image.size} bytes
             </span>
 
-            <img src={image.data.toString()} alt="title" className="mb-2" />
+            <img src={image.data.toString()} alt="title" className="mb-2" loading="lazy" />
 
             <Button
               type="button"

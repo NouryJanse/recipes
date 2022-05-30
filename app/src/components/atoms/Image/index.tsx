@@ -32,7 +32,16 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
   )
 
   if (dimensions.width || dimensions.height) {
-    return <ImageStyle src={src} alt={alt} {...dimensions} {...otherClasses} />
+    return (
+      <ImageStyle
+        src={src}
+        alt={alt}
+        {...dimensions}
+        {...otherClasses}
+        loading="lazy"
+        decoding="async"
+      />
+    )
   }
   return <ImageStyle src={src} alt={alt} {...dimensions} $rounded={rounded} />
 }

@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { GoThreeBars, GoX, GoHome, GoPlus, GoListUnordered } from 'react-icons/go'
+import { GoThreeBars, GoX, GoHome, GoPlus } from 'react-icons/go'
 import { MdLogout, MdSwitchAccount } from 'react-icons/md'
-import { BsStarHalf } from 'react-icons/bs'
+import { BsStarHalf, BsListNested } from 'react-icons/bs'
 import { GiShinyApple } from 'react-icons/gi'
 import classNames from 'classnames'
 
@@ -104,7 +104,7 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
           <NavigationLink
             to={ROUTES.RECIPES_LIST}
             menuIsOpen={menuIsOpen}
-            iconSymbol={<GoListUnordered />}
+            iconSymbol={<BsListNested />}
             text="Discover recipes"
             unread={2}
           />

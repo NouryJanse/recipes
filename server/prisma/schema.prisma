@@ -9,21 +9,26 @@ datasource db {
 }
 
 model Recipe {
-  id          Int       @unique @default(autoincrement())
-  name        String    @unique @db.VarChar(255)
-  description String?   @db.VarChar(500)
-  createdAt   DateTime? @default(now())
-  updatedAt   DateTime? @updatedAt
-  published   Boolean?  @default(false)
-  authorId    Int?
-  author      User?     @relation(fields: [authorId], references: [id])
-  course      String    @db.VarChar(500)
-  Image       Image[]
+  id               Int       @unique @default(autoincrement())
+  name             String    @unique @db.VarChar(255)
+  description      String?   @db.VarChar(500)
+  createdAt        DateTime? @default(now())
+  updatedAt        DateTime? @updatedAt
+  published        Boolean?  @default(false)
+  authorId         Int?
+  author           User?     @relation(fields: [authorId], references: [id])
+  course           String    @db.VarChar(500)
+  cookingDuration  Int?
+  rating           Int?
+  difficultyRating Int?
+  calorieCount     Int?
+  Image            Image[]
 }
 
 model Ingredient {
-  id   Int    @unique @default(autoincrement())
-  name String @unique @db.VarChar(255)
+  id           Int    @unique @default(autoincrement())
+  name         String @unique @db.VarChar(255)
+  calorieCount Int?
 }
 
 model Image {
