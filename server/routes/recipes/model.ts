@@ -1,6 +1,18 @@
 import { PrismaClient, Recipe, Image } from '@prisma/client'
 import { FastifyLoggerInstance } from 'fastify'
 import { formatRecipeImages } from '../../helpers'
+const cloudinary = require('cloudinary').v2
+
+try {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_ID,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true,
+  })
+} catch (error) {
+  console.error(error)
+}
 
 const prisma = new PrismaClient()
 
@@ -139,10 +151,18 @@ const deleteRecipe = async (logger: FastifyLoggerInstance, id: number): Promise<
 
 const saveImage = async (
   logger: FastifyLoggerInstance,
-  image: CloudinaryImage,
+  imageBase64: CloudinaryImage,
   recipeId: number,
 ): Promise<Image | false> => {
   try {
+    const image = await cloudinary.uploader.upload(
+      imageBase64,
+      { upload_preset: process.env.CLOUDINARY_PRESET_ID },
+      (error: string, result: any) => {
+        console.log(result, error)
+      },
+    )
+
     const dbImage: Image = await prisma.image.upsert({
       where: { cloudinaryId: image.asset_id },
       update: {

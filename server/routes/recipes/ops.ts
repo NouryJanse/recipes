@@ -15,7 +15,7 @@ import {
 const cache = new NodeCache({ stdTTL: 15 })
 
 const createRecipeOps = async (
-  request: FastifyRequest<{ Body: RecipeBody }>,
+  request: FastifyRequest<{ Body: FastifyRecipeBody }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
@@ -40,7 +40,7 @@ const createRecipeOps = async (
 }
 
 const getRecipesOps = async (
-  request: FastifyRequest<{ Body: RecipeBody }>,
+  request: FastifyRequest<{ Body: FastifyRecipeBody }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   // improve the cache by implementing an id system so that individual recipes can be invalidated
@@ -65,7 +65,7 @@ const getRecipeOps = async (
 }
 
 const updateRecipeOps = async (
-  request: FastifyRequest<{ Body: RecipeBody; Params: RecipeParams }>,
+  request: FastifyRequest<{ Body: FastifyRecipeBody; Params: FastifyRecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   const recipe = await updateRecipe(
@@ -89,13 +89,12 @@ const updateRecipeOps = async (
 }
 
 const createRecipeImageOps = async (
-  request: FastifyRequest<{ Body: CloudinaryImage; Params: RecipeParams }>,
+  request: FastifyRequest<{ Body: any; Params: FastifyRecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   const recipeId = +request.params.id
-
-  if (request?.body?.asset_id) {
-    const image: Image | false = await saveImage(request.log, request.body, recipeId)
+  if (request.body.image.data) {
+    const image: Image | false = await saveImage(request.log, request.body.image.data, recipeId)
     if (image) {
       return reply.code(201).send(image)
     }
@@ -105,11 +104,12 @@ const createRecipeImageOps = async (
 }
 
 const deleteRecipeImageOps = async (
-  request: FastifyRequest<{ Body: { imageId: number }; Params: RecipeParams }>,
+  request: FastifyRequest<{ Body: { imageId: number }; Params: FastifyRecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
-    // improve the cache by deleting the recipe instance of that relates to this image
+    // improve the cache by deleting the recipe instance of that relates to this image - instead of all recipes
+    cache.del('recipes')
     const { imageId } = request.body
     await deleteImage(request.log, imageId)
     return reply.code(200).send()
@@ -120,7 +120,7 @@ const deleteRecipeImageOps = async (
 }
 
 const deleteRecipeOps = async (
-  request: FastifyRequest<{ Body: RecipeBody; Params: RecipeParams }>,
+  request: FastifyRequest<{ Body: FastifyRecipeBody; Params: FastifyRecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {

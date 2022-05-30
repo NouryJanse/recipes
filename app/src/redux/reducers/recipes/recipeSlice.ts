@@ -108,6 +108,7 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
     builder.addCase(createRecipeImage.fulfilled, (state, action) => {
+      if (!action?.payload?.recipeId) return
       const recipes: Recipe[] = state.data.recipes.map((recipe: Recipe) => {
         if (recipe.id === action.payload.recipeId) {
           return {

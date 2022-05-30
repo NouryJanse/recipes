@@ -110,19 +110,19 @@ const EditRecipe: React.FC = (): ReactElement => {
   }
 
   const handleImageUpload = async (image: ImageData): Promise<void> => {
-    const uploadedImage: CloudinaryImage | false = await uploadImageService(image)
-    if (!uploadedImage) return
+    // const uploadedImage: CloudinaryImage | false = await uploadImageService(image)
+    // if (!uploadedImage) return
     // @ts-ignore:next-line
-    await dispatch(createRecipeImage({ ...uploadedImage, recipeId: recipe.id }))
-    if (uploadedImage.url) {
-      setImageViewList((prevState: ImageData[]) => [
-        ...prevState.filter((currentImage) => currentImage.data !== image.data),
-      ])
-      setInitialRecipeLoad(false)
-      setImageSortableList(recipe?.images ? recipe.images : [])
-    } else {
-      throw new Error('An error occurred, the recipe was not edited.')
-    }
+    await dispatch(createRecipeImage({ image, recipeId: recipe.id }))
+    // if (uploadedImage.url) {
+    //   setImageViewList((prevState: ImageData[]) => [
+    //     ...prevState.filter((currentImage) => currentImage.data !== image.data),
+    //   ])
+    //   setInitialRecipeLoad(false)
+    //   setImageSortableList(recipe?.images ? recipe.images : [])
+    // } else {
+    //   throw new Error('An error occurred, the recipe was not edited.')
+    // }
   }
 
   const handleSortedImages = (images: Image[]): void => {

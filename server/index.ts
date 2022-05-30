@@ -23,6 +23,7 @@ const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastif
         : false,
   },
   pluginTimeout: 10000,
+  bodyLimit: 6242880, // === 5MB
 })
 
 // Do not touch the following lines!
