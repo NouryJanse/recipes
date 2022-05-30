@@ -102,7 +102,7 @@ Swagger documentation can be found by navigating to /docs
 
   > unit testing the Prisma models and expected behaviours
 
-![Home on Mobile](Home-SM.png)
-![Home on Desktop](Home-XL.png)
-![All recipes](Recipes-SM.png)
-![Create Recipe](Create-MD.png)
+![Home on Mobile](/screens/Home-SM.png)
+![Home on Desktop](/screens/Home-XL.png)
+![All recipes](/screens/Recipes-SM.png)
+![Create Recipe](/screens/Create-MD.png)
