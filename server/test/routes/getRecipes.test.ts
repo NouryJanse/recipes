@@ -1,4 +1,9 @@
+import { PrismaClient, Recipe } from '@prisma/client'
 import { build } from '../setupTestApplication'
+
+const app = build()
+
+const prisma = new PrismaClient()
 
 /* 
   TODO:
@@ -10,21 +15,63 @@ import { build } from '../setupTestApplication'
     GOAL: is to test the integration of the whole application flow, this includes invoking the route, subsequent execution of the operation, and finally the reliability of the model.
 */
 
-beforeEach(() => {})
-afterEach(() => {})
+const createMany = async () => {
+  return await prisma.recipe.createMany({
+    data: [
+      {
+        name: 'recipe for getRecipesTest 2',
+        description: 'this snack is so delicous, I want to eat it every day',
+        course: 'snack',
+      },
+      {
+        name: 'recipe for getRecipesTest 3',
+        description: 'this snack is so delicous, I want to eat it every day 2',
+        course: 'snack',
+      },
+    ],
+  })
+}
 
-beforeAll(() => {
-  // seed the recipes table
-})
+// beforeEach(async () => {})
+// afterEach(async () => {})
+// beforeAll(async () => {})
 
-afterAll(() => {
-  // truncate the recipes table
+afterAll(async () => {
+  await prisma.recipe.deleteMany({})
 })
 
 describe('getRecipes', () => {
-  const app = build()
+  it('returns all recipes', async () => {
+    await createMany()
 
-  it('returns all recipes', async () => {})
+    const response = await app.inject({
+      method: 'GET',
+      url: '/api/recipes',
+    })
 
-  it('returns a decorated error response when there are no recipes', async () => {})
+    const recipes = JSON.parse(response.payload)
+    console.log(recipes.length)
+
+    expect(response.statusCode).toBe(200)
+    expect(response.statusMessage).toBe('OK')
+    expect(Array.isArray(recipes)).toBeTruthy()
+    expect(recipes.length > 0).toBeTruthy()
+    expect(
+      recipes.some((recipe: Recipe) => recipe.name === 'recipe for getRecipesTest 2'),
+    ).toBeTruthy()
+
+    await prisma.recipe.deleteMany({})
+  })
+
+  it('returns a decorated error response when there are no recipes', async () => {
+    const response = await app.inject({
+      method: 'GET',
+      url: '/api/recipes',
+    })
+    const recipes = JSON.parse(response.payload)
+    console.log(recipes.length)
+    console.log(response.statusCode)
+    console.log(response.statusMessage)
+    expect(recipes.length === 0).toBeTruthy()
+  })
 })

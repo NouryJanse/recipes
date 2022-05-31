@@ -1,4 +1,7 @@
+import { PrismaClient } from '@prisma/client'
 import { build } from '../setupTestApplication'
+
+const prisma = new PrismaClient()
 
 /* 
   TODO:
@@ -10,46 +13,42 @@ import { build } from '../setupTestApplication'
     GOAL: is to test the integration of the whole application flow, this includes invoking the route, subsequent execution of the operation, and finally the reliability of the model.
 */
 
-beforeEach(() => {})
-afterEach(() => {})
-
-beforeAll(() => {
-  // seed the recipes table
+afterEach(async () => {
+  await prisma.recipe.deleteMany({})
 })
 
-afterAll(() => {
-  // truncate the recipes table
-})
+// beforeEach(() => {})
+// beforeAll(() => {})
+// afterAll(async () => {})
 
 describe('createRecipe', () => {
   const app = build()
 
-  it('creates 1 new recipe ', async () => {
-    // test plan: create a recipe, and delete it after
-    // expect: HTTP 201 status code
-    // expect: a reponse with all recipes including the latest creation
-    //
-    // const payload = {
-    //   name: 'my new recipe',
-    //   description: 'this snack is so delicous, I want to eat it every day',
-    //   course: 'snack',
-    //   userId: 'auth0|abcdef12345679',
-    // }
-    // const response = await app.inject({
-    //   method: 'POST',
-    //   url: '/api/recipes',
-    //   payload,
-    // })
-    // console.log(response.statusCode)
-    // console.log(response.statusMessage)
-    // console.log(response.payload)
-    // console.log(response.body)
-    // console.log(JSON.parse(response.payload))
+  it('creates 1 new recipe and expect it to be in the response', async () => {
+    const payload = {
+      name: 'my new recipe 1',
+      description: 'this snack is so delicous, I want to eat it every day',
+      course: 'snack',
+      userId: 'auth0|abcdef12345679',
+    }
+
+    const response = await app.inject({
+      method: 'POST',
+      url: '/api/recipes',
+      payload,
+    })
+
+    const recipes = JSON.parse(response.payload).recipes
+    expect(response.statusCode).toBe(201)
+    expect(response.statusMessage).toBe('Created')
+    expect(Array.isArray(recipes)).toBeTruthy()
+    expect(recipes.length > 0).toBeTruthy()
+    // TODO: check if recipe is in response (via find)
   })
 
-  it('fails when creating a duplicate recipe', async () => {
-    // test plan: create the same recipe twice and expect an error
-    // expect: HTTP 500
-    // expect: empty response object (no JSON)
-  })
+  // it('fails when creating a duplicate recipe', async () => {
+  //   // test plan: create the same recipe twice and expect an error
+  //   // expect: HTTP 500
+  //   // expect: empty response object (no JSON)
+  // })
 })

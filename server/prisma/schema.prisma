@@ -2,6 +2,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// MIGRATION ENV VARS
+// ENV VAR FOR DEV: DB_URL
+// ENV VAR FOR TEST: TEST_DB_URL
+
 datasource db {
   provider          = "postgresql"
   url               = env("DB_URL")

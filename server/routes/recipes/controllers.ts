@@ -14,7 +14,12 @@ import {
   updateRecipe,
 } from '../../models/recipes'
 
-const cache = new NodeCache({ stdTTL: 15 })
+// let cache: NodeCache
+// if (process.env.ENV !== 'test') {
+//   cache = new NodeCache({ stdTTL: 15 })
+// } else {
+//   cache = new NodeCache({ stdTTL: 0 })
+// }
 
 const createRecipeOps = async (
   request: FastifyRequest<{ Body: FastifyRecipeBody }>,
@@ -33,7 +38,7 @@ const createRecipeOps = async (
 
     const recipes = await getRecipes(request.log)
 
-    cache.del('recipes')
+    // cache.del('recipes')
     return reply.code(HTTP_CODES.CREATED).send({ recipes })
   } catch (error) {
     request.log.error(error)
@@ -46,12 +51,14 @@ const getRecipesOps = async (
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   // improve the cache by implementing an id system so that individual recipes can be invalidated
-  if (cache.has('recipes')) {
-    return reply.code(HTTP_CODES.OK).send(cache.get('recipes'))
-  }
+  // if (cache.has('recipes')) {
+  //   return reply.code(HTTP_CODES.OK).send(cache.get('recipes'))
+  // }
+
+  console.log(process.env.ENV)
 
   const recipes = await getRecipes(request.log)
-  cache.set('recipes', recipes)
+  // cache.set('recipes', recipes)
 
   return reply.code(HTTP_CODES.OK).send(recipes)
 }
@@ -94,7 +101,7 @@ const updateRecipeOps = async (
       })
   }
 
-  cache.del('recipes')
+  // cache.del('recipes')
 
   if (recipe && recipe.id) {
     const recipeWithImage = await getRecipe(request.log, Number(recipe.id))
@@ -128,7 +135,7 @@ const deleteRecipeImageOps = async (
 ): Promise<FastifyReply> => {
   try {
     // improve the cache by deleting the recipe instance of that relates to this image - instead of all recipes
-    cache.del('recipes')
+    // cache.del('recipes')
     const { cloudinaryPublicId } = request.body
     await deleteImage(request.log, cloudinaryPublicId)
 
@@ -148,7 +155,7 @@ const deleteRecipeOps = async (
 
     const recipes = await getRecipes(request.log)
 
-    cache.del('recipes')
+    // cache.del('recipes')
     return reply.code(HTTP_CODES.CREATED).send({ recipes })
   } catch (error) {
     request.log.error(error)
