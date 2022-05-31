@@ -90,6 +90,7 @@ interface ImageData {
   url?: string
   path?: string
   size?: string
+  type?: string
   data?: string | undefined
   position?: number
   cloudinaryId?: string

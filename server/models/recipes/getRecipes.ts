@@ -1,6 +1,6 @@
 import { PrismaClient, Recipe, Image } from '@prisma/client'
 import { FastifyLoggerInstance } from 'fastify'
-import { formatRecipeImages } from '../../../helpers'
+import { formatRecipeImages } from '../../helpers'
 
 const prisma = new PrismaClient()
 

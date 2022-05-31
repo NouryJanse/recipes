@@ -4,7 +4,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { IoChevronBackOutline } from 'react-icons/io5'
 
 import RecipeContainer from './styled'
-import recipeSlice, { deleteRecipe } from '../../../redux/reducers/recipes/recipeSlice'
+import { deleteRecipe, getRecipes } from '../../../redux/reducers/recipes/recipeSlice'
 import { Button } from '../../index'
 import { formatNLDateTime } from '../../../helpers/DateHelper'
 import RootState from '../../../types/RootState'
@@ -30,6 +30,8 @@ const RecipeDetail: React.FC = (): ReactElement => {
     if (!recipeId) return false
     // @ts-ignore:next-line
     await dispatch(deleteRecipe(recipeId))
+    // @ts-ignore:next-line
+    await dispatch(getRecipes())
     navigate('/recipes')
     return true
   }

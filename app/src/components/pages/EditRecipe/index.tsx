@@ -110,8 +110,6 @@ const EditRecipe: React.FC = (): ReactElement => {
   }
 
   const handleImageUpload = async (image: ImageData): Promise<void> => {
-    // const uploadedImage: CloudinaryImage | false = await uploadImageService(image)
-    // if (!uploadedImage) return
     // @ts-ignore:next-line
     const response = await dispatch(createRecipeImage({ image, recipeId: recipe.id }))
     if (response.type === 'recipes/createRecipeImage/fulfilled') {
@@ -120,6 +118,7 @@ const EditRecipe: React.FC = (): ReactElement => {
       ])
       setInitialRecipeLoad(false)
       setImageSortableList(recipe?.images ? recipe.images : [])
+      return
     }
     throw new Error('An error occurred, the recipe image was not saved correctly.')
   }

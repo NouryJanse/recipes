@@ -2,6 +2,8 @@ import { PrismaClient, Image } from '@prisma/client'
 import { FastifyLoggerInstance } from 'fastify'
 const cloudinary = require('cloudinary').v2
 
+const prisma = new PrismaClient()
+
 try {
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_ID,
@@ -13,9 +15,7 @@ try {
   console.error(error)
 }
 
-const prisma = new PrismaClient()
-
-const saveImage = async (
+const createImage = async (
   logger: FastifyLoggerInstance,
   imageBase64: CloudinaryImage,
   recipeId: number,
@@ -25,11 +25,9 @@ const saveImage = async (
       imageBase64,
       { upload_preset: process.env.CLOUDINARY_PRESET_ID },
       (error: string, result: any) => {
-        console.log(result, error)
+        logger.error(result, error)
       },
     )
-
-    console.log(image)
 
     const dbImage: Image = await prisma.image.upsert({
       where: { cloudinaryPublicId: image.public_id },
@@ -44,6 +42,7 @@ const saveImage = async (
         ...(image.width && { width: image.width }),
         ...(image.height && { height: image.height }),
         cloudinaryPublicId: image.public_id,
+        position: 0,
         recipeId,
       },
     })
@@ -59,32 +58,4 @@ const saveImage = async (
   }
 }
 
-const deleteImage = async (
-  logger: FastifyLoggerInstance,
-  cloudinaryPublicId: string,
-): Promise<Image | false> => {
-  try {
-    const image = await cloudinary.uploader.destroy(
-      cloudinaryPublicId,
-      { upload_preset: process.env.CLOUDINARY_PRESET_ID },
-      (error: string, result: any) => {
-        console.log(result, error)
-      },
-    )
-
-    const dbImage: Image = await prisma.image.delete({
-      where: { cloudinaryPublicId },
-    })
-
-    return dbImage
-  } catch (error) {
-    logger.error(error)
-    return false
-  } finally {
-    ;async (): Promise<void> => {
-      await prisma.$disconnect()
-    }
-  }
-}
-
-export { saveImage, deleteImage }
+export default createImage

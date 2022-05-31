@@ -4,13 +4,15 @@ import NodeCache from 'node-cache'
 import { HTTP_CODES } from '../../constants'
 import { formatRecipeImages } from '../../helpers'
 
-import { saveImage, deleteImage } from './models'
+import { createImage, deleteImage, updateImage } from '../../models/images'
 
-import createRecipe from './models/createRecipe'
-import deleteRecipe from './models/deleteRecipe'
-import getRecipe from './models/getRecipe'
-import getRecipes from './models/getRecipes'
-import updateRecipe from './models/updateRecipe'
+import {
+  createRecipe,
+  deleteRecipe,
+  getRecipe,
+  getRecipes,
+  updateRecipe,
+} from '../../models/recipes'
 
 const cache = new NodeCache({ stdTTL: 15 })
 
@@ -79,6 +81,19 @@ const updateRecipeOps = async (
     request.body.course,
   )
 
+  if (request.body.images && request.body.images.length) {
+    const promises = request.body.images.map(async (image) => {
+      return updateImage(request.log, image)
+    })
+    await Promise.all(promises)
+      .then((response) => {
+        return response
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
   cache.del('recipes')
 
   if (recipe && recipe.id) {
@@ -95,10 +110,9 @@ const createRecipeImageOps = async (
   request: FastifyRequest<{ Body: any; Params: FastifyRecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
-  console.log(request.body)
   const recipeId = +request.params.id
   if (request.body.image.data) {
-    const image: Image | false = await saveImage(request.log, request.body.image.data, recipeId)
+    const image: Image | false = await createImage(request.log, request.body.image.data, recipeId)
     if (image) {
       return reply.code(HTTP_CODES.CREATED).send(image)
     }
