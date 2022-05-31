@@ -95,3 +95,7 @@ interface ImageData {
   position?: number
   cloudinaryId?: string
 }
+
+type AuthProps = {
+  auth0: Auth0Interface
+}

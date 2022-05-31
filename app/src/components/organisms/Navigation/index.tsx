@@ -136,13 +136,20 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
         </div>
       </div>
 
-      <div className="pl-3 w-full">
-        {menuIsOpen && <span className="mb-1 text-gray-500 text-sm flex">MY ACCOUNT</span>}
+      <div
+        className={classNames(
+          {
+            'flex flex-col items-center': !menuIsOpen,
+          },
+          'w-full',
+        )}
+      >
+        {menuIsOpen && <span className="mb-1 text-gray-500 text-sm flex px-3">MY ACCOUNT</span>}
 
         <span
           className={classNames(
             { visible: menuIsOpen, invisible: !menuIsOpen },
-            'mb-4 text-xs flex text-gray-700 font-bold',
+            'mb-4 text-xs flex text-gray-700 font-bold px-3',
           )}
         >
           Logged in as {user.name}
@@ -151,10 +158,6 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
         <NavigationLink
           to={ROUTES.ACCOUNT}
           menuIsOpen={menuIsOpen}
-          additionalClasses={classNames({
-            flex: menuIsOpen !== true,
-            hidden: menuIsOpen === true,
-          })}
           iconSymbol={<MdSwitchAccount />}
           text="Account"
         />
@@ -166,12 +169,12 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
           onKeyDown={(e: React.KeyboardEvent): React.KeyboardEvent => {
             return e
           }}
-          className={classNames('flex flex-row items-center mb-6')}
+          className={classNames('flex flex-row mb-6 px-3')}
         >
           <Icon iconElement={<MdLogout />} />
           <span
             className={classNames({
-              'flex ml-4': menuIsOpen === true,
+              'flex ml-4 font-bold': menuIsOpen === true,
               hidden: menuIsOpen !== true,
             })}
           >

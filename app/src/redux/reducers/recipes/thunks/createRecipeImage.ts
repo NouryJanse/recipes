@@ -28,7 +28,6 @@ const createRecipeImageThunk = createAsyncThunk(
   async (data: FormDataWithImage, thunkApi) => {
     const state = thunkApi.getState() as RootState
     const user = state.userSlice?.data?.user
-    // const image: CloudinaryImage = data
     return createRecipeImageAPI(data, data.recipeId, user.token)
   },
 )

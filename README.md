@@ -5,7 +5,7 @@
 Welcome to my recipe app 🥗! Thank you for taking the time to read this document 🙏!
 An app that generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others. Note that this app is a work in progress and that its purpose is mostly to demonstrate my experience, current skillset at last but not least: interests as an engineer 🧑‍💻. Please refer to some screenshots below.
 
-NOTE: **_🚨 it's not possible to run this app locally without a Cloudinary, a Auth0 account and a PostgreSQL database_**
+NOTE: **_🚨 it's not possible to run this app locally without a Cloudinary, a Auth0 account and a PostgreSQL database. Please ask me for a demo. _**
 
 ## Creator application
 
