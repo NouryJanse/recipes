@@ -13,11 +13,15 @@ const updateRecipeAPI = async (data: Recipe, token: string): Promise<Recipe | fa
       ...(data.images && data.images.length > 0 && { images: data.images }),
     }
 
-    const response = await axios.put(`http://localhost:1337/api/recipes/${data.id}`, requestBody, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await axios.put(
+      `${process.env.REACT_APP_SERVER_URL}/api/recipes/${data.id}`,
+      requestBody,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    })
+    )
     return response.data
   } catch (error) {
     LogHelper({ logType: 'error', message: 'An error occurred' })

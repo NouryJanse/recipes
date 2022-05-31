@@ -2,7 +2,7 @@ import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 async function getRecipesAPI(): Promise<Recipe[]> {
-  const response = await axios.get('http://localhost:1337/api/recipes')
+  const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/recipes`)
   return response.data
 }
 

@@ -18,4 +18,4 @@ export { default as ImageSortableList } from './molecules/Form/ImageSortableList
 
 // ORGANISMS
 export { default as RecipeCard } from './organisms/RecipeCard'
-export { default as RecipeDetail } from '../containers/RecipeDetail'
+export { default as RecipeDetail } from './pages/RecipeDetail'

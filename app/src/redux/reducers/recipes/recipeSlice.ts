@@ -88,18 +88,18 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
     builder.addCase(updateRecipe.fulfilled, (state, action) => {
+      state.status.updateRecipe = REDUX_STATE.FULFILLED
       // eslint-disable-next-line prefer-destructuring
       const recipes: Recipe[] = state.data.recipes
       if (action?.payload) {
         const updatedRecipe: Recipe = action.payload
         state.data.recipes = replaceRecipeWithIdInArrayWithRecipes(recipes, updatedRecipe)
       }
-      state.status.updateRecipe = REDUX_STATE.FULFILLED
       state.error = {}
     })
 
     builder.addCase(createRecipeImage.pending, (state) => {
-      state.status.updateRecipe = REDUX_STATE.LOADING
+      state.status.createRecipeImage = REDUX_STATE.LOADING
       state.error = {}
     })
     builder.addCase(createRecipeImage.rejected, (state) => {
@@ -108,6 +108,8 @@ export const recipeSlice = createSlice({
       state.error = {}
     })
     builder.addCase(createRecipeImage.fulfilled, (state, action) => {
+      if (!action?.payload?.recipeId) return
+      state.status.createRecipeImage = REDUX_STATE.FULFILLED
       const recipes: Recipe[] = state.data.recipes.map((recipe: Recipe) => {
         if (recipe.id === action.payload.recipeId) {
           return {
@@ -118,7 +120,6 @@ export const recipeSlice = createSlice({
         return recipe
       })
       state.data.recipes = recipes
-      state.status.createRecipeImage = REDUX_STATE.FULFILLED
       state.error = {}
     })
 

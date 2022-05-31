@@ -4,11 +4,11 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { IoChevronBackOutline } from 'react-icons/io5'
 
 import RecipeContainer from './styled'
-import recipeSlice, { deleteRecipe } from '../../redux/reducers/recipes/recipeSlice'
-import { Button } from '../../components/index'
-import { formatNLDateTime } from '../../helpers/DateHelper'
-import RootState from '../../types/RootState'
-import REPLACEMENT_IMAGES from '../../constants/REPLACEMENT_IMAGES'
+import { deleteRecipe, getRecipes } from '../../../redux/reducers/recipes/recipeSlice'
+import { Button } from '../../index'
+import { formatNLDateTime } from '../../../helpers/DateHelper'
+import RootState from '../../../types/RootState'
+import REPLACEMENT_IMAGES from '../../../constants/REPLACEMENT_IMAGES'
 
 const RecipeDetail: React.FC = (): ReactElement => {
   const [recipe, setRecipe] = useState<Recipe>({} as Recipe)
@@ -30,6 +30,8 @@ const RecipeDetail: React.FC = (): ReactElement => {
     if (!recipeId) return false
     // @ts-ignore:next-line
     await dispatch(deleteRecipe(recipeId))
+    // @ts-ignore:next-line
+    await dispatch(getRecipes())
     navigate('/recipes')
     return true
   }

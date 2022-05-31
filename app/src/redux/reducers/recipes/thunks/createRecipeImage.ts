@@ -2,26 +2,33 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import RootState from '../../../../types/RootState'
 
+interface FormDataWithImage extends ImageData {
+  recipeId: number
+}
+
 const createRecipeImageAPI = async (
-  data: CloudinaryImage,
+  data: FormDataWithImage,
   recipeId: number,
   token: string,
 ): Promise<Image> => {
-  const response = await axios.post(`http://localhost:1337/api/recipes/image/${recipeId}`, data, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/api/recipes/image/${recipeId}`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  })
+  )
   return response.data
 }
 
 const createRecipeImageThunk = createAsyncThunk(
   'recipes/createRecipeImage',
-  async (data: CloudinaryImageWithRecipeId, thunkApi) => {
+  async (data: FormDataWithImage, thunkApi) => {
     const state = thunkApi.getState() as RootState
     const user = state.userSlice?.data?.user
-    const image: CloudinaryImage = data
-    return createRecipeImageAPI(image, data.recipeId, user.token)
+    return createRecipeImageAPI(data, data.recipeId, user.token)
   },
 )
 

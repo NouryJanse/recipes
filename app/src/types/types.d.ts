@@ -9,7 +9,7 @@ interface Image {
   height: number
   position: number
   recipeId: number
-  cloudinaryId: string
+  cloudinaryPublicId: string
 }
 
 interface Recipe {
@@ -90,7 +90,12 @@ interface ImageData {
   url?: string
   path?: string
   size?: string
+  type?: string
   data?: string | undefined
   position?: number
   cloudinaryId?: string
+}
+
+type AuthProps = {
+  auth0: Auth0Interface
 }

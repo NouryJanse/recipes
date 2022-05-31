@@ -2,10 +2,10 @@ import React, { ReactElement, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Outlet, useParams } from 'react-router-dom'
 
-import { getRecipes } from '../../redux/reducers/recipes/recipeSlice'
-import RootState from '../../types/RootState'
-import { Loader, RecipeCard } from '../../components'
-import { REDUX_STATE } from '../../constants'
+import { getRecipes } from '../../../redux/reducers/recipes/recipeSlice'
+import RootState from '../../../types/RootState'
+import { Loader, RecipeCard } from '../..'
+import { REDUX_STATE } from '../../../constants'
 // import useInterval from '../../polling'
 
 const RecipesList: React.FC = (): ReactElement | null => {

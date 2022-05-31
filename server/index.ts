@@ -7,8 +7,8 @@ import { fastifySwagger } from 'fastify-swagger'
 
 import App from './app'
 
-dotenv.config({ path: './.env.local' })
-if (!process.env.PORT) dotenv.config({ path: '../.env.development' })
+dotenv.config({ path: './.env' })
+if (!process.env.PORT) dotenv.config({ path: '../.env' })
 
 const environment = process.env.local ?? 'development'
 
@@ -23,6 +23,7 @@ const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastif
         : false,
   },
   pluginTimeout: 10000,
+  bodyLimit: 6242880, // === 5MB
 })
 
 // Do not touch the following lines!

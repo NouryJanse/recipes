@@ -5,6 +5,8 @@
 Welcome to my recipe app 🥗! Thank you for taking the time to read this document 🙏!
 An app that generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others. Note that this app is a work in progress and that its purpose is mostly to demonstrate my experience, current skillset at last but not least: interests as an engineer 🧑‍💻. Please refer to some screenshots below.
 
+NOTE: **_🚨 it's not possible to run this app locally without a Cloudinary, a Auth0 account and a PostgreSQL database. Please ask me for a demo. _**
+
 ## Creator application
 
 Roadmap features
@@ -100,7 +102,7 @@ Swagger documentation can be found by navigating to /docs
 
   > unit testing the Prisma models and expected behaviours
 
-![Home on Mobile](Home-SM.png)
-![Home on Desktop](Home-XL.png)
-![All recipes](Recipes-SM.png)
-![Create Recipe](Create-MD.png)
+![Home on Mobile](/screens/Home-SM.png)
+![Home on Desktop](/screens/Home-XL.png)
+![All recipes](/screens/Recipes-SM.png)
+![Create Recipe](/screens/Create-MD.png)

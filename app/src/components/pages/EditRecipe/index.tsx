@@ -8,8 +8,8 @@ import {
   createRecipeImage,
   deleteRecipeImage,
   getRecipe,
-} from '../../redux/reducers/recipes/recipeSlice'
-import { uploadImageService } from '../../redux/reducers/recipes/services'
+} from '../../../redux/reducers/recipes/recipeSlice'
+import { uploadImageService } from '../../../redux/reducers/recipes/services'
 import {
   Button,
   Textfield,
@@ -20,13 +20,13 @@ import {
   ImageSortableList,
   FieldContainer,
   Loader,
-} from '../../components/index'
+} from '../../index'
 
-import RootState from '../../types/RootState'
-import isLoading from '../../helpers/LoadingHelper'
-import { RECIPE_COURSE_OPTIONS } from '../../constants'
+import RootState from '../../../types/RootState'
+import isLoading from '../../../helpers/LoadingHelper'
+import { RECIPE_COURSE_OPTIONS } from '../../../constants'
 import courseName from './helpers'
-import { PageTitle } from '../../components'
+import { PageTitle } from '../..'
 
 const EditRecipe: React.FC = (): ReactElement => {
   const dispatch = useDispatch()
@@ -110,19 +110,17 @@ const EditRecipe: React.FC = (): ReactElement => {
   }
 
   const handleImageUpload = async (image: ImageData): Promise<void> => {
-    const uploadedImage: CloudinaryImage | false = await uploadImageService(image)
-    if (!uploadedImage) return
     // @ts-ignore:next-line
-    await dispatch(createRecipeImage({ ...uploadedImage, recipeId: recipe.id }))
-    if (uploadedImage.url) {
+    const response = await dispatch(createRecipeImage({ image, recipeId: recipe.id }))
+    if (response.type === 'recipes/createRecipeImage/fulfilled') {
       setImageViewList((prevState: ImageData[]) => [
         ...prevState.filter((currentImage) => currentImage.data !== image.data),
       ])
       setInitialRecipeLoad(false)
       setImageSortableList(recipe?.images ? recipe.images : [])
-    } else {
-      throw new Error('An error occurred, the recipe was not edited.')
+      return
     }
+    throw new Error('An error occurred, the recipe image was not saved correctly.')
   }
 
   const handleSortedImages = (images: Image[]): void => {
@@ -139,7 +137,7 @@ const EditRecipe: React.FC = (): ReactElement => {
     handleSubmit(onSave)()
   }
 
-  const deleteImage = async (imageId: number): Promise<void> => {
+  const deleteImage = async (imageId: string): Promise<void> => {
     // @ts-ignore:next-line
     await dispatch(deleteRecipeImage(imageId))
     // @ts-ignore:next-line
