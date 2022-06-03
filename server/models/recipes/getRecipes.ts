@@ -1,12 +1,13 @@
 import { PrismaClient, Recipe, Image } from '@prisma/client'
 import { FastifyLoggerInstance } from 'fastify'
 import { formatRecipeImages } from '../../helpers'
+import { NoContentError } from '../../types/Error'
 
 const prisma = new PrismaClient()
 
 const getRecipes = async (logger: FastifyLoggerInstance): Promise<Recipe[] | false> => {
   try {
-    const recipes = await prisma.recipe.findMany({
+    let recipes = await prisma.recipe.findMany({
       orderBy: {
         updatedAt: 'desc',
       },
@@ -19,10 +20,16 @@ const getRecipes = async (logger: FastifyLoggerInstance): Promise<Recipe[] | fal
       },
     })
 
+    recipes = []
+    if (!recipes.length) throw new NoContentError('No recipes could be found.')
+
     return formatRecipeImages(recipes)
   } catch (error) {
     logger.error(error)
-    return false
+    if (error instanceof NoContentError) {
+      throw new NoContentError(error.message)
+    }
+    throw error
   } finally {
     ;async (): Promise<void> => {
       await prisma.$disconnect()

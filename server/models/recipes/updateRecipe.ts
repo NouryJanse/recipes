@@ -1,5 +1,7 @@
 import { PrismaClient, Recipe, Image } from '@prisma/client'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import { FastifyLoggerInstance } from 'fastify'
+import { ObjectCouldNotBeFoundError } from '../../types/Error'
 
 const prisma = new PrismaClient()
 
@@ -26,7 +28,10 @@ const updateRecipe = async (
     return recipe
   } catch (error) {
     logger.error(error)
-    return false
+    if (error instanceof PrismaClientKnownRequestError && error.code === 'P2025') {
+      throw new ObjectCouldNotBeFoundError(`The recipe with id: ${id} could not be found`)
+    }
+    throw error
   } finally {
     ;async (): Promise<void> => {
       await prisma.$disconnect()

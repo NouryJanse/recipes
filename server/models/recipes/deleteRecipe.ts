@@ -16,7 +16,7 @@ const deleteRecipe = async (logger: FastifyLoggerInstance, id: number): Promise<
     return true
   } catch (error) {
     logger.error(error)
-    return false
+    throw error
   } finally {
     ;async (): Promise<void> => {
       await prisma.$disconnect()
