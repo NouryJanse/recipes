@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Recipe } from '@prisma/client'
 import { build } from '../setupTestApplication'
 
 const prisma = new PrismaClient()
@@ -39,16 +39,44 @@ describe('createRecipe', () => {
     })
 
     const recipes = JSON.parse(response.payload).recipes
+
     expect(response.statusCode).toBe(201)
     expect(response.statusMessage).toBe('Created')
     expect(Array.isArray(recipes)).toBeTruthy()
     expect(recipes.length > 0).toBeTruthy()
+    expect(recipes.some((recipe: Recipe) => recipe.name === 'my new recipe 1')).toBeTruthy()
     // TODO: check if recipe is in response (via find)
   })
 
-  // it('fails when creating a duplicate recipe', async () => {
-  //   // test plan: create the same recipe twice and expect an error
-  //   // expect: HTTP 500
-  //   // expect: empty response object (no JSON)
-  // })
+  it('fails when creating a duplicate recipe', async () => {
+    // test plan: create the same recipe twice and expect an error
+    // expect: HTTP 500
+    // expect: empty response object (no JSON)
+
+    const payload = {
+      name: 'my new recipe 1',
+      description: 'this snack is so delicous, I want to eat it every day',
+      course: 'snack',
+      userId: 'auth0|abcdef12345679',
+    }
+
+    await app.inject({
+      method: 'POST',
+      url: '/api/recipes',
+      payload,
+    })
+
+    const response2 = await app.inject({
+      method: 'POST',
+      url: '/api/recipes',
+      payload,
+    })
+
+    const response = JSON.parse(response2.payload)
+
+    expect(response2.statusCode).toBe(500)
+    expect(response.message === 'This recipe already exists').toBeTruthy()
+    // expect(recipes.length > 0).toBeTruthy()
+    // expect(recipes.some((recipe: Recipe) => recipe.name === 'my new recipe 1')).toBeTruthy()
+  })
 })
