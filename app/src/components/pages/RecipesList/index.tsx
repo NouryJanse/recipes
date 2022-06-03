@@ -10,7 +10,7 @@ import { REDUX_STATE } from '../../../constants'
 
 const RecipesList: React.FC = (): ReactElement | null => {
   const dispatch = useDispatch()
-  const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
+  const recipes: Recipe[] = useSelector((state: RootState) => state.recipeSlice.data.recipes)
   const status = useSelector((state: RootState) => state.recipeSlice.status)
   const params = useParams()
 

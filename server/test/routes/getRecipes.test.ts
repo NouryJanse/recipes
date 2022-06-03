@@ -50,7 +50,6 @@ describe('getRecipes', () => {
     expect(response.statusCode).toBe(200)
     expect(Array.isArray(recipes)).toBeTruthy()
     expect(recipes.length > 0).toBeTruthy()
-
     expect(
       recipes.some((recipe: Recipe) => recipe.name === 'recipe for getRecipesTest 2'),
     ).toBeTruthy()
@@ -64,9 +63,9 @@ describe('getRecipes', () => {
       url: '/api/recipes',
     })
 
-    const res = JSON.parse(response.payload)
+    const responsePayload = JSON.parse(response.payload)
 
     expect(response.statusCode).toBe(204)
-    // expect(res.payload.message).toBe('This recipe already exists')
+    expect(responsePayload.message === 'No recipes could be found').toBeTruthy()
   })
 })

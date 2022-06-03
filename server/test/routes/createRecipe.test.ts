@@ -45,14 +45,9 @@ describe('createRecipe', () => {
     expect(Array.isArray(recipes)).toBeTruthy()
     expect(recipes.length > 0).toBeTruthy()
     expect(recipes.some((recipe: Recipe) => recipe.name === 'my new recipe 1')).toBeTruthy()
-    // TODO: check if recipe is in response (via find)
   })
 
   it('fails when creating a duplicate recipe', async () => {
-    // test plan: create the same recipe twice and expect an error
-    // expect: HTTP 500
-    // expect: empty response object (no JSON)
-
     const payload = {
       name: 'my new recipe 1',
       description: 'this snack is so delicous, I want to eat it every day',
@@ -66,17 +61,15 @@ describe('createRecipe', () => {
       payload,
     })
 
-    const response2 = await app.inject({
+    const response = await app.inject({
       method: 'POST',
       url: '/api/recipes',
       payload,
     })
 
-    const response = JSON.parse(response2.payload)
+    const responsePayload = JSON.parse(response.payload)
 
-    expect(response2.statusCode).toBe(500)
-    expect(response.message === 'This recipe already exists').toBeTruthy()
-    // expect(recipes.length > 0).toBeTruthy()
-    // expect(recipes.some((recipe: Recipe) => recipe.name === 'my new recipe 1')).toBeTruthy()
+    expect(response.statusCode).toBe(500)
+    expect(responsePayload.message === 'This recipe already exists').toBeTruthy()
   })
 })

@@ -11,8 +11,9 @@
     "lint-and-fix": "eslint . --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc.json '*.ts' --write",
     "prisma-update": "npx prisma generate && npx prisma migrate dev --name init",
-    "test": "jest --coverage",
-    "test:watch": "jest --watchAll"
+    "test": "jest --runInBand",
+    "test:coverage": "jest --runInBand --coverage",
+    "test:watch": "jest --runInBand --watch"
   },
   "dependencies": {
     "@prisma/client": "^3.14.0",

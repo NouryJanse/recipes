@@ -1,5 +1,6 @@
-import { PrismaClient, Recipe, Image } from '@prisma/client'
+import { PrismaClient, Recipe } from '@prisma/client'
 import { FastifyLoggerInstance } from 'fastify'
+import ERROR_MESSAGES from '../../constants/ERROR_MESSAGES'
 import { formatRecipeImages } from '../../helpers'
 import { NoContentError } from '../../types/Error'
 
@@ -20,8 +21,7 @@ const getRecipes = async (logger: FastifyLoggerInstance): Promise<Recipe[] | fal
       },
     })
 
-    recipes = []
-    if (!recipes.length) throw new NoContentError('No recipes could be found.')
+    if (!recipes.length) throw new NoContentError(ERROR_MESSAGES.NO_RECIPES_FOUND)
 
     return formatRecipeImages(recipes)
   } catch (error) {
