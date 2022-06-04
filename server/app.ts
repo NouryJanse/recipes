@@ -9,16 +9,13 @@ export default fp(
     opts: FastifyPluginOptions,
     next: (error?: FastifyError) => void,
   ): void => {
-    // This loads all plugins defined in plugins
-    // those should be support plugins that are reused
-    // through your application
+    // This loads all plugins defined in support plugins that are reused through the application
     fastify.register(AutoLoad, {
       dir: path.join(__dirname, 'plugins'),
       options: { ...{}, ...opts },
     })
 
     // This loads all plugins defined in routes
-    // define your routes in one of these
     fastify.register(AutoLoad, {
       dir: path.join(__dirname, 'routes'),
       options: { ...{}, ...opts },

@@ -8,7 +8,6 @@ const cache = new NodeCache({ stdTTL: CACHE_TTL })
 // this declaration must be in scope of the typescript interpreter to work
 declare module 'fastify' {
   interface FastifyRequest {
-    // you must reference the interface and not the type
     serverCache: () => NodeCache | false
   }
 }

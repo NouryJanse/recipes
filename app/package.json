@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "react-scripts start",
     "build": "react-scripts build",
-    "prod": "nodemon ./server/index.js",
+    "prod": "react-scripts build && serve -s build",
     "tailwind": "tailwindcss build -i src/styles/input.css -o src/styles/tailwind.output.css --watch",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!your-module-name)/\"",
     "eject": "react-scripts eject",

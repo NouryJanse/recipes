@@ -18,10 +18,9 @@ const deleteRecipeOps = async (
       cache.del('recipes')
     }
 
-    const recipes = await getRecipes(request.log)
-
-    return reply.code(HTTP_CODES.CREATED).send({ recipes })
+    return reply.code(HTTP_CODES.OK).send({})
   } catch (error) {
+    console.log(error)
     request.log.error(error)
     return reply.code(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
   }
