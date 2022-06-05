@@ -15,14 +15,14 @@ afterEach(async () => {
 describe('createRecipe', () => {
   const app = build()
 
-  it('creates 1 new recipe and expect it to be in the response', async () => {
+  it('creates 1 new recipe and expect it to be in the response', async (): Promise<void> => {
     const response = await app.inject({
       method: 'POST',
       url: '/api/recipes',
       payload: recipeInputPayload,
     })
 
-    const recipes = JSON.parse(response.payload).recipes
+    const { recipes } = JSON.parse(response.payload)
 
     expect(response.statusCode).toBe(201)
     expect(response.statusMessage).toBe('Created')
@@ -31,7 +31,7 @@ describe('createRecipe', () => {
     expect(recipes.some((recipe: Recipe) => recipe.name === 'my new recipe 1')).toBeTruthy()
   })
 
-  it('fails when creating a duplicate recipe', async () => {
+  it('fails when creating a duplicate recipe', async (): Promise<void> => {
     const payload = {
       name: 'my new recipe 1',
       description: 'this snack is so delicous, I want to eat it every day',

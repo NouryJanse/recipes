@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Recipe } from '@prisma/client'
 import { build } from '../setupTestApplication'
 import recipeInputPayload from './mocks/recipeInputPayload.mock'
 
@@ -12,7 +12,7 @@ afterEach(async () => {
 // beforeAll(() => {})
 // afterAll(async () => {})
 
-const createOne = async () => {
+const createOne = async (): Promise<Recipe | null> => {
   return prisma.recipe.create({
     data: {
       name: recipeInputPayload.name,
@@ -22,8 +22,8 @@ const createOne = async () => {
   })
 }
 
-const findOne = async (recipeId: number) => {
-  return await prisma.recipe.findUnique({
+const findOne = async (recipeId: number): Promise<Recipe | null> => {
+  return prisma.recipe.findUnique({
     where: {
       id: recipeId,
     },
@@ -39,10 +39,11 @@ const findOne = async (recipeId: number) => {
 
 const app = build()
 
-describe('deleteRecipe', () => {
-  it('deletes a recipe', async () => {
+describe('deleteRecipe', (): void => {
+  it('deletes a recipe', async (): Promise<void> => {
     const recipe = await createOne()
 
+    if (!recipe) return
     const response = await app.inject({
       method: 'DELETE',
       url: `/api/recipes/${recipe.id}`,

@@ -1,7 +1,7 @@
 import { PrismaClient, Image } from '@prisma/client'
 import { FastifyLoggerInstance } from 'fastify'
-const cloudinary = require('cloudinary').v2
 
+const cloudinary = require('cloudinary').v2
 const prisma = new PrismaClient()
 
 try {
@@ -12,6 +12,7 @@ try {
     secure: true,
   })
 } catch (error) {
+  // eslint-disable-next-line no-console
   console.error(error)
 }
 

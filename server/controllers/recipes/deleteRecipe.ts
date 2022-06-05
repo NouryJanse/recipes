@@ -20,7 +20,6 @@ const deleteRecipeOps = async (
 
     return reply.code(HTTP_CODES.OK).send({})
   } catch (error) {
-    console.log(error)
     request.log.error(error)
     return reply.code(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
   }
