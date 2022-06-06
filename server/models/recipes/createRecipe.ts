@@ -1,7 +1,7 @@
 import { PrismaClient, Recipe } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import { FastifyLoggerInstance } from 'fastify'
-import { ObjectAlreadyExistsError } from '../../types/Error'
+import ObjectAlreadyExistsError from '../../types/ObjectAlreadyExistsError'
 
 const prisma = new PrismaClient()
 

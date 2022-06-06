@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { HTTP_CODES } from '../../constants'
 import { createRecipe, getRecipes } from '../../models/recipes'
-import { ObjectAlreadyExistsError } from '../../types/Error'
+import ObjectAlreadyExistsError from '../../types/ObjectAlreadyExistsError'
 
 const createRecipeOps = async (
   request: FastifyRequest<{ Body: FastifyRecipeBody }>,

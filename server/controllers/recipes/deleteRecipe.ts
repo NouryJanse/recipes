@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { HTTP_CODES } from '../../constants'
-import { deleteRecipe, getRecipes } from '../../models/recipes'
+import { deleteRecipe } from '../../models/recipes'
 
 const deleteRecipeOps = async (
   request: FastifyRequest<{

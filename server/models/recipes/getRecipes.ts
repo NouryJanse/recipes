@@ -1,14 +1,14 @@
 import { PrismaClient, Recipe } from '@prisma/client'
 import { FastifyLoggerInstance } from 'fastify'
-import ERROR_MESSAGES from '../../constants/ERROR_MESSAGES'
+import { ERROR_MESSAGES } from '../../constants'
 import { formatRecipeImages } from '../../helpers'
-import { NoContentError } from '../../types/Error'
+import NoContentError from '../../types/NoContentError'
 
 const prisma = new PrismaClient()
 
 const getRecipes = async (logger: FastifyLoggerInstance): Promise<Recipe[] | false> => {
   try {
-    let recipes = await prisma.recipe.findMany({
+    const recipes = await prisma.recipe.findMany({
       orderBy: {
         updatedAt: 'desc',
       },

@@ -1,17 +1,15 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { HTTP_CODES } from '../../constants'
-import ERROR_MESSAGES from '../../constants/ERROR_MESSAGES'
+import { HTTP_CODES, ERROR_MESSAGES } from '../../constants'
 import { formatRecipeImages } from '../../helpers'
 import { updateImage } from '../../models/images'
 import { getRecipe, updateRecipe } from '../../models/recipes'
-import { ObjectCouldNotBeFoundError } from '../../types/Error'
+import ObjectCouldNotBeFoundError from '../../types/ObjectCouldNotBeFoundError'
 
 const updateRecipeOps = async (
   request: FastifyRequest<{ Body: FastifyRecipeBody; Params: FastifyRecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
-    // console.log(request.user)
     const recipe = await updateRecipe(
       request.log,
       Number(request.params.id),

@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { HTTP_CODES } from '../../constants'
 import { getRecipes } from '../../models/recipes'
-import { NoContentError } from '../../types/Error'
+import NoContentError from '../../types/NoContentError'
 
 const getRecipesOps = async (
   request: FastifyRequest<{
@@ -15,7 +15,7 @@ const getRecipesOps = async (
     // improve the cache by implementing an id system so that individual recipes can be invalidated
     if (cache && cache.has('recipes')) {
       return reply.code(HTTP_CODES.OK).send(cache.get('recipes'))
-    } else if (cache) {
+    } else if (cache && !cache.has('recipes')) {
       const recipes = await getRecipes(request.log)
       cache.set('recipes', recipes)
       return reply.code(HTTP_CODES.OK).send(recipes)

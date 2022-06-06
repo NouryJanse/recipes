@@ -28,9 +28,8 @@ export default fp(
         // should be changed to USE_CACHE var
         if (process.env.ENV !== 'test') {
           return cache
-        } else {
-          return false
         }
+        return false
       },
     )
     next()

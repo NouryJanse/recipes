@@ -4,7 +4,7 @@ import { HTTP_CODES } from '../../constants'
 import { createImage, deleteImage } from '../../models/images'
 
 const createRecipeImageOps = async (
-  request: FastifyRequest<{ Body: any; Params: FastifyRecipeParams }>,
+  request: FastifyRequest<{ Body: FastifyRecipeBody; Params: FastifyRecipeParams }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   const recipeId = +request.params.id

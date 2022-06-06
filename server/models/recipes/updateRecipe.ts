@@ -1,7 +1,7 @@
 import { PrismaClient, Recipe, Image } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import { FastifyLoggerInstance } from 'fastify'
-import { ObjectCouldNotBeFoundError } from '../../types/Error'
+import ObjectCouldNotBeFoundError from '../../types/ObjectCouldNotBeFoundError'
 
 const prisma = new PrismaClient()
 
