@@ -1,11 +1,3 @@
-interface FastifyRecipeBody {
-  name: string
-  description: string
-  authorId: number
-  course: string
-  images: []
-}
-
 interface FastifyRecipeParams {
   id: string
 }
@@ -35,4 +27,15 @@ interface CloudinaryImage {
   version_id: string
   width: number
   position?: number
+}
+
+interface FastifyRecipeBody {
+  name: string
+  description: string
+  authorId: number
+  course: string
+  images: []
+  image: {
+    data: CloudinaryImage
+  }
 }

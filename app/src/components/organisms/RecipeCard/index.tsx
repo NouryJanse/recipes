@@ -37,7 +37,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
     await dispatch(deleteRecipe(recipeId))
     // @ts-ignore:next-line
     await dispatch(getRecipes())
-    navigate('/recipes')
     return true
   }
 

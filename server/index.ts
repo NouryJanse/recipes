@@ -12,7 +12,8 @@ if (!process.env.PORT) dotenv.config({ path: '../.env' })
 
 const environment = process.env.local ?? 'development'
 
-const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({
+// create Fastify's server instance
+const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({
   logger: {
     prettyPrint:
       environment === 'development'
@@ -26,14 +27,14 @@ const fastify: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastif
   bodyLimit: 6242880, // === 5MB
 })
 
-// Do not touch the following lines!
-
-fastify.register(fastifyAuth0, {
+// register a plugin for integrating Auth0 in Fastify
+server.register(fastifyAuth0, {
   domain: process.env.AUTH0_DOMAIN,
   secret: process.env.AUTH0_SECRET,
 })
 
-fastify.register(fastifySwagger, {
+// register a plugin for integrating Swagger in Fastify
+server.register(fastifySwagger, {
   exposeRoute: true,
   routePrefix: '/docs',
   swagger: {
@@ -45,15 +46,16 @@ fastify.register(fastifySwagger, {
   },
 })
 
-fastify.register(App)
+server.register(App)
 
-fastify.register(cors, {
+server.register(cors, {
   origin: '*',
 })
 
-fastify.listen(process.env.PORT || 3000, '0.0.0.0', (err) => {
+// start the server
+server.listen(process.env.PORT || 3000, '0.0.0.0', (err) => {
   if (err) {
-    fastify.log.error(err)
+    server.log.error(err)
     process.exit(1)
   }
 })

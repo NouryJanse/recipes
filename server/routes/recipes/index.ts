@@ -1,5 +1,13 @@
 import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify'
 import fp from 'fastify-plugin'
+import {
+  createRecipeOps,
+  deleteRecipeOps,
+  getRecipeOps,
+  getRecipesOps,
+  updateRecipeOps,
+} from '../../controllers/recipes'
+
 import ops from './controllers'
 
 export default fp(
@@ -10,21 +18,21 @@ export default fp(
   ): void => {
     // CREATE RECIPE
     server.post('/api/recipes', {
-      handler: ops.createRecipeOps,
+      handler: createRecipeOps,
       preValidation: server.authenticate,
     })
 
     // GET RECIPES
-    server.get('/api/recipes', { handler: ops.getRecipesOps })
+    server.get('/api/recipes', { handler: getRecipesOps })
 
     // GET RECIPE
     server.get('/api/recipes/:id', {
-      handler: ops.getRecipeOps,
+      handler: getRecipeOps,
     })
 
     // UPDATE RECIPE
     server.put('/api/recipes/:id', {
-      handler: ops.updateRecipeOps,
+      handler: updateRecipeOps,
       preValidation: server.authenticate,
     })
 
@@ -42,7 +50,7 @@ export default fp(
 
     // DELETE RECIPE
     server.delete('/api/recipes/:id', {
-      handler: ops.deleteRecipeOps,
+      handler: deleteRecipeOps,
       preValidation: server.authenticate,
     })
 

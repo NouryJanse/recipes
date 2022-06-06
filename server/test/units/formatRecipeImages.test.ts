@@ -1,6 +1,6 @@
 import { Recipe } from '@prisma/client'
 import { formatRecipeImages } from '../../helpers'
-import recipes from './formatRecipeImages.mock'
+import recipes from './mocks/formatRecipeImages.mock'
 
 describe('formatRecipeImages', () => {
   it('checks if formatRecipeImages removes the Image: [] and replaces it with images: []', async () => {
