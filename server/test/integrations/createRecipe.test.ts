@@ -1,21 +1,17 @@
-import { PrismaClient, Recipe } from '@prisma/client'
+import { Recipe } from '@prisma/client'
 import { build } from '../setupTestApplication'
+import { deleteMany } from './helpers'
 import recipeInputPayload from './mocks/recipeInputPayload.mock'
 
-const prisma = new PrismaClient()
-
 afterEach(async () => {
-  await prisma.recipe.deleteMany({})
+  deleteMany()
 })
-
-// beforeEach(() => {})
-// beforeAll(() => {})
-// afterAll(async () => {})
 
 describe('createRecipe', () => {
   const app = build()
 
   it('creates 1 new recipe and expect it to be in the response', async (): Promise<void> => {
+    // create recipe - this is the tested route
     const response = await app.inject({
       method: 'POST',
       url: '/api/recipes',
@@ -33,12 +29,11 @@ describe('createRecipe', () => {
 
   it('fails when creating a duplicate recipe', async (): Promise<void> => {
     const payload = {
+      ...recipeInputPayload,
       name: 'my new recipe 1',
-      description: 'this snack is so delicous, I want to eat it every day',
-      course: 'snack',
-      userId: 'auth0|abcdef12345679',
     }
 
+    // create recipe - this is the tested route
     await app.inject({
       method: 'POST',
       url: '/api/recipes',
@@ -51,9 +46,9 @@ describe('createRecipe', () => {
       payload,
     })
 
-    const responsePayload = JSON.parse(response.payload)
+    const parsedResponse = JSON.parse(response.payload)
 
     expect(response.statusCode).toBe(500)
-    expect(responsePayload.message === 'This recipe already exists').toBeTruthy()
+    expect(parsedResponse.message === 'This recipe already exists').toBeTruthy()
   })
 })

@@ -3,7 +3,7 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import { HTTP_CODES } from '../../constants'
 import { formatRecipeImages } from '../../helpers'
 import { getRecipe } from '../../models/recipes'
-import { ObjectCouldNotBeFoundError } from '../../types/Error'
+import { IdIsOfInvalidFormat, ObjectCouldNotBeFoundError } from '../../types/Error'
 
 const getRecipeOps = async (
   request: FastifyRequest<{ Params: { id: number } }>,
@@ -16,6 +16,9 @@ const getRecipeOps = async (
     request.log.error(error)
     if (error instanceof ObjectCouldNotBeFoundError) {
       return reply.code(HTTP_CODES.NOT_FOUND).send({ message: error.message })
+    }
+    if (error instanceof IdIsOfInvalidFormat) {
+      return reply.code(HTTP_CODES.UNPROCESSABLE_ENTITY).send({ message: error.message })
     }
     return reply.code(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
   }

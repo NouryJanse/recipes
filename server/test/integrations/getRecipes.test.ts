@@ -1,71 +1,46 @@
 import { PrismaClient, Recipe } from '@prisma/client'
 import { build } from '../setupTestApplication'
-
-const app = build()
+import { createMany } from './helpers'
 
 const prisma = new PrismaClient()
-
-/* 
-  TODO:
-    1. Setup test database (this is not a Docker environment so can not spin up and destroy one)
-    2. Create separate Prisma schema (unfortunately no imports of schemas are allowed yet, so duplication is going to be inevitable without any questionable thirdparty tooling)
-    3. Setup general beforeAll and afterAll for db prep (making sure tables are created and truncated afterwards)
-    4. Generate tests (refer to the plan below)
-
-    GOAL: is to test the integration of the whole application flow, this includes invoking the route, subsequent execution of the operation, and finally the reliability of the model.
-*/
-
-const createMany = async () => {
-  return prisma.recipe.createMany({
-    data: [
-      {
-        name: 'recipe for getRecipesTest 2',
-        description: 'this snack is so delicous, I want to eat it every day',
-        course: 'snack',
-      },
-      {
-        name: 'recipe for getRecipesTest 3',
-        description: 'this snack is so delicous, I want to eat it every day 2',
-        course: 'snack',
-      },
-    ],
-  })
-}
 
 afterAll(async () => {
   await prisma.recipe.deleteMany({})
 })
 
 describe('getRecipes', () => {
-  it('returns all recipes', async () => {
+  const app = build()
+
+  it('returns all recipes', async (): Promise<void> => {
     await createMany()
 
+    // get recipes - this is the tested route
     const response = await app.inject({
       method: 'GET',
       url: '/api/recipes',
     })
 
-    const recipes = JSON.parse(response.payload)
+    const parsedResponse = JSON.parse(response.payload)
 
     expect(response.statusCode).toBe(200)
-    expect(Array.isArray(recipes)).toBeTruthy()
-    expect(recipes.length > 0).toBeTruthy()
+    expect(Array.isArray(parsedResponse)).toBeTruthy()
+    expect(parsedResponse.length > 0).toBeTruthy()
     expect(
-      recipes.some((recipe: Recipe) => recipe.name === 'recipe for getRecipesTest 2'),
+      parsedResponse.some((recipe: Recipe) => recipe.name === 'recipe for getRecipesTest 2'),
     ).toBeTruthy()
 
     await prisma.recipe.deleteMany({})
   })
 
-  it('returns a decorated error response when there are no recipes', async () => {
+  it('returns a decorated error response when there are no recipes', async (): Promise<void> => {
     const response = await app.inject({
       method: 'GET',
       url: '/api/recipes',
     })
 
-    const responsePayload = JSON.parse(response.payload)
+    const parsedResponse = JSON.parse(response.payload)
 
     expect(response.statusCode).toBe(204)
-    expect(responsePayload.message === 'No recipes could be found').toBeTruthy()
+    expect(parsedResponse.message === 'No recipes could be found').toBeTruthy()
   })
 })

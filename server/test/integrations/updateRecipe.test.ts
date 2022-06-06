@@ -1,5 +1,6 @@
 import { PrismaClient, Recipe, Image } from '@prisma/client'
 import { build } from '../setupTestApplication'
+import { createOne, deleteMany } from './helpers'
 import recipeInputPayload from './mocks/recipeInputPayload.mock'
 
 const prisma = new PrismaClient()
@@ -12,31 +13,18 @@ interface RecipeWithImage extends Recipe {
 }
 
 afterEach(async () => {
-  await prisma.recipe.deleteMany({})
+  await deleteMany()
 })
-
-// beforeEach(() => {})
-// beforeAll(() => {})
-// afterAll(async () => {})
 
 afterEach(async () => {
-  await prisma.recipe.deleteMany({})
+  await deleteMany()
 })
-
-const createOne = async (): Promise<Recipe> => {
-  return prisma.recipe.create({
-    data: {
-      name: recipeInputPayload.name,
-      description: recipeInputPayload.description,
-      course: recipeInputPayload.course,
-    },
-  })
-}
 
 describe('updateRecipe', () => {
   const app = build()
 
   it('updates an existing recipe', async (): Promise<void> => {
+    // create recipe
     const prismaRecipe = await createOne()
 
     // these props are added manually by Prisma
@@ -60,24 +48,26 @@ describe('updateRecipe', () => {
       images: [],
     }
 
+    // update recipe - this is the tested route
     const response = await app.inject({
       method: 'PUT',
       url: `/api/recipes/${prismaRecipe.id}`,
       payload: updatePayload,
     })
 
-    const responsePayload = JSON.parse(response.payload)
+    const parsedResponse = JSON.parse(response.payload)
 
-    // test if properties exist at first before loading them over to the payload
-    expect(responsePayload).toHaveProperty('createdAt')
-    expect(responsePayload).toHaveProperty('updatedAt')
-    if (prismaRecipe.createdAt && prismaRecipe.updatedAt) {
-      updatePayload.createdAt = responsePayload.createdAt.toString()
-      updatePayload.updatedAt = responsePayload.updatedAt.toString()
-    }
-
-    // check if all properties match exactly to the test fails when new
     expect(response.statusCode).toBe(201)
-    expect(responsePayload).toMatchObject(updatePayload)
+
+    // test if properties exist at first before loading them over to the payload below
+    expect(parsedResponse).toHaveProperty('createdAt')
+    expect(parsedResponse).toHaveProperty('updatedAt')
+
+    // check if the object matches
+    expect(parsedResponse).toMatchObject({
+      ...updatePayload,
+      createdAt: parsedResponse.createdAt,
+      updatedAt: parsedResponse.updatedAt,
+    })
   })
 })
