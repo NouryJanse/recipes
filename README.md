@@ -47,7 +47,8 @@ A data platform that allows multichannel access
 
 - Fastify back-end
 - Prisma
-- Server side communication from REST to GraphQL
+- Server side communication from REST to
+  > https://github.com/mercurius-js/mercurius
 - Jest Unit and Integration test
 
 A consumer high performance website

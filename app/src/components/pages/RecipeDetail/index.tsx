@@ -42,9 +42,10 @@ const RecipeDetail: React.FC = (): ReactElement => {
     <RecipeContainer>
       <div
         style={{
-          backgroundImage: recipe.images
-            ? `url('${recipe.images[0].url}')`
-            : `url('${REPLACEMENT_IMAGES.recipeCard}')`,
+          backgroundImage:
+            recipe.images && recipe.images.length
+              ? `url('${recipe.images[0].url}')`
+              : `url('${REPLACEMENT_IMAGES.recipeCard}')`,
           boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.18)',
         }}
         className="relative mb-16 bg-cover bg-no-repeat bg-center overflow-hidden"
