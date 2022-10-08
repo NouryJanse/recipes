@@ -10,7 +10,7 @@ export const StyledTextArea = styled.textarea`
   transition: padding 200ms ease-in-out;
   width: 99%;
   min-height: 240px;
-  max-width: 760px;
+  max-width: 670px;
 
   &:focus {
     padding-left: 16px;

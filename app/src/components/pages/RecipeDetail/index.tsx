@@ -55,18 +55,25 @@ const RecipeDetail: React.FC = (): ReactElement => {
         </h1>
       </div>
 
-      {recipe.updatedAt && <p>Last updated: {formatNLDateTime(recipe.updatedAt)}</p>}
-      {recipe.createdAt && <p>Created at: {formatNLDateTime(recipe.createdAt)}</p>}
+      <div className="mb-4">
+        {recipe.updatedAt && <p>Last updated: {formatNLDateTime(recipe.updatedAt)}</p>}
+        {recipe.createdAt && <p>Created at: {formatNLDateTime(recipe.createdAt)}</p>}
+      </div>
 
-      {recipe.description && <p>{recipe.description}</p>}
+      {recipe.description && <p className="mb-4">{recipe.description}</p>}
 
-      <i>{recipe.course}</i>
+      <i className="block mb-4">{recipe.course}</i>
 
       <Link to={`/recipes/${recipe.id}/edit`}>
         <Button type="button" label="Edit" buttonStyle="secondary" />
       </Link>
 
-      <Button type="button" label="Delete" onClick={(): Promise<boolean> => onDelete(recipe.id)} />
+      <Button
+        classes="mb-6"
+        type="button"
+        label="Delete"
+        onClick={(): Promise<boolean> => onDelete(recipe.id)}
+      />
 
       <Link to="/recipes" className="flex items-center">
         <IoChevronBackOutline />
