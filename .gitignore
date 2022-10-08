@@ -32,3 +32,6 @@ server/.jest/*
 .env*
 !app/.env.local.example
 !server/.env.example
+
+# data related
+server/db_exports
