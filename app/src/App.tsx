@@ -12,6 +12,7 @@ import RootState from './types/RootState'
 import ROUTES from './constants/ROUTES'
 import Dashboard from './components/pages/Dashboard'
 import Ingredients from './components/pages/Ingredients'
+import CreateIngredient from './components/pages/CreateIngredient'
 import Ratings from './components/pages/Ratings'
 import Account from './components/pages/Account'
 
@@ -51,6 +52,7 @@ const App: React.FC<AppProps> = ({ logout }): ReactElement => {
           </Route>
 
           <Route path={ROUTES.INGREDIENTS} element={<Ingredients />} />
+          <Route path={ROUTES.INGREDIENTS_CREATE} element={<CreateIngredient />} />
           <Route path={ROUTES.RATINGS} element={<Ratings />} />
           <Route path={ROUTES.ACCOUNT} element={<Account />} />
 

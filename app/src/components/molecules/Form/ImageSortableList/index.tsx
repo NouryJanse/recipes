@@ -27,7 +27,7 @@ const ImageSortableList: React.FC<ImageSortableListProps> = ({
     <div>
       {!!images.length && (
         <div>
-          Sort your inspirational images ({images.length}) here:
+          <span className="block mb-2">Sort your inspirational images ({images.length}) here:</span>
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="images">
               {(provided): ReactElement => (
@@ -48,6 +48,7 @@ const ImageSortableList: React.FC<ImageSortableListProps> = ({
                               ref={providedTwo.innerRef}
                               {...providedTwo.draggableProps}
                               {...providedTwo.dragHandleProps}
+                              className="inline-flex mr-8"
                             >
                               <div className="max-w-xs mb-8">
                                 <div className="mb-2">

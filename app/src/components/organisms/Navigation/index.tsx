@@ -133,6 +133,13 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
             iconSymbol={<GiShinyApple />}
             text="Ingredients"
           />
+
+          <NavigationLink
+            to={ROUTES.INGREDIENTS_CREATE}
+            menuIsOpen={menuIsOpen}
+            iconSymbol={<GiShinyApple />}
+            text="Ingredients"
+          />
         </div>
       </div>
 

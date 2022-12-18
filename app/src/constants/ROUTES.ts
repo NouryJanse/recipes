@@ -5,6 +5,7 @@ const ROUTES = {
   RECIPES_DETAIL: '/recipes',
   RATINGS: '/ratings',
   INGREDIENTS: '/ingredients',
+  INGREDIENTS_CREATE: '/ingredients/create',
   ACCOUNT: '/account',
 }
 

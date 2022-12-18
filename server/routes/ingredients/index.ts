@@ -1,5 +1,6 @@
 import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify'
 import fp from 'fastify-plugin'
+import { getIngredientsOps, createIngredientOps } from '../../controllers/ingredients/'
 
 export default fp(
   (
@@ -9,9 +10,12 @@ export default fp(
   ): void => {
     // CREATE INGREDIENT
     server.post('/api/ingredients', {
-      handler: (): void => {},
+      handler: createIngredientOps,
       preValidation: server.authenticate,
     })
+
+    // GET INGREDIENTS
+    server.get('/api/ingredients', { handler: getIngredientsOps })
 
     next()
   },

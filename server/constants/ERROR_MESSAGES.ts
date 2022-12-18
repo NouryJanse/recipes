@@ -1,6 +1,7 @@
 const ERROR_MESSAGES = {
   INTERNAL_SERVER_ERROR: 'Internal server error',
   NO_RECIPES_FOUND: 'No recipes could be found',
+  NO_INGREDIENTS_FOUND: 'No ingredients could be found',
   INVALID_ID_FORMAT: 'This Id format is not valid',
   NOT_FOUND: 'Not found',
 }
