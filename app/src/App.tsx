@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux'
 import classNames from 'classnames'
 
 import Navigation from './components/organisms/Navigation'
-import RecipesList from './components/pages/RecipesList'
+import RecipesList from './components/pages/Recipes'
 import CreateRecipe from './components/pages/CreateRecipe'
 import EditRecipe from './components/pages/EditRecipe'
-import { RecipeDetail } from './components'
+import { RecipeDetail, IngredientDetail } from './components'
 import RootState from './types/RootState'
 import ROUTES from './constants/ROUTES'
 import Dashboard from './components/pages/Dashboard'
@@ -51,12 +51,14 @@ const App: React.FC<AppProps> = ({ logout }): ReactElement => {
             <Route path=":recipeId/edit" element={<EditRecipe />} />
           </Route>
 
-          <Route path={ROUTES.INGREDIENTS} element={<Ingredients />} />
+          <Route path={ROUTES.INGREDIENTS} element={<Ingredients />}>
+            <Route path=":ingredientId" element={<IngredientDetail />} />
+          </Route>
           <Route path={ROUTES.INGREDIENTS_CREATE} element={<CreateIngredient />} />
           <Route path={ROUTES.RATINGS} element={<Ratings />} />
           <Route path={ROUTES.ACCOUNT} element={<Account />} />
 
-          <Route path="*" element={`<p>There's nothing here!</p>`} />
+          <Route path="*" element={`There's nothing here!`} />
         </Routes>
       </div>
     </div>

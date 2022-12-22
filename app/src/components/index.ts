@@ -21,4 +21,6 @@ export { default as Toggle } from './molecules/Form/Toggle'
 
 // ORGANISMS
 export { default as RecipeCard } from './organisms/RecipeCard'
+export { default as IngredientCard } from './organisms/IngredientCard'
+export { default as IngredientDetail } from './pages/IngredientDetail'
 export { default as RecipeDetail } from './pages/RecipeDetail'
