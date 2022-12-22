@@ -4,9 +4,10 @@ import { configureStore, PreloadedState, Store } from '@reduxjs/toolkit'
 import { render } from '@testing-library/react'
 import { Provider } from 'react-redux'
 
-import { initialState as recipeState } from '../redux/reducers/recipes/recipeSlice'
-import { initialState as userState } from '../redux/reducers/users/userSlice'
 import { initialState as applicationState } from '../redux/reducers/application/applicationSlice'
+import { initialState as ingredientState } from '../redux/reducers/ingredients/ingredientSlice'
+import { initialState as userState } from '../redux/reducers/users/userSlice'
+import { initialState as recipeState } from '../redux/reducers/recipes/recipeSlice'
 import rootReducer from '../redux/rootSlice'
 import RootState from '../types/RootState'
 
@@ -14,9 +15,10 @@ const renderWithStore = (
   ui: JSX.Element,
   {
     initialState = {
-      recipeSlice: recipeState,
-      userSlice: userState,
       applicationSlice: applicationState,
+      ingredientSlice: ingredientState,
+      userSlice: userState,
+      recipeSlice: recipeState,
     },
     store = configureStore({ reducer: rootReducer }),
     ...renderOptions

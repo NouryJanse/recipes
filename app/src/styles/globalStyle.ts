@@ -85,5 +85,15 @@ const GlobalStyle = createGlobalStyle`
         from {transform: translateY(12px)}
         to {transform: translateY(0px)}
     }   
+
+
+
+.react-switch-checkbox:checked + .react-switch-label .react-switch-button {
+  transform: translateX(51px);
+}
+
+.react-switch-label:active .react-switch-button {
+  width: 31px;
+}    
 `
 export default GlobalStyle

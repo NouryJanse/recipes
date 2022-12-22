@@ -22,6 +22,14 @@ interface Recipe {
   updatedAt: string
   images?: Image[]
 }
+interface Ingredient {
+  id: number
+  name?: string
+  createdAt: string
+  updatedAt: string
+  published: boolean
+  calorieCount: number
+}
 
 interface Option {
   id: number

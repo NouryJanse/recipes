@@ -60,7 +60,7 @@ const CreateRecipe: React.FC = (): ReactElement => {
               required: 'Did you forget to name your recipe?',
             }}
             register={register}
-            errors={errors.name?.type === 'required' && 'Title is required'}
+            errors={errors.name?.type === 'required' && 'Recipe title is required'}
           />
         </FieldContainer>
 
