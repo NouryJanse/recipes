@@ -19,7 +19,7 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
   return (
     <IngredientContainer
       style={{
-        backgroundImage: `url('${'https://i5.walmartimages.com/asr/5939a6fa-a0d6-431c-88c6-b4f21608e4be.f7cd0cc487761d74c69b7731493c1581.jpeg'}')`,
+        backgroundImage: `url('${'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Banana-Single.jpg/800px-Banana-Single.jpg'}')`,
       }}
       onClick={(): void => {
         navigate(`/ingredients/${ingredient.id}`)
@@ -27,9 +27,9 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
     >
       {withEditButton}
       {withRemovalButton}
-      <span>{ingredient.name}</span>
-      <span>{ingredient.calorieCount}</span>
-      <span>{ingredient.published}</span>
+      <span className="mb-2 flex">{ingredient.name}</span>
+      <div className="mb-2">{ingredient.calorieCount}</div>
+      <div className="mb-2">{ingredient.published ? 'yes' : 'no'}</div>
     </IngredientContainer>
   )
 }

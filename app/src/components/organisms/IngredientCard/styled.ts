@@ -1,8 +1,9 @@
 import tw from 'tailwind-styled-components'
 
 const IngredientContainer = tw.div`
-  mb-6
+  pb-8
   p-4
+  mb-6
   rounded-lg
   border-transparent
   bg-center 
