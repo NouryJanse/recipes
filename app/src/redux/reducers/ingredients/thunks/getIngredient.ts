@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-async function ingredientAPI(ingredientId: number): Promise<Recipe> {
+async function ingredientAPI(ingredientId: number): Promise<Ingredient> {
   const response = await axios.get(
     `${process.env.REACT_APP_SERVER_URL}/api/ingredients/${ingredientId}`,
   )

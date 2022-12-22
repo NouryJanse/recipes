@@ -70,6 +70,23 @@ export const ingredientSlice = createSlice({
       state.error = {}
     })
 
+    builder.addCase(getIngredients.pending, (state) => {
+      state.status.getIngredients = REDUX_STATE.LOADING
+      state.error = {}
+    })
+    builder.addCase(getIngredients.rejected, (state) => {
+      state.status.getIngredients = REDUX_STATE.REJECTED
+      LogHelper({ logType: 'error', message: 'An error occurred' })
+      state.error = {}
+    })
+    builder.addCase(getIngredients.fulfilled, (state, action) => {
+      state.status.getIngredients = REDUX_STATE.FULFILLED
+      if (action !== null && action.payload) {
+        state.data.ingredients = action.payload
+      }
+      state.error = {}
+    })
+
     builder.addCase(updateIngredient.pending, (state) => {
       state.status.updateIngredient = REDUX_STATE.LOADING
       state.error = {}
@@ -87,20 +104,6 @@ export const ingredientSlice = createSlice({
         const updatedIngredient: Ingredient = action.payload
         state.data.ingredients = [...ingredients, updatedIngredient]
       }
-      state.error = {}
-    })
-
-    builder.addCase(createIngredient.pending, (state) => {
-      state.status.createIngredient = REDUX_STATE.LOADING
-      state.error = {}
-    })
-    builder.addCase(createIngredient.rejected, (state) => {
-      state.status.createIngredient = REDUX_STATE.REJECTED
-      LogHelper({ logType: 'error', message: 'An error occurred' })
-      state.error = {}
-    })
-    builder.addCase(createIngredient.fulfilled, (state) => {
-      state.status.createIngredient = REDUX_STATE.FULFILLED
       state.error = {}
     })
 
