@@ -25,10 +25,10 @@ interface Recipe {
 interface Ingredient {
   id: number
   name?: string
-  createdAt: string
-  updatedAt: string
   published: boolean
   calorieCount: number
+  createdAt: string
+  updatedAt: string
 }
 
 interface Option {

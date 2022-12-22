@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
-import getRecipeThunk from './thunks/getRecipe'
-import getRecipesThunk from './thunks/getRecipes'
-import createRecipeThunk from './thunks/createRecipe'
-import createRecipeImageThunk from './thunks/createRecipeImage'
-import deleteRecipeImageThunk from './thunks/deleteRecipeImage'
-import updateRecipeThunk from './thunks/updateRecipe'
-import deleteRecipeThunk from './thunks/deleteRecipe'
+import {
+  getRecipeThunk,
+  getRecipesThunk,
+  createRecipeThunk,
+  createRecipeImageThunk,
+  deleteRecipeImageThunk,
+  updateRecipeThunk,
+  deleteRecipeThunk,
+} from './thunks'
+
 import { REDUX_STATE } from '../../../constants'
 import LogHelper from '../../../helpers/LogHelper'
 import replaceRecipeWithIdInArrayWithRecipes from './helpers'
