@@ -4,11 +4,17 @@ import { createIngredient, getIngredients } from '../../models/ingredients'
 import ObjectAlreadyExistsError from '../../types/ObjectAlreadyExistsError'
 
 const createIngredientOps = async (
-  request: FastifyRequest<{ Body: FastifyRecipeBody }>,
+  request: FastifyRequest<{ Body: FastifyIngredientBody }>,
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
-    const ingredient = await createIngredient(request.log, request.body.name)
+    console.log(request.body)
+    const ingredient = await createIngredient(
+      request.log,
+      request.body.name,
+      request.body.calorieCount,
+      request.body.published,
+    )
 
     if (!ingredient) throw new Error('An error occurred')
 

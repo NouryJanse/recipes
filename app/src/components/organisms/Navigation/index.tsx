@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GoThreeBars, GoX, GoHome, GoPlus } from 'react-icons/go'
 import { MdLogout, MdSwitchAccount } from 'react-icons/md'
 import { BsStarHalf, BsListNested } from 'react-icons/bs'
-import { GiShinyApple } from 'react-icons/gi'
+import { GiShinyApple, GiChiliPepper } from 'react-icons/gi'
 import classNames from 'classnames'
 
 import { Button, Icon } from '../..'
@@ -137,7 +137,7 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
           <NavigationLink
             to={ROUTES.INGREDIENTS_CREATE}
             menuIsOpen={menuIsOpen}
-            iconSymbol={<GiShinyApple />}
+            iconSymbol={<GiChiliPepper />}
             text="Ingredients"
           />
         </div>
