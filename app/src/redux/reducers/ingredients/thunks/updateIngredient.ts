@@ -12,10 +12,6 @@ const updateIngredientAPI = async (
       name: data.name,
       published: data.published,
       calorieCount: data.calorieCount,
-      // description: data.description,
-      // authorId: data.authorId,
-      // course: data.course,
-      // ...(data.images && data.images.length > 0 && { images: data.images }),
     }
 
     const response = await axios.put(
