@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import Home from '.'
-import renderWithStore from '../../../helpers/TestHelper'
+import renderWithStore from '../../../helpers/testHelper'
 
 describe('Dashboard', () => {
   const setup = (): ReturnType<typeof render> => renderWithStore(<Home />)

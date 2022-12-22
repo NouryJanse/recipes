@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import App from './App'
-import renderWithStore from './helpers/TestHelper'
+import renderWithStore from './helpers/testHelper'
 
 const setup = (): ReturnType<typeof render> =>
   renderWithStore(
