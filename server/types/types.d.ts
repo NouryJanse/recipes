@@ -39,3 +39,9 @@ interface FastifyRecipeBody {
     data: CloudinaryImage
   }
 }
+
+interface FastifyIngredientBody {
+  name: string
+  calorieCount: number
+  published: boolean
+}

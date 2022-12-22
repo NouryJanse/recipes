@@ -28,7 +28,7 @@ const CreateIngredient: React.FC = (): ReactElement => {
   }
 
   const handleToggle = (): void => {
-    setValue('ingredientIsActive', !toggle)
+    setValue('published', !toggle)
     setToggle(!toggle)
   }
 
@@ -36,7 +36,7 @@ const CreateIngredient: React.FC = (): ReactElement => {
     handleSubmit(async (data) => {
       // @ts-ignore:next-line
       dispatch(createIngredient(data))
-      reset()
+      // reset()
     })()
   }
 
@@ -75,7 +75,7 @@ const CreateIngredient: React.FC = (): ReactElement => {
         <FieldContainer>
           <Toggle
             handleToggle={(): void => handleToggle()}
-            name="ingredientIsActive"
+            name="published"
             label="Enable ingredient"
             register={register}
             checked={toggle}

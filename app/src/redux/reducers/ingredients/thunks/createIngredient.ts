@@ -8,7 +8,7 @@ async function createIngredientAPI(ingredient: Ingredient, token: string): Promi
     {
       name: ingredient.name,
       published: ingredient.published,
-      calorieCount: ingredient.calorieCount,
+      calorieCount: Number(ingredient.calorieCount),
     },
     {
       headers: {

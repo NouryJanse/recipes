@@ -9,10 +9,6 @@ type ToggleProps = {
   name: string
   register: UseFormRegister<FieldValues>
   checked: boolean
-  // errors: string | boolean
-  // disabled: boolean
-  // options: Option[]
-  // defaultValue: string
   handleToggle: ChangeEventHandler
 }
 
@@ -22,10 +18,6 @@ const Toggle: React.FC<ToggleProps> = ({
   register,
   handleToggle,
   checked,
-  // errors,
-  // disabled,
-  // options,
-  // defaultValue,
 }): ReactElement => {
   return (
     <div className="relative">
@@ -45,33 +37,8 @@ const Toggle: React.FC<ToggleProps> = ({
       >
         <StyledSpan className="react-switch-button" />
       </StyledLabel>
-      {/* <StyledLabel htmlFor={name}>
-        {label}
-        <StyledDropdown
-          {...register(name, validation)}
-          id={name}
-          name={name}
-          disabled={disabled}
-          defaultValue={defaultValue}
-        >
-          {options.map((option: Option) => {
-            return (
-              <StyledOption key={option.id} value={option.value} disabled={option.disabled}>
-                {option.text}
-              </StyledOption>
-            )
-          })}
-        </StyledDropdown>
-      </StyledLabel>
-      {errors && <ErrorMessage message={errors} />} */}
     </div>
   )
 }
-
-// Dropdown.defaultProps = {
-//   onChange: (): boolean => {
-//     return true
-//   },
-// }
 
 export default Toggle

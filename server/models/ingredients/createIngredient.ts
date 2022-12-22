@@ -6,11 +6,16 @@ const prisma = new PrismaClient()
 const createIngredient = async (
   logger: FastifyLoggerInstance,
   name: string,
+  calorieCount: number,
+  published: boolean,
 ): Promise<Ingredient | false> => {
   try {
+    console.log(name, calorieCount, published)
     const ingredient = await prisma.ingredient.create({
       data: {
         name,
+        calorieCount,
+        published,
       },
     })
     return ingredient
