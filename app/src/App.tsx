@@ -3,18 +3,22 @@ import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import classNames from 'classnames'
 
-import Navigation from './components/organisms/Navigation'
-import RecipesList from './components/pages/Recipes'
-import CreateRecipe from './components/pages/CreateRecipe'
-import EditRecipe from './components/pages/EditRecipe'
-import { RecipeDetail, IngredientDetail } from './components'
+import {
+  Navigation,
+  Recipes,
+  CreateRecipe,
+  EditRecipe,
+  RecipeDetail,
+  IngredientDetail,
+  Dashboard,
+  Ingredients,
+  CreateIngredient,
+  Ratings,
+  Account,
+  EditIngredient,
+} from './components'
 import RootState from './types/RootState'
 import ROUTES from './constants/ROUTES'
-import Dashboard from './components/pages/Dashboard'
-import Ingredients from './components/pages/Ingredients'
-import CreateIngredient from './components/pages/CreateIngredient'
-import Ratings from './components/pages/Ratings'
-import Account from './components/pages/Account'
 
 type AppProps = {
   logout: () => void
@@ -38,7 +42,7 @@ const App: React.FC<AppProps> = ({ logout }): ReactElement => {
 
           <Route path={ROUTES.RECIPES_CREATE} element={<CreateRecipe />} />
 
-          <Route path="/recipes" element={<RecipesList />}>
+          <Route path="/recipes" element={<Recipes />}>
             <Route
               index
               element={
@@ -53,6 +57,7 @@ const App: React.FC<AppProps> = ({ logout }): ReactElement => {
 
           <Route path={ROUTES.INGREDIENTS} element={<Ingredients />}>
             <Route path=":ingredientId" element={<IngredientDetail />} />
+            <Route path=":ingredientId/edit" element={<EditIngredient />} />
           </Route>
           <Route path={ROUTES.INGREDIENTS_CREATE} element={<CreateIngredient />} />
           <Route path={ROUTES.RATINGS} element={<Ratings />} />
