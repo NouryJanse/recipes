@@ -1,6 +1,9 @@
 interface FastifyRecipeParams {
   id: string
 }
+interface FastifyIngredientParams {
+  id: string
+}
 
 declare module '*.json' {
   const value: any

@@ -1,2 +1,5 @@
 export { default as createIngredient } from './createIngredient'
+export { default as deleteIngredient } from './deleteIngredient'
+export { default as getIngredient } from './getIngredient'
 export { default as getIngredients } from './getIngredients'
+export { default as updateIngredient } from './updateIngredient'

@@ -1,35 +1,34 @@
-import { PrismaClient, Recipe } from '@prisma/client'
+import { PrismaClient, Ingredient } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import { FastifyLoggerInstance } from 'fastify'
 import ObjectCouldNotBeFoundError from '../../types/ObjectCouldNotBeFoundError'
 
 const prisma = new PrismaClient()
 
-const updateRecipe = async (
+const updateIngredient = async (
   logger: FastifyLoggerInstance,
   id: number,
   name: string,
-  description: string,
-  _authorId: number,
-  course: string,
-): Promise<Recipe | false> => {
+  calorieCount: number,
+  published: boolean,
+): Promise<Ingredient | false> => {
   try {
-    const recipe = await prisma.recipe.update({
+    const ingredient = await prisma.ingredient.update({
       where: {
         id,
       },
       data: {
         name,
-        description,
-        course,
+        calorieCount,
+        published,
       },
     })
 
-    return recipe
+    return ingredient
   } catch (error) {
     logger.error(error)
     if (error instanceof PrismaClientKnownRequestError && error.code === 'P2025') {
-      throw new ObjectCouldNotBeFoundError(`The recipe with id: ${id} could not be found`)
+      throw new ObjectCouldNotBeFoundError(`The ingredient with id: ${id} could not be found`)
     }
     throw error
   } finally {
@@ -39,4 +38,4 @@ const updateRecipe = async (
   }
 }
 
-export default updateRecipe
+export default updateIngredient

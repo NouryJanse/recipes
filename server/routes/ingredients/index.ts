@@ -1,6 +1,12 @@
 import { FastifyInstance, FastifyPluginOptions, FastifyError } from 'fastify'
 import fp from 'fastify-plugin'
-import { getIngredientsOps, createIngredientOps } from '../../controllers/ingredients/'
+import {
+  getIngredientsOps,
+  createIngredientOps,
+  getIngredientOps,
+  deleteIngredientOps,
+  updateIngredientOps,
+} from '../../controllers/ingredients/'
 
 export default fp(
   (
@@ -16,6 +22,23 @@ export default fp(
 
     // GET INGREDIENTS
     server.get('/api/ingredients', { handler: getIngredientsOps })
+
+    // GET RECIPE
+    server.get('/api/ingredients/:id', {
+      handler: getIngredientOps,
+    })
+
+    // UPDATE RECIPE
+    server.put('/api/ingredients/:id', {
+      handler: updateIngredientOps,
+      preValidation: server.authenticate,
+    })
+
+    // DELETE RECIPE
+    server.delete('/api/ingredients/:id', {
+      handler: deleteIngredientOps,
+      preValidation: server.authenticate,
+    })
 
     next()
   },
