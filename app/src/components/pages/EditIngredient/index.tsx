@@ -127,15 +127,15 @@ const EditIngredient: React.FC = (): ReactElement => {
 
         <FieldContainer>
           <Number
-            name="description"
-            label="Recipe description*"
+            name="calorieCount"
+            label="Calories"
             defaultValue={ingredient.calorieCount}
-            placeholder="Fill in a description"
+            placeholder="Enter the number of calories"
             validation={{
-              required: 'Did you forget to fill in the description of your ingredient?',
+              required: 'Did you forget to enter the calories?',
             }}
             register={register}
-            errors={errors.description?.type === 'required' && 'Description is required'}
+            errors={errors.description?.type === 'required' && 'Calories are required'}
           />
         </FieldContainer>
 

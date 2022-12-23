@@ -5,7 +5,11 @@ import { MdDelete } from 'react-icons/md'
 import { Button } from '../..'
 
 import IngredientContainer from './styled'
-import { deleteIngredient } from '../../../redux/reducers/ingredients/ingredientSlice'
+import {
+  deleteIngredient,
+  getIngredients,
+} from '../../../redux/reducers/ingredients/ingredientSlice'
+import { useDispatch } from 'react-redux'
 
 type IngredientCardProps = {
   ingredient: Ingredient
@@ -18,6 +22,7 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
   withEditButton,
   withRemovalButton,
 }): ReactElement => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [isHovering, setIsHovering] = useState(false)
 
@@ -26,7 +31,7 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
     // @ts-ignore:next-line
     await dispatch(deleteIngredient(ingredientId))
     // @ts-ignore:next-line
-    await dispatch(getRecipes())
+    await dispatch(getIngredients())
     return true
   }
 
