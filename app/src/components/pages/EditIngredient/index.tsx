@@ -3,18 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
-import {
-  updateIngredient,
-  getIngredient,
-} from '../../../redux/reducers/ingredients/ingredientSlice'
+import { updateIngredient } from '../../../redux/reducers/ingredients/ingredientSlice'
 
-import { Button, Textfield, Textarea, Dropdown, FieldContainer, Loader, Number } from '../../index'
+import { Button, Textfield, FieldContainer, Loader, Number, Toggle } from '../../index'
 
 import RootState from '../../../types/RootState'
 import isLoading from '../../../helpers/LoadingHelper'
-import { RECIPE_COURSE_OPTIONS } from '../../../constants'
 import { PageTitle } from '../..'
-import ID from '../../../redux/reducers/recipes/generateID'
 
 const EditIngredient: React.FC = (): ReactElement => {
   const dispatch = useDispatch()
@@ -28,6 +23,7 @@ const EditIngredient: React.FC = (): ReactElement => {
   const [id, setId] = useState<string | undefined>('')
   const [ingredient, setIngredient] = useState<Ingredient>()
   const [btnClasses, setBtnClasses] = useState('mb-10')
+  const [toggle, setToggle] = useState(ingredient ? ingredient.published : false)
 
   const hasURLParams = useRef(false)
 
@@ -70,6 +66,10 @@ const EditIngredient: React.FC = (): ReactElement => {
       }
     }
 
+    if (ingredient) {
+      setToggle(ingredient.published)
+    }
+
     // if (ingredient && ingredient.images && !initialIngredientLoad) {
     //   setImageSortableList(recipe?.images ? recipe.images : [])
     //   setInitialRecipeLoad(true)
@@ -96,15 +96,15 @@ const EditIngredient: React.FC = (): ReactElement => {
     return <p>Error, no ingredient found or still loading the ingredient from the server.</p>
   }
 
+  const handleToggle = (): void => {
+    setValue('published', !toggle)
+    setToggle(!toggle)
+  }
+
   return (
     <div className="pt-7">
       <div className="flex items-center">
-        {/* <PageTitle
-          text={`Editing ${recipe.name} - ${courseName(
-            recipe.course ? recipe.course : '',
-            RECIPE_COURSE_OPTIONS,
-          )}`}
-        /> */}
+        <PageTitle text={`Editing ${ingredient.name}`} />
 
         {isLoading(status) && <Loader />}
       </div>
@@ -139,20 +139,15 @@ const EditIngredient: React.FC = (): ReactElement => {
           />
         </FieldContainer>
 
-        {/* <FieldContainer>
-          <Dropdown
-            name="course"
-            label="Course*"
-            defaultValue={ingredient.course ? ingredient.course : ''}
-            disabled={false}
-            validation={{
-              required: 'Did you forget to fill in the course of your recipe?',
-            }}
+        <FieldContainer>
+          <Toggle
+            handleToggle={(): void => handleToggle()}
+            name="published"
+            label="Enable ingredient"
             register={register}
-            errors={errors.description?.type === 'required' && 'Course is required'}
-            options={RECIPE_COURSE_OPTIONS}
+            checked={toggle}
           />
-        </FieldContainer> */}
+        </FieldContainer>
 
         <Button type="submit" label="Save ingredient" classes={btnClasses} />
 

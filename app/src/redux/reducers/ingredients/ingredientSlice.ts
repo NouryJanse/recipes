@@ -31,9 +31,9 @@ export const ingredientSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {
-    // resetCreateRecipeStatus: (state) => {
-    //   state.status.createRecipe = REDUX_STATE.INITIAL
-    // },
+    resetCreateIngredientStatus: (state) => {
+      state.status.createIngredient = REDUX_STATE.INITIAL
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(createIngredient.pending, (state) => {
@@ -123,6 +123,6 @@ export const ingredientSlice = createSlice({
   },
 })
 
-// export const { resetCreateRecipeStatus } = recipeSlice.actions
+export const { resetCreateIngredientStatus } = ingredientSlice.actions
 
 export default ingredientSlice.reducer
