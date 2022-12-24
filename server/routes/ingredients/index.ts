@@ -6,6 +6,7 @@ import {
   getIngredientOps,
   deleteIngredientOps,
   updateIngredientOps,
+  linkIngredientToRecipeOps,
 } from '../../controllers/ingredients/'
 
 export default fp(
@@ -37,6 +38,12 @@ export default fp(
     // DELETE RECIPE
     server.delete('/api/ingredients/:id', {
       handler: deleteIngredientOps,
+      preValidation: server.authenticate,
+    })
+
+    // LINK INGREDIENT TO RECIPE
+    server.post('/api/ingredients/recipe', {
+      handler: linkIngredientToRecipeOps,
       preValidation: server.authenticate,
     })
 

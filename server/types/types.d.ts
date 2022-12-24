@@ -48,3 +48,10 @@ interface FastifyIngredientBody {
   calorieCount: number
   published: boolean
 }
+
+interface FastifyIngredientRecipeBody {
+  recipeId: number
+  ingredientId: number
+  unit: string
+  amount: number
+}

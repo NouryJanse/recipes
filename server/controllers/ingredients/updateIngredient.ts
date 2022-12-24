@@ -8,7 +8,6 @@ const updateIngredientOps = async (
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
-    console.log(request.body)
     const recipe = await updateIngredient(
       request.log,
       Number(request.params.id),
@@ -17,22 +16,9 @@ const updateIngredientOps = async (
       request.body.published,
     )
 
-    // if (request.body.images && request.body.images.length) {
-    //   const promises = request.body.images.map(async (image) => {
-    //     return updateImage(request.log, image)
-    //   })
-    //   await Promise.all(promises)
-    //     .then((response) => {
-    //       return response
-    //     })
-    //     .catch((err) => {
-    //       request.log.error(err)
-    //     })
-    // }
-
     const cache = request.serverCache()
-    if (cache && cache.has('recipes')) {
-      cache.del('recipes')
+    if (cache && cache.has('ingredients')) {
+      cache.del('ingredients')
     }
 
     if (recipe && recipe.id) {
