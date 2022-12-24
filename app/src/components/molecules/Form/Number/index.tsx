@@ -11,7 +11,7 @@ type NumberProps = {
   register: UseFormRegister<FieldValues>
   validation: object
   errors: string | boolean
-  defaultValue?: string
+  defaultValue?: number
 }
 
 const Number: React.FC<NumberProps> = ({
@@ -42,7 +42,7 @@ const Number: React.FC<NumberProps> = ({
 }
 
 Number.defaultProps = {
-  defaultValue: '',
+  defaultValue: 0,
 }
 
 export default Number

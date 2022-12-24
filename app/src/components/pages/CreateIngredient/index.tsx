@@ -5,8 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import RootState from '../../../types/RootState'
 import { Textfield, Button, Toggle, FieldContainer, PageTitle, Number } from '../..'
 
-import { createIngredient } from '../../../redux/reducers/ingredients/ingredientSlice'
-import { ROUTES } from '../../../constants'
+import {
+  createIngredient,
+  getIngredients,
+  resetCreateIngredientStatus,
+} from '../../../redux/reducers/ingredients/ingredientSlice'
+import { REDUX_STATE, ROUTES } from '../../../constants'
 
 const CreateIngredient: React.FC = (): ReactElement => {
   const status = useSelector((state: RootState) => state.ingredientSlice.status)
@@ -21,10 +25,26 @@ const CreateIngredient: React.FC = (): ReactElement => {
     reset,
   } = useForm()
 
+  useEffect(() => {
+    switch (status.createIngredient) {
+      case REDUX_STATE.FULFILLED:
+        dispatch(resetCreateIngredientStatus())
+        // @ts-ignore:next-line
+        dispatch(getIngredients())
+        navigate(ROUTES.INGREDIENTS)
+        break
+
+      case REDUX_STATE.REJECTED:
+        throw new Error('An error occurred, the recipe was not created.')
+
+      default:
+        break
+    }
+  }, [status])
+
   const onSubmit = async (data: object): Promise<void> => {
     // @ts-ignore:next-line
     dispatch(createIngredient(data))
-    navigate(ROUTES.INGREDIENTS)
   }
 
   const handleToggle = (): void => {
@@ -36,7 +56,7 @@ const CreateIngredient: React.FC = (): ReactElement => {
     handleSubmit(async (data) => {
       // @ts-ignore:next-line
       dispatch(createIngredient(data))
-      // reset()
+      reset()
     })()
   }
 

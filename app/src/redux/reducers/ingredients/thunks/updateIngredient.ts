@@ -11,7 +11,7 @@ const updateIngredientAPI = async (
     const requestBody = {
       name: data.name,
       published: data.published,
-      calorieCount: data.calorieCount,
+      calorieCount: Number(data.calorieCount),
     }
 
     const response = await axios.put(

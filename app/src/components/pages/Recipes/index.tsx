@@ -8,7 +8,7 @@ import { Loader, RecipeCard } from '../..'
 import { REDUX_STATE } from '../../../constants'
 // import useInterval from '../../polling'
 
-const RecipesList: React.FC = (): ReactElement | null => {
+const Recipes: React.FC = (): ReactElement | null => {
   const dispatch = useDispatch()
   const recipes: Recipe[] = useSelector((state: RootState) => state.recipeSlice.data.recipes)
   const status = useSelector((state: RootState) => state.recipeSlice.status)
@@ -60,4 +60,4 @@ const RecipesList: React.FC = (): ReactElement | null => {
   )
 }
 
-export default RecipesList
+export default Recipes
