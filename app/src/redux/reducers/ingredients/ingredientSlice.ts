@@ -8,6 +8,7 @@ import {
 } from './thunks'
 import { REDUX_STATE } from '../../../constants'
 import LogHelper from '../../../helpers/LogHelper'
+import replaceIngredientWithIdInArrayWithIngredients from './helpers'
 
 export const initialState = {
   data: { ingredients: [] as Ingredient[] },
@@ -102,7 +103,7 @@ export const ingredientSlice = createSlice({
       const ingredients: Ingredient[] = state.data.ingredients
       if (action?.payload) {
         const updatedIngredient: Ingredient = action.payload
-        state.data.ingredients = [...ingredients, updatedIngredient]
+        state.data.ingredients = replaceIngredientWithIdInArrayWithIngredients(ingredients, updatedIngredient)
       }
       state.error = {}
     })

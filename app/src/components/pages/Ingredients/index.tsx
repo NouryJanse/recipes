@@ -10,9 +10,7 @@ import { REDUX_STATE } from '../../../constants'
 
 const Ingredients: React.FC = (): ReactElement | null => {
   const dispatch = useDispatch()
-  const ingredients: Ingredient[] = useSelector(
-    (state: RootState) => state.ingredientSlice.data.ingredients,
-  )
+  const ingredients: Ingredient[] = useSelector((state: RootState) => state.ingredientSlice.data.ingredients)
   const status = useSelector((state: RootState) => state.ingredientSlice.status)
   const params = useParams()
 
@@ -42,15 +40,10 @@ const Ingredients: React.FC = (): ReactElement | null => {
             {ingredients.length} tasty ingredients
           </h1>
 
-          <div className="grid xs:grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 gap-4">
+          <div className="grid xs:grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 xl:grid-cols-10 gap-4">
             {ingredients.map((ingredient: Ingredient) => {
               return (
-                <IngredientCard
-                  key={ingredient.id}
-                  ingredient={ingredient}
-                  withEditButton
-                  withRemovalButton
-                />
+                <IngredientCard key={ingredient.id} ingredient={ingredient} withEditButton withRemovalButton />
               )
             })}
           </div>

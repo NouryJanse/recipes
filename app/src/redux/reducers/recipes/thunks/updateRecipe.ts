@@ -22,6 +22,7 @@ const updateRecipeAPI = async (data: Recipe, token: string): Promise<Recipe | fa
         },
       },
     )
+
     return response.data
   } catch (error) {
     LogHelper({ logType: 'error', message: 'An error occurred' })

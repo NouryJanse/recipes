@@ -19,7 +19,6 @@ const EditIngredient: React.FC = (): ReactElement => {
   const ingredients = useSelector((state: RootState) => state.ingredientSlice.data.ingredients)
   const status = useSelector((state: RootState) => state.ingredientSlice.status)
 
-  const [initialIngredientLoad, setInitialIngredientLoad] = useState(false)
   const [id, setId] = useState<string | undefined>('')
   const [ingredient, setIngredient] = useState<Ingredient>()
   const [btnClasses, setBtnClasses] = useState('mb-10')
@@ -60,7 +59,7 @@ const EditIngredient: React.FC = (): ReactElement => {
         // push find into a helper function
         setIngredient(
           ingredients.find((currentIngredient) => {
-            return currentIngredient.id === parseInt(id)
+            return currentIngredient.id === parseInt(id.toString(), 10)
           }),
         )
       }
@@ -69,14 +68,7 @@ const EditIngredient: React.FC = (): ReactElement => {
     if (ingredient) {
       setToggle(ingredient.published)
     }
-
-    // if (ingredient && ingredient.images && !initialIngredientLoad) {
-    //   setImageSortableList(recipe?.images ? recipe.images : [])
-    //   setInitialRecipeLoad(true)
-    // } else if (recipe && !recipe.images && !initialIngredientLoad) {
-    //   setImageSortableList([])
-    // }
-  }, [watch, ingredient, id, ingredient, params, isDirty, initialIngredientLoad])
+  }, [watch, ingredient, id, ingredient, params, isDirty])
 
   const debouncedSubmit = useRef(
     debounce(async (data, currentIngredient) => {
