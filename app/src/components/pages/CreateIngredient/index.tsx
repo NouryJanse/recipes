@@ -31,7 +31,6 @@ const CreateIngredient: React.FC = (): ReactElement => {
         dispatch(resetCreateIngredientStatus())
         // @ts-ignore:next-line
         dispatch(getIngredients())
-        navigate(ROUTES.INGREDIENTS)
         break
 
       case REDUX_STATE.REJECTED:
@@ -45,6 +44,7 @@ const CreateIngredient: React.FC = (): ReactElement => {
   const onSubmit = async (data: object): Promise<void> => {
     // @ts-ignore:next-line
     dispatch(createIngredient(data))
+    navigate(ROUTES.INGREDIENTS)
   }
 
   const handleToggle = (): void => {

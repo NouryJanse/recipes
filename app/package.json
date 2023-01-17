@@ -18,6 +18,10 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.21.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.4",
+    "@mui/x-data-grid": "^5.17.19",
     "@reduxjs/toolkit": "^1.8.1",
     "@storybook/react": "^6.5.5",
     "@storybook/testing-library": "^0.0.11",

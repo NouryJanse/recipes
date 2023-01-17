@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Outlet, useParams } from 'react-router-dom'
-import { Loader, IngredientCard } from '../..'
+import { Loader, IngredientCard, IngredientsTable } from '../..'
 
 import { getIngredients } from '../../../redux/reducers/ingredients/ingredientSlice'
 import RootState from '../../../types/RootState'
@@ -36,17 +36,9 @@ const Ingredients: React.FC = (): ReactElement | null => {
 
       {!params.ingredientId && ingredients?.length ? (
         <div>
-          <h1 className="text-xl md:text-3xl xl:text-4xl font-bold mb-20">
-            {ingredients.length} tasty ingredients
-          </h1>
+          <h1 className="text-xl md:text-3xl xl:text-4xl font-bold mb-20">{ingredients.length} tasty ingredients</h1>
 
-          <div className="grid xs:grid-cols-1 sm:grid-cols-4 lg:grid-cols-4 xl:grid-cols-10 gap-4">
-            {ingredients.map((ingredient: Ingredient) => {
-              return (
-                <IngredientCard key={ingredient.id} ingredient={ingredient} withEditButton withRemovalButton />
-              )
-            })}
-          </div>
+          <IngredientsTable ingredients={ingredients} />
         </div>
       ) : (
         <div>
