@@ -102,7 +102,7 @@ const CreateIngredient: React.FC = (): ReactElement => {
           />
         </FieldContainer>
 
-        <Button type="submit" label="Save ingredient" />
+        <Button type="submit" label="Save ingredient" classes="mb-4" />
         <Button type="button" label="Save and add another" onClick={saveAndAddAnother} />
       </form>
     </div>
