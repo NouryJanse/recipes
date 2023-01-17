@@ -35,13 +35,15 @@ Roadmap features
 
 A creator single page web app
 
-- React
-- Redux with Redux Toolkit
-- React Router
-- Styled Components
-- Tailwind styling
-- Axios
-- Jest x React Testing Library UI and Unit tests (such as data transformations or functionality)
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/) with [Redux Toolkit](https://redux-toolkit.js.org/)
+- [React Router](https://reactrouter.com/en/main)
+- [Styled Components](https://styled-components.com/)
+- [Tailwind](https://tailwindcss.com/docs/) styling
+- [Axios](https://axios-http.com/)
+- [Jest](https://jestjs.io/) x [React Testing Library UI](https://testing-library.com/) and Unit tests (such as data transformations or functionality)
+- [MUI React Table](https://mui.com/material-ui/react-table/) for rows, sorting and filtering
+- [Downshift](https://www.downshift-js.com/) for autocompletion
 
 A data platform that allows multichannel access
 
@@ -53,8 +55,8 @@ A data platform that allows multichannel access
 
 A consumer high performance website
 
-- Next consumer
-- Static Render / ISR
+- Next.js setup that functions as a consumer of the data
+- Static Rendering / ISR?
 
 ## Back-End Justifications
 
