@@ -7,6 +7,15 @@ An app that generates groceries shopping lists from recipes. Recipes that you ca
 
 NOTE: 🚨 **it's not possible to run this app locally without a Cloudinary, a Auth0 account and a PostgreSQL database. Please ask me for a demo. 🚨**
 
+## Demo screenshots
+
+![Homescreen on SM size](screens/Home-SM.png?raw=true "Homescreen SM")
+![Create recipe page on MD size](screens/CreateRecipe-MD.png?raw=true "Create recipe MD")
+![Homescreen on XL size with menu expanded](screens/Home-XL.png?raw=true "Home XL")
+![Recipes overview on SM size](screens/Recipes-SM.png?raw=true "Recipes SM")
+![Create ingredient on XL size](screens/CreateIngredient-XL.png?raw=true "Create ingredient XL")
+![Ingredients overview on XL size](screens/AllIngredients-XL.png?raw=true "All ingredients XL")
+
 ## Creator application
 
 Roadmap features

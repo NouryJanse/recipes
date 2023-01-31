@@ -143,12 +143,6 @@ const EditIngredient: React.FC = (): ReactElement => {
 
         <Button type="submit" label="Save ingredient" classes={btnClasses} />
 
-        {params.ingredientId && (
-          <Link to={`/ingredient/${params.ingredientId}`}>
-            Back to <b>{ingredient.name}</b>
-          </Link>
-        )}
-
         <Link to="/ingredients">Back to ingredients</Link>
       </form>
     </div>
