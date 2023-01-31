@@ -54,12 +54,7 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
           </Link>
         </div>
 
-        <div
-          className={classNames(
-            { 'items-center': menuIsOpen !== true },
-            'pt-3 flex flex-col justify-between',
-          )}
-        >
+        <div className={classNames({ 'items-center': menuIsOpen !== true }, 'pt-3 flex flex-col justify-between')}>
           {menuIsOpen && <span className="px-3 mb-4 text-gray-500 text-sm">MENU</span>}
 
           <div
@@ -94,12 +89,7 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
             )}
           </div>
 
-          <NavigationLink
-            to={ROUTES.HOME}
-            menuIsOpen={menuIsOpen}
-            iconSymbol={<GoHome />}
-            text="Dashboard"
-          />
+          <NavigationLink to={ROUTES.HOME} menuIsOpen={menuIsOpen} iconSymbol={<GoHome />} text="Dashboard" />
 
           <NavigationLink
             to={ROUTES.RECIPES_LIST}
@@ -120,12 +110,7 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
             text="Create"
           />
 
-          <NavigationLink
-            to={ROUTES.RATINGS}
-            menuIsOpen={menuIsOpen}
-            iconSymbol={<BsStarHalf />}
-            text="Ratings"
-          />
+          <NavigationLink to={ROUTES.RATINGS} menuIsOpen={menuIsOpen} iconSymbol={<BsStarHalf />} text="Ratings" />
 
           <NavigationLink
             to={ROUTES.INGREDIENTS}
@@ -138,7 +123,7 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
             to={ROUTES.INGREDIENTS_CREATE}
             menuIsOpen={menuIsOpen}
             iconSymbol={<GiChiliPepper />}
-            text="Ingredients"
+            text="New ingredient"
           />
         </div>
       </div>
@@ -162,12 +147,7 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
           Logged in as {user.name}
         </span>
 
-        <NavigationLink
-          to={ROUTES.ACCOUNT}
-          menuIsOpen={menuIsOpen}
-          iconSymbol={<MdSwitchAccount />}
-          text="Account"
-        />
+        <NavigationLink to={ROUTES.ACCOUNT} menuIsOpen={menuIsOpen} iconSymbol={<MdSwitchAccount />} text="Account" />
 
         <div
           role="button"

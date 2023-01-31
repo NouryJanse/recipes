@@ -23,6 +23,7 @@ const updateIngredientAPI = async (
         },
       },
     )
+
     return response.data
   } catch (error) {
     LogHelper({ logType: 'error', message: 'An error occurred' })

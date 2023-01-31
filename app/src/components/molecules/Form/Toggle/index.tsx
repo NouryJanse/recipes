@@ -12,16 +12,10 @@ type ToggleProps = {
   handleToggle: ChangeEventHandler
 }
 
-const Toggle: React.FC<ToggleProps> = ({
-  label,
-  name,
-  register,
-  handleToggle,
-  checked,
-}): ReactElement => {
+const Toggle: React.FC<ToggleProps> = ({ label, name, register, handleToggle, checked }): ReactElement => {
   return (
     <div className="relative">
-      {label}
+      <span className="inline-block mb-2">{label}</span>
       <StyledInput
         className="react-switch-checkbox"
         id="react-switch-new"

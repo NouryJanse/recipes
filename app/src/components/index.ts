@@ -22,6 +22,7 @@ export { default as NavigationLink } from './molecules/NavigationLink'
 
 // ORGANISMS
 export { default as IngredientCard } from './organisms/IngredientCard'
+export { default as IngredientsTable } from './organisms/IngredientsTable'
 export { default as RecipeCard } from './organisms/RecipeCard'
 export { default as Navigation } from './organisms/Navigation'
 

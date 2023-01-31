@@ -2,6 +2,7 @@ import { ReactElement, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AiTwotoneEdit } from 'react-icons/ai'
 import { MdDelete } from 'react-icons/md'
+import { useDispatch } from 'react-redux'
 import { Button } from '../..'
 
 import IngredientContainer from './styled'
@@ -9,7 +10,6 @@ import {
   deleteIngredient,
   getIngredients,
 } from '../../../redux/reducers/ingredients/ingredientSlice'
-import { useDispatch } from 'react-redux'
 
 type IngredientCardProps = {
   ingredient: Ingredient
@@ -59,7 +59,7 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
     >
       <span className="mb-2 flex">{ingredient.name}</span>
       <div className="mb-2">{ingredient.calorieCount}</div>
-      <div className="mb-2">{ingredient.published ? 'yes' : 'no'}</div>
+      <div className="mb-2">{ingredient.published ? 'Active' : 'Not active'}</div>
 
       {(withEditButton || withRemovalButton) && (
         <div className="flex align-end">
