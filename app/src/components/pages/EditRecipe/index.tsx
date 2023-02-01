@@ -20,6 +20,7 @@ import {
   ImageSortableList,
   FieldContainer,
   Loader,
+  RecipesIngredients,
 } from '../../index'
 
 import RootState from '../../../types/RootState'
@@ -154,10 +155,7 @@ const EditRecipe: React.FC = (): ReactElement => {
     <div className="pt-7">
       <div className="flex items-center">
         <PageTitle
-          text={`Editing ${recipe.name} - ${courseName(
-            recipe.course ? recipe.course : '',
-            RECIPE_COURSE_OPTIONS,
-          )}`}
+          text={`Editing ${recipe.name} - ${courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}`}
         />
 
         {isLoading(status) && <Loader />}
@@ -231,6 +229,8 @@ const EditRecipe: React.FC = (): ReactElement => {
             onDelete={deleteImage}
           />
         )}
+
+        {id && <RecipesIngredients recipeId={Number(id)} recipe={recipe} />}
 
         <Button type="submit" label="Save recipe" classes={btnClasses} />
 

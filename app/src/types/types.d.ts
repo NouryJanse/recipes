@@ -21,6 +21,7 @@ interface Recipe {
   createdAt: string
   updatedAt: string
   images?: Image[]
+  ingredients: Ingredient[]
 }
 interface Ingredient {
   id: number
@@ -29,6 +30,14 @@ interface Ingredient {
   calorieCount: number
   createdAt: string
   updatedAt: string
+}
+
+type RecipeIngredient = {
+  authorId: string
+  recipeId: number
+  ingredientId: number
+  amount: number
+  unit: string
 }
 
 interface Option {
