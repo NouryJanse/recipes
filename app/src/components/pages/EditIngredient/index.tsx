@@ -118,6 +118,20 @@ const EditIngredient: React.FC = (): ReactElement => {
         </FieldContainer>
 
         <FieldContainer>
+          <Textfield
+            name="unit"
+            type="text"
+            label="Ingredient unit type*"
+            placeholder="e.g. ml or gr"
+            validation={{
+              required: 'Did you forget to fill in your unit?',
+            }}
+            register={register}
+            errors={errors.name?.type === 'required' && 'Ingredient unit is required'}
+          />
+        </FieldContainer>
+
+        <FieldContainer>
           <Number
             name="calorieCount"
             label="Calories"
