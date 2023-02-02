@@ -22,7 +22,7 @@ const getRecipe = async (logger: FastifyLoggerInstance, recipeId: number): Promi
         },
         RecipeIngredients: {
           include: {
-            ingredient: {},
+            ingredient: true,
           },
           orderBy: {
             amount: 'desc',

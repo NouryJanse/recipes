@@ -8,7 +8,6 @@ const linkIngredientToRecipeOps = async (
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
-    console.log(request.body)
     const ingredient = await linkIngredientToRecipe(
       request.log,
       request.body.recipeId,
@@ -18,8 +17,6 @@ const linkIngredientToRecipeOps = async (
     )
 
     if (!ingredient) throw new Error('An error occurred')
-
-    // const ingredients = await getRecipeWithIngredients(request.log)
 
     const cache = request.serverCache()
     if (cache && cache.has('ingredients')) {
