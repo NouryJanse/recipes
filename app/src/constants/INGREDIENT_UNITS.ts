@@ -1,15 +1,15 @@
 // this list, at some point, will be pushed into the database to make them manageable through the application / CMS
 
 const INGREDIENT_UNITS = [
-  { id: 0, text: '', value: '', disabled: false },
-  { id: 0, text: 'mL', value: '', disabled: false },
-  { id: 0, text: 'L', value: '', disabled: false },
-  { id: 0, text: 'mg', value: '', disabled: false },
-  { id: 0, text: 'gr', value: '', disabled: false },
-  { id: 0, text: 'kg', value: '', disabled: false },
-  { id: 0, text: 'tsp', value: '', disabled: false },
-  { id: 0, text: 'tbsp', value: '', disabled: false },
-  { id: 0, text: 'cm', value: '', disabled: false },
+  { id: 0, text: 'Make a choice', value: '', disabled: false },
+  { id: 1, text: 'mL', value: 'ml', disabled: false },
+  { id: 2, text: 'L', value: 'l', disabled: false },
+  { id: 3, text: 'mg', value: 'mg', disabled: false },
+  { id: 4, text: 'gr', value: 'gr', disabled: false },
+  { id: 5, text: 'kg', value: 'kg', disabled: false },
+  { id: 6, text: 'tsp', value: 'tsp', disabled: false },
+  { id: 7, text: 'tbsp', value: 'tbsp', disabled: false },
+  { id: 8, text: 'cm', value: 'cm', disabled: false },
 ]
 
 export default INGREDIENT_UNITS

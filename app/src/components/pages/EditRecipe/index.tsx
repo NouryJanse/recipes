@@ -9,7 +9,6 @@ import {
   deleteRecipeImage,
   getRecipe,
 } from '../../../redux/reducers/recipes/recipeSlice'
-import { uploadImageService } from '../../../redux/reducers/recipes/services'
 import {
   Button,
   Textfield,
@@ -128,6 +127,7 @@ const EditRecipe: React.FC = (): ReactElement => {
     setImageSortableList(images)
     setValue(
       'images',
+      // @ts-ignore:next-line
       images.map((image: ImageData, index: number) => {
         return {
           ...image,
@@ -153,95 +153,105 @@ const EditRecipe: React.FC = (): ReactElement => {
 
   return (
     <div className="pt-7">
-      <div className="flex items-center">
+      <div className="flex justify-between">
         <PageTitle
           text={`Editing ${recipe.name} - ${courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}`}
         />
 
         {isLoading(status) && <Loader />}
+
+        <Button
+          onClick={(): Promise<void> => handleSubmit(onSave)()}
+          type="submit"
+          label="Save recipe"
+          classes={`${btnClasses} mr-2`}
+        />
       </div>
 
-      <form onSubmit={handleSubmit(onSave)} {...formRef}>
-        <FieldContainer>
-          <Textfield
-            name="name"
-            type="text"
-            label="Recipe name*"
-            defaultValue={recipe.name}
-            placeholder="Fill in a name"
-            validation={{
-              required: 'Did you forget to name your recipe?',
-            }}
-            register={register}
-            errors={errors.name?.type === 'required' && 'Title is required'}
-          />
-        </FieldContainer>
+      <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+          <form className="" onSubmit={handleSubmit(onSave)} {...formRef}>
+            <FieldContainer>
+              <Textfield
+                name="name"
+                type="text"
+                label="Recipe name*"
+                defaultValue={recipe.name}
+                placeholder="Fill in a name"
+                validation={{
+                  required: 'Did you forget to name your recipe?',
+                }}
+                register={register}
+                errors={errors.name?.type === 'required' && 'Title is required'}
+              />
+            </FieldContainer>
 
-        <FieldContainer>
-          <Textarea
-            name="description"
-            label="Recipe description*"
-            defaultValue={recipe.description}
-            placeholder="Fill in a description"
-            validation={{
-              required: 'Did you forget to fill in the description of your recipe?',
-            }}
-            register={register}
-            errors={errors.description?.type === 'required' && 'Description is required'}
-          />
-        </FieldContainer>
+            <FieldContainer>
+              <Textarea
+                name="description"
+                label="Recipe description*"
+                defaultValue={recipe.description}
+                placeholder="Fill in a dwscription"
+                validation={{
+                  required: 'Did you forget to fill in the description of your recipe?',
+                }}
+                register={register}
+                errors={errors.description?.type === 'required' && 'Description is required'}
+              />
+            </FieldContainer>
 
-        <FieldContainer>
-          <Dropdown
-            name="course"
-            label="Course*"
-            defaultValue={recipe.course ? recipe.course : ''}
-            disabled={false}
-            validation={{
-              required: 'Did you forget to fill in the course of your recipe?',
-            }}
-            register={register}
-            errors={errors.description?.type === 'required' && 'Course is required'}
-            options={RECIPE_COURSE_OPTIONS}
-          />
-        </FieldContainer>
+            <FieldContainer>
+              <Dropdown
+                name="course"
+                label="Course*"
+                defaultValue={recipe.course ? recipe.course : ''}
+                disabled={false}
+                validation={{
+                  required: 'Did you forget to fill in the course of your recipe?',
+                }}
+                register={register}
+                errors={errors.description?.type === 'required' && 'Course is required'}
+                options={RECIPE_COURSE_OPTIONS}
+              />
+            </FieldContainer>
 
-        <FieldContainer>
-          <ImagePicker
-            name="images"
-            label="Drag 'n' drop some files here, or click to select files"
-            register={register}
-            validation={{
-              required: 'Did you forget to add images to your recipe?',
-            }}
-            onSelectedImageCallback={pushSelectedImage}
-          />
-        </FieldContainer>
+            <FieldContainer>
+              <ImagePicker
+                name="images"
+                label="Drag 'n' drop some files here, or click to select files"
+                register={register}
+                validation={{
+                  required: 'Did you forget to add images to your recipe?',
+                }}
+                onSelectedImageCallback={pushSelectedImage}
+              />
+            </FieldContainer>
 
-        {!!imagePreviewList.length && (
-          <ImagePreviewList images={imagePreviewList} callbackUploadImages={handleImageUpload} />
-        )}
+            {!!imagePreviewList.length && (
+              <ImagePreviewList images={imagePreviewList} callbackUploadImages={handleImageUpload} />
+            )}
 
-        {!!imageSortableList.length && (
-          <ImageSortableList
-            images={imageSortableList}
-            callbackSortedImages={handleSortedImages}
-            onDelete={deleteImage}
-          />
-        )}
+            {!!imageSortableList.length && (
+              <ImageSortableList
+                images={imageSortableList}
+                callbackSortedImages={handleSortedImages}
+                onDelete={deleteImage}
+              />
+            )}
 
-        {id && <RecipesIngredients recipeId={Number(id)} recipe={recipe} />}
+            {/* <Button type="submit" label="Save recipe" classes={btnClasses} /> */}
 
-        <Button type="submit" label="Save recipe" classes={btnClasses} />
+            {params.recipeId && (
+              <Link to={`/recipes/${params.recipeId}`}>
+                Back to <b>{recipe.name}</b>
+              </Link>
+            )}
 
-        {params.recipeId && (
-          <Link to={`/recipes/${params.recipeId}`}>
-            Back to <b>{recipe.name}</b>
-          </Link>
-        )}
-
-        <Link to="/recipes">Back to recipes</Link>
-      </form>
+            <Link to="/recipes">Back to recipes</Link>
+          </form>
+        </div>
+        <div>{id && <RecipesIngredients recipe={recipe} />}</div>
+      </div>
     </div>
   )
 }

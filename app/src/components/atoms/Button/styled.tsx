@@ -25,19 +25,17 @@ const ButtonStyle = tw.button`
   
   focus:border-solid
   focus:border-blue
+  h-fit
 
   ${(p: TWStyledButtonParameter): string => (p.$fullwidth ? 'w-full' : '')}
 
   ${(p: TWStyledButtonParameter): string =>
     p.$noedge ? 'bg-white/[.5] text-white hover:bg-white/[1.0] hover:text-black' : ''}
     
-  ${(p: TWStyledButtonParameter): string =>
-    p.$primary && !p.$noedge ? 'bg-blue text-white hover:bg-blueDark' : ''}
+  ${(p: TWStyledButtonParameter): string => (p.$primary && !p.$noedge ? 'bg-blue text-white hover:bg-blueDark' : '')}
 
   ${(p: TWStyledButtonParameter): string =>
-    p.$secondary && !p.$noedge
-      ? 'bg-white text-blue border-blueDark hover:bg-blueDark hover:text-white'
-      : ''}
+    p.$secondary && !p.$noedge ? 'bg-white text-blue border-blueDark hover:bg-blueDark hover:text-white' : ''}
       
   ${(p: TWStyledButtonParameter): string =>
     p.$tertiary && !p.$noedge

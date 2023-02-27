@@ -31,6 +31,7 @@ interface Ingredient {
   calorieCount: number
   createdAt: string
   updatedAt: string
+  amount?: number
 }
 
 type RecipeIngredient = {
@@ -43,7 +44,8 @@ type RecipeIngredient = {
 
 interface Option {
   id: number
-  text: string
+  text?: string
+  label?: string
   value: string
   disabled: boolean
 }

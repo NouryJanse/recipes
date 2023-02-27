@@ -11,14 +11,7 @@ type ImageComponentProps = {
   classes?: string
 }
 
-const ImageComponent: React.FC<ImageComponentProps> = ({
-  src,
-  alt,
-  width,
-  height,
-  rounded,
-  classes,
-}): ReactElement => {
+const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, width, height, rounded, classes }): ReactElement => {
   const dimensions = {
     ...((width === undefined || width > 0) && { width }),
     ...((height === undefined || height > 0) && { height }),
@@ -32,17 +25,9 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
   )
 
   if (dimensions.width || dimensions.height) {
-    return (
-      <ImageStyle
-        src={src}
-        alt={alt}
-        {...dimensions}
-        {...otherClasses}
-        loading="lazy"
-        decoding="async"
-      />
-    )
+    return <ImageStyle src={src} alt={alt} {...dimensions} {...otherClasses} loading="lazy" decoding="async" />
   }
+  // @ts-ignore:next-line
   return <ImageStyle src={src} alt={alt} {...dimensions} $rounded={rounded} />
 }
 

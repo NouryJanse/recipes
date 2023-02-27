@@ -1,38 +1,32 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
+import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
 
 import { AutoComplete, Button, Dropdown, FieldContainer, Number } from '../../index'
 import RootState from '../../../types/RootState'
 import { getIngredients, linkIngredientToRecipe } from '../../../redux/reducers/ingredients/ingredientSlice'
-import { getRecipe } from '../../../redux/reducers/recipes/recipeSlice'
 import { INGREDIENT_UNITS } from '../../../constants'
 
-type OptionType = {
-  value: string
-  label: string
-}
+type RecipesIngredientsProps = { recipe: Recipe }
 
-type RecipesIngredientsProps = { recipeId: number; recipe: Recipe }
-
-const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe, recipeId }): ReactElement => {
+const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): ReactElement => {
   const ingredients = useSelector((state: RootState) => state.ingredientSlice.data.ingredients)
   const user: User = useSelector((state: RootState) => state.userSlice.data.user)
   const dispatch = useDispatch()
-  const [options, setOptions] = useState<OptionType[]>()
-  const [selectedIngredient, setSelectedIngredient] = useState<Option | null>(null)
-  const [ref, setRef] = useState<any>(null)
+  const [options, setOptions] = useState<Option[]>()
+  const [ref, setRef] = useState<StateManagedSelect>()
 
   const {
     register,
     handleSubmit,
     formState: { errors, isDirty },
-    watch,
     setValue,
   } = useForm()
 
   const clearAutoComplete = (): void => {
     if (ref !== null) {
+      // @ts-ignore:next-line
       ref.clearValue()
     }
   }
@@ -43,26 +37,27 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe, recipeI
       dispatch(getIngredients())
     } else {
       setOptions(
-        ingredients.map((ingredient: Ingredient): OptionType => {
-          return { value: ingredient.id ? ingredient.id.toString() : '', label: ingredient.name ? ingredient.name : '' }
+        ingredients.map((ingredient: Ingredient): Option => {
+          return {
+            id: ingredient.id,
+            disabled: false,
+            value: ingredient.id ? ingredient.id.toString() : '',
+            label: ingredient.name ? ingredient.name : '',
+          }
         }),
       )
     }
   }, [dispatch, ingredients])
 
-  const handleAddIngredient = async (): Promise<void> => {}
-
   const dispatchEdit = async (data: Ingredient): Promise<boolean> => {
-    // if (!editedIngredient.id || !data.name) return false
-    // // @ts-ignore:next-line
-    // await dispatch(updateIngredient({ id: editedIngredient.id, ...editedIngredient, ...data }))
-
+    /* eslint-disable no-console */
     console.log(data)
+    /* eslint-enable no-console */
 
     // const obj = {
     //   authorId: user.sub,
-    //   recipeId,
-    //   ingredientId: Number(selectedIngredient),
+    //   recipeId: recipe.id,
+    //   ingredientId: Number(data.ingredientName),
     //   amount: 50,
     //   unit: 'gr',
     // }
@@ -77,17 +72,19 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe, recipeI
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const onSave = async (formData: any): Promise<void> => {
     dispatchEdit(formData)
-    // if (ingredient) dispatchEdit(formData, ingredient)
   }
 
   return (
     <form onSubmit={handleSubmit(onSave)}>
       <FieldContainer>
         <AutoComplete
+          label="Search for an ingredient*"
+          name="ingredient"
+          errors={errors.ingredient?.type === 'required' && 'Ingredient is required'}
           options={options}
-          handleOnChange={(option: any): void => {
+          handleOnChange={(option: Option | null): void => {
             if (option && option.value) {
-              setSelectedIngredient(option.value)
+              setValue('ingredientName', option.value)
             }
           }}
           setRef={setRef}
@@ -98,13 +95,16 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe, recipeI
         <Dropdown
           name="unit"
           label="Unit*"
-          defaultValue={recipe.course ? recipe.course : ''}
+          defaultValue=""
           disabled={false}
+          onChange={(unit: ChangeEvent): void => {
+            setValue('unit', unit)
+          }}
           validation={{
-            required: 'Did you forget to fill in the course of your recipe?',
+            required: 'Did you forget to fill in the unit of your ingredient?',
           }}
           register={register}
-          errors={errors.description?.type === 'required' && 'Course is required'}
+          errors={errors.unit?.type === 'required' && 'Unit is required'}
           options={INGREDIENT_UNITS}
         />
       </FieldContainer>
@@ -112,26 +112,26 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe, recipeI
       <FieldContainer>
         <Number
           name="amount"
-          label="Amount"
-          // defaultValue={ingredient.unit}
-          placeholder="Enter the number of calories"
+          label="Amount*"
+          placeholder="Enter the amount of the ingredient"
           validation={{
-            required: 'Did you forget to enter the calories?',
+            required: 'Did you forget to enter the amount?',
           }}
           register={register}
-          errors={errors.description?.type === 'required' && 'Calories are required'}
+          errors={errors.amount?.type === 'required' && 'Amount is required'}
         />
       </FieldContainer>
 
-      <Button type="button" onClick={(): Promise<void> => handleAddIngredient()} label="Add ingredient" />
+      <Button type="submit" label="Add ingredient" classes="mb-4" />
       <Button type="button" onClick={(): void => clearAutoComplete()} label="Clear ingredient" />
 
       <FieldContainer>
         <div>
-          <p>These are the linked ingredients</p>
+          <p className="mb-2">These are the linked ingredients</p>
+
           {recipe.ingredients && recipe.ingredients.length ? (
             <div>
-              {recipe.ingredients.map((ingredient: any) => {
+              {recipe.ingredients.map((ingredient: Ingredient) => {
                 return (
                   <div key={ingredient.id}>
                     {ingredient.name} - {ingredient.amount}

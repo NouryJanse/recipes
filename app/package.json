@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "prod": "react-scripts build && serve -s build",
     "tailwind": "tailwindcss build -i src/styles/input.css -o src/styles/tailwind.output.css --watch",
@@ -80,7 +80,7 @@
     "@storybook/addon-essentials": "^6.5.5",
     "@storybook/addon-interactions": "^6.5.5",
     "@storybook/addon-links": "^6.5.5",
-    "@storybook/builder-webpack5": "^6.5.5",
+    "@storybook/builder-webpac  k5": "^6.5.5",
     "@storybook/manager-webpack5": "^6.5.5",
     "@storybook/node-logger": "^6.5.5",
     "@storybook/preset-create-react-app": "^4.1.1",
