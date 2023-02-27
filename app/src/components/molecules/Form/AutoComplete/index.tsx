@@ -6,12 +6,11 @@ import { StyledLabel } from './styled'
 
 type AutoCompleteProps = {
   name: string
-  label: string
+  labelText: string
   options: Option[] | undefined
   handleOnChange: (option: Option | null, actionMeta: ActionMeta<Option>) => void
-  // @ts-ignore:next-line
-  setRef: any
-  errors: string | boolean
+  setRef?: any
+  errors?: errorObject
 }
 
 const AutoComplete: React.FC<AutoCompleteProps> = ({
@@ -19,13 +18,13 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
   handleOnChange,
   setRef,
   name,
-  label,
+  labelText,
   errors,
 }): ReactElement => {
   return (
     <div>
       <StyledLabel htmlFor={name}>
-        {label}
+        {labelText}
         <Select
           ref={(ref): void => {
             if (ref !== null) setRef(ref)
@@ -36,7 +35,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
           isClearable
         />
       </StyledLabel>
-      {errors && <ErrorMessage message={errors} />}
+      {errors && <ErrorMessage errorObject={errors} />}
     </div>
   )
 }

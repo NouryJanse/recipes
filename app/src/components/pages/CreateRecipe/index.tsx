@@ -3,11 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import {
-  createRecipe,
-  getRecipes,
-  resetCreateRecipeStatus,
-} from '../../../redux/reducers/recipes/recipeSlice'
+import { createRecipe, getRecipes, resetCreateRecipeStatus } from '../../../redux/reducers/recipes/recipeSlice'
 import { Textfield, Button, Textarea, Dropdown, FieldContainer, PageTitle } from '../..'
 import RootState from '../../../types/RootState'
 import { RECIPE_COURSE_OPTIONS, REDUX_STATE, ROUTES } from '../../../constants'
@@ -60,7 +56,7 @@ const CreateRecipe: React.FC = (): ReactElement => {
               required: 'Did you forget to name your recipe?',
             }}
             register={register}
-            errors={errors.name?.type === 'required' && 'Recipe title is required'}
+            errors={errors.name}
           />
         </FieldContainer>
 
@@ -73,7 +69,7 @@ const CreateRecipe: React.FC = (): ReactElement => {
               required: 'Did you forget to fill in the description of your recipe?',
             }}
             register={register}
-            errors={errors.description?.type === 'required' && 'Description is required'}
+            errors={errors.description}
           />
         </FieldContainer>
 
@@ -91,7 +87,7 @@ const CreateRecipe: React.FC = (): ReactElement => {
               },
             }}
             register={register}
-            errors={errors.course?.type === 'required' && 'Course is required'}
+            errors={errors.course}
             options={RECIPE_COURSE_OPTIONS}
           />
         </FieldContainer>

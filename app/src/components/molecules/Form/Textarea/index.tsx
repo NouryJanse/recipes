@@ -9,7 +9,7 @@ type TextAreaProps = {
   name: string
   register: UseFormRegister<FieldValues>
   validation: object
-  errors: string | boolean
+  errors: errorObject
   defaultValue?: string
 }
 
@@ -34,7 +34,7 @@ const TextArea: React.FC<TextAreaProps> = ({
         defaultValue={defaultValue}
       />
 
-      {errors && <ErrorMessage message={errors} />}
+      {errors && <ErrorMessage errorObject={errors} />}
     </div>
   )
 }

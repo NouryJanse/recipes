@@ -75,7 +75,7 @@ const CreateIngredient: React.FC = (): ReactElement => {
               required: 'Did you forget to name your ingredient?',
             }}
             register={register}
-            errors={errors.name?.type === 'required' && 'Ingredient name is required'}
+            errors={errors.name}
           />
         </FieldContainer>
 
@@ -89,7 +89,7 @@ const CreateIngredient: React.FC = (): ReactElement => {
               required: 'Did you forget to fill in your unit?',
             }}
             register={register}
-            errors={errors.name?.type === 'required' && 'Ingredient unit is required'}
+            errors={errors.unit}
           />
         </FieldContainer>
 
@@ -102,7 +102,7 @@ const CreateIngredient: React.FC = (): ReactElement => {
               required: 'Did you forget to enter the amount of calories?',
             }}
             register={register}
-            errors={errors.name?.type === 'required' && 'Calories are required'}
+            errors={errors.calorieCount}
           />
         </FieldContainer>
 

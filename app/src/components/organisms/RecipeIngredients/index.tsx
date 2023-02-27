@@ -20,9 +20,12 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors },
     setValue,
+    reset,
   } = useForm()
+
+  // console.log(errors)
 
   const clearAutoComplete = (): void => {
     if (ref !== null) {
@@ -54,6 +57,9 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
     console.log(data)
     /* eslint-enable no-console */
 
+    clearAutoComplete()
+    reset()
+
     // const obj = {
     //   authorId: user.sub,
     //   recipeId: recipe.id,
@@ -78,9 +84,9 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
     <form onSubmit={handleSubmit(onSave)}>
       <FieldContainer>
         <AutoComplete
-          label="Search for an ingredient*"
+          labelText="Search for an ingredient*"
           name="ingredient"
-          errors={errors.ingredient?.type === 'required' && 'Ingredient is required'}
+          errors={errors.ingredient}
           options={options}
           handleOnChange={(option: Option | null): void => {
             if (option && option.value) {
@@ -104,7 +110,7 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
             required: 'Did you forget to fill in the unit of your ingredient?',
           }}
           register={register}
-          errors={errors.unit?.type === 'required' && 'Unit is required'}
+          errors={errors.unit}
           options={INGREDIENT_UNITS}
         />
       </FieldContainer>
@@ -116,9 +122,13 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
           placeholder="Enter the amount of the ingredient"
           validation={{
             required: 'Did you forget to enter the amount?',
+            min: {
+              value: 1,
+              message: 'Minimal 1',
+            },
           }}
           register={register}
-          errors={errors.amount?.type === 'required' && 'Amount is required'}
+          errors={errors.amount}
         />
       </FieldContainer>
 

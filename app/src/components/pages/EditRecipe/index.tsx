@@ -182,7 +182,7 @@ const EditRecipe: React.FC = (): ReactElement => {
                   required: 'Did you forget to name your recipe?',
                 }}
                 register={register}
-                errors={errors.name?.type === 'required' && 'Title is required'}
+                errors={errors.name}
               />
             </FieldContainer>
 
@@ -196,7 +196,7 @@ const EditRecipe: React.FC = (): ReactElement => {
                   required: 'Did you forget to fill in the description of your recipe?',
                 }}
                 register={register}
-                errors={errors.description?.type === 'required' && 'Description is required'}
+                errors={errors.description}
               />
             </FieldContainer>
 
@@ -210,7 +210,7 @@ const EditRecipe: React.FC = (): ReactElement => {
                   required: 'Did you forget to fill in the course of your recipe?',
                 }}
                 register={register}
-                errors={errors.description?.type === 'required' && 'Course is required'}
+                errors={errors.description}
                 options={RECIPE_COURSE_OPTIONS}
               />
             </FieldContainer>

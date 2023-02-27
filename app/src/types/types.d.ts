@@ -119,3 +119,8 @@ interface ImageData {
 type AuthProps = {
   auth0: Auth0Interface
 }
+
+interface errorObject {
+  type: string
+  message: string
+}
