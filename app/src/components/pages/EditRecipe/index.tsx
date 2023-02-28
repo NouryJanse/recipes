@@ -78,6 +78,7 @@ const EditRecipe: React.FC = (): ReactElement => {
         // push find into a helper function
         setRecipe(
           recipes.find((currentRecipe) => {
+            /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
             return currentRecipe.id === Number(id!)
           }),
         )
@@ -238,8 +239,6 @@ const EditRecipe: React.FC = (): ReactElement => {
                 onDelete={deleteImage}
               />
             )}
-
-            {/* <Button type="submit" label="Save recipe" classes={btnClasses} /> */}
 
             {params.recipeId && (
               <Link to={`/recipes/${params.recipeId}`}>

@@ -21,7 +21,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
   errors,
 }): ReactElement => {
   return (
-    <StyledLabel htmlFor={name} role="label">
+    <StyledLabel htmlFor={name} role="caption">
       {labelText}
       {setRef ? (
         <Select

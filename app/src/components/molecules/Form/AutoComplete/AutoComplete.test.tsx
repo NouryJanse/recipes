@@ -29,6 +29,7 @@ it('renders the autocomplete component with a label', async () => {
         options={optionList}
         handleOnChange={(): boolean => true}
         errors={{ message: '', type: '' }}
+        setRef={false}
       />
       ,
     </form>,
@@ -37,7 +38,7 @@ it('renders the autocomplete component with a label', async () => {
   const selectComponent = screen.getByRole('combobox')
   expect(selectComponent).toBeInTheDocument()
 
-  const labelComponent = screen.getByRole('label')
+  const labelComponent = screen.getByRole('caption')
   expect(labelComponent).toBeInTheDocument()
   expect(labelComponent).toHaveTextContent('AutoComplete element')
 })
@@ -53,6 +54,7 @@ it('should select the option and corresponding label', async () => {
         options={optionList}
         handleOnChange={(): boolean => true}
         errors={{ message: '', type: '' }}
+        setRef={false}
       />
     </div>,
   )
@@ -80,6 +82,7 @@ it('should test onChange behavior', async () => {
       errors={{ message: '', type: '' }}
       options={optionList}
       handleOnChange={onChange}
+      setRef={false}
     />,
   )
 
@@ -103,6 +106,7 @@ it('test whether the error message will be shown', async () => {
       errors={{ message: 'This is an error message for testing', type: '' }}
       options={optionList}
       handleOnChange={(): boolean => true}
+      setRef={false}
     />,
   )
 

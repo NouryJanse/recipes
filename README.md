@@ -42,7 +42,7 @@ Roadmap features
 
 ## Architecture plan
 
-A creator single page web app
+A creator single page web app - Work in Progress
 
 - [React](https://reactjs.org/)
 - [Redux](https://redux.js.org/) with [Redux Toolkit](https://redux-toolkit.js.org/)
@@ -62,7 +62,7 @@ A data platform that allows multichannel access
   > https://github.com/mercurius-js/mercurius
 - Jest Unit and Integration test
 
-A consumer high performance website
+A consumer high performance website - Future plans (no development yet)
 
 - Next.js setup that functions as a consumer of the data
 - Static Rendering / ISR?
