@@ -31,7 +31,7 @@ interface Ingredient {
   calorieCount: number
   createdAt: string
   updatedAt: string
-  amount?: number
+  amount: number
 }
 
 type RecipeIngredient = {

@@ -26,7 +26,6 @@ const Dropdown: React.FC<DropdownProps> = ({
   options,
   defaultValue,
 }): ReactElement => {
-  console.log(errors)
   return (
     <div>
       <StyledLabel htmlFor={name}>

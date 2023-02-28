@@ -80,7 +80,7 @@
     "@storybook/addon-essentials": "^6.5.5",
     "@storybook/addon-interactions": "^6.5.5",
     "@storybook/addon-links": "^6.5.5",
-    "@storybook/builder-webpac  k5": "^6.5.5",
+    "@storybook/builder-webpack5": "^6.5.5",
     "@storybook/manager-webpack5": "^6.5.5",
     "@storybook/node-logger": "^6.5.5",
     "@storybook/preset-create-react-app": "^4.1.1",
@@ -103,6 +103,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
+    "react-select-event": "^5.5.1",
     "source-map-explorer": "^2.5.2",
     "tailwindcss": "^3.0.24",
     "webpack": "^5.72.0"

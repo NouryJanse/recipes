@@ -1,6 +1,5 @@
-import { ReactElement, useState } from 'react'
-import Select, { ActionMeta, GroupBase, PropsValue } from 'react-select'
-
+import React, { ReactElement } from 'react'
+import Select, { ActionMeta } from 'react-select'
 import ErrorMessage from '../../../atoms/ErrorMessage'
 import { StyledLabel } from './styled'
 
@@ -10,34 +9,40 @@ type AutoCompleteProps = {
   options: Option[] | undefined
   handleOnChange: (option: Option | null, actionMeta: ActionMeta<Option>) => void
   setRef?: any
-  errors?: errorObject
+  errors: errorObject
 }
 
 const AutoComplete: React.FC<AutoCompleteProps> = ({
+  name,
+  labelText,
   options,
   handleOnChange,
   setRef,
-  name,
-  labelText,
   errors,
 }): ReactElement => {
   return (
-    <div>
-      <StyledLabel htmlFor={name}>
-        {labelText}
+    <StyledLabel htmlFor={name} role="label">
+      {labelText}
+      {setRef ? (
         <Select
           ref={(ref): void => {
             if (ref !== null) setRef(ref)
           }}
           options={options}
-          onChange={(option: Option | null, actionMeta: ActionMeta<Option>): void => handleOnChange(option, actionMeta)}
+          onChange={handleOnChange}
           escapeClearsValue
           isClearable
         />
-      </StyledLabel>
+      ) : (
+        <Select options={options} onChange={handleOnChange} escapeClearsValue isClearable />
+      )}
       {errors && <ErrorMessage errorObject={errors} />}
-    </div>
+    </StyledLabel>
   )
+}
+
+AutoComplete.defaultProps = {
+  setRef: {},
 }
 
 export default AutoComplete

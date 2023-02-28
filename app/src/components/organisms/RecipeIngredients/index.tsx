@@ -7,6 +7,7 @@ import { AutoComplete, Button, Dropdown, FieldContainer, Number } from '../../in
 import RootState from '../../../types/RootState'
 import { getIngredients, linkIngredientToRecipe } from '../../../redux/reducers/ingredients/ingredientSlice'
 import { INGREDIENT_UNITS } from '../../../constants'
+import { getRecipe } from '../../../redux/reducers/recipes/recipeSlice'
 
 type RecipesIngredientsProps = { recipe: Recipe }
 
@@ -24,8 +25,6 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
     setValue,
     reset,
   } = useForm()
-
-  // console.log(errors)
 
   const clearAutoComplete = (): void => {
     if (ref !== null) {
@@ -52,25 +51,22 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
     }
   }, [dispatch, ingredients])
 
-  const dispatchEdit = async (data: Ingredient): Promise<boolean> => {
-    /* eslint-disable no-console */
-    console.log(data)
-    /* eslint-enable no-console */
+  const dispatchEdit = async (ingredient: Ingredient): Promise<boolean> => {
+    reset() // clear the rest of the form
+    clearAutoComplete() // clear the Autocomplete field (separate from form since its custom)
 
-    clearAutoComplete()
-    reset()
+    const obj = {
+      authorId: user.sub,
+      recipeId: recipe.id,
+      ingredientId: ingredient.id,
+      amount: ingredient.amount,
+      unit: ingredient.unit,
+    }
 
-    // const obj = {
-    //   authorId: user.sub,
-    //   recipeId: recipe.id,
-    //   ingredientId: Number(data.ingredientName),
-    //   amount: 50,
-    //   unit: 'gr',
-    // }
-    // // @ts-ignore:next-line
-    // await dispatch(linkIngredientToRecipe(obj))
-    // // @ts-ignore:next-line
-    // await dispatch(getRecipe(recipeId))
+    // @ts-ignore:next-line
+    await dispatch(linkIngredientToRecipe(obj))
+    // @ts-ignore:next-line
+    await dispatch(getRecipe(recipe.id))
     return true
   }
 
@@ -86,14 +82,14 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
         <AutoComplete
           labelText="Search for an ingredient*"
           name="ingredient"
-          errors={errors.ingredient}
           options={options}
           handleOnChange={(option: Option | null): void => {
             if (option && option.value) {
-              setValue('ingredientName', option.value)
+              setValue('id', option.id)
             }
           }}
           setRef={setRef}
+          errors={{ message: '', type: '' }}
         />
       </FieldContainer>
 
@@ -126,6 +122,7 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
               value: 1,
               message: 'Minimal 1',
             },
+            valueAsNumber: true,
           }}
           register={register}
           errors={errors.amount}
@@ -133,7 +130,6 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
       </FieldContainer>
 
       <Button type="submit" label="Add ingredient" classes="mb-4" />
-      <Button type="button" onClick={(): void => clearAutoComplete()} label="Clear ingredient" />
 
       <FieldContainer>
         <div>

@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import StyledErrorMessage from './styled'
 
 type ErrorMessageProps = {
@@ -6,7 +6,7 @@ type ErrorMessageProps = {
 }
 
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ errorObject }): ReactElement => {
-  return <StyledErrorMessage>{errorObject.message}</StyledErrorMessage>
+  return <StyledErrorMessage data-testid="error-message">{errorObject.message}</StyledErrorMessage>
 }
 
 export default ErrorMessage
