@@ -3,7 +3,7 @@ import ButtonStyle from './styled'
 
 type ButtonProps = {
   type: 'submit' | 'reset' | 'button'
-  onClick?: (e: Event) => void
+  onClick?: (e: any) => void
   disabled?: boolean
   label?: string | JSX.Element
   classes?: string
@@ -16,13 +16,13 @@ type ButtonProps = {
 const Button: React.FC<ButtonProps> = ({
   type,
   onClick,
-  disabled,
   label,
   classes,
   children,
   buttonStyle,
   noedge,
   fullwidth,
+  disabled,
 }): ReactElement => {
   return (
     <ButtonStyle

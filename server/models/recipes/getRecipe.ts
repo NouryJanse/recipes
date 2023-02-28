@@ -20,6 +20,14 @@ const getRecipe = async (logger: FastifyLoggerInstance, recipeId: number): Promi
             position: 'asc',
           },
         },
+        RecipeIngredients: {
+          include: {
+            ingredient: true,
+          },
+          orderBy: {
+            amount: 'desc',
+          },
+        },
       },
     })
 

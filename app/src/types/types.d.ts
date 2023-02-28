@@ -21,19 +21,31 @@ interface Recipe {
   createdAt: string
   updatedAt: string
   images?: Image[]
+  ingredients: Ingredient[]
 }
 interface Ingredient {
   id: number
   name?: string
+  unit: string
   published: boolean
   calorieCount: number
   createdAt: string
   updatedAt: string
+  amount: number
+}
+
+type RecipeIngredient = {
+  authorId: string
+  recipeId: number
+  ingredientId: number
+  amount: number
+  unit: string
 }
 
 interface Option {
   id: number
-  text: string
+  text?: string
+  label?: string
   value: string
   disabled: boolean
 }
@@ -106,4 +118,9 @@ interface ImageData {
 
 type AuthProps = {
   auth0: Auth0Interface
+}
+
+interface errorObject {
+  type: string
+  message: string
 }

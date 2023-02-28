@@ -45,6 +45,7 @@ interface FastifyRecipeBody {
 
 interface FastifyIngredientBody {
   name: string
+  unit: string
   calorieCount: number
   published: boolean
 }

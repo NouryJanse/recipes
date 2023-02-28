@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "prod": "react-scripts build && serve -s build",
     "tailwind": "tailwindcss build -i src/styles/input.css -o src/styles/tailwind.output.css --watch",
@@ -27,6 +27,7 @@
     "@storybook/testing-library": "^0.0.11",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
+    "@types/react-select": "^5.0.1",
     "@uiball/loaders": "^1.2.6",
     "axios": "^0.26.1",
     "classnames": "^2.3.1",
@@ -40,8 +41,9 @@
     "react-redux": "^8.0.1",
     "react-router-dom": "6",
     "react-scripts": "^5.0.0",
+    "react-select": "^5.7.0",
     "styled-components": "^5.3.5",
-    "tailwind-styled-components": "^2.1.7",
+    "tailwind-styled-components": "2.1.7",
     "ts-debounce": "^4.0.0",
     "typescript": "^4.6.3"
   },
@@ -101,6 +103,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
+    "react-select-event": "^5.5.1",
     "source-map-explorer": "^2.5.2",
     "tailwindcss": "^3.0.24",
     "webpack": "^5.72.0"

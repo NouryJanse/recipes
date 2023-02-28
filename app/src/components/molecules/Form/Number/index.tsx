@@ -10,7 +10,7 @@ type NumberProps = {
   placeholder: string
   register: UseFormRegister<FieldValues>
   validation: object
-  errors: string | boolean
+  errors: errorObject
   defaultValue?: number
 }
 
@@ -36,7 +36,7 @@ const Number: React.FC<NumberProps> = ({
         placeholder={placeholder}
       />
 
-      {errors && <ErrorMessage message={errors} />}
+      {errors && <ErrorMessage errorObject={errors} />}
     </FieldRowStyle>
   )
 }

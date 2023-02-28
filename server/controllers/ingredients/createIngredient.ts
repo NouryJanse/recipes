@@ -8,10 +8,10 @@ const createIngredientOps = async (
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
-    console.log(request.body)
     const ingredient = await createIngredient(
       request.log,
       request.body.name,
+      request.body.unit,
       request.body.calorieCount,
       request.body.published,
     )

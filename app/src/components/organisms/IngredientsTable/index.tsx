@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { DataGrid, GridCellValue, GridColDef, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid'
 import { formatNLDateTime } from '../../../helpers/DateHelper'
 import { Button } from '../..'
 

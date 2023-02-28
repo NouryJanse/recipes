@@ -12,6 +12,7 @@ const updateIngredientOps = async (
       request.log,
       Number(request.params.id),
       request.body.name,
+      request.body.unit,
       request.body.calorieCount,
       request.body.published,
     )

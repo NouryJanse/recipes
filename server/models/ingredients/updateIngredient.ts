@@ -9,6 +9,7 @@ const updateIngredient = async (
   logger: FastifyLoggerInstance,
   id: number,
   name: string,
+  unit: string,
   calorieCount: number,
   published: boolean,
 ): Promise<Ingredient | false> => {
@@ -19,6 +20,7 @@ const updateIngredient = async (
       },
       data: {
         name,
+        unit,
         calorieCount,
         published,
       },

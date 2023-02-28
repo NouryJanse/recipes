@@ -8,7 +8,7 @@ export { default as Loader } from './atoms/Loader'
 export { default as PageTitle } from './atoms/Typography/PageTitle'
 
 // MOLECULES
-// export { default as Checkbox } from './molecules/Form/Checkbox'
+export { default as AutoComplete } from './molecules/Form/AutoComplete'
 export { default as Dropdown } from './molecules/Form/Dropdown'
 export { default as FieldContainer } from './molecules/Form/FieldContainer'
 export { default as ImagePicker } from './molecules/Form/ImagePicker'
@@ -23,8 +23,9 @@ export { default as NavigationLink } from './molecules/NavigationLink'
 // ORGANISMS
 export { default as IngredientCard } from './organisms/IngredientCard'
 export { default as IngredientsTable } from './organisms/IngredientsTable'
-export { default as RecipeCard } from './organisms/RecipeCard'
 export { default as Navigation } from './organisms/Navigation'
+export { default as RecipeCard } from './organisms/RecipeCard'
+export { default as RecipesIngredients } from './organisms/RecipeIngredients'
 
 // PAGES
 export { default as Account } from './pages/Account'

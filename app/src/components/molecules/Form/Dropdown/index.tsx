@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, ReactElement } from 'react'
+import React, { ChangeEventHandler, ReactElement, useEffect, useState } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
 
 import ErrorMessage from '../../../atoms/ErrorMessage'
@@ -9,7 +9,7 @@ type DropdownProps = {
   name: string
   validation: object
   register: UseFormRegister<FieldValues>
-  errors: string | boolean
+  errors: errorObject
   disabled: boolean
   options: Option[]
   defaultValue: string
@@ -46,7 +46,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           })}
         </StyledDropdown>
       </StyledLabel>
-      {errors && <ErrorMessage message={errors} />}
+      {errors && <ErrorMessage errorObject={errors} />}
     </div>
   )
 }

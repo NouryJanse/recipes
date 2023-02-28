@@ -19,6 +19,9 @@ const getRecipes = async (logger: FastifyLoggerInstance): Promise<Recipe[] | fal
           },
         },
         RecipeIngredients: {
+          include: {
+            ingredient: true,
+          },
           orderBy: {
             amount: 'desc',
           },

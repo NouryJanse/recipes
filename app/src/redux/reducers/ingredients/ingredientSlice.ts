@@ -5,6 +5,7 @@ import {
   getIngredientThunk,
   getIngredientsThunk,
   updateIngredientThunk,
+  linkIngredientToRecipeThunk,
 } from './thunks'
 import { REDUX_STATE } from '../../../constants'
 import LogHelper from '../../../helpers/LogHelper'
@@ -18,6 +19,7 @@ export const initialState = {
     getIngredient: 'initial',
     getIngredients: 'initial',
     updateIngredient: 'initial',
+    linkIngredientToRecipe: 'initial',
   },
   error: {},
 }
@@ -27,6 +29,7 @@ export const deleteIngredient = deleteIngredientThunk
 export const getIngredient = getIngredientThunk
 export const getIngredients = getIngredientsThunk
 export const updateIngredient = updateIngredientThunk
+export const linkIngredientToRecipe = linkIngredientToRecipeThunk
 
 export const ingredientSlice = createSlice({
   name: 'ingredients',
@@ -119,6 +122,20 @@ export const ingredientSlice = createSlice({
     })
     builder.addCase(deleteIngredient.fulfilled, (state) => {
       state.status.deleteIngredient = REDUX_STATE.FULFILLED
+      state.error = {}
+    })
+
+    builder.addCase(linkIngredientToRecipe.pending, (state) => {
+      state.status.linkIngredientToRecipe = REDUX_STATE.LOADING
+      state.error = {}
+    })
+    builder.addCase(linkIngredientToRecipe.rejected, (state) => {
+      state.status.linkIngredientToRecipe = REDUX_STATE.REJECTED
+      LogHelper({ logType: 'error', message: 'An error occurred' })
+      state.error = {}
+    })
+    builder.addCase(linkIngredientToRecipe.fulfilled, (state) => {
+      state.status.linkIngredientToRecipe = REDUX_STATE.FULFILLED
       state.error = {}
     })
   },

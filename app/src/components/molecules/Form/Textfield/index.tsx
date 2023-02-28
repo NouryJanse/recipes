@@ -11,7 +11,7 @@ type TextFieldProps = {
   placeholder: string
   register: UseFormRegister<FieldValues>
   validation: object
-  errors: string | boolean
+  errors: errorObject
   defaultValue?: string
 }
 
@@ -38,7 +38,7 @@ const Textfield: React.FC<TextFieldProps> = ({
         placeholder={placeholder}
       />
 
-      {errors && <ErrorMessage message={errors} />}
+      {errors && <ErrorMessage errorObject={errors} />}
     </FieldRowStyle>
   )
 }

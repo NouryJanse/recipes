@@ -7,8 +7,9 @@ async function createIngredientAPI(ingredient: Ingredient, token: string): Promi
     `${process.env.REACT_APP_SERVER_URL}/api/ingredients`,
     {
       name: ingredient.name,
-      published: ingredient.published,
+      unit: ingredient.unit,
       calorieCount: Number(ingredient.calorieCount),
+      published: ingredient.published,
     },
     {
       headers: {
@@ -19,14 +20,11 @@ async function createIngredientAPI(ingredient: Ingredient, token: string): Promi
   return response.data
 }
 
-const createIngredientThunk = createAsyncThunk(
-  'ingredients/createIngredient',
-  async (data: Ingredient, thunkApi) => {
-    const state = thunkApi.getState() as RootState
-    const user: User = state.userSlice?.data?.user
-    const response = await createIngredientAPI({ ...data }, user.token)
-    return response
-  },
-)
+const createIngredientThunk = createAsyncThunk('ingredients/createIngredient', async (data: Ingredient, thunkApi) => {
+  const state = thunkApi.getState() as RootState
+  const user: User = state.userSlice?.data?.user
+  const response = await createIngredientAPI({ ...data }, user.token)
+  return response
+})
 
 export default createIngredientThunk

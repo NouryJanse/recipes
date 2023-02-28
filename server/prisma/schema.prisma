@@ -56,6 +56,7 @@ model Ingredient {
   updatedAt         DateTime?           @updatedAt
   published         Boolean?            @default(false)
   calorieCount      Int?
+  unit              String?             @db.VarChar(255)
   RecipeIngredients RecipeIngredients[]
 }
 
@@ -66,6 +67,7 @@ model RecipeIngredients {
   ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
   ingredientId Int // relation scalar field (used in the `@relation` attribute above)
   addedAt      DateTime   @default(now())
-  unit         String     @db.VarChar(255)
+  unit         String?    @db.VarChar(255)
+  description  String?    @db.VarChar(255)
   amount       Int
 }

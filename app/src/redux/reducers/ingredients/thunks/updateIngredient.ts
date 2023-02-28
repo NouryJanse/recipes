@@ -3,26 +3,20 @@ import axios from 'axios'
 import LogHelper from '../../../../helpers/LogHelper'
 import RootState from '../../../../types/RootState'
 
-const updateIngredientAPI = async (
-  data: Ingredient,
-  token: string,
-): Promise<Ingredient | false> => {
+const updateIngredientAPI = async (data: Ingredient, token: string): Promise<Ingredient | false> => {
   try {
     const requestBody = {
       name: data.name,
-      published: data.published,
+      unit: data.unit,
       calorieCount: Number(data.calorieCount),
+      published: data.published,
     }
 
-    const response = await axios.put(
-      `${process.env.REACT_APP_SERVER_URL}/api/ingredients/${data.id}`,
-      requestBody,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/ingredients/${data.id}`, requestBody, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    )
+    })
 
     return response.data
   } catch (error) {
@@ -31,13 +25,10 @@ const updateIngredientAPI = async (
   }
 }
 
-const updateIngredientThunk = createAsyncThunk(
-  'ingredients/updateIngredient',
-  async (data: Ingredient, thunkApi) => {
-    const state = thunkApi.getState() as RootState
-    const user = state.userSlice?.data?.user
-    return updateIngredientAPI({ ...data }, user.token)
-  },
-)
+const updateIngredientThunk = createAsyncThunk('ingredients/updateIngredient', async (data: Ingredient, thunkApi) => {
+  const state = thunkApi.getState() as RootState
+  const user = state.userSlice?.data?.user
+  return updateIngredientAPI({ ...data }, user.token)
+})
 
 export default updateIngredientThunk

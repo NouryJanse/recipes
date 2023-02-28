@@ -1,12 +1,12 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement } from 'react'
 import StyledErrorMessage from './styled'
 
 type ErrorMessageProps = {
-  message: ReactNode | string | boolean
+  errorObject: errorObject
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }): ReactElement => {
-  return <StyledErrorMessage>{message}</StyledErrorMessage>
+const ErrorMessage: React.FC<ErrorMessageProps> = ({ errorObject }): ReactElement => {
+  return <StyledErrorMessage data-testid="error-message">{errorObject.message}</StyledErrorMessage>
 }
 
 export default ErrorMessage

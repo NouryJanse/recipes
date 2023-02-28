@@ -5,7 +5,7 @@ const courseName = (courseValue: string, options: Option[]): string => {
     if (option.value && option.value === courseValue) return option
     return null
   })
-  if (currentOption) return currentOption.text
+  if (currentOption?.text) return currentOption.text
   return ''
 }
 

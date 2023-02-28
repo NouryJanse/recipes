@@ -6,10 +6,7 @@ import { useDispatch } from 'react-redux'
 import { Button } from '../..'
 
 import IngredientContainer from './styled'
-import {
-  deleteIngredient,
-  getIngredients,
-} from '../../../redux/reducers/ingredients/ingredientSlice'
+import { deleteIngredient, getIngredients } from '../../../redux/reducers/ingredients/ingredientSlice'
 
 type IngredientCardProps = {
   ingredient: Ingredient
@@ -47,9 +44,7 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
     <IngredientContainer
       style={{
         backgroundImage: `url('${'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Banana-Single.jpg/800px-Banana-Single.jpg'}')`,
-        boxShadow: !isHovering
-          ? 'inset 0 0 0 2000px rgba(0, 0, 0, 0.3)'
-          : 'inset 0 0 0 2000px rgba(0, 0, 0, 0.4)',
+        boxShadow: !isHovering ? 'inset 0 0 0 2000px rgba(0, 0, 0, 0.3)' : 'inset 0 0 0 2000px rgba(0, 0, 0, 0.4)',
       }}
       onClick={(): void => {
         navigate(`/ingredients/${ingredient.id}`)
