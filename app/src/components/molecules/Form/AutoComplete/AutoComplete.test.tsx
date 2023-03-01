@@ -20,17 +20,14 @@ const optionList: Option[] = [
 
 it('renders the autocomplete component with a label', async () => {
   render(
-    <form data-testid="form">
-      <AutoComplete
-        name="AutoCompleteName"
-        labelText="AutoComplete element"
-        options={optionList}
-        handleOnChange={(): boolean => true}
-        errors={{ message: '', type: '' }}
-        setRef={false}
-      />
-      ,
-    </form>,
+    <AutoComplete
+      name="AutoCompleteName"
+      labelText="AutoComplete element"
+      options={optionList}
+      handleOnChange={(): boolean => true}
+      errors={{ message: '', type: '' }}
+      setRef={false}
+    />,
   )
 
   const selectComponent = screen.getByRole('combobox')

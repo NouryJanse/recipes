@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import AutoComplete from './index'
+import { useForm, useFormContext, RegisterOptions } from 'react-hook-form'
+import Dropdown from './index'
 
 const optionList: Option[] = [
   {
@@ -18,4 +19,28 @@ const optionList: Option[] = [
   },
 ]
 
-it('renders the dropdown with a label element', async () => {})
+it('renders the dropdown with a label element and 2 items', async () => {
+  render(
+    <Dropdown
+      label="Dropdown label"
+      disabled={false}
+      errors={{ message: '', type: '' }}
+      name="unit"
+      options={optionList}
+      key="dropdown"
+      defaultValue=""
+      validation={{}}
+      onChange={() => {}}
+    />,
+  )
+  const label = screen.getByLabelText('Dropdown label')
+  expect(label).toBeInTheDocument()
+
+  const dropdown = screen.getByRole('combobox')
+  expect(dropdown.children).toHaveLength(2)
+})
+
+// TODO: test error message
+// TODO: test onChange handler
+// TODO: test validation?
+// TODO: test defaultValue?

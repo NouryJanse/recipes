@@ -198,7 +198,7 @@ const EditRecipe: React.FC = (): ReactElement => {
                 name="description"
                 label="Recipe description*"
                 defaultValue={recipe.description}
-                placeholder="Fill in a dwscription"
+                placeholder="Fill in a description"
                 validation={{
                   required: 'Did you forget to fill in the description of your recipe?',
                 }}

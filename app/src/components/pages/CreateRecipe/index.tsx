@@ -82,8 +82,8 @@ const CreateRecipe: React.FC = (): ReactElement => {
             defaultValue={course}
             disabled={false}
             onChange={(changedCourse: ChangeEvent<HTMLInputElement>): void => {
-              setValue('course', changedCourse)
               setCourse(changedCourse.target.value)
+              setValue('course', changedCourse.target.value)
             }}
             validation={{
               required: 'Did you forget to fill in the course of your recipe?',

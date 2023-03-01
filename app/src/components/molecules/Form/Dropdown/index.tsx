@@ -8,7 +8,7 @@ type DropdownProps = {
   label: string
   name: string
   validation: object
-  register: UseFormRegister<FieldValues>
+  register?: UseFormRegister<FieldValues>
   errors: errorObject
   disabled: boolean
   options: Option[]
@@ -32,7 +32,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       <StyledLabel htmlFor={name}>
         {label}
         <StyledDropdown
-          {...register(name, validation)}
+          {...(register ? { ...register(name, validation) } : {})}
           id={name}
           name={name}
           disabled={disabled}
