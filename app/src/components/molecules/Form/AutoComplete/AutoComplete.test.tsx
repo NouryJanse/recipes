@@ -19,8 +19,6 @@ const optionList: Option[] = [
 ]
 
 it('renders the autocomplete component with a label', async () => {
-  // Test whether the label field is filled with the expected text
-
   render(
     <form data-testid="form">
       <AutoComplete
@@ -43,9 +41,7 @@ it('renders the autocomplete component with a label', async () => {
   expect(labelComponent).toHaveTextContent('AutoComplete element')
 })
 
-it('should select the option and corresponding label', async () => {
-  // Test whether the optionList is rendered correctly and whether it is clickable
-
+it('should select the option and display the corresponding label as a result', async () => {
   const { getByTestId } = render(
     <div data-testid="test">
       <AutoComplete
@@ -71,8 +67,7 @@ it('should select the option and corresponding label', async () => {
   expect(getByTestId('test')).toHaveTextContent('Value1')
 })
 
-it('should test onChange behavior', async () => {
-  // Test whether the onChange function works
+it('check if onChange behavior work', async () => {
   const onChange = jest.fn()
 
   render(
@@ -97,7 +92,6 @@ it('should test onChange behavior', async () => {
   expect(onChange).toHaveBeenCalledWith(optionList[0], { action: 'select-option', name: undefined, option: undefined })
 })
 
-// Test whether errors are shown
 it('test whether the error message will be shown', async () => {
   const container = render(
     <AutoComplete
