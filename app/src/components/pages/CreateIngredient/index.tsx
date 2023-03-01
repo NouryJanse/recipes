@@ -3,20 +3,22 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import RootState from '../../../types/RootState'
-import { Textfield, Button, Toggle, FieldContainer, PageTitle, Number } from '../..'
+import { Textfield, Button, Toggle, FieldContainer, PageTitle, Number, Dropdown } from '../..'
 
 import {
   createIngredient,
   getIngredients,
   resetCreateIngredientStatus,
 } from '../../../redux/reducers/ingredients/ingredientSlice'
-import { REDUX_STATE, ROUTES } from '../../../constants'
+import { INGREDIENT_UNITS, REDUX_STATE, ROUTES } from '../../../constants'
 
 const CreateIngredient: React.FC = (): ReactElement => {
   const status = useSelector((state: RootState) => state.ingredientSlice.status)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [toggle, setToggle] = useState(false)
+  const [unit, setUnit] = useState<string>('')
+
   const {
     register,
     handleSubmit,
@@ -80,16 +82,21 @@ const CreateIngredient: React.FC = (): ReactElement => {
         </FieldContainer>
 
         <FieldContainer>
-          <Textfield
+          <Dropdown
             name="unit"
-            type="text"
             label="Ingredient unit type*"
-            placeholder="e.g. ml or gr"
+            defaultValue={unit}
+            disabled={false}
+            onChange={(changedUnit: ChangeEvent<HTMLInputElement>): void => {
+              setValue('unit', changedUnit)
+              setUnit(changedUnit.target.value)
+            }}
             validation={{
-              required: 'Did you forget to fill in your unit?',
+              required: 'Did you forget to fill in the unit of your ingredient?',
             }}
             register={register}
             errors={errors.unit}
+            options={INGREDIENT_UNITS}
           />
         </FieldContainer>
 

@@ -1,8 +1,8 @@
-import React, { ChangeEventHandler, ReactElement, useEffect, useState } from 'react'
+import React, { ChangeEvent, ChangeEventHandler, ReactElement } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
 
 import ErrorMessage from '../../../atoms/ErrorMessage'
-import { StyledDropdown, StyledOption, StyledLabel } from './styled'
+import { StyledDropdown, StyledOption, StyledLabel, FieldRowStyle } from './styled'
 
 type DropdownProps = {
   label: string
@@ -13,7 +13,7 @@ type DropdownProps = {
   disabled: boolean
   options: Option[]
   defaultValue: string
-  onChange?: ChangeEventHandler
+  onChange: ChangeEventHandler
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -25,9 +25,10 @@ const Dropdown: React.FC<DropdownProps> = ({
   disabled,
   options,
   defaultValue,
+  onChange,
 }): ReactElement => {
   return (
-    <div>
+    <FieldRowStyle>
       <StyledLabel htmlFor={name}>
         {label}
         <StyledDropdown
@@ -35,7 +36,8 @@ const Dropdown: React.FC<DropdownProps> = ({
           id={name}
           name={name}
           disabled={disabled}
-          defaultValue={defaultValue}
+          value={defaultValue}
+          onChange={(e): ChangeEvent | void => onChange(e)}
         >
           {options.map((option: Option) => {
             return (
@@ -47,14 +49,8 @@ const Dropdown: React.FC<DropdownProps> = ({
         </StyledDropdown>
       </StyledLabel>
       {errors && <ErrorMessage errorObject={errors} />}
-    </div>
+    </FieldRowStyle>
   )
-}
-
-Dropdown.defaultProps = {
-  onChange: (): boolean => {
-    return true
-  },
 }
 
 export default Dropdown

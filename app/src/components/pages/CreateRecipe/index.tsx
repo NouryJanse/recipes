@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactElement, useEffect } from 'react'
+import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -12,6 +12,8 @@ const CreateRecipe: React.FC = (): ReactElement => {
   const status = useSelector((state: RootState) => state.recipeSlice.status)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [course, setCourse] = useState<string>('')
+
   const {
     register,
     handleSubmit,
@@ -77,9 +79,12 @@ const CreateRecipe: React.FC = (): ReactElement => {
           <Dropdown
             name="course"
             label="Course*"
-            defaultValue=""
+            defaultValue={course}
             disabled={false}
-            onChange={(course: ChangeEvent): void => setValue('course', course)}
+            onChange={(changedCourse: ChangeEvent<HTMLInputElement>): void => {
+              setValue('course', changedCourse)
+              setCourse(changedCourse.target.value)
+            }}
             validation={{
               required: 'Did you forget to fill in the course of your recipe?',
               validate: {

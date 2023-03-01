@@ -42,6 +42,7 @@ const EditRecipe: React.FC = (): ReactElement => {
   const [imagePreviewList, setImageViewList] = useState<ImageData[]>([])
   const [imageSortableList, setImageSortableList] = useState<Image[]>([])
   const [btnClasses, setBtnClasses] = useState('mb-10')
+  const [recipeName, setRecipeName] = useState<string>('')
 
   const hasURLParams = useRef(false)
 
@@ -85,22 +86,27 @@ const EditRecipe: React.FC = (): ReactElement => {
       }
     }
 
+    if (recipe?.name) {
+      setRecipeName(recipe.name)
+    }
+
     if (recipe && recipe.images && !initialRecipeLoad) {
       setImageSortableList(recipe?.images ? recipe.images : [])
       setInitialRecipeLoad(true)
     } else if (recipe && !recipe.images && !initialRecipeLoad) {
       setImageSortableList([])
     }
-  }, [watch, recipe, id, recipes, params, isDirty, initialRecipeLoad])
+  }, [recipe, id, recipes, params, isDirty, initialRecipeLoad])
 
   const debouncedSubmit = useRef(
     debounce(async (data, currentRecipe) => {
       dispatchEdit(data, currentRecipe)
-    }, 1000),
+    }, 750),
   ).current
 
   useEffect(() => {
-    const subscription = watch((data) => {
+    const subscription = watch(async (data) => {
+      await setRecipeName(data.name)
       debouncedSubmit(data, recipe)
     })
     return (): void => subscription.unsubscribe()
@@ -156,7 +162,7 @@ const EditRecipe: React.FC = (): ReactElement => {
     <div className="pt-7">
       <div className="flex justify-between">
         <PageTitle
-          text={`Editing ${recipe.name} - ${courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}`}
+          text={`Editing ${recipeName} - ${courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}`}
         />
 
         {isLoading(status) && <Loader />}
@@ -177,7 +183,7 @@ const EditRecipe: React.FC = (): ReactElement => {
                 name="name"
                 type="text"
                 label="Recipe name*"
-                defaultValue={recipe.name}
+                defaultValue={recipeName}
                 placeholder="Fill in a name"
                 validation={{
                   required: 'Did you forget to name your recipe?',
@@ -205,7 +211,7 @@ const EditRecipe: React.FC = (): ReactElement => {
               <Dropdown
                 name="course"
                 label="Course*"
-                defaultValue={recipe.course ? recipe.course : ''}
+                defaultValue="0"
                 disabled={false}
                 validation={{
                   required: 'Did you forget to fill in the course of your recipe?',
@@ -213,6 +219,9 @@ const EditRecipe: React.FC = (): ReactElement => {
                 register={register}
                 errors={errors.description}
                 options={RECIPE_COURSE_OPTIONS}
+                onChange={(): void => {
+                  ;``
+                }}
               />
             </FieldContainer>
 

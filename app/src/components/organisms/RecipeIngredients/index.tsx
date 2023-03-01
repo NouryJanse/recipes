@@ -17,6 +17,7 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
   const dispatch = useDispatch()
   const [options, setOptions] = useState<Option[]>()
   const [ref, setRef] = useState<StateManagedSelect>()
+  const [unit, setUnit] = useState<string>('')
 
   const {
     register,
@@ -97,10 +98,10 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
         <Dropdown
           name="unit"
           label="Unit*"
-          defaultValue=""
+          defaultValue={unit}
           disabled={false}
-          onChange={(unit: ChangeEvent): void => {
-            setValue('unit', unit)
+          onChange={(changedUnit: ChangeEvent<HTMLInputElement>): void => {
+            setUnit(changedUnit.target.value)
           }}
           validation={{
             required: 'Did you forget to fill in the unit of your ingredient?',
