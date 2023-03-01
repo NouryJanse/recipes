@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import Select, { ActionMeta } from 'react-select'
 import ErrorMessage from '../../../atoms/ErrorMessage'
-import { StyledLabel } from './styled'
+import StyledLabel from './styled'
 
 type AutoCompleteProps = {
   name: string

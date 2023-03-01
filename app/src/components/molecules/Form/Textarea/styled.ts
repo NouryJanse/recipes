@@ -19,3 +19,7 @@ export const StyledTextArea = styled.textarea`
 export const StyledLabel = styled.label`
   color: black;
 `
+
+export const FieldRowStyle = styled.div`
+  max-width: 560px;
+`

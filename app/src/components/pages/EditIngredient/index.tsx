@@ -1,15 +1,16 @@
-import { useEffect, useState, useRef, ReactElement } from 'react'
+import { useEffect, useState, useRef, ReactElement, ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
 import { updateIngredient } from '../../../redux/reducers/ingredients/ingredientSlice'
 
-import { Button, Textfield, FieldContainer, Loader, Number, Toggle } from '../../index'
+import { Button, Textfield, FieldContainer, Loader, Number, Toggle, Dropdown } from '../../index'
 
 import RootState from '../../../types/RootState'
 import isLoading from '../../../helpers/LoadingHelper'
 import { PageTitle } from '../..'
+import { INGREDIENT_UNITS, REDUX_STATE } from '../../../constants'
 
 const EditIngredient: React.FC = (): ReactElement => {
   const dispatch = useDispatch()
@@ -23,6 +24,8 @@ const EditIngredient: React.FC = (): ReactElement => {
   const [ingredient, setIngredient] = useState<Ingredient>()
   const [btnClasses, setBtnClasses] = useState('mb-10')
   const [toggle, setToggle] = useState(ingredient ? ingredient.published : false)
+  const [unit, setUnit] = useState<string>('')
+  const [ingredientName, setIngredientName] = useState<string>('')
 
   const hasURLParams = useRef(false)
 
@@ -65,19 +68,25 @@ const EditIngredient: React.FC = (): ReactElement => {
       }
     }
 
-    if (ingredient) {
+    if (ingredient?.name) {
+      setIngredientName(ingredient.name)
+    }
+
+    if (ingredient && status.updateIngredient !== REDUX_STATE.LOADING) {
       setToggle(ingredient.published)
+      setUnit(ingredient.unit)
     }
   }, [watch, ingredient, id, ingredient, params, isDirty])
 
   const debouncedSubmit = useRef(
     debounce(async (data, currentIngredient) => {
       dispatchEdit(data, currentIngredient)
-    }, 1000),
+    }, 750),
   ).current
 
   useEffect(() => {
-    const subscription = watch((data) => {
+    const subscription = watch(async (data) => {
+      await setIngredientName(data.name)
       debouncedSubmit(data, ingredient)
     })
     return (): void => subscription.unsubscribe()
@@ -96,7 +105,7 @@ const EditIngredient: React.FC = (): ReactElement => {
   return (
     <div className="pt-7">
       <div className="flex items-center">
-        <PageTitle text={`Editing ${ingredient.name}`} />
+        <PageTitle text={`Editing ${ingredientName}`} />
 
         {isLoading(status) && <Loader />}
       </div>
@@ -107,7 +116,7 @@ const EditIngredient: React.FC = (): ReactElement => {
             name="name"
             type="text"
             label="Ingredient name*"
-            defaultValue={ingredient.name}
+            defaultValue={ingredientName}
             placeholder="Fill in a name"
             validation={{
               required: 'Did you forget to name your ingredient?',
@@ -118,16 +127,21 @@ const EditIngredient: React.FC = (): ReactElement => {
         </FieldContainer>
 
         <FieldContainer>
-          <Textfield
+          <Dropdown
             name="unit"
-            type="text"
             label="Ingredient unit type*"
-            placeholder="e.g. ml or gr"
+            defaultValue={unit}
+            disabled={false}
+            onChange={(changedUnit: ChangeEvent<HTMLInputElement>): void => {
+              setUnit(changedUnit.target.value)
+              setValue('unit', changedUnit.target.value)
+            }}
             validation={{
-              required: 'Did you forget to fill in your unit?',
+              required: 'Did you forget to fill in the unit of your ingredient?',
             }}
             register={register}
-            errors={errors.name}
+            errors={errors.unit}
+            options={INGREDIENT_UNITS}
           />
         </FieldContainer>
 
@@ -155,7 +169,12 @@ const EditIngredient: React.FC = (): ReactElement => {
           />
         </FieldContainer>
 
-        <Button type="submit" label="Save ingredient" classes={btnClasses} />
+        <Button
+          type="submit"
+          label="Save ingredient"
+          classes={btnClasses}
+          disabled={status.updateIngredient === REDUX_STATE.LOADING}
+        />
 
         <Link to="/ingredients">Back to ingredients</Link>
       </form>

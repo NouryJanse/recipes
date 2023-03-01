@@ -20,7 +20,7 @@ const Textfield: React.FC<TextFieldProps> = ({
   type = '',
   label = '',
   placeholder = '',
-  defaultValue = '',
+  defaultValue,
   register,
   validation,
   errors,

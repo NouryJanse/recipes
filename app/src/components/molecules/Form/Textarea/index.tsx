@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
 import ErrorMessage from '../../../atoms/ErrorMessage'
-import { StyledTextArea, StyledLabel } from './styled'
+import { StyledTextArea, StyledLabel, FieldRowStyle } from './styled'
 
 type TextAreaProps = {
   label: string
@@ -23,7 +23,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   errors,
 }): ReactElement => {
   return (
-    <div>
+    <FieldRowStyle>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
 
       <StyledTextArea
@@ -35,7 +35,7 @@ const TextArea: React.FC<TextAreaProps> = ({
       />
 
       {errors && <ErrorMessage errorObject={errors} />}
-    </div>
+    </FieldRowStyle>
   )
 }
 

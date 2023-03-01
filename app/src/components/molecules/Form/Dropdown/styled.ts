@@ -29,3 +29,7 @@ export const StyledLabel = styled.label`
   color: black;
   position: relative;
 `
+
+export const FieldRowStyle = styled.div`
+  max-width: 320px;
+`
