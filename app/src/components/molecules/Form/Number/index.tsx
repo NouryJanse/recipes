@@ -8,9 +8,9 @@ type NumberProps = {
   name: string
   label: string
   placeholder: string
-  register: UseFormRegister<FieldValues>
-  validation: object
-  errors: errorObject
+  register?: UseFormRegister<FieldValues>
+  validation?: object
+  errors?: errorObject
   defaultValue?: number
 }
 
@@ -28,7 +28,7 @@ const Number: React.FC<NumberProps> = ({
       <LabelStyle htmlFor={name}>{label}</LabelStyle>
 
       <InputStyle
-        {...register(name, validation)}
+        {...(register && validation ? { ...register(name, validation) } : {})}
         id={name}
         name={name}
         type="number"

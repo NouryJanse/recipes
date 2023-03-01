@@ -9,9 +9,9 @@ type TextFieldProps = {
   type: string
   label: string
   placeholder: string
-  register: UseFormRegister<FieldValues>
-  validation: object
-  errors: errorObject
+  register?: UseFormRegister<FieldValues>
+  validation?: object
+  errors?: errorObject
   defaultValue?: string
 }
 
@@ -30,7 +30,7 @@ const Textfield: React.FC<TextFieldProps> = ({
       <LabelStyle htmlFor={name}>{label}</LabelStyle>
 
       <InputStyle
-        {...register(name, validation)}
+        {...(register && validation ? { ...register(name, validation) } : {})}
         id={name}
         name={name}
         type={type}

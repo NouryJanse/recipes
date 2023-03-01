@@ -7,9 +7,9 @@ type TextAreaProps = {
   label: string
   placeholder: string
   name: string
-  register: UseFormRegister<FieldValues>
-  validation: object
-  errors: errorObject
+  register?: UseFormRegister<FieldValues>
+  validation?: object
+  errors?: errorObject
   defaultValue?: string
 }
 
@@ -27,7 +27,7 @@ const TextArea: React.FC<TextAreaProps> = ({
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
 
       <StyledTextArea
-        {...register(name, validation)}
+        {...(register && validation ? { ...register(name, validation) } : {})}
         id={name}
         name={name}
         placeholder={placeholder}

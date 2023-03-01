@@ -7,10 +7,10 @@ import { StyledDropdown, StyledOption, StyledLabel, FieldRowStyle } from './styl
 type DropdownProps = {
   label: string
   name: string
-  validation: object
   register?: UseFormRegister<FieldValues>
-  errors: errorObject
-  disabled: boolean
+  validation?: object
+  errors?: errorObject
+  disabled?: boolean
   options: Option[]
   defaultValue: string
   onChange: ChangeEventHandler
@@ -32,10 +32,10 @@ const Dropdown: React.FC<DropdownProps> = ({
       <StyledLabel htmlFor={name}>
         {label}
         <StyledDropdown
-          {...(register ? { ...register(name, validation) } : {})}
+          {...(register && validation ? { ...register(name, validation) } : {})}
           id={name}
           name={name}
-          disabled={disabled}
+          {...(disabled ? { disabled } : {})}
           value={defaultValue}
           onChange={(e): ChangeEvent | void => onChange(e)}
         >

@@ -24,7 +24,6 @@ it('renders the dropdown with a label element and 2 items', async () => {
     <Dropdown
       label="Dropdown label"
       disabled={false}
-      errors={{ message: '', type: '' }}
       name="unit"
       options={optionList}
       key="dropdown"
