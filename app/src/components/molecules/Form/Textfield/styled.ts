@@ -1,23 +1,26 @@
-import styled from 'styled-components'
+import tw from 'tailwind-styled-components'
 
-export const InputStyle = styled.input`
-  display: flex;
-  color: black;
-  border: 1px solid #0d6efd;
-  padding: 8px;
-  transition: padding 200ms ease-in-out;
-  width: 99%;
+interface TWStyledInputParameter {
+  $isEditing: boolean
+}
 
-  &:focus {
-    padding-left: 16px;
-  }
+export const InputStyle = tw.input`
+  flex
+  text-black
+  p-2
+  border-1
+  rounded-sm
+  focus:pl-3
+  transition-all
+
+  ${(p: TWStyledInputParameter): string => (p.$isEditing ? 'border-blue' : 'border-transparent')}
 `
 
-export const FieldRowStyle = styled.div`
+export const FieldRowStyle = tw.div`
   max-width: 320px;
 `
 
-export const LabelStyle = styled.label`
+export const LabelStyle = tw.label`
   margin-bottom: 8px;
   color: black;
 `

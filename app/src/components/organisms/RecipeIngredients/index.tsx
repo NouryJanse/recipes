@@ -79,72 +79,74 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
   }
 
   return (
-    <form onSubmit={handleSubmit(onSave)}>
-      <FieldContainer>
-        <AutoComplete
-          labelText="Search for an ingredient*"
-          name="ingredient"
-          options={options}
-          handleOnChange={(option: Option | null): void => {
-            if (option && option.value) {
-              setValue('id', option.id)
-            }
-          }}
-          setRef={setRef}
-          errors={{ message: '', type: '' }}
-        />
-      </FieldContainer>
+    <div>
+      <form onSubmit={handleSubmit(onSave)} className="mb-6">
+        <FieldContainer>
+          <AutoComplete
+            labelText="Search for an ingredient*"
+            name="ingredient"
+            options={options}
+            handleOnChange={(option: Option | null): void => {
+              if (option && option.value) {
+                setValue('id', option.id)
+              }
+            }}
+            setRef={setRef}
+            errors={{ message: '', type: '' }}
+          />
+        </FieldContainer>
 
-      <FieldContainer>
-        <Dropdown
-          name="unit"
-          label="Unit*"
-          defaultValue={unit}
-          disabled={false}
-          onChange={(changedUnit: ChangeEvent<HTMLInputElement>): void => {
-            setUnit(changedUnit.target.value)
-          }}
-          validation={{
-            required: 'Did you forget to fill in the unit of your ingredient?',
-          }}
-          register={register}
-          errors={errors.unit}
-          options={INGREDIENT_UNITS}
-        />
-      </FieldContainer>
+        <FieldContainer>
+          <Dropdown
+            name="unit"
+            label="Unit*"
+            defaultValue={unit}
+            disabled={false}
+            onChange={(changedUnit: ChangeEvent<HTMLInputElement>): void => {
+              setUnit(changedUnit.target.value)
+            }}
+            validation={{
+              required: 'Did you forget to fill in the unit of your ingredient?',
+            }}
+            register={register}
+            errors={errors.unit}
+            options={INGREDIENT_UNITS}
+          />
+        </FieldContainer>
 
-      <FieldContainer>
-        <Number
-          name="amount"
-          label="Amount*"
-          placeholder="Enter the amount of the ingredient"
-          validation={{
-            required: 'Did you forget to enter the amount?',
-            min: {
-              value: 1,
-              message: 'Minimal 1',
-            },
-            valueAsNumber: true,
-          }}
-          register={register}
-          errors={errors.amount}
-        />
-      </FieldContainer>
+        <FieldContainer>
+          <Number
+            name="amount"
+            label="Amount*"
+            placeholder="Enter the amount of the ingredient"
+            validation={{
+              required: 'Did you forget to enter the amount?',
+              min: {
+                value: 1,
+                message: 'Minimal 1',
+              },
+              valueAsNumber: true,
+            }}
+            register={register}
+            errors={errors.amount}
+          />
+        </FieldContainer>
 
-      <Button type="submit" label="Add ingredient" classes="mb-4" />
+        <Button type="submit" label="Add ingredient" />
+      </form>
 
       <FieldContainer>
         <div>
           <p className="mb-2">These are the linked ingredients</p>
 
           {recipe.ingredients && recipe.ingredients.length ? (
-            <EditableIngredientList ingredients={recipe.ingredients} />
+            <EditableIngredientList ingredients={recipe.ingredients} recipe={recipe} />
           ) : (
             ''
           )}
         </div>
       </FieldContainer>
-    </form>
+    </div>
   )
 }
 
