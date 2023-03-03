@@ -5,7 +5,11 @@ interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   extraClasses: string
 }
 
-const Heading = ({ headingLevel = 'h6', children, extraClasses = '' }: HeadingProps): ReactElement => {
+const Heading: React.FC<HeadingProps> = ({
+  headingLevel = 'h6',
+  children,
+  extraClasses = '',
+}: HeadingProps): ReactElement => {
   switch (headingLevel) {
     case 'h1':
       return <h1 className={`xs:text-sm ${extraClasses}`}>{children}</h1>

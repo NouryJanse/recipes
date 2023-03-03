@@ -15,7 +15,7 @@ const StyledLabel = tw.label`
   text-center
   w-full
   hover:cursor-pointer
-  max-w-2xl	
+  max-w-2xl	  
 `
 
 export default StyledLabel

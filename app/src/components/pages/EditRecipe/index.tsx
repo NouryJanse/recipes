@@ -92,6 +92,9 @@ const EditRecipe: React.FC = (): ReactElement => {
     if (recipe?.name) {
       setRecipeName(recipe.name)
     }
+    if (recipe?.course) {
+      setCourse(recipe.course)
+    }
 
     if (recipe && recipe.images && !initialRecipeLoad) {
       setImageSortableList(recipe?.images ? recipe.images : [])
@@ -165,7 +168,9 @@ const EditRecipe: React.FC = (): ReactElement => {
     <div className="pt-7">
       <div className="flex justify-between">
         <PageTitle
-          text={`Editing ${recipeName} - ${courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}`}
+          text={`Editing ${recipeName} - ${
+            recipe.course ? `${courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}` : ''
+          }`}
         />
 
         {isLoading(status) && <Loader />}
@@ -179,7 +184,7 @@ const EditRecipe: React.FC = (): ReactElement => {
       </div>
 
       <div className="grid xs:grid-cols-1 lg:grid-cols-2 gap-3">
-        <div>
+        <div className="mb-4">
           <form className="" onSubmit={handleSubmit(onSave)} {...formRef}>
             <FieldContainer>
               <Textfield
@@ -263,7 +268,7 @@ const EditRecipe: React.FC = (): ReactElement => {
         </div>
         <div>
           <Heading headingLevel="h2" extraClasses="">
-            Ingredients
+            Add ingredients
           </Heading>
           {id && <RecipesIngredients recipe={recipe} />}
         </div>

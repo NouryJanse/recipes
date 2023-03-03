@@ -21,6 +21,7 @@ export const FieldRowStyle = tw.div`
 `
 
 export const LabelStyle = tw.label`
-  margin-bottom: 8px;
+  block
+  mb-1
   color: black;
 `
