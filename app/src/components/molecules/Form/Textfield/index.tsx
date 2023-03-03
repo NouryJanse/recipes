@@ -64,19 +64,30 @@ const Textfield: React.FC<TextFieldProps> = ({
         {label}
       </LabelStyle>
 
-      <InputStyle
-        {...(register && validation ? { ...register(name, validation) } : {})}
-        id={name}
-        name={name}
-        type={type}
-        defaultValue={editingValue}
-        placeholder={placeholder}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        onBlur={onBlur}
-        onFocus={onFocus}
-        $isEditing={isEditing}
-      />
+      {register && validation ? (
+        <InputStyle
+          {...register(name, validation)}
+          id={name}
+          name={name}
+          type={type}
+          defaultValue={editingValue}
+          placeholder={placeholder}
+          $isEditing={isEditing}
+        />
+      ) : (
+        <InputStyle
+          id={name}
+          name={name}
+          type={type}
+          defaultValue={editingValue}
+          placeholder={placeholder}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          $isEditing={isEditing}
+        />
+      )}
 
       {errors && <ErrorMessage errorObject={errors} />}
     </FieldRowStyle>

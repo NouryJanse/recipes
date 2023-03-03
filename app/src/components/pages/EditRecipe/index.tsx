@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, ReactElement } from 'react'
+import { useEffect, useState, useRef, ReactElement, ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -43,6 +43,7 @@ const EditRecipe: React.FC = (): ReactElement => {
   const [imageSortableList, setImageSortableList] = useState<Image[]>([])
   const [btnClasses, setBtnClasses] = useState('mb-10')
   const [recipeName, setRecipeName] = useState<string>('')
+  const [course, setCourse] = useState<string>('')
 
   const hasURLParams = useRef(false)
 
@@ -52,6 +53,7 @@ const EditRecipe: React.FC = (): ReactElement => {
     formState: { errors, isDirty },
     watch,
     setValue,
+    getValues,
   } = useForm()
 
   const dispatchEdit = async (data: Recipe, editedRecipe: Recipe): Promise<boolean> => {
@@ -182,8 +184,8 @@ const EditRecipe: React.FC = (): ReactElement => {
               <Textfield
                 name="name"
                 type="text"
+                defaultValue={recipe.name}
                 label="Recipe name*"
-                defaultValue={recipeName}
                 placeholder="Fill in a name"
                 validation={{
                   required: 'Did you forget to name your recipe?',
@@ -211,16 +213,16 @@ const EditRecipe: React.FC = (): ReactElement => {
               <Dropdown
                 name="course"
                 label="Course*"
-                defaultValue="0"
-                disabled={false}
+                defaultValue={course}
+                register={register}
                 validation={{
                   required: 'Did you forget to fill in the course of your recipe?',
                 }}
-                register={register}
                 errors={errors.description}
                 options={RECIPE_COURSE_OPTIONS}
-                onChange={(): void => {
-                  ;``
+                onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+                  setCourse(event.target.value)
+                  setValue('course', event.target.value)
                 }}
               />
             </FieldContainer>

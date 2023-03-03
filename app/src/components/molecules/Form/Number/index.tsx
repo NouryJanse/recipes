@@ -45,17 +45,27 @@ const Number: React.FC<NumberProps> = ({
     <FieldRowStyle>
       <LabelStyle htmlFor={name}>{label}</LabelStyle>
 
-      <InputStyle
-        {...(register && validation ? { ...register(name, validation) } : {})}
-        id={name}
-        name={name}
-        type="number"
-        defaultValue={defaultValue}
-        placeholder={placeholder}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        onBlur={onBlur}
-      />
+      {register && validation ? (
+        <InputStyle
+          {...register(name, validation)}
+          id={name}
+          name={name}
+          type="number"
+          defaultValue={defaultValue}
+          placeholder={placeholder}
+        />
+      ) : (
+        <InputStyle
+          id={name}
+          name={name}
+          type="number"
+          defaultValue={defaultValue}
+          placeholder={placeholder}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          onBlur={onBlur}
+        />
+      )}
 
       {errors && <ErrorMessage errorObject={errors} />}
     </FieldRowStyle>
