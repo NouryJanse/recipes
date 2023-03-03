@@ -26,11 +26,9 @@ const updateIngredientAPI = async (data: Ingredient, token: string): Promise<Ing
 }
 
 const updateIngredientThunk = createAsyncThunk('ingredients/updateIngredient', async (data: Ingredient, thunkApi) => {
-  console.log(data)
-  return
-  // const state = thunkApi.getState() as RootState
-  // const user = state.userSlice?.data?.user
-  // return updateIngredientAPI({ ...data }, user.token)
+  const state = thunkApi.getState() as RootState
+  const user = state.userSlice?.data?.user
+  return updateIngredientAPI({ ...data }, user.token)
 })
 
 export default updateIngredientThunk

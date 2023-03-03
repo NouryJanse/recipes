@@ -53,6 +53,7 @@ interface FastifyIngredientBody {
 interface FastifyIngredientRecipeBody {
   recipeId: number
   ingredientId: number
+  id?: number
   unit: string
   amount: number
 }

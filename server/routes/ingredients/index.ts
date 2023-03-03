@@ -8,6 +8,7 @@ import {
   updateIngredientOps,
   linkIngredientToRecipeOps,
 } from '../../controllers/ingredients/'
+import updateRecipeIngredientOps from '../../controllers/ingredients/updateRecipeIngredientOps'
 
 export default fp(
   (
@@ -41,9 +42,19 @@ export default fp(
       preValidation: server.authenticate,
     })
 
+    /*
+     * RECIPE INGREDIENTS
+     */
+
     // LINK INGREDIENT TO RECIPE
     server.post('/api/ingredients/recipe', {
       handler: linkIngredientToRecipeOps,
+      preValidation: server.authenticate,
+    })
+
+    // UPDATE INGREDIENT RECIPE LINK
+    server.put('/api/ingredients/recipe/:id', {
+      handler: updateRecipeIngredientOps,
       preValidation: server.authenticate,
     })
 

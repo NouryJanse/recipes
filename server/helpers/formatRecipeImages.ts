@@ -21,6 +21,8 @@ const formatRecipeImages = (recipes: Recipe[]): Recipe[] => {
           const withImages = {
             ...ingredient,
             ...ingredient.ingredient,
+            id: ingredient.id,
+            unit: ingredient.unit,
           }
           delete withImages.ingredient
           return withImages

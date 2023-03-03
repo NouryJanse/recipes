@@ -27,7 +27,10 @@ const Number: React.FC<NumberProps> = ({
 }): ReactElement => {
   const [editingValue, setEditingValue] = useState(defaultValue)
 
-  const onChange = (event): void => setEditingValue(event.target.value)
+  const onChange = (event): void => {
+    setEditingValue(event.target.value)
+    if (setValue) setValue(event.target.value)
+  }
   const onKeyDown = (event): void => {
     if (event.key === 'Enter' || event.key === 'Escape') {
       event.target.blur()

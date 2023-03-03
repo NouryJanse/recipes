@@ -1,81 +1,96 @@
-import { ChangeEvent, ChangeEventHandler, ReactElement, useRef } from 'react'
+import { ChangeEvent, ChangeEventHandler, ReactElement, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { debounce } from 'ts-debounce'
 import { Textfield, Number, Dropdown } from '../..'
 import { INGREDIENT_UNITS } from '../../../constants'
-import { updateIngredient } from '../../../redux/reducers/ingredients/ingredientSlice'
+import { updateRecipeIngredient } from '../../../redux/reducers/ingredients/ingredientSlice'
 import RootState from '../../../types/RootState'
 
 interface EditableIngredientListProps {
-  ingredients: Ingredient[]
+  ingredients: RecipeIngredient[]
   recipe: Recipe
+}
+
+type LocalUnit = {
+  id: number
+  unit: string | undefined
 }
 
 const EditableIngredientList: React.FC<EditableIngredientListProps> = ({ ingredients, recipe }): ReactElement => {
   const user: User = useSelector((state: RootState) => state.userSlice.data.user)
   const dispatch = useDispatch()
+  const [updatedIngredient, setUpdatedIngredient] = useState<RecipeIngredient>()
+  const [unit, setUnit] = useState<LocalUnit[]>(
+    ingredients.map((ingredient: RecipeIngredient) => {
+      return { id: ingredient.id, unit: ingredient.unit }
+    }),
+  )
 
-  const dispatchEdit = async (name: string, value: string | number, ingredientId: number): Promise<boolean> => {
-    const obj = {
-      authorId: user.sub,
-      recipeId: recipe.id,
-      [name]: value,
-      ingredientId,
-    }
-
+  const dispatchEdit = async (ingredient: RecipeIngredient): Promise<boolean> => {
     // @ts-ignore:next-line
-    await dispatch(updateIngredient(obj))
+    await dispatch(updateRecipeIngredient(ingredient))
     return true
   }
 
   const debouncedSubmit = useRef(
-    debounce(async (name, value, ingredientId) => {
-      dispatchEdit(name, value, ingredientId)
+    debounce(async (ingredient: RecipeIngredient) => {
+      dispatchEdit(ingredient)
     }, 500),
   ).current
 
-  const setValue = (name: string, value: string | number, ingredientId: number): void => {
-    debouncedSubmit(name, value, ingredientId)
+  const setValue = async (name: string, value: number | string, linkedIngredient: RecipeIngredient): Promise<void> => {
+    await setUpdatedIngredient({
+      authorId: user.sub,
+      recipeId: recipe.id,
+      id: linkedIngredient.id,
+      [name]: value,
+    })
+  }
+
+  useEffect(() => {
+    if (updatedIngredient) debouncedSubmit(updatedIngredient)
+  }, [updatedIngredient])
+
+  const currentUnit = (linkedIngredient): string => {
+    const res: LocalUnit | undefined = unit.find((u) => {
+      return u.id === linkedIngredient.id ? u : null
+    })
+    if (res?.unit) return res.unit
+    return ''
   }
 
   return (
     <div>
-      {ingredients.map((ingredient: Ingredient) => {
+      {ingredients.map((linkedIngredient: RecipeIngredient) => {
         return (
-          <div key={ingredient.id} className="flex flex-row mb-4">
-            <div className="pr-3">
-              <Textfield
-                name="name"
-                type="input"
-                label=""
-                placeholder=""
-                errors={undefined}
-                defaultValue={ingredient.name}
-                setValue={(value: number | string): void => {
-                  setValue('name', value, ingredient.id)
-                }}
-                defaultIsNotEditing
-                labelClasses=""
-              />
-            </div>
+          <div key={linkedIngredient.id} className="flex flex-row mb-4">
+            <div className="pr-3 self-center">{linkedIngredient.name}</div>
 
             <Number
               name="amount"
               label=""
               placeholder=""
-              defaultValue={ingredient.amount}
-              setValue={(value: number | string): void => {
-                setValue('amount', value, ingredient.id)
+              defaultValue={linkedIngredient.amount}
+              setValue={(value: number): void => {
+                setValue('amount', +value, linkedIngredient)
               }}
             />
 
             <Dropdown
               name="unit"
-              defaultValue={ingredient.unit}
+              defaultValue={currentUnit(linkedIngredient)}
               label=""
               options={INGREDIENT_UNITS}
               onChange={(e: ChangeEvent<HTMLInputElement>): void => {
-                setValue('unit', e.target.value, ingredient.id)
+                setUnit(
+                  unit.map((u) => {
+                    if (u.id === linkedIngredient.id) {
+                      return { id: u.id, unit: e.target.value }
+                    }
+                    return u
+                  }),
+                )
+                setValue('unit', e.target.value, linkedIngredient)
               }}
             />
           </div>
