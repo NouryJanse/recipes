@@ -20,6 +20,7 @@ import {
   FieldContainer,
   Loader,
   RecipesIngredients,
+  Heading,
 } from '../../index'
 
 import RootState from '../../../types/RootState'
@@ -177,7 +178,7 @@ const EditRecipe: React.FC = (): ReactElement => {
         />
       </div>
 
-      <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-3">
+      <div className="grid xs:grid-cols-1 lg:grid-cols-2 gap-3">
         <div>
           <form className="" onSubmit={handleSubmit(onSave)} {...formRef}>
             <FieldContainer>
@@ -260,7 +261,12 @@ const EditRecipe: React.FC = (): ReactElement => {
             <Link to="/recipes">Back to recipes</Link>
           </form>
         </div>
-        <div>{id && <RecipesIngredients recipe={recipe} />}</div>
+        <div>
+          <Heading headingLevel="h2" extraClasses="">
+            Ingredients
+          </Heading>
+          {id && <RecipesIngredients recipe={recipe} />}
+        </div>
       </div>
     </div>
   )

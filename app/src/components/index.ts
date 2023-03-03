@@ -6,6 +6,7 @@ export { default as Icon } from './atoms/Icon'
 export { default as ImageComponent } from './atoms/Image'
 export { default as Loader } from './atoms/Loader'
 export { default as PageTitle } from './atoms/Typography/PageTitle'
+export { default as Heading } from './atoms/Typography/Heading'
 
 // MOLECULES
 export { default as AutoComplete } from './molecules/Form/AutoComplete'
