@@ -1,7 +1,7 @@
 import tw from 'tailwind-styled-components'
 
 const StyledFieldContainer = tw.div`
-  mb-3
+  mb-4
 `
 
 export default StyledFieldContainer

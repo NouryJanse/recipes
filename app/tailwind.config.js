@@ -18,6 +18,7 @@ module.exports = {
       white: '#FFF',
       slate: colors.slate,
       gray: colors.gray,
+      darkGray: 'rgb(25, 44, 69)',
       zinc: colors.zinc,
       neutral: colors.neutral,
       stone: colors.stone,

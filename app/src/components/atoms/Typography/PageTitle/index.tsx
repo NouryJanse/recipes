@@ -5,7 +5,7 @@ type PageTitleProps = {
 }
 
 const PageTitle: React.FC<PageTitleProps> = ({ text }): ReactElement => {
-  return <h1 className="text-xl md:text-3xl xl:text-4xl font-bold mb-20">{text}</h1>
+  return <h1 className="text-xl md:text-3xl xl:text-4xl 2xl:text-5xl font-bold">{text}</h1>
 }
 
 export default PageTitle

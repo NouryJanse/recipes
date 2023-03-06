@@ -21,7 +21,7 @@ interface Recipe {
   createdAt: string
   updatedAt: string
   images?: Image[]
-  ingredients: Ingredient[]
+  ingredients: RecipeIngredient[]
 }
 interface Ingredient {
   id: number
@@ -35,11 +35,13 @@ interface Ingredient {
 }
 
 type RecipeIngredient = {
+  id: number
   authorId: string
   recipeId: number
-  ingredientId: number
-  amount: number
-  unit: string
+  ingredientId?: number
+  name?: string
+  amount?: number
+  unit?: string
 }
 
 interface Option {

@@ -14,6 +14,7 @@ type DropdownProps = {
   options: Option[]
   defaultValue: string
   onChange: ChangeEventHandler
+  classes?: string
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -26,6 +27,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   options,
   defaultValue,
   onChange,
+  classes = '',
 }): ReactElement => {
   return (
     <FieldRowStyle>
@@ -38,6 +40,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           {...(disabled ? { disabled } : {})}
           value={defaultValue}
           onChange={(e): ChangeEvent | void => onChange(e)}
+          className={classes}
         >
           {options.map((option: Option) => {
             return (

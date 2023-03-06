@@ -14,12 +14,7 @@ type ImagePickerProps = {
   validation: object
 }
 
-const ImagePicker: React.FC<ImagePickerProps> = ({
-  name,
-  label,
-  register,
-  onSelectedImageCallback,
-}): ReactElement => {
+const ImagePicker: React.FC<ImagePickerProps> = ({ name, label, register, onSelectedImageCallback }): ReactElement => {
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       const file = await readAsDataURLViaPromise(acceptedFiles[0])

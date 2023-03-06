@@ -31,4 +31,5 @@ export const StyledLabel = styled.label`
   border-radius: 100px;
   position: relative;
   transition: background-color 0.2s;
+  margin-bottom: 4px;
 `

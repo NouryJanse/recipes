@@ -50,14 +50,12 @@ const RecipeDetail: React.FC = (): ReactElement => {
         }}
         className="relative mb-16 bg-cover bg-no-repeat bg-center overflow-hidden"
       >
-        <h1 className="text-xl xl:text-4xl font-bold pt-32 pb-32 pl-10 text-white">
-          {recipe.name}
-        </h1>
+        <h1 className="text-xl xl:text-4xl font-bold pt-32 pb-32 pl-10 text-white">{recipe.name}</h1>
       </div>
 
       <div className="mb-4">
-        {recipe.updatedAt && <p>Last updated: {formatNLDateTime(recipe.updatedAt)}</p>}
-        {recipe.createdAt && <p>Created at: {formatNLDateTime(recipe.createdAt)}</p>}
+        {recipe.updatedAt && <p>Updated: {formatNLDateTime(recipe.updatedAt)}</p>}
+        {recipe.createdAt && <p>Created: {formatNLDateTime(recipe.createdAt)}</p>}
       </div>
 
       {recipe.description && <p className="mb-4">{recipe.description}</p>}
@@ -65,15 +63,10 @@ const RecipeDetail: React.FC = (): ReactElement => {
       <i className="block mb-4">{recipe.course}</i>
 
       <Link to={`/recipes/${recipe.id}/edit`}>
-        <Button type="button" label="Edit" buttonStyle="secondary" />
+        <Button type="button" label="Edit" buttonStyle="secondary" classes="mb-4" />
       </Link>
 
-      <Button
-        classes="mb-6"
-        type="button"
-        label="Delete"
-        onClick={(): Promise<boolean> => onDelete(recipe.id)}
-      />
+      <Button classes="mb-6" type="button" label="Delete" onClick={(): Promise<boolean> => onDelete(recipe.id)} />
 
       <Link to="/recipes" className="flex items-center">
         <IoChevronBackOutline />

@@ -6,6 +6,7 @@ import {
   getIngredientsThunk,
   updateIngredientThunk,
   linkIngredientToRecipeThunk,
+  updateRecipeIngredientThunk,
 } from './thunks'
 import { REDUX_STATE } from '../../../constants'
 import LogHelper from '../../../helpers/LogHelper'
@@ -30,6 +31,7 @@ export const getIngredient = getIngredientThunk
 export const getIngredients = getIngredientsThunk
 export const updateIngredient = updateIngredientThunk
 export const linkIngredientToRecipe = linkIngredientToRecipeThunk
+export const updateRecipeIngredient = updateRecipeIngredientThunk
 
 export const ingredientSlice = createSlice({
   name: 'ingredients',

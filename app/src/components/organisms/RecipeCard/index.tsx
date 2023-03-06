@@ -19,11 +19,7 @@ type RecipeCardProps = {
   withRemovalButton?: boolean
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({
-  recipe,
-  withEditButton,
-  withRemovalButton,
-}): ReactElement => {
+const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRemovalButton }): ReactElement => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -68,9 +64,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
     <RecipeContainer
       style={{
         backgroundImage: mainImage,
-        boxShadow: !isHovering
-          ? 'inset 0 0 0 2000px rgba(0, 0, 0, 0.3)'
-          : 'inset 0 0 0 2000px rgba(0, 0, 0, 0.4)',
+        boxShadow: !isHovering ? 'inset 0 0 0 2000px rgba(0, 0, 0, 0.3)' : 'inset 0 0 0 2000px rgba(0, 0, 0, 0.4)',
       }}
       onClick={(): void => {
         navigate(`/recipes/${recipe.id}`)

@@ -1,16 +1,8 @@
 import React, { ReactElement } from 'react'
-import Select, { ActionMeta } from 'react-select'
+import Select from 'react-select'
 import ErrorMessage from '../../../atoms/ErrorMessage'
 import StyledLabel from './styled'
-
-type AutoCompleteProps = {
-  name: string
-  labelText: string
-  options: Option[] | undefined
-  handleOnChange: (option: Option | null, actionMeta: ActionMeta<Option>) => void
-  setRef?: any
-  errors: errorObject
-}
+import AutoCompleteProps from './type'
 
 const AutoComplete: React.FC<AutoCompleteProps> = ({
   name,
@@ -32,17 +24,14 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
           onChange={handleOnChange}
           escapeClearsValue
           isClearable
+          className="pt-2"
         />
       ) : (
-        <Select options={options} onChange={handleOnChange} escapeClearsValue isClearable />
+        <Select options={options} onChange={handleOnChange} escapeClearsValue isClearable className="pt-2" />
       )}
       {errors && <ErrorMessage errorObject={errors} />}
     </StyledLabel>
   )
-}
-
-AutoComplete.defaultProps = {
-  setRef: {},
 }
 
 export default AutoComplete

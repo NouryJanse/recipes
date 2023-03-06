@@ -18,6 +18,8 @@ export const StyledTextArea = styled.textarea`
 
 export const StyledLabel = styled.label`
   color: black;
+  display: block;
+  margin-bottom: 4px;
 `
 
 export const FieldRowStyle = styled.div`

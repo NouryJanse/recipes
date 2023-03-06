@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef, ReactElement } from 'react'
+import { useEffect, useState, useRef, ReactElement, ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
 import {
@@ -19,7 +19,9 @@ import {
   ImageSortableList,
   FieldContainer,
   Loader,
-  RecipesIngredients,
+  AddRecipeIngredient,
+  Heading,
+  EditableIngredientList,
 } from '../../index'
 
 import RootState from '../../../types/RootState'
@@ -34,15 +36,19 @@ const EditRecipe: React.FC = (): ReactElement => {
   const formRef = useRef()
 
   const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
-  const status = useSelector((state: RootState) => state.recipeSlice.status)
+  const recipeStatus = useSelector((state: RootState) => state.recipeSlice.status)
+  const ingredientStatus = useSelector((state: RootState) => state.ingredientSlice.status)
+  const status = { ...recipeStatus, ...ingredientStatus }
 
   const [initialRecipeLoad, setInitialRecipeLoad] = useState(false)
   const [id, setId] = useState<string | undefined>('')
   const [recipe, setRecipe] = useState<Recipe>()
   const [imagePreviewList, setImageViewList] = useState<ImageData[]>([])
   const [imageSortableList, setImageSortableList] = useState<Image[]>([])
-  const [btnClasses, setBtnClasses] = useState('mb-10')
+  const [btnClasses, setBtnClasses] = useState('')
   const [recipeName, setRecipeName] = useState<string>('')
+  const [course, setCourse] = useState<string>('')
+  const navigate = useNavigate()
 
   const hasURLParams = useRef(false)
 
@@ -68,7 +74,7 @@ const EditRecipe: React.FC = (): ReactElement => {
   }
 
   useEffect(() => {
-    if (isDirty) setBtnClasses('font-bold mb-10')
+    if (isDirty) setBtnClasses('font-bold')
 
     if (hasURLParams.current === false || !recipe || !id) {
       if (!typeof params.recipeId !== undefined) {
@@ -88,6 +94,9 @@ const EditRecipe: React.FC = (): ReactElement => {
 
     if (recipe?.name) {
       setRecipeName(recipe.name)
+    }
+    if (recipe?.course) {
+      setCourse(recipe.course)
     }
 
     if (recipe && recipe.images && !initialRecipeLoad) {
@@ -160,30 +169,51 @@ const EditRecipe: React.FC = (): ReactElement => {
 
   return (
     <div className="pt-7">
-      <div className="flex justify-between">
+      <div className="flex justify-between mb-16">
         <PageTitle
-          text={`Editing ${recipeName} - ${courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}`}
+          text={`Editing ${recipeName} - ${
+            recipe.course ? `${courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}` : ''
+          }`}
         />
 
         {isLoading(status) && <Loader />}
 
-        <Button
-          onClick={(): Promise<void> => handleSubmit(onSave)()}
-          type="submit"
-          label="Save recipe"
-          classes={`${btnClasses} mr-2`}
-        />
+        <div className="flex">
+          <Button
+            onClick={(): void => navigate('/recipes')}
+            type="button"
+            label="Back recipes"
+            classes={`${btnClasses} self-center mr-3`}
+            buttonStyle="tertiary"
+          />
+          {params.recipeId && (
+            <Button
+              onClick={(): void => navigate(`/recipes/${params.recipeId}`)}
+              type="button"
+              label={`Back to ${recipe.name}`}
+              classes={`${btnClasses} self-center mr-3`}
+              buttonStyle="secondary"
+            />
+          )}
+          <Button
+            onClick={(): Promise<void> => handleSubmit(onSave)()}
+            type="button"
+            label="Save recipe"
+            classes={`${btnClasses} self-center`}
+            buttonStyle="primary"
+          />
+        </div>
       </div>
 
-      <div className="grid xs:grid-cols-1 md:grid-cols-2 gap-3">
-        <div>
+      <div className="grid xs:grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="mb-4">
           <form className="" onSubmit={handleSubmit(onSave)} {...formRef}>
             <FieldContainer>
               <Textfield
                 name="name"
                 type="text"
+                defaultValue={recipe.name}
                 label="Recipe name*"
-                defaultValue={recipeName}
                 placeholder="Fill in a name"
                 validation={{
                   required: 'Did you forget to name your recipe?',
@@ -211,20 +241,21 @@ const EditRecipe: React.FC = (): ReactElement => {
               <Dropdown
                 name="course"
                 label="Course*"
-                defaultValue="0"
-                disabled={false}
+                defaultValue={course}
+                register={register}
                 validation={{
                   required: 'Did you forget to fill in the course of your recipe?',
                 }}
-                register={register}
                 errors={errors.description}
                 options={RECIPE_COURSE_OPTIONS}
-                onChange={(): void => {
-                  ;``
+                onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+                  setCourse(event.target.value)
+                  setValue('course', event.target.value)
                 }}
               />
             </FieldContainer>
 
+            {/* IMAGES HERE */}
             <FieldContainer>
               <ImagePicker
                 name="images"
@@ -248,17 +279,33 @@ const EditRecipe: React.FC = (): ReactElement => {
                 onDelete={deleteImage}
               />
             )}
-
-            {params.recipeId && (
-              <Link to={`/recipes/${params.recipeId}`}>
-                Back to <b>{recipe.name}</b>
-              </Link>
-            )}
-
-            <Link to="/recipes">Back to recipes</Link>
           </form>
         </div>
-        <div>{id && <RecipesIngredients recipe={recipe} />}</div>
+
+        {/* LINKING INGREDIENTS HERE */}
+        <div>
+          <FieldContainer>
+            <>
+              <Heading headingLevel="h2" extraClasses="">
+                New ingredient
+              </Heading>
+              {id && <AddRecipeIngredient recipe={recipe} />}
+            </>
+          </FieldContainer>
+          <FieldContainer>
+            <>
+              <Heading headingLevel="h2" extraClasses="">
+                Ingredients
+              </Heading>
+
+              {recipe.ingredients && recipe.ingredients.length ? (
+                <EditableIngredientList ingredients={recipe.ingredients} recipe={recipe} />
+              ) : (
+                ''
+              )}
+            </>
+          </FieldContainer>
+        </div>
       </div>
     </div>
   )

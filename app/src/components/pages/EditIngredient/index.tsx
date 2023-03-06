@@ -116,7 +116,7 @@ const EditIngredient: React.FC = (): ReactElement => {
             name="name"
             type="text"
             label="Ingredient name*"
-            defaultValue={ingredientName}
+            defaultValue={ingredient.name}
             placeholder="Fill in a name"
             validation={{
               required: 'Did you forget to name your ingredient?',
@@ -132,9 +132,9 @@ const EditIngredient: React.FC = (): ReactElement => {
             label="Ingredient unit type*"
             defaultValue={unit}
             disabled={false}
-            onChange={(changedUnit: ChangeEvent<HTMLInputElement>): void => {
-              setUnit(changedUnit.target.value)
-              setValue('unit', changedUnit.target.value)
+            onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+              setUnit(event.target.value)
+              setValue('unit', event.target.value)
             }}
             validation={{
               required: 'Did you forget to fill in the unit of your ingredient?',

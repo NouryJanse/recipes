@@ -1,7 +1,5 @@
-import React, { ChangeEventHandler, ReactElement, useEffect } from 'react'
+import React, { ChangeEventHandler, ReactElement } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
-
-import ErrorMessage from '../../../atoms/ErrorMessage'
 import { StyledInput, StyledSpan, StyledLabel } from './styled'
 
 type ToggleProps = {

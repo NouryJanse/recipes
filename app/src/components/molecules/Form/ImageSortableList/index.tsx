@@ -34,11 +34,7 @@ const ImageSortableList: React.FC<ImageSortableListProps> = ({
                 <ul className="images" {...provided.droppableProps} ref={provided.innerRef}>
                   {images.map(
                     (
-                      {
-                        id,
-                        url,
-                        cloudinaryPublicId,
-                      }: { id: number; url: string; cloudinaryPublicId: string },
+                      { id, url, cloudinaryPublicId }: { id: number; url: string; cloudinaryPublicId: string },
                       index: number,
                     ) => {
                       return (
@@ -52,12 +48,7 @@ const ImageSortableList: React.FC<ImageSortableListProps> = ({
                             >
                               <div className="max-w-xs mb-8">
                                 <div className="mb-2">
-                                  <ImageComponent
-                                    alt="alt-text"
-                                    src={url}
-                                    width={200}
-                                    height={100}
-                                  />
+                                  <ImageComponent alt="alt-text" src={url} width={200} height={100} />
                                 </div>
 
                                 <Button

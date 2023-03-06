@@ -20,14 +20,11 @@ async function createRecipeAPI(recipe: Recipe, token: string): Promise<Recipe> {
   return response.data
 }
 
-const createRecipeThunk = createAsyncThunk(
-  'recipes/createRecipe',
-  async (data: Recipe, thunkApi) => {
-    const state = thunkApi.getState() as RootState
-    const user: User = state.userSlice?.data?.user
-    const response = await createRecipeAPI({ ...data, authorId: user.sub }, user.token)
-    return response
-  },
-)
+const createRecipeThunk = createAsyncThunk('recipes/createRecipe', async (data: Recipe, thunkApi) => {
+  const state = thunkApi.getState() as RootState
+  const user: User = state.userSlice?.data?.user
+  const response = await createRecipeAPI({ ...data, authorId: user.sub }, user.token)
+  return response
+})
 
 export default createRecipeThunk

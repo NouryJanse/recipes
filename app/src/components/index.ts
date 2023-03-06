@@ -6,6 +6,7 @@ export { default as Icon } from './atoms/Icon'
 export { default as ImageComponent } from './atoms/Image'
 export { default as Loader } from './atoms/Loader'
 export { default as PageTitle } from './atoms/Typography/PageTitle'
+export { default as Heading } from './atoms/Typography/Heading'
 
 // MOLECULES
 export { default as AutoComplete } from './molecules/Form/AutoComplete'
@@ -25,7 +26,9 @@ export { default as IngredientCard } from './organisms/IngredientCard'
 export { default as IngredientsTable } from './organisms/IngredientsTable'
 export { default as Navigation } from './organisms/Navigation'
 export { default as RecipeCard } from './organisms/RecipeCard'
-export { default as RecipesIngredients } from './organisms/RecipeIngredients'
+export { default as AddRecipeIngredient } from './organisms/RecipeIngredients/AddRecipeIngredient'
+export { default as EditableIngredientList } from './organisms/RecipeIngredients/EditableIngredientList'
+export { default as EditLinkedIngredient } from './organisms/RecipeIngredients/EditLinkedIngredient'
 
 // PAGES
 export { default as Account } from './pages/Account'
