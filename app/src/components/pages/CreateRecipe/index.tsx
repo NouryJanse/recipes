@@ -45,7 +45,9 @@ const CreateRecipe: React.FC = (): ReactElement => {
 
   return (
     <div className="pt-7">
-      <PageTitle text="Create a delicous meal" />
+      <div className="mb-16">
+        <PageTitle text="Create a delicous meal" />
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FieldContainer>

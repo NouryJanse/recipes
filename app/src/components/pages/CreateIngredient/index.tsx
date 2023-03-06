@@ -71,7 +71,9 @@ const CreateIngredient: React.FC = (): ReactElement => {
 
   return (
     <div className="pt-7">
-      <PageTitle text="Add a new ingredient to the platform" />
+      <div className="mb-16">
+        <PageTitle text="Add a new ingredient to the platform" />
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FieldContainer>

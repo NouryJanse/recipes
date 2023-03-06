@@ -5,6 +5,7 @@ const StyledLabel = styled.label`
   position: relative;
   max-width: 320px;
   display: block;
+  margin-bottom: 8px;
 `
 
 export default StyledLabel

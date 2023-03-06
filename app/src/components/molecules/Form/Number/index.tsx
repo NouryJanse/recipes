@@ -13,6 +13,7 @@ type NumberProps = {
   errors?: errorObject
   defaultValue?: number
   setValue?: (value: number) => void
+  classes?: string
 }
 
 const Number: React.FC<NumberProps> = ({
@@ -24,6 +25,7 @@ const Number: React.FC<NumberProps> = ({
   validation,
   errors,
   setValue,
+  classes = '',
 }): ReactElement => {
   const [editingValue, setEditingValue] = useState(defaultValue)
 
@@ -56,6 +58,7 @@ const Number: React.FC<NumberProps> = ({
           type="number"
           defaultValue={defaultValue}
           placeholder={placeholder}
+          className={classes}
         />
       ) : (
         <InputStyle
@@ -67,6 +70,7 @@ const Number: React.FC<NumberProps> = ({
           onChange={onChange}
           onKeyDown={onKeyDown}
           onBlur={onBlur}
+          className={classes}
         />
       )}
 

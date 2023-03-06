@@ -22,6 +22,8 @@ export { default as Toggle } from './molecules/Form/Toggle'
 export { default as NavigationLink } from './molecules/NavigationLink'
 
 // ORGANISMS
+export { default as EditableIngredientList } from './organisms/EditableIngredientList'
+export { default as EditLinkedIngredient } from './organisms/EditLinkedIngredient'
 export { default as IngredientCard } from './organisms/IngredientCard'
 export { default as IngredientsTable } from './organisms/IngredientsTable'
 export { default as Navigation } from './organisms/Navigation'

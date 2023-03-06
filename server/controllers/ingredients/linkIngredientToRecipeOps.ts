@@ -19,8 +19,9 @@ const linkIngredientToRecipeOps = async (
     if (!ingredient) throw new Error('An error occurred')
 
     const cache = request.serverCache()
-    if (cache && cache.has('ingredients')) {
+    if (cache) {
       cache.del('ingredients')
+      cache.del('recipes')
     }
 
     return reply.code(HTTP_CODES.CREATED).send([])

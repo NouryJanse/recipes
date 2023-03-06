@@ -11,8 +11,9 @@ const updateRecipeIngredientOps = async (
     const recipe = await updateRecipeIngredient(request.log, request.body)
 
     const cache = request.serverCache()
-    if (cache && cache.has('ingredients')) {
+    if (cache) {
       cache.del('ingredients')
+      cache.del('recipes')
     }
 
     if (recipe && recipe.id) {

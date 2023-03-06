@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 
 type HeadingProps = {
   headingLevel: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  extraClasses: string
+  extraClasses?: string
   children?: JSX.Element | string
 }
 

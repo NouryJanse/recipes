@@ -31,8 +31,8 @@ const Ingredients: React.FC = (): ReactElement | null => {
   }
 
   return (
-    <div className="pt-7">
-      <div>{status.getIngredients === REDUX_STATE.LOADING && <Loader />}</div>
+    <div>
+      <div className="mb-16">{status.getIngredients === REDUX_STATE.LOADING && <Loader />}</div>
 
       {!params.ingredientId && ingredients?.length ? (
         <div>

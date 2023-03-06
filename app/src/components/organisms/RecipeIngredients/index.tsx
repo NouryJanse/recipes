@@ -8,7 +8,6 @@ import RootState from '../../../types/RootState'
 import { getIngredients, linkIngredientToRecipe } from '../../../redux/reducers/ingredients/ingredientSlice'
 import { INGREDIENT_UNITS } from '../../../constants'
 import { getRecipe } from '../../../redux/reducers/recipes/recipeSlice'
-import EditableIngredientList from '../EditableIngredientList'
 
 type RecipesIngredientsProps = { recipe: Recipe }
 
@@ -56,6 +55,7 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
   const dispatchEdit = async (ingredient: Ingredient): Promise<boolean> => {
     reset() // clear the rest of the form
     clearAutoComplete() // clear the Autocomplete field (separate from form since its custom)
+    setUnit('')
 
     const obj = {
       authorId: user.sub,
@@ -134,18 +134,6 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
 
         <Button type="submit" label="Add ingredient" />
       </form>
-
-      <FieldContainer>
-        <div>
-          <p className="mb-2">These are the linked ingredients</p>
-
-          {recipe.ingredients && recipe.ingredients.length ? (
-            <EditableIngredientList ingredients={recipe.ingredients} recipe={recipe} />
-          ) : (
-            ''
-          )}
-        </div>
-      </FieldContainer>
     </div>
   )
 }

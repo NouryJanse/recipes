@@ -4,9 +4,8 @@ export const StyledDropdown = styled.select`
   display: flex;
   appearance: none;
   padding: 7px 40px 7px 12px;
-  width: 100%;
   border: 1px solid #0d6efd;
-  border-radius: 5px;
+  border-radius: 4px;
   background: white;
   color: black;
   box-shadow: 0 1px 3px -2px #9098a9;
