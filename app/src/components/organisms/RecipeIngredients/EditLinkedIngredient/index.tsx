@@ -1,11 +1,12 @@
 import { ChangeEvent, ReactElement, useEffect, useRef, useState } from 'react'
 import { BiEdit, BiSave } from 'react-icons/bi'
+import { MdDeleteOutline } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { debounce } from 'ts-debounce'
-import { Number, Dropdown, Icon } from '../..'
-import { INGREDIENT_UNITS } from '../../../constants'
-import { updateRecipeIngredient } from '../../../redux/reducers/ingredients/ingredientSlice'
-import RootState from '../../../types/RootState'
+import { Number, Dropdown, Icon } from '../../..'
+import { INGREDIENT_UNITS } from '../../../../constants'
+import { deleteIngredient, updateRecipeIngredient } from '../../../../redux/reducers/ingredients/ingredientSlice'
+import RootState from '../../../../types/RootState'
 
 interface EditableIngredientListProps {
   ingredient: RecipeIngredient
@@ -23,15 +24,15 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
   const [updatedIngredient, setUpdatedIngredient] = useState<RecipeIngredient>()
   const [unit, setUnit] = useState<LocalUnit>({ id: ingredient.id, unit: ingredient.unit })
 
-  const dispatchEdit = async (ingredient: RecipeIngredient): Promise<boolean> => {
+  const dispatchEdit = async (localIngredient: RecipeIngredient): Promise<boolean> => {
     // @ts-ignore:next-line
-    await dispatch(updateRecipeIngredient(ingredient))
+    await dispatch(updateRecipeIngredient(localIngredient))
     return true
   }
 
   const debouncedSubmit = useRef(
-    debounce(async (ingredient: RecipeIngredient) => {
-      dispatchEdit(ingredient)
+    debounce(async (localIngredient: RecipeIngredient) => {
+      dispatchEdit(localIngredient)
     }, 500),
   ).current
 
@@ -47,6 +48,11 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
   useEffect(() => {
     if (updatedIngredient) debouncedSubmit(updatedIngredient)
   }, [updatedIngredient])
+
+  const onDeleteIngredient = (): void => {
+    // @ts-ignore:next-line
+    dispatch(deleteIngredient(ingredient.id))
+  }
 
   return (
     <div>
@@ -82,6 +88,17 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
         />
         <Icon
           iconElement={<BiSave style={{ color: 'gray', width: '32px', height: '32px' }} />}
+          classes="items-center"
+        />
+        <Icon
+          iconElement={
+            <MdDeleteOutline
+              style={{ color: 'gray', width: '32px', height: '32px' }}
+              onMouseEnter={(): void => console.log('enter')}
+              onMouseLeave={(): void => console.log('leave')}
+              onClick={(): void => onDeleteIngredient()}
+            />
+          }
           classes="items-center"
         />
       </div>

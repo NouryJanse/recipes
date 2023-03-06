@@ -19,7 +19,7 @@ import {
   ImageSortableList,
   FieldContainer,
   Loader,
-  RecipesIngredients,
+  AddRecipeIngredient,
   Heading,
   EditableIngredientList,
 } from '../../index'
@@ -58,7 +58,6 @@ const EditRecipe: React.FC = (): ReactElement => {
     formState: { errors, isDirty },
     watch,
     setValue,
-    getValues,
   } = useForm()
 
   const dispatchEdit = async (data: Recipe, editedRecipe: Recipe): Promise<boolean> => {
@@ -290,7 +289,7 @@ const EditRecipe: React.FC = (): ReactElement => {
               <Heading headingLevel="h2" extraClasses="">
                 New ingredient
               </Heading>
-              {id && <RecipesIngredients recipe={recipe} />}
+              {id && <AddRecipeIngredient recipe={recipe} />}
             </>
           </FieldContainer>
           <FieldContainer>

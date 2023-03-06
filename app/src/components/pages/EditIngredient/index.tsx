@@ -35,7 +35,6 @@ const EditIngredient: React.FC = (): ReactElement => {
     formState: { errors, isDirty },
     watch,
     setValue,
-    getValues,
   } = useForm()
 
   const dispatchEdit = async (data: Ingredient, editedIngredient: Ingredient): Promise<boolean> => {

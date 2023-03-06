@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
 
-import { AutoComplete, Button, Dropdown, FieldContainer, Number } from '../../index'
-import RootState from '../../../types/RootState'
-import { getIngredients, linkIngredientToRecipe } from '../../../redux/reducers/ingredients/ingredientSlice'
-import { INGREDIENT_UNITS } from '../../../constants'
-import { getRecipe } from '../../../redux/reducers/recipes/recipeSlice'
+import { AutoComplete, Button, Dropdown, FieldContainer, Number } from '../../../index'
+import RootState from '../../../../types/RootState'
+import { getIngredients, linkIngredientToRecipe } from '../../../../redux/reducers/ingredients/ingredientSlice'
+import { INGREDIENT_UNITS } from '../../../../constants'
+import { getRecipe } from '../../../../redux/reducers/recipes/recipeSlice'
 
-type RecipesIngredientsProps = { recipe: Recipe }
+type AddRecipeIngredientProps = { recipe: Recipe }
 
-const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): ReactElement => {
+const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): ReactElement => {
   const ingredients = useSelector((state: RootState) => state.ingredientSlice.data.ingredients)
   const user: User = useSelector((state: RootState) => state.userSlice.data.user)
   const dispatch = useDispatch()
@@ -138,4 +138,4 @@ const RecipesIngredients: React.FC<RecipesIngredientsProps> = ({ recipe }): Reac
   )
 }
 
-export default RecipesIngredients
+export default AddRecipeIngredient

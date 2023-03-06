@@ -1,14 +1,9 @@
 import { ReactElement } from 'react'
-import { EditLinkedIngredient } from '../..'
+import { EditLinkedIngredient } from '../../..'
 
 interface EditableIngredientListProps {
   ingredients: RecipeIngredient[]
   recipe: Recipe
-}
-
-type LocalUnit = {
-  id: number
-  unit: string | undefined
 }
 
 const EditableIngredientList: React.FC<EditableIngredientListProps> = ({ ingredients, recipe }): ReactElement => {
