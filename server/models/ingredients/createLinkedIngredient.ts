@@ -3,7 +3,7 @@ import { FastifyLoggerInstance } from 'fastify'
 
 const prisma = new PrismaClient()
 
-const linkIngredientToRecipe = async (
+const createLinkedIngredientOps = async (
   logger: FastifyLoggerInstance,
   recipeId: number,
   ingredientId: number,
@@ -30,4 +30,4 @@ const linkIngredientToRecipe = async (
   }
 }
 
-export default linkIngredientToRecipe
+export default createLinkedIngredientOps

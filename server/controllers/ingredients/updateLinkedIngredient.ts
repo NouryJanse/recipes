@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { HTTP_CODES, ERROR_MESSAGES } from '../../constants'
-import { getIngredient, updateRecipeIngredient } from '../../models/ingredients'
+import { getIngredient, updateLinkedIngredient } from '../../models/ingredients'
 import ObjectCouldNotBeFoundError from '../../types/ObjectCouldNotBeFoundError'
 
 const updateRecipeIngredientOps = async (
@@ -8,7 +8,7 @@ const updateRecipeIngredientOps = async (
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
-    const recipe = await updateRecipeIngredient(request.log, request.body)
+    const recipe = await updateLinkedIngredient(request.log, request.body)
 
     const cache = request.serverCache()
     if (cache) {

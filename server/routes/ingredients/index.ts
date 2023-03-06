@@ -4,11 +4,12 @@ import {
   getIngredientsOps,
   createIngredientOps,
   getIngredientOps,
-  deleteIngredientOps,
   updateIngredientOps,
-  linkIngredientToRecipeOps,
+  createLinkedIngredientOps,
+  updateRecipeIngredientOps,
+  deleteIngredientOps,
+  deleteLinkedIngredientOps,
 } from '../../controllers/ingredients/'
-import updateRecipeIngredientOps from '../../controllers/ingredients/updateRecipeIngredientOps'
 
 export default fp(
   (
@@ -48,7 +49,7 @@ export default fp(
 
     // LINK INGREDIENT TO RECIPE
     server.post('/api/ingredients/recipe', {
-      handler: linkIngredientToRecipeOps,
+      handler: createLinkedIngredientOps,
       preValidation: server.authenticate,
     })
 
@@ -57,8 +58,11 @@ export default fp(
       handler: updateRecipeIngredientOps,
       preValidation: server.authenticate,
     })
-
-    // update, delete linked ingredient
+    // DELETE INGREDIENT RECIPE LINK
+    server.delete('/api/ingredients/recipe/:id', {
+      handler: deleteLinkedIngredientOps,
+      preValidation: server.authenticate,
+    })
 
     next()
   },
