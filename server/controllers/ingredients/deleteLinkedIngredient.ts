@@ -14,8 +14,8 @@ const deleteIngredientOps = async (
     const cache = request.serverCache()
 
     await deleteLinkedIngredient(request.log, Number(request.params.id))
-    if (cache && cache.has('ingredients')) {
-      cache.del('ingredients')
+    if (cache && cache.has('recipes')) {
+      cache.del('recipes')
     }
 
     return reply.code(HTTP_CODES.OK).send({})

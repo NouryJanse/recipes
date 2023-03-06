@@ -6,20 +6,12 @@ interface FormDataWithImage extends ImageData {
   recipeId: number
 }
 
-const createRecipeImageAPI = async (
-  data: FormDataWithImage,
-  recipeId: number,
-  token: string,
-): Promise<Image> => {
-  const response = await axios.post(
-    `${process.env.REACT_APP_SERVER_URL}/api/recipes/image/${recipeId}`,
-    data,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+const createRecipeImageAPI = async (data: FormDataWithImage, recipeId: number, token: string): Promise<Image> => {
+  const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/api/recipes/image/${recipeId}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
-  )
+  })
   return response.data
 }
 

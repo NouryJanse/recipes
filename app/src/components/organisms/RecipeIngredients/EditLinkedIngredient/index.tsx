@@ -94,8 +94,8 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
           iconElement={
             <MdDeleteOutline
               style={{ color: 'gray', width: '32px', height: '32px' }}
-              onMouseEnter={(): void => console.log('enter')}
-              onMouseLeave={(): void => console.log('leave')}
+              // onMouseEnter={(): void => console.log('enter')}
+              // onMouseLeave={(): void => console.log('leave')}
               onClick={(): void => onDeleteIngredient()}
             />
           }
