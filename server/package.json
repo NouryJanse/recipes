@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "NODE_ENV=dev ts-node-dev --files --respawn --exit-child index.ts",
     "build": "rm -rf dist && tsc --project tsconfig.build.json",
-    "prod": "rm -rf dist && tsc && node ./dist/index.js",
+    "prod": "node ./dist/index.js",
     "check": "tsc --noemit",
     "lint": "eslint --ext .ts .",
     "lint-and-fix": "eslint . --ext .ts --fix",
