@@ -14,7 +14,8 @@
     "build-storybook": "build-storybook -s public",
     "build:tailwind": "tailwindcss build -i src/styles/input.css -o src/styles/tailwind.output.css",
     "prebuild": "npm run build:tailwind",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "deploy": "yarn build && netlify deploy --prod"
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.21.0",

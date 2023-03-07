@@ -65,7 +65,7 @@ class Auth0 implements Auth0Interface {
 
       const login: User | false | undefined = await this.auth0Client
         .loginWithPopup({
-          redirect_uri: 'http://localhost:3000/',
+          redirect_uri: process.env.REACT_APP_PUBLIC_URL,
         })
         .then(async () => {
           this.getTokenSilently()
@@ -95,7 +95,7 @@ class Auth0 implements Auth0Interface {
     try {
       if (!this.auth0Client) return false
       await this.auth0Client.logout({
-        returnTo: 'http://localhost:3000/',
+        returnTo: process.env.REACT_APP_PUBLIC_URL,
       })
       return true
     } catch (error) {
