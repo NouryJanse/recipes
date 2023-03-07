@@ -24,8 +24,9 @@ const Dashboard: React.FC = (): JSX.Element => {
   return (
     <div className="pt-7">
       <span className="text-gray-600 mb-6 flex">Welcome {user.name}.</span>
-
-      <PageTitle text="Discover recipes" />
+      <div className="mb-16">
+        <PageTitle text="Discover recipes" />
+      </div>
 
       <div
         style={{
@@ -59,9 +60,7 @@ const Dashboard: React.FC = (): JSX.Element => {
                 .sort((a: Recipe, b: Recipe) => compareDateForSorting(a.createdAt, b.createdAt))
                 .slice(0, 3)
                 .map((recipe: Recipe) => {
-                  return (
-                    <RecipeCard key={recipe.id} recipe={recipe} withEditButton withRemovalButton />
-                  )
+                  return <RecipeCard key={recipe.id} recipe={recipe} withEditButton withRemovalButton />
                 })}
             </div>
           </div>
@@ -77,9 +76,7 @@ const Dashboard: React.FC = (): JSX.Element => {
                 .sort((a: Recipe, b: Recipe) => compareDateForSorting(a.createdAt, b.createdAt))
                 .slice(4, 7)
                 .map((recipe: Recipe) => {
-                  return (
-                    <RecipeCard key={recipe.id} recipe={recipe} withEditButton withRemovalButton />
-                  )
+                  return <RecipeCard key={recipe.id} recipe={recipe} withEditButton withRemovalButton />
                 })}
             </div>
           </div>

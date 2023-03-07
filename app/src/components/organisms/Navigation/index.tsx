@@ -110,8 +110,6 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
             text="Create"
           />
 
-          <NavigationLink to={ROUTES.RATINGS} menuIsOpen={menuIsOpen} iconSymbol={<BsStarHalf />} text="Ratings" />
-
           <NavigationLink
             to={ROUTES.INGREDIENTS}
             menuIsOpen={menuIsOpen}
@@ -125,6 +123,8 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
             iconSymbol={<GiChiliPepper />}
             text="New ingredient"
           />
+
+          <NavigationLink to={ROUTES.RATINGS} menuIsOpen={menuIsOpen} iconSymbol={<BsStarHalf />} text="Ratings" />
         </div>
       </div>
 

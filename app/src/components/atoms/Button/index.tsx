@@ -3,7 +3,7 @@ import ButtonStyle from './styled'
 
 type ButtonProps = {
   type: 'submit' | 'reset' | 'button'
-  onClick?: (e: any) => void
+  onClick?: (e: MouseEvent) => void
   disabled?: boolean
   label?: string | JSX.Element
   classes?: string

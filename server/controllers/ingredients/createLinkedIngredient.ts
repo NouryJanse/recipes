@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { HTTP_CODES } from '../../constants'
-import { linkIngredientToRecipe } from '../../models/ingredients'
+import { createLinkedIngredient } from '../../models/ingredients'
 import ObjectAlreadyExistsError from '../../types/ObjectAlreadyExistsError'
 
 const linkIngredientToRecipeOps = async (
@@ -8,7 +8,7 @@ const linkIngredientToRecipeOps = async (
   reply: FastifyReply,
 ): Promise<FastifyReply> => {
   try {
-    const ingredient = await linkIngredientToRecipe(
+    const ingredient = await createLinkedIngredient(
       request.log,
       request.body.recipeId,
       request.body.ingredientId,
@@ -19,8 +19,9 @@ const linkIngredientToRecipeOps = async (
     if (!ingredient) throw new Error('An error occurred')
 
     const cache = request.serverCache()
-    if (cache && cache.has('ingredients')) {
+    if (cache) {
       cache.del('ingredients')
+      cache.del('recipes')
     }
 
     return reply.code(HTTP_CODES.CREATED).send([])

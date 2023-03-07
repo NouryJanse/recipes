@@ -10,6 +10,7 @@ const INGREDIENT_UNITS = [
   { id: 6, text: 'tsp', value: 'tsp', disabled: false },
   { id: 7, text: 'tbsp', value: 'tbsp', disabled: false },
   { id: 8, text: 'cm', value: 'cm', disabled: false },
+  { id: 9, text: 'Piece', value: 'pc', disabled: false },
 ]
 
 export default INGREDIENT_UNITS

@@ -1,16 +1,23 @@
 import styled from 'styled-components'
 
-export const InputStyle = styled.input`
-  display: flex;
-  color: black;
-  border: 1px solid #0d6efd;
-  padding: 8px;
-  transition: padding 200ms ease-in-out;
-  width: 99%;
+interface TWStyledInputParameter {
+  $isEditing: boolean
+}
 
-  &:focus {
-    padding-left: 16px;
+export const InputStyle = styled.input`
+  display: flex
+  color: black;
+  padding: 8px;
+  border: 1px solid;
+  border-radius: 4px;
+  transition: all 1s ease-out;
+  height: 40px;
+
+  &:hover {
+    padding-left: 12px;
   }
+
+  ${(p: TWStyledInputParameter): string => (p.$isEditing ? 'border-color: blue' : 'border-color: transparent')}
 `
 
 export const FieldRowStyle = styled.div`
@@ -18,6 +25,7 @@ export const FieldRowStyle = styled.div`
 `
 
 export const LabelStyle = styled.label`
-  margin-bottom: 8px;
+  display: block;
+  mb-2px;
   color: black;
 `

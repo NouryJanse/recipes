@@ -18,6 +18,7 @@ const CreateIngredient: React.FC = (): ReactElement => {
   const navigate = useNavigate()
   const [toggle, setToggle] = useState(false)
   const [unit, setUnit] = useState<string>('')
+  const [redirectAfterSubmit, setRedirectAfterSubmit] = useState<boolean>(false)
 
   const {
     register,
@@ -30,9 +31,13 @@ const CreateIngredient: React.FC = (): ReactElement => {
   useEffect(() => {
     switch (status.createIngredient) {
       case REDUX_STATE.FULFILLED:
-        dispatch(resetCreateIngredientStatus())
         // @ts-ignore:next-line
         dispatch(getIngredients())
+        dispatch(resetCreateIngredientStatus())
+        if (redirectAfterSubmit) {
+          navigate(ROUTES.INGREDIENTS)
+          setRedirectAfterSubmit(true)
+        }
         break
 
       case REDUX_STATE.REJECTED:
@@ -44,9 +49,9 @@ const CreateIngredient: React.FC = (): ReactElement => {
   }, [status])
 
   const onSubmit = async (data: object): Promise<void> => {
+    setRedirectAfterSubmit(true)
     // @ts-ignore:next-line
     dispatch(createIngredient(data))
-    navigate(ROUTES.INGREDIENTS)
   }
 
   const handleToggle = (): void => {
@@ -59,12 +64,16 @@ const CreateIngredient: React.FC = (): ReactElement => {
       // @ts-ignore:next-line
       dispatch(createIngredient(data))
       reset()
+      setUnit('')
+      setToggle(false)
     })()
   }
 
   return (
     <div className="pt-7">
-      <PageTitle text="Add a new ingredient to the platform" />
+      <div className="mb-16">
+        <PageTitle text="Add a new ingredient to the platform" />
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FieldContainer>
@@ -86,17 +95,16 @@ const CreateIngredient: React.FC = (): ReactElement => {
             name="unit"
             label="Ingredient unit type*"
             defaultValue={unit}
-            disabled={false}
-            onChange={(changedUnit: ChangeEvent<HTMLInputElement>): void => {
-              setValue('unit', changedUnit)
-              setUnit(changedUnit.target.value)
-            }}
+            register={register}
             validation={{
               required: 'Did you forget to fill in the unit of your ingredient?',
             }}
-            register={register}
             errors={errors.unit}
             options={INGREDIENT_UNITS}
+            onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+              setUnit(event.target.value)
+              setValue('unit', event.target.value)
+            }}
           />
         </FieldContainer>
 

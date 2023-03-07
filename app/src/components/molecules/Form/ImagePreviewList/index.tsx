@@ -6,16 +6,11 @@ interface ImagePreviewListProps {
   callbackUploadImages: (image: ImageData) => Promise<void>
 }
 
-const ImagePreviewList: React.FC<ImagePreviewListProps> = ({
-  images,
-  callbackUploadImages,
-}): ReactElement => {
+const ImagePreviewList: React.FC<ImagePreviewListProps> = ({ images, callbackUploadImages }): ReactElement => {
   const bytesToSize = (bytes: number): string => {
     const units = ['byte', 'kilobyte', 'megabyte', 'terabyte', 'petabyte']
     const unit = Math.floor(Math.log(bytes) / Math.log(1024))
-    return new Intl.NumberFormat('en', { style: 'unit', unit: units[unit] }).format(
-      bytes / 1024 ** unit,
-    )
+    return new Intl.NumberFormat('en', { style: 'unit', unit: units[unit] }).format(bytes / 1024 ** unit)
   }
 
   const formatImageSize = (imageSize: number | string | undefined): string | false => {
@@ -34,13 +29,9 @@ const ImagePreviewList: React.FC<ImagePreviewListProps> = ({
               {image.name} - {formatImageSize(image.size)}
             </span>
 
-            <img src={image.data.toString()} alt="title" className="mb-2 max-w-lg" loading="lazy" />
+            <img src={image.data.toString()} alt="title" className="mb-2 max-w-full xl:max-w-md" loading="lazy" />
 
-            <Button
-              type="button"
-              label="Upload to CDN"
-              onClick={(): Promise<void> => callbackUploadImages(image)}
-            />
+            <Button type="button" label="Upload to CDN" onClick={(): Promise<void> => callbackUploadImages(image)} />
           </div>
         )
       })}
