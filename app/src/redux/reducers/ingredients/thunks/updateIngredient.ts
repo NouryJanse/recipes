@@ -17,7 +17,6 @@ const updateIngredientAPI = async (data: Ingredient, token: string): Promise<Ing
         Authorization: `Bearer ${token}`,
       },
     })
-
     return response.data
   } catch (error) {
     LogHelper({ logType: 'error', message: 'An error occurred' })

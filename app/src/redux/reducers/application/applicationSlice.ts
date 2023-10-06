@@ -19,21 +19,7 @@ export const applicationSlice = createSlice({
       state.data.navMenuIsOpened = !state.data.navMenuIsOpened
     },
   },
-  extraReducers: {
-    // [getRecipes.pending]: (state, action) => {
-    //   state.status.getRecipes = 'loading';
-    //   state.error = {};
-    // },
-    // [getRecipes.rejected]: (state, action) => {
-    //   state.status.getRecipes = 'rejected';
-    //   state.error = {};
-    // },
-    // [getRecipes.fulfilled]: (state, action) => {
-    //   state.data.recipes = action.payload.recipes;
-    //   state.status.getRecipes = 'fulfilled';
-    //   state.error = {};
-    // },
-  },
+  extraReducers: {},
 })
 
 export const { toggleNav } = applicationSlice.actions

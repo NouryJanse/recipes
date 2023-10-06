@@ -5,7 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { debounce } from 'ts-debounce'
 import { Number, Dropdown, Icon } from '../../..'
 import { INGREDIENT_UNITS } from '../../../../constants'
-import { deleteIngredient, updateRecipeIngredient } from '../../../../redux/reducers/ingredients/ingredientSlice'
+import {
+  deleteIngredient,
+  deleteLinkedIngredient,
+  updateRecipeIngredient,
+} from '../../../../redux/reducers/ingredients/ingredientSlice'
 import RootState from '../../../../types/RootState'
 
 interface EditableIngredientListProps {
@@ -51,7 +55,7 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
 
   const onDeleteIngredient = (): void => {
     // @ts-ignore:next-line
-    dispatch(deleteIngredient(ingredient.id))
+    dispatch(deleteLinkedIngredient(ingredient.id))
   }
 
   return (

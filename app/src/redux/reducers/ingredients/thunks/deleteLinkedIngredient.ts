@@ -3,7 +3,7 @@ import axios from 'axios'
 import RootState from '../../../../types/RootState'
 
 async function deleteLinkedIngredientAPI(data: { id: number; authorId: string }, token: string): Promise<Ingredient> {
-  const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/ingredients/${data.id}`, {
+  const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/ingredients/recipe/${data.id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -11,11 +11,14 @@ async function deleteLinkedIngredientAPI(data: { id: number; authorId: string },
   return response.data
 }
 
-const deleteLinkedIngredientThunk = createAsyncThunk('ingredients/deleteIngredient', async (id: number, thunkApi) => {
-  const state = thunkApi.getState() as RootState
-  const user = state.userSlice?.data?.user
-  const response = await deleteLinkedIngredientAPI({ id, authorId: user.sub }, user.token)
-  return response
-})
+const deleteLinkedIngredientThunk = createAsyncThunk(
+  'ingredients/deleteLinkedIngredient',
+  async (id: number, thunkApi) => {
+    const state = thunkApi.getState() as RootState
+    const user = state.userSlice?.data?.user
+    const response = await deleteLinkedIngredientAPI({ id, authorId: user.sub }, user.token)
+    return response
+  },
+)
 
 export default deleteLinkedIngredientThunk

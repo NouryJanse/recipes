@@ -1,20 +1,10 @@
 # Recipes
 
-## About
+Welcome to my Recipes App 🥗!
+Thank you for taking the time to read this document 🙏!
+This app generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others. Note that this app is a work in progress and that its purpose is mostly to demonstrate my experience, current skillset at last but not least: interests as an engineer 🧑‍💻. Please refer to some screenshots below.
 
-Welcome to my recipe app 🥗! Thank you for taking the time to read this document 🙏!
-An app that generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others. Note that this app is a work in progress and that its purpose is mostly to demonstrate my experience, current skillset at last but not least: interests as an engineer 🧑‍💻. Please refer to some screenshots below.
-
-NOTE: 🚨 **it's not possible to run this app locally without a Cloudinary, a Auth0 account and a PostgreSQL database. Please ask me for a demo. 🚨**
-
-## Demo screenshots
-
-![Homescreen on SM size](screens/Home-SM.png?raw=true "Homescreen SM")
-![Create recipe page on MD size](screens/CreateRecipe-MD.png?raw=true "Create recipe MD")
-![Homescreen on XL size with menu expanded](screens/Home-XL.png?raw=true "Home XL")
-![Recipes overview on SM size](screens/Recipes-SM.png?raw=true "Recipes SM")
-![Create ingredient on XL size](screens/CreateIngredient-XL.png?raw=true "Create ingredient XL")
-![Ingredients overview on XL size](screens/AllIngredients-XL.png?raw=true "All ingredients XL")
+🎈 **it's not possible to run this app locally without a Cloudinary, a Auth0 account and a PostgreSQL database (which need be set in an env.local). Please ask me for a demo. 🎈**
 
 ## Creator application
 
@@ -24,7 +14,7 @@ Roadmap features
 - creator feature for new and managing recipes
 - managing ingredients
 
-_This application is currently being developed._
+_This application is currently being developed as a hobby project with no rush in finishing it._
 
 ## Consumer application
 
@@ -118,7 +108,7 @@ Swagger documentation can be found by navigating to /docs
 
 ## Additional notes
 
-- 🚨 Storybook is broken because of [incompatibility with React v18](https://github.com/storybookjs/storybook/issues/17831)
+- 🚨 Storybook is broken because of [incompatibility with React v18 at the time of writing](https://github.com/storybookjs/storybook/issues/17831)
   > Construction on the Storybook therefore on hold
 - 🚨 Currently testing is under construction, plans are to test the BE extensively through:
 
@@ -126,7 +116,11 @@ Swagger documentation can be found by navigating to /docs
 
   > unit testing the Prisma models and expected behaviours
 
-![Home on Mobile](/screens/Home-SM.png)
-![Home on Desktop](/screens/Home-XL.png)
-![All recipes](/screens/Recipes-SM.png)
-![Create Recipe](/screens/Create-MD.png)
+## Demo screenshots
+
+![Homescreen on SM size](screens/Home-SM.png?raw=true "Homescreen SM")
+![Create recipe page on MD size](screens/CreateRecipe-MD.png?raw=true "Create recipe MD")
+![Homescreen on XL size with menu expanded](screens/Home-XL.png?raw=true "Home XL")
+![Recipes overview on SM size](screens/Recipes-SM.png?raw=true "Recipes SM")
+![Create ingredient on XL size](screens/CreateIngredient-XL.png?raw=true "Create ingredient XL")
+![Ingredients overview on XL size](screens/AllIngredients-XL.png?raw=true "All ingredients XL")

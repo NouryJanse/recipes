@@ -5,8 +5,9 @@ import {
   getIngredientThunk,
   getIngredientsThunk,
   updateIngredientThunk,
-  linkIngredientToRecipeThunk,
+  createLinkedIngredientThunk,
   updateRecipeIngredientThunk,
+  deleteLinkedIngredientThunk,
 } from './thunks'
 import { REDUX_STATE } from '../../../constants'
 import LogHelper from '../../../helpers/LogHelper'
@@ -20,7 +21,8 @@ export const initialState = {
     getIngredient: 'initial',
     getIngredients: 'initial',
     updateIngredient: 'initial',
-    linkIngredientToRecipe: 'initial',
+    createLinkedIngredient: 'initial',
+    deleteLinkedIngredient: 'initial',
   },
   error: {},
 }
@@ -30,8 +32,9 @@ export const deleteIngredient = deleteIngredientThunk
 export const getIngredient = getIngredientThunk
 export const getIngredients = getIngredientsThunk
 export const updateIngredient = updateIngredientThunk
-export const linkIngredientToRecipe = linkIngredientToRecipeThunk
+export const createLinkedIngredient = createLinkedIngredientThunk
 export const updateRecipeIngredient = updateRecipeIngredientThunk
+export const deleteLinkedIngredient = deleteLinkedIngredientThunk
 
 export const ingredientSlice = createSlice({
   name: 'ingredients',
@@ -127,17 +130,31 @@ export const ingredientSlice = createSlice({
       state.error = {}
     })
 
-    builder.addCase(linkIngredientToRecipe.pending, (state) => {
-      state.status.linkIngredientToRecipe = REDUX_STATE.LOADING
+    builder.addCase(createLinkedIngredient.pending, (state) => {
+      state.status.createLinkedIngredient = REDUX_STATE.LOADING
       state.error = {}
     })
-    builder.addCase(linkIngredientToRecipe.rejected, (state) => {
-      state.status.linkIngredientToRecipe = REDUX_STATE.REJECTED
+    builder.addCase(createLinkedIngredient.rejected, (state) => {
+      state.status.createLinkedIngredient = REDUX_STATE.REJECTED
       LogHelper({ logType: 'error', message: 'An error occurred' })
       state.error = {}
     })
-    builder.addCase(linkIngredientToRecipe.fulfilled, (state) => {
-      state.status.linkIngredientToRecipe = REDUX_STATE.FULFILLED
+    builder.addCase(createLinkedIngredient.fulfilled, (state) => {
+      state.status.createLinkedIngredient = REDUX_STATE.FULFILLED
+      state.error = {}
+    })
+
+    builder.addCase(deleteLinkedIngredient.pending, (state) => {
+      state.status.deleteLinkedIngredient = REDUX_STATE.LOADING
+      state.error = {}
+    })
+    builder.addCase(deleteLinkedIngredient.rejected, (state) => {
+      state.status.deleteLinkedIngredient = REDUX_STATE.REJECTED
+      LogHelper({ logType: 'error', message: 'An error occurred' })
+      state.error = {}
+    })
+    builder.addCase(deleteLinkedIngredient.fulfilled, (state) => {
+      state.status.deleteLinkedIngredient = REDUX_STATE.FULFILLED
       state.error = {}
     })
   },

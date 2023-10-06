@@ -5,7 +5,7 @@ import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
 
 import { AutoComplete, Button, Dropdown, FieldContainer, Number } from '../../../index'
 import RootState from '../../../../types/RootState'
-import { getIngredients, linkIngredientToRecipe } from '../../../../redux/reducers/ingredients/ingredientSlice'
+import { getIngredients, createLinkedIngredient } from '../../../../redux/reducers/ingredients/ingredientSlice'
 import { INGREDIENT_UNITS } from '../../../../constants'
 import { getRecipe } from '../../../../redux/reducers/recipes/recipeSlice'
 
@@ -66,7 +66,7 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
     }
 
     // @ts-ignore:next-line
-    await dispatch(linkIngredientToRecipe(obj))
+    await dispatch(createLinkedIngredient(obj))
     // @ts-ignore:next-line
     await dispatch(getRecipe(recipe.id))
     return true
