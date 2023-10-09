@@ -1,6 +1,6 @@
 import { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, UseFormRegisterReturn, useForm } from 'react-hook-form'
 import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
 
 import { AutoComplete, Button, Dropdown, FieldContainer, Number } from '../../../index'
@@ -10,6 +10,13 @@ import { INGREDIENT_UNITS } from '../../../../constants'
 import { getRecipe } from '../../../../redux/reducers/recipes/recipeSlice'
 
 type AddRecipeIngredientProps = { recipe: Recipe }
+
+type Inputs = {
+  id: number
+  ingredient: string
+  unit: number
+  amount: number
+}
 
 const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): ReactElement => {
   const ingredients = useSelector((state: RootState) => state.ingredientSlice.data.ingredients)
@@ -25,7 +32,7 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
     formState: { errors },
     setValue,
     reset,
-  } = useForm()
+  } = useForm<Inputs>()
 
   const clearAutoComplete = (): void => {
     if (ref !== null) {
@@ -52,7 +59,8 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
     }
   }, [dispatch, ingredients])
 
-  const dispatchEdit = async (ingredient: Ingredient): Promise<boolean> => {
+  const dispatchEdit = async (data: Inputs): Promise<boolean> => {
+    const { id, amount, unit } = data
     reset() // clear the rest of the form
     clearAutoComplete() // clear the Autocomplete field (separate from form since its custom)
     setUnit('')
@@ -60,9 +68,9 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
     const obj = {
       authorId: user.sub,
       recipeId: recipe.id,
-      ingredientId: ingredient.id,
-      amount: ingredient.amount,
-      unit: ingredient.unit,
+      ingredientId: id,
+      amount: amount,
+      unit: unit,
     }
 
     // @ts-ignore:next-line
@@ -74,13 +82,13 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
 
   // for now this any is allowed, otherwise the whole form needs to be refactored for typing
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  const onSave = async (formData: any): Promise<void> => {
-    dispatchEdit(formData)
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    dispatchEdit(data)
   }
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSave)} className="mb-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="mb-6">
         <FieldContainer>
           <AutoComplete
             labelText="Search for an ingredient*"
@@ -108,9 +116,9 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
             validation={{
               required: 'Did you forget to fill in the unit of your ingredient?',
             }}
-            register={register}
-            errors={errors.unit}
+            register={(): UseFormRegisterReturn => register('unit')}
             options={INGREDIENT_UNITS}
+            // errors={errors.unit}
           />
         </FieldContainer>
 
@@ -127,8 +135,8 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
               },
               valueAsNumber: true,
             }}
-            register={register}
-            errors={errors.amount}
+            register={(): UseFormRegisterReturn => register('amount')}
+            // errors={errors.amount}
           />
         </FieldContainer>
 
