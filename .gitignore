@@ -9,12 +9,11 @@ server/node_modules
 .pnp.js
 
 # testing
-app/coverage
-server/coverage
+*/coverage
 
 # production
-app/build
-server/dist
+*/build
+*/dist
 
 # misc
 .DS_Store
@@ -30,7 +29,7 @@ server/.jest/*
 !server/.jest/.example.setEnvVars.ts
 
 # env vars
-.env*
+*.env*
 !app/.env.local.example
 !server/.env.example
 
@@ -38,3 +37,5 @@ server/.jest/*
 server/db_exports
 # Local Netlify folder
 .netlify
+
+*.sql
