@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { createRecipe, getRecipes, resetCreateRecipeStatus } from '../../../redux/reducers/recipes/recipeSlice'
-import { Textfield, Button, Textarea, Dropdown, FieldContainer, PageTitle } from '../..'
-import RootState from '../../../types/RootState'
-import { RECIPE_COURSE_OPTIONS, REDUX_STATE, ROUTES } from '../../../constants'
+import { createRecipe, getRecipes, resetCreateRecipeStatus } from '../../../../redux/reducers/recipes/recipeSlice'
+import { Textfield, Button, Textarea, Dropdown, FieldContainer, PageTitle } from '../../..'
+import RootState from '../../../../types/RootState'
+import { RECIPE_COURSE_OPTIONS, REDUX_STATE, ROUTES } from '../../../../constants'
 
 const CreateRecipe: React.FC = (): ReactElement => {
   const status = useSelector((state: RootState) => state.recipeSlice.status)

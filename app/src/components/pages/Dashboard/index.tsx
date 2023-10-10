@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { HiArrowSmRight } from 'react-icons/hi';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { HiArrowSmRight } from 'react-icons/hi'
 
-import { Icon, RecipeCard, PageTitle } from '../..';
-import { getRecipes } from '../../../redux/reducers/recipes/recipeSlice';
-import RootState from '../../../types/RootState';
-import REPLACEMENT_IMAGES from '../../../constants/REPLACEMENT_IMAGES';
-import compareDateForSorting from '../../../helpers/compareDateForSorting';
+import { Icon, RecipeCard, PageTitle } from '../..'
+import { getRecipes } from '../../../redux/reducers/recipes/recipeSlice'
+import RootState from '../../../types/RootState'
+import REPLACEMENT_IMAGES from '../../../constants/REPLACEMENT_IMAGES'
+import compareDateForSorting from '../../../helpers/compareDateForSorting'
 
 const Dashboard: React.FC = (): JSX.Element => {
-  const user = useSelector((state: RootState) => state.userSlice.data.user);
-  const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes);
-  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.userSlice.data.user)
+  const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!recipes || recipes?.length < 1) {
       // @ts-ignore:next-line
-      dispatch(getRecipes());
+      dispatch(getRecipes())
     }
-  }, [dispatch, recipes]);
+  }, [dispatch, recipes])
 
   return (
     <div className="pt-7">
@@ -60,7 +60,7 @@ const Dashboard: React.FC = (): JSX.Element => {
                 .sort((a: Recipe, b: Recipe) => compareDateForSorting(a.createdAt, b.createdAt))
                 .slice(0, 3)
                 .map((recipe: Recipe) => {
-                  return <RecipeCard key={recipe.id} recipe={recipe} withEditButton withRemovalButton />;
+                  return <RecipeCard key={recipe.id} recipe={recipe} withEditButton withRemovalButton />
                 })}
             </div>
           </div>
@@ -72,18 +72,18 @@ const Dashboard: React.FC = (): JSX.Element => {
             </div>
 
             <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-              {/* {[...recipes]
+              {[...recipes]
                 .sort((a: Recipe, b: Recipe) => compareDateForSorting(a.createdAt, b.createdAt))
                 .slice(4, 7)
                 .map((recipe: Recipe) => {
                   return <RecipeCard key={recipe.id} recipe={recipe} withEditButton withRemovalButton />
-                })} */}
+                })}
             </div>
           </div>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

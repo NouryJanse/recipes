@@ -1,12 +1,12 @@
 import React, { ReactElement, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Outlet, useParams } from 'react-router-dom'
-import { Loader, IngredientCard, IngredientsTable } from '../..'
+import { Loader, IngredientCard, IngredientsTable } from '../../..'
 
-import { getIngredients } from '../../../redux/reducers/ingredients/ingredientSlice'
-import RootState from '../../../types/RootState'
+import { getIngredients } from '../../../../redux/reducers/ingredients/ingredientSlice'
+import RootState from '../../../../types/RootState'
 // import { Loader, RecipeCard } from '../..'
-import { REDUX_STATE } from '../../../constants'
+import { REDUX_STATE } from '../../../../constants'
 
 const Ingredients: React.FC = (): ReactElement | null => {
   const dispatch = useDispatch()
