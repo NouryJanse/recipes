@@ -243,6 +243,7 @@ const EditRecipe: React.FC = (): ReactElement => {
                 label="Course*"
                 defaultValue={course}
                 register={register}
+                classes="mb-10"
                 validation={{
                   required: 'Did you forget to fill in the course of your recipe?',
                 }}

@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { AiTwotoneEdit } from 'react-icons/ai'
 import { MdDelete } from 'react-icons/md'
 import { useDispatch } from 'react-redux'
-import { Button } from '../..'
+import { Button } from '../../..'
 
 import IngredientContainer from './styled'
-import { deleteIngredient, getIngredients } from '../../../redux/reducers/ingredients/ingredientSlice'
+import { deleteIngredient, getIngredients } from '../../../../redux/reducers/ingredients/ingredientSlice'
 
 type IngredientCardProps = {
   ingredient: Ingredient

@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { EditLinkedIngredient } from '../../..'
+import { EditLinkedIngredient } from '../../../..'
 
 interface EditableIngredientListProps {
   ingredients: RecipeIngredient[]

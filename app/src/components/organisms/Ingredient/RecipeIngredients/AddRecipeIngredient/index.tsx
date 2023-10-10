@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { SubmitHandler, UseFormRegisterReturn, useForm } from 'react-hook-form'
 import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
 
-import { AutoComplete, Button, Dropdown, FieldContainer, Number } from '../../../index'
-import RootState from '../../../../types/RootState'
-import { getIngredients, createLinkedIngredient } from '../../../../redux/reducers/ingredients/ingredientSlice'
-import { INGREDIENT_UNITS } from '../../../../constants'
-import { getRecipe } from '../../../../redux/reducers/recipes/recipeSlice'
+import { AutoComplete, Button, Dropdown, FieldContainer, Number } from '../../../../index'
+import RootState from '../../../../../types/RootState'
+import { getIngredients, createLinkedIngredient } from '../../../../../redux/reducers/ingredients/ingredientSlice'
+import { INGREDIENT_UNITS } from '../../../../../constants'
+import { getRecipe } from '../../../../../redux/reducers/recipes/recipeSlice'
 
 type AddRecipeIngredientProps = { recipe: Recipe }
 

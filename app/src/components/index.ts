@@ -22,13 +22,13 @@ export { default as Toggle } from './molecules/Form/Toggle'
 export { default as NavigationLink } from './molecules/NavigationLink'
 
 // ORGANISMS
-export { default as IngredientCard } from './organisms/IngredientCard'
-export { default as IngredientsTable } from './organisms/IngredientsTable'
+export { default as IngredientCard } from './organisms/Ingredient/IngredientCard'
+export { default as IngredientsTable } from './organisms/Ingredient/IngredientsTable'
 export { default as Navigation } from './organisms/Navigation'
-export { default as RecipeCard } from './organisms/RecipeCard'
-export { default as AddRecipeIngredient } from './organisms/RecipeIngredients/AddRecipeIngredient'
-export { default as EditableIngredientList } from './organisms/RecipeIngredients/EditableIngredientList'
-export { default as EditLinkedIngredient } from './organisms/RecipeIngredients/EditLinkedIngredient'
+export { default as RecipeCard } from './organisms/Recipe/RecipeCard'
+export { default as AddRecipeIngredient } from './organisms/Ingredient/RecipeIngredients/AddRecipeIngredient'
+export { default as EditableIngredientList } from './organisms/Ingredient/RecipeIngredients/EditableIngredientList'
+export { default as EditLinkedIngredient } from './organisms/Ingredient/RecipeIngredients/EditLinkedIngredient'
 
 // PAGES
 export { default as Account } from './pages/Account'
