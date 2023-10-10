@@ -1,6 +1,6 @@
-import { PrismaClient, Image } from "@prisma/client";
+import { PrismaClient, Image } from '@prisma/client'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 const updateImage = async (image: Image): Promise<Image | false> => {
   try {
@@ -9,17 +9,17 @@ const updateImage = async (image: Image): Promise<Image | false> => {
       data: {
         ...(image.position && { position: image.position }),
       },
-    });
+    })
 
-    return dbImage;
+    return dbImage
   } catch (error) {
     // LOG ERROR
-    return false;
+    return false
   } finally {
-    async (): Promise<void> => {
-      await prisma.$disconnect();
-    };
+    ;async (): Promise<void> => {
+      await prisma.$disconnect()
+    }
   }
-};
+}
 
-export default updateImage;
+export default updateImage

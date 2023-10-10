@@ -1,13 +1,13 @@
-import { Prisma, PrismaClient, Recipe } from "@prisma/client";
-import ObjectAlreadyExistsError from "../../types/ObjectAlreadyExistsError";
+import { Prisma, PrismaClient, Recipe } from '@prisma/client'
+import ObjectAlreadyExistsError from '../../types/ObjectAlreadyExistsError'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 const createRecipe = async (
   name: string,
   description: string,
   _authorId: number,
-  course: string
+  course: string,
 ): Promise<Recipe | false> => {
   try {
     return await prisma.recipe.create({
@@ -16,18 +16,18 @@ const createRecipe = async (
         description,
         course,
       },
-    });
+    })
   } catch (error) {
     // LOG ERROR
-    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
-      throw new ObjectAlreadyExistsError("This recipe already exists");
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+      throw new ObjectAlreadyExistsError('This recipe already exists')
     }
-    throw error;
+    throw error
   } finally {
-    async (): Promise<void> => {
-      await prisma.$disconnect();
-    };
+    ;async (): Promise<void> => {
+      await prisma.$disconnect()
+    }
   }
-};
+}
 
-export default createRecipe;
+export default createRecipe

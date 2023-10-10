@@ -10,7 +10,6 @@ declare module '*.json' {
   export default value
 }
 
-
 interface FastifyRecipeBody {
   name: string
   description: string

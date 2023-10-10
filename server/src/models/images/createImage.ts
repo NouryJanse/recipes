@@ -1,8 +1,8 @@
-import { PrismaClient, Image } from "@prisma/client";
-import CloudinaryImage from "../../types/CloudinaryImage";
+import { PrismaClient, Image } from '@prisma/client'
+import CloudinaryImage from '../../types/CloudinaryImage'
 
-const cloudinary = require("cloudinary").v2;
-const prisma = new PrismaClient();
+const cloudinary = require('cloudinary').v2
+const prisma = new PrismaClient()
 
 try {
   cloudinary.config({
@@ -10,21 +10,24 @@ try {
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
     secure: true,
-  });
+  })
 } catch (error) {
   // eslint-disable-next-line no-console
-  console.error(error);
+  console.error(error)
 }
 
-const createImage = async (imageBase64: CloudinaryImage, recipeId: number): Promise<Image | false> => {
+const createImage = async (
+  imageBase64: CloudinaryImage,
+  recipeId: number,
+): Promise<Image | false> => {
   try {
     const image = await cloudinary.uploader.upload(
       imageBase64,
       { upload_preset: process.env.CLOUDINARY_PRESET_ID },
       (error: string, result: any) => {
         // logger.error(result, error);
-      }
-    );
+      },
+    )
 
     const dbImage: Image = await prisma.image.upsert({
       where: { cloudinaryPublicId: image.public_id },
@@ -42,17 +45,17 @@ const createImage = async (imageBase64: CloudinaryImage, recipeId: number): Prom
         position: 0,
         recipeId,
       },
-    });
+    })
 
-    return dbImage;
+    return dbImage
   } catch (error) {
     // LOG ERROR
-    return false;
+    return false
   } finally {
-    async (): Promise<void> => {
-      await prisma.$disconnect();
-    };
+    ;async (): Promise<void> => {
+      await prisma.$disconnect()
+    }
   }
-};
+}
 
-export default createImage;
+export default createImage

@@ -1,9 +1,9 @@
-import { PrismaClient, Recipe } from "@prisma/client";
-import { ERROR_MESSAGES } from "../../constants";
-import CustomError from "../../types/CustomError";
-import ObjectCouldNotBeFoundError from "../../types/ObjectCouldNotBeFoundError";
+import { PrismaClient, Recipe } from '@prisma/client'
+import { ERROR_MESSAGES } from '../../constants'
+import CustomError from '../../types/CustomError'
+import ObjectCouldNotBeFoundError from '../../types/ObjectCouldNotBeFoundError'
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 const getRecipe = async (recipeId: number): Promise<Recipe> => {
   try {
@@ -14,7 +14,7 @@ const getRecipe = async (recipeId: number): Promise<Recipe> => {
       include: {
         Image: {
           orderBy: {
-            position: "asc",
+            position: 'asc',
           },
         },
         RecipeIngredients: {
@@ -22,25 +22,25 @@ const getRecipe = async (recipeId: number): Promise<Recipe> => {
             ingredient: true,
           },
           orderBy: {
-            amount: "desc",
+            amount: 'desc',
           },
         },
       },
-    });
+    })
 
-    if (recipe === null) throw new CustomError(ERROR_MESSAGES.NOT_FOUND);
-    return recipe;
+    if (recipe === null) throw new CustomError(ERROR_MESSAGES.NOT_FOUND)
+    return recipe
   } catch (error) {
     // LOG ERROR
     if (error instanceof CustomError) {
-      throw new ObjectCouldNotBeFoundError(`The recipe with id: ${recipeId} could not be found`);
+      throw new ObjectCouldNotBeFoundError(`The recipe with id: ${recipeId} could not be found`)
     }
-    throw error;
+    throw error
   } finally {
-    async (): Promise<void> => {
-      await prisma.$disconnect();
-    };
+    ;async (): Promise<void> => {
+      await prisma.$disconnect()
+    }
   }
-};
+}
 
-export default getRecipe;
+export default getRecipe
