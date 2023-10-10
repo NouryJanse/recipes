@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import createAuth0Client, { Auth0Client } from '@auth0/auth0-spa-js'
+import { createAuth0Client, Auth0Client } from '@auth0/auth0-spa-js'
 import LogHelper from '../../../../helpers/LogHelper'
 
 // const redirectURI: string = process.env.REACT_APP_AUTH0_REDIRECT_URI as string
@@ -12,11 +12,13 @@ const initAuth0API = async (): Promise<Auth0Client | false> => {
   try {
     return await createAuth0Client({
       domain,
-      client_id: clientId,
+      clientId,
       useRefreshTokens: true,
       cacheLocation: 'localstorage',
-      audience,
-      scope,
+      authorizationParams: {
+        audience,
+        scope,
+      },
     })
   } catch (error) {
     LogHelper({ logType: 'error', message: 'An error occurred' })

@@ -14,6 +14,7 @@ async function createRecipeAPI(recipe: Recipe, token: string): Promise<Recipe> {
     {
       headers: {
         Authorization: `Bearer ${token}`,
+        'content-type': 'application/json;charset=utf-8',
       },
     },
   )

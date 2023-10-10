@@ -20,16 +20,12 @@ import {
 import RootState from './types/RootState'
 import ROUTES from './constants/ROUTES'
 
-type AppProps = {
-  logout: () => void
-}
-
-const App: React.FC<AppProps> = ({ logout }): ReactElement => {
+const App: React.FC = (): ReactElement => {
   const application = useSelector((state: RootState) => state.applicationSlice.data)
 
   return (
     <div className="flex flex-row">
-      <Navigation logout={logout} />
+      <Navigation />
 
       <div
         className={classNames(

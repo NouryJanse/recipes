@@ -13,11 +13,9 @@ import RootState from '../../../types/RootState'
 import ROUTES from '../../../constants/ROUTES'
 import NavigationLink from '../../molecules/NavigationLink'
 
-type NavigationProps = {
-  logout: () => void
-}
+type NavigationProps = {}
 
-const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
+const Navigation: React.FC<NavigationProps> = (): ReactElement => {
   const dispatch = useDispatch()
   const application = useSelector((state: RootState) => state.applicationSlice.data)
   const user = useSelector((state: RootState) => state.userSlice.data.user)
@@ -151,7 +149,7 @@ const Navigation: React.FC<NavigationProps> = ({ logout }): ReactElement => {
 
         <div
           role="button"
-          onClick={(): void => logout()}
+          onClick={(): void => {}}
           tabIndex={0}
           onKeyDown={(e: React.KeyboardEvent): React.KeyboardEvent => {
             return e

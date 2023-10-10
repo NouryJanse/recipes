@@ -60,7 +60,6 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
   }, [dispatch, ingredients])
 
   const dispatchEdit = async (data: Inputs): Promise<boolean> => {
-    const { id, amount, unit } = data
     reset() // clear the rest of the form
     clearAutoComplete() // clear the Autocomplete field (separate from form since its custom)
     setUnit('')
@@ -68,9 +67,9 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
     const obj = {
       authorId: user.sub,
       recipeId: recipe.id,
-      ingredientId: id,
-      amount: amount,
-      unit: unit,
+      ingredientId: data.id,
+      amount: data.amount,
+      unit: data.unit,
     }
 
     // @ts-ignore:next-line

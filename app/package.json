@@ -18,7 +18,7 @@
     "deploy": "yarn build && netlify deploy --prod"
   },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.21.0",
+    "@auth0/auth0-spa-js": "^2.1.2",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.4",

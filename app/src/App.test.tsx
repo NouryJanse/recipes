@@ -2,14 +2,7 @@ import { render, screen } from '@testing-library/react'
 import App from './App'
 import renderWithStore from './helpers/testHelper'
 
-const setup = (): ReturnType<typeof render> =>
-  renderWithStore(
-    <App
-      logout={(): string => {
-        return ''
-      }}
-    />,
-  )
+const setup = (): ReturnType<typeof render> => renderWithStore(<App />)
 
 it('renders the nav bar', () => {
   setup()

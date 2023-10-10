@@ -1,4 +1,4 @@
-import createAuth0Client, { Auth0Client, User } from '@auth0/auth0-spa-js'
+import { createAuth0Client, Auth0Client, User } from '@auth0/auth0-spa-js'
 import LogHelper from './helpers/LogHelper'
 
 class Auth0 implements Auth0Interface {
@@ -43,13 +43,15 @@ class Auth0 implements Auth0Interface {
       this.toggleIsloading(true)
       this.auth0Client = await createAuth0Client({
         domain,
-        client_id: clientId,
-        useRefreshTokens: true,
+        clientId,
+        authorizationParams: {
+          audience,
+          scope,
+        },
+        useRefreshTokensFallback: true,
         cacheLocation: 'localstorage',
-        audience,
-        scope,
       })
-      await this.getTokenSilently()
+      // await this.getTokenSilently()
       await this.getUser()
       this.toggleIsloading(false)
     } catch (error) {
@@ -65,10 +67,12 @@ class Auth0 implements Auth0Interface {
 
       const login: User | false | undefined = await this.auth0Client
         .loginWithPopup({
-          redirect_uri: process.env.REACT_APP_PUBLIC_URL,
+          authorizationParams: {
+            redirect_uri: 'http://localhost:3000',
+          },
         })
         .then(async () => {
-          this.getTokenSilently()
+          // this.getTokenSilently()
           return this.getUser()
         })
 
@@ -95,7 +99,9 @@ class Auth0 implements Auth0Interface {
     try {
       if (!this.auth0Client) return false
       await this.auth0Client.logout({
-        returnTo: process.env.REACT_APP_PUBLIC_URL,
+        logoutParams: {
+          returnTo: process.env.REACT_APP_PUBLIC_URL,
+        },
       })
       return true
     } catch (error) {
@@ -109,8 +115,11 @@ class Auth0 implements Auth0Interface {
       this.toggleIsloading(true)
       if (!this.auth0Client) return false
       this.token = await this.auth0Client.getTokenSilently({
-        scope: 'read:current_user',
+        authorizationParams: {
+          scope: 'read:current_user',
+        },
       })
+
       this.toggleIsloading(false)
       this.error = undefined
       return this.token

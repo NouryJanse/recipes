@@ -18,23 +18,23 @@ const container = document.getElementById('root')
 if (container) {
   const root = createRoot(container!)
 
-  const auth0 = new Auth0(redirectURI, scope)
-  auth0
-    .initiate({
-      domain,
-      clientId,
-      audience,
-      scope,
-    })
-    .then(() => {
-      root.render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <GlobalStyle />
-            <Fonts />
-            <Auth auth0={auth0} />
-          </BrowserRouter>
-        </Provider>,
-      )
-    })
+  // const auth0 = new Auth0(redirectURI, scope)
+  // auth0
+  //   .initiate({
+  //     domain,
+  //     clientId,
+  //     audience,
+  //     scope,
+  //   })
+  //   .then(() => {
+  root.render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalStyle />
+        <Fonts />
+        <Auth />
+      </BrowserRouter>
+    </Provider>,
+  )
+  // })
 }
