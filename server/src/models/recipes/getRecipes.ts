@@ -1,6 +1,6 @@
 import { PrismaClient, Recipe } from '@prisma/client'
 import { ERROR_MESSAGES } from '../../constants'
-// import { formatRecipeImages } from "../../helpers";
+import { formatRecipeImages } from '../../helpers'
 import NoContentError from '../../types/NoContentError'
 
 const prisma = new PrismaClient()
@@ -29,8 +29,7 @@ const getRecipes = async (): Promise<Recipe[] | false> => {
     })
 
     if (!recipes.length) throw new NoContentError(ERROR_MESSAGES.NO_RECIPES_FOUND)
-    return recipes
-    // return formatRecipeImages(recipes);
+    return formatRecipeImages(recipes)
   } catch (error) {
     // LOG ERROR
     if (error instanceof NoContentError) {

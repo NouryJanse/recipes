@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { createAuth0Client, Auth0Client } from '@auth0/auth0-spa-js'
 import LogHelper from '../../../../helpers/LogHelper'
 
-// const redirectURI: string = process.env.REACT_APP_AUTH0_REDIRECT_URI as string
 const domain: string = process.env.REACT_APP_AUTH0_DOMAIN as string
 const clientId: string = process.env.REACT_APP_AUTH0_CLIENT_ID as string
 const audience: string = process.env.REACT_APP_AUTH0_AUDIENCE as string

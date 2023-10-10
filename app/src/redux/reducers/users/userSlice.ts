@@ -6,7 +6,7 @@ import initiateAuth0Thunk from './thunks/userAuthentication'
 export const initialState = {
   data: {
     user: {
-      name: 'initial',
+      name: 'Noury',
     } as User,
   },
 }
@@ -24,21 +24,6 @@ export const userSlice = createSlice({
       const user = { token: state.data.user.token, ...action.payload }
       state.data.user = user
     },
-  },
-  extraReducers: {
-    // [fetchRecipes.pending]: (state, action) => {
-    //   state.status.fetchRecipes = "loading";
-    //   state.error = {};
-    // },
-    // [fetchRecipes.rejected]: (state, action) => {
-    //   state.status.fetchRecipes = "loading";
-    //   state.error = {};
-    // },
-    // [fetchRecipes.fulfilled]: (state, action) => {
-    //   state.data.recipes = action.payload.recipes;
-    //   state.status.fetchRecipes = "fulfilled";
-    //   state.error = {};
-    // },
   },
 })
 

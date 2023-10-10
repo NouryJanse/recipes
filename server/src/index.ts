@@ -2,7 +2,8 @@ import express, { Application } from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
 dotenv.config({ path: './.env' }) // repo root, not in src
-import routes from './routes/recipes'
+import ingredientRoutes from './routes/ingredients'
+import recipeRoutes from './routes/recipes'
 
 const port = parseInt(process.env.PORT as string, 10 || 3000)
 const allowedOrigins = ['http://localhost:3000']
@@ -15,7 +16,7 @@ const app: Application = express()
 app.use(cors(options))
 app.use(express.json())
 
-app.use('/', routes)
+app.use('/', [ingredientRoutes, recipeRoutes])
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)

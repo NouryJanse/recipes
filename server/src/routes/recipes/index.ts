@@ -47,8 +47,8 @@ router.get('/api/recipes', async (req, res) => {
 router.get('/api/recipes/:id', async (req, res) => {
   try {
     const recipe: Recipe = await getRecipe(Number.parseInt(req.params.id, 10))
-    // return reply.code(HTTP_CODES.OK).send(formatRecipeImages([recipe])[0]);
-    res.status(HTTP_CODES.OK).send(recipe)
+    return res.status(HTTP_CODES.OK).send(formatRecipeImages([recipe])[0])
+    // res.status(HTTP_CODES.OK).send(recipe)
   } catch (error) {
     // req.log.error(error);
     // if (error instanceof ObjectCouldNotBeFoundError) {
@@ -127,14 +127,14 @@ router.delete('/api/recipes/:id', async (req, res) => {
   }
 })
 
-// // SAVE RECIPE IMAGE
-// router.post("/api/recipes/image/:id", checkJwt, (req, res) => {
-//   res.send("About this wiki");
-// });
+// SAVE RECIPE IMAGE
+router.post('/api/recipes/image/:id', (req, res) => {
+  res.send('About this wiki')
+})
 
-// // DELETE RECIPE IMAGE
-// router.delete("/api/recipes/image", checkJwt, (req, res) => {
-//   res.send("About this wiki");
-// });
+// DELETE RECIPE IMAGE
+router.delete('/api/recipes/image', (req, res) => {
+  res.send('About this wiki')
+})
 
 export default router
