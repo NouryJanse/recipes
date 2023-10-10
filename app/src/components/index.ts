@@ -24,9 +24,12 @@ export { default as NavigationLink } from './molecules/NavigationLink'
 // ORGANISMS
 export { default as IngredientCard } from './organisms/Ingredient/IngredientCard'
 export { default as IngredientsTable } from './organisms/Ingredient/IngredientsTable'
-export { default as Navigation } from './organisms/Navigation'
-export { default as RecipeCard } from './organisms/Recipe/RecipeCard'
 export { default as AddRecipeIngredient } from './organisms/Ingredient/RecipeIngredients/AddRecipeIngredient'
+export { default as LinkRecipeIngredients } from './organisms/Ingredient/RecipeIngredients/LinkRecipeIngredients'
+
+export { default as Navigation } from './organisms/Navigation'
+
+export { default as RecipeCard } from './organisms/Recipe/RecipeCard'
 export { default as EditableIngredientList } from './organisms/Ingredient/RecipeIngredients/EditableIngredientList'
 export { default as EditLinkedIngredient } from './organisms/Ingredient/RecipeIngredients/EditLinkedIngredient'
 

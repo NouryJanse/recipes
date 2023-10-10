@@ -19,9 +19,7 @@ import {
   ImageSortableList,
   FieldContainer,
   Loader,
-  AddRecipeIngredient,
-  Heading,
-  EditableIngredientList,
+  LinkRecipeIngredients,
 } from '../../../index'
 
 import RootState from '../../../../types/RootState'
@@ -284,29 +282,7 @@ const EditRecipe: React.FC = (): ReactElement => {
         </div>
 
         {/* LINKING INGREDIENTS HERE */}
-        <div>
-          <FieldContainer>
-            <>
-              <Heading headingLevel="h2" extraClasses="">
-                New ingredient
-              </Heading>
-              {id && <AddRecipeIngredient recipe={recipe} />}
-            </>
-          </FieldContainer>
-          <FieldContainer>
-            <>
-              <Heading headingLevel="h2" extraClasses="">
-                Ingredients
-              </Heading>
-
-              {recipe.ingredients && recipe.ingredients.length ? (
-                <EditableIngredientList ingredients={recipe.ingredients} recipe={recipe} />
-              ) : (
-                ''
-              )}
-            </>
-          </FieldContainer>
-        </div>
+        <LinkRecipeIngredients id={id ? id : ''} recipe={recipe} />
       </div>
     </div>
   )
