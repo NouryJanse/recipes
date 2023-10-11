@@ -1,4 +1,4 @@
-import { PrismaClient, RecipeIngredients } from '@prisma/client'
+import { PrismaClient, RecipeIngredient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -7,9 +7,9 @@ const createLinkedIngredientOps = async (
   ingredientId: number,
   unit: string,
   amount: number,
-): Promise<RecipeIngredients | false> => {
+): Promise<RecipeIngredient | false> => {
   try {
-    const ingredient = await prisma.recipeIngredients.create({
+    const ingredient = await prisma.recipeIngredient.create({
       data: {
         recipeId,
         ingredientId,

@@ -1,15 +1,13 @@
-import { Ingredient, PrismaClient, RecipeIngredients } from '@prisma/client'
+import { PrismaClient, RecipeIngredient } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import ObjectCouldNotBeFoundError from '../../types/ObjectCouldNotBeFoundError'
 const prisma = new PrismaClient()
 
 const updateIngredient = async (
-  recipeIngredient: RecipeIngredients,
-): Promise<RecipeIngredients | false> => {
-  console.log(recipeIngredient)
-
+  recipeIngredient: RecipeIngredient,
+): Promise<RecipeIngredient | false> => {
   try {
-    const ingredient = await prisma.recipeIngredients.update({
+    const ingredient = await prisma.recipeIngredient.update({
       where: {
         id: recipeIngredient.id,
       },

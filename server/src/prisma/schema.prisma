@@ -13,21 +13,21 @@ datasource db {
 }
 
 model Recipe {
-  id                Int                 @unique @default(autoincrement())
-  name              String              @unique @db.VarChar(255)
-  description       String?             @db.VarChar(2000)
-  createdAt         DateTime?           @default(now())
-  updatedAt         DateTime?           @updatedAt
-  published         Boolean?            @default(false)
-  authorId          Int?
-  author            User?               @relation(fields: [authorId], references: [id])
-  course            String              @db.VarChar(500)
-  cookingDuration   Int?
-  rating            Int?
-  difficultyRating  Int?
-  calorieCount      Int?
-  Image             Image[]
-  RecipeIngredients RecipeIngredients[]
+  id               Int                @unique @default(autoincrement())
+  name             String             @unique @db.VarChar(255)
+  description      String?            @db.VarChar(2000)
+  createdAt        DateTime?          @default(now())
+  updatedAt        DateTime?          @updatedAt
+  published        Boolean?           @default(false)
+  authorId         Int?
+  author           User?              @relation(fields: [authorId], references: [id])
+  course           String             @db.VarChar(500)
+  cookingDuration  Int?
+  rating           Int?
+  difficultyRating Int?
+  calorieCount     Int?
+  Image            Image[]
+  RecipeIngredient RecipeIngredient[]
 }
 
 model Image {
@@ -50,17 +50,17 @@ model User {
 }
 
 model Ingredient {
-  id                Int                 @unique @default(autoincrement())
-  name              String              @unique @db.VarChar(255)
-  createdAt         DateTime?           @default(now())
-  updatedAt         DateTime?           @updatedAt
-  published         Boolean?            @default(false)
-  calorieCount      Int?
-  unit              String?             @db.VarChar(255)
-  RecipeIngredients RecipeIngredients[]
+  id               Int                @unique @default(autoincrement())
+  name             String             @unique @db.VarChar(255)
+  createdAt        DateTime?          @default(now())
+  updatedAt        DateTime?          @updatedAt
+  published        Boolean?           @default(false)
+  calorieCount     Int?
+  unit             String?            @db.VarChar(255)
+  RecipeIngredient RecipeIngredient[]
 }
 
-model RecipeIngredients {
+model RecipeIngredient {
   id           Int        @unique @default(autoincrement())
   recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   recipeId     Int // relation scalar field (used in the `@relation` attribute above)

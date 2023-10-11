@@ -39,6 +39,7 @@ const EditRecipe: React.FC = (): ReactElement => {
   const [recipeName, setRecipeName] = useState<string>('')
   const [course, setCourse] = useState<string>('')
   const [toggle, setToggle] = useState(false)
+
   const navigate = useNavigate()
 
   const hasURLParams = useRef(false)
@@ -64,6 +65,7 @@ const EditRecipe: React.FC = (): ReactElement => {
     if (recipe) dispatchEdit(formData, recipe)
   }
 
+  // useEffect for reacting to the fetched recipe
   useEffect(() => {
     if (isDirty) setBtnClasses('font-bold')
 
@@ -89,6 +91,10 @@ const EditRecipe: React.FC = (): ReactElement => {
     if (recipe?.course) {
       setCourse(recipe.course)
     }
+
+    if (recipe) {
+      setToggle(recipe.published)
+    }
   }, [recipe, id, recipes, params, isDirty, initialRecipeLoad])
 
   const debouncedSubmit = useRef(
@@ -102,6 +108,7 @@ const EditRecipe: React.FC = (): ReactElement => {
     setToggle(!toggle)
   }
 
+  // useEffect for the form
   useEffect(() => {
     const subscription = watch(async (data) => {
       await setRecipeName(data.name)

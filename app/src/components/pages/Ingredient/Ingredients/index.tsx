@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Outlet, useParams } from 'react-router-dom'
-import { Loader, IngredientCard, IngredientsTable } from '../../..'
+import { Loader, IngredientCard, IngredientsTable, PageTitle } from '../../..'
 
 import { getIngredients } from '../../../../redux/reducers/ingredients/ingredientSlice'
 import RootState from '../../../../types/RootState'
@@ -31,12 +31,14 @@ const Ingredients: React.FC = (): ReactElement | null => {
   }
 
   return (
-    <div>
-      <div className="mb-16">{status.getIngredients === REDUX_STATE.LOADING && <Loader />}</div>
+    <div className="pt-7">
+      <div>{status.getIngredients === REDUX_STATE.LOADING && <Loader />}</div>
 
       {!params.ingredientId && ingredients?.length ? (
         <div>
-          <h1 className="text-xl md:text-3xl xl:text-4xl font-bold mb-20">{ingredients.length} tasty ingredients</h1>
+          <div className="mb-16">
+            <PageTitle text={`${ingredients.length} tasty ingredients`} />
+          </div>
 
           <IngredientsTable ingredients={ingredients} />
         </div>

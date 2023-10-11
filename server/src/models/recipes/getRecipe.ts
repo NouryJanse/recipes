@@ -1,4 +1,4 @@
-import { PrismaClient, Recipe } from '@prisma/client'
+import { PrismaClient, Recipe, RecipeIngredient } from '@prisma/client'
 import { ERROR_MESSAGES } from '../../constants'
 import CustomError from '../../types/CustomError'
 import ObjectCouldNotBeFoundError from '../../types/ObjectCouldNotBeFoundError'
@@ -17,7 +17,7 @@ const getRecipe = async (recipeId: number): Promise<Recipe> => {
             position: 'asc',
           },
         },
-        RecipeIngredients: {
+        RecipeIngredient: {
           include: {
             ingredient: true,
           },

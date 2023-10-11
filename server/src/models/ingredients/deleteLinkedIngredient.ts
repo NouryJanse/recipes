@@ -5,7 +5,7 @@ const deleteLinkedIngredient = async (id: number): Promise<boolean> => {
   if (!id) return false
 
   try {
-    await prisma.recipeIngredients.delete({
+    await prisma.recipeIngredient.delete({
       where: {
         id,
       },

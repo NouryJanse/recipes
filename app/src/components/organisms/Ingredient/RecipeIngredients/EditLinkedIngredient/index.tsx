@@ -32,8 +32,6 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
   const [options, setOptions] = useState<Option[]>()
 
   const dispatchEdit = async (localIngredient: RecipeIngredient): Promise<boolean> => {
-    console.log(localIngredient)
-
     // @ts-ignore:next-line
     await dispatch(updateRecipeIngredient(localIngredient))
     return true

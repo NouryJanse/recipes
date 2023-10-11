@@ -4,7 +4,7 @@ import { Outlet, useParams } from 'react-router-dom'
 
 import { getRecipes } from '../../../../redux/reducers/recipes/recipeSlice'
 import RootState from '../../../../types/RootState'
-import { Loader, RecipeCard } from '../../..'
+import { Loader, PageTitle, RecipeCard } from '../../..'
 import { REDUX_STATE } from '../../../../constants'
 // import useInterval from '../../helpers/polling'
 
@@ -41,7 +41,9 @@ const Recipes: React.FC = (): ReactElement | null => {
 
       {!params.recipeId && recipes?.length ? (
         <div>
-          <h1 className="text-xl md:text-3xl xl:text-4xl font-bold mb-16">{recipes.length} delicous meals</h1>
+          <div className="mb-16">
+            <PageTitle text={`${recipes.length} delicous meals`} />
+          </div>
 
           <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {recipes.map((recipe: Recipe) => {

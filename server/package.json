@@ -12,7 +12,8 @@
     "lint": "eslint --ext .ts .",
     "check": "tsc --noemit",
     "test:coverage": "jest --runInBand --coverage",
-    "test:watch": "jest --runInBand --watch"
+    "test:watch": "jest --runInBand --watch",
+    "prisma": "npx prisma generate && npx prisma migrate dev --name init"
   },
   "dependencies": {
     "@prisma/client": "^4.9.0",
