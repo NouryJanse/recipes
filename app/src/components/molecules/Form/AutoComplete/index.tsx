@@ -10,6 +10,7 @@ type AutoCompleteProps = {
   handleOnChange: (option: Option | null, actionMeta: ActionMeta<Option>) => void
   setRef: any
   errors: errorObject
+  classes?: string
   defaultValue?: Option
 }
 
@@ -21,9 +22,10 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
   setRef,
   errors,
   defaultValue,
+  classes,
 }): ReactElement => {
   return (
-    <StyledLabel htmlFor={name} role="caption">
+    <StyledLabel htmlFor={name} role="caption" className={classes}>
       {labelText}
       {setRef ? (
         <Select

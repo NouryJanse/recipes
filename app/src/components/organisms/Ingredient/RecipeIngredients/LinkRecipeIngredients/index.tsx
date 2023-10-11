@@ -12,7 +12,7 @@ type WrapperRecipeIngredientsType = {
 const WrapperRecipeIngredients: React.FC<WrapperRecipeIngredientsType> = ({ id, recipe }): ReactElement => {
   return (
     <div>
-      <FieldContainer>
+      <FieldContainer classes="border-b-1 border-cyan border-solid">
         <>
           {/* <Heading headingLevel="h2" extraClasses="">
             New ingredient
@@ -20,13 +20,15 @@ const WrapperRecipeIngredients: React.FC<WrapperRecipeIngredientsType> = ({ id, 
           {id && <AddRecipeIngredient recipe={recipe} />}
         </>
       </FieldContainer>
-      <FieldContainer>
+
+      <FieldContainer classes="mt-6">
         <>
           {recipe.ingredients && recipe.ingredients.length ? (
             <>
               <Heading headingLevel="h2" extraClasses="">
                 Ingredients
               </Heading>
+
               {recipe.ingredients.map((linkedIngredient: RecipeIngredient) => {
                 return <EditLinkedIngredient key={linkedIngredient.id} ingredient={linkedIngredient} recipe={recipe} />
               })}

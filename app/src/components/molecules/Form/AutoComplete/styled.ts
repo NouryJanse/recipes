@@ -4,8 +4,8 @@ const StyledLabel = styled.label`
   color: black;
   position: relative;
   max-width: 320px;
-  display: block;
-  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
 `
 
 export default StyledLabel

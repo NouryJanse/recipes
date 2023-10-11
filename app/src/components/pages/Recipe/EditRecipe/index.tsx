@@ -123,7 +123,7 @@ const EditRecipe: React.FC = (): ReactElement => {
           <Button
             onClick={(): void => navigate('/recipes')}
             type="button"
-            label="Back recipes"
+            label="To recipes"
             classes={`${btnClasses} self-center mr-3`}
             buttonStyle="tertiary"
           />
@@ -131,7 +131,7 @@ const EditRecipe: React.FC = (): ReactElement => {
             <Button
               onClick={(): void => navigate(`/recipes/${params.recipeId}`)}
               type="button"
-              label={`Back to ${recipe.name}`}
+              label={`To ${recipe.name}`}
               classes={`${btnClasses} self-center mr-3`}
               buttonStyle="secondary"
             />
@@ -139,7 +139,7 @@ const EditRecipe: React.FC = (): ReactElement => {
           <Button
             onClick={(): Promise<void> => handleSubmit(onSave)()}
             type="button"
-            label="Save recipe"
+            label="Save"
             classes={`${btnClasses} self-center`}
             buttonStyle="primary"
           />

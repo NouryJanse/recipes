@@ -125,7 +125,7 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
           />
         </FieldContainer>
 
-        <FieldContainer>
+        <FieldContainer classes="mb-8">
           <Number
             name="amount"
             label="Amount*"

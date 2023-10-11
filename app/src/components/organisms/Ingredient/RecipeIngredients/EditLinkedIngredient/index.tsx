@@ -92,11 +92,11 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
 
   return (
     <div>
-      <div key={ingredient.id} className="flex flex-row align-middle mb-4">
+      <div key={ingredient.id} className="flex flex-row items-end mb-4">
         {/* <div className="pr-3 self-center justify-center w-52">{ingredient.name}</div> */}
 
         <AutoComplete
-          labelText="Search for an ingredient*"
+          labelText="Ingredient"
           name="ingredient"
           options={options}
           handleOnChange={(option: Option | null): void => {
@@ -107,41 +107,41 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
           defaultValue={option}
           setRef={setRef}
           errors={{ message: '', type: '' }}
+          classes="mr-4"
         />
 
         <Number
           name="amount"
-          label=""
+          label="Amount"
           placeholder=""
           defaultValue={ingredient.amount}
           setValue={(value: number): void => {
             updateIngredient('amount', +value, ingredient)
           }}
-          classes="mr-2"
+          classes="mr-4"
         />
 
         <Dropdown
           name="unit"
           defaultValue={unit.unit ? unit.unit : ''}
-          label=""
+          label="Unit"
           options={INGREDIENT_UNITS}
           onChange={(e: ChangeEvent<HTMLInputElement>): void => {
             setUnit({ id: unit.id, unit: e.target.value })
             updateIngredient('unit', e.target.value, ingredient)
           }}
-          classes="w-24"
+          classes="w-24 mr-4"
         />
 
-        <Icon
+        {/* <Icon
           iconElement={<BsSave2 style={{ color: 'gray', width: '32px', height: '32px' }} />}
           classes="items-center"
-        />
+        /> */}
+
         <Icon
           iconElement={
             <BsTrash2
-              style={{ color: 'gray', width: '32px', height: '32px' }}
-              onMouseEnter={(): void => console.log('enter')}
-              onMouseLeave={(): void => console.log('leave')}
+              style={{ color: 'gray', width: '32px', height: '32px', marginBottom: '4px' }}
               onClick={(): Promise<void> => onDeleteIngredient()}
             />
           }
