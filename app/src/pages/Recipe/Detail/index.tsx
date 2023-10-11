@@ -62,16 +62,19 @@ const RecipeDetail: React.FC = (): ReactElement => {
 
       <i className="block mb-4">{recipe.course}</i>
 
-      <Link to={`/recipes/${recipe.id}/edit`}>
-        <Button type="button" label="Edit" buttonStyle="secondary" classes="mb-4" />
-      </Link>
+      <div className="flex flex-row justify-between items-center">
+        <Link to="/recipes" className="flex items-center mr-4">
+          <IoChevronBackOutline />
+          Back to Recipes
+        </Link>
+        <div className="flex flex-row">
+          <Link to={`/recipes/${recipe.id}/edit`}>
+            <Button type="button" label="Edit" buttonStyle="secondary" classes="mr-2" />
+          </Link>
 
-      <Button classes="mb-6" type="button" label="Delete" onClick={(): Promise<boolean> => onDelete(recipe.id)} />
-
-      <Link to="/recipes" className="flex items-center">
-        <IoChevronBackOutline />
-        Back to Recipes
-      </Link>
+          <Button type="button" label="Delete" onClick={(): Promise<boolean> => onDelete(recipe.id)} />
+        </div>
+      </div>
     </RecipeContainer>
   )
 }

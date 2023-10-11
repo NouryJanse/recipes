@@ -28,8 +28,6 @@ const getRecipes = async (): Promise<Recipe[] | false> => {
       },
     })
 
-    console.log(recipes)
-
     if (!recipes.length) throw new NoContentError(ERROR_MESSAGES.NO_RECIPES_FOUND)
     return formatRecipeImages(recipes)
   } catch (error) {
