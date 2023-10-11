@@ -66,8 +66,8 @@ router.get('/api/recipes/:id', async (req, res) => {
 router.put('/api/recipes/:id', async (req, res) => {
   try {
     const { id } = req.params
-    const { name, description, authorId, course } = req.body
-    const recipe = await updateRecipe(Number(id), name, description, authorId, course)
+    const { name, description, authorId, course, published } = req.body
+    const recipe = await updateRecipe(Number(id), name, description, authorId, course, published)
 
     if (req.body.images && req.body.images.length) {
       const promises = req.body.images.map(async (image: any) => {

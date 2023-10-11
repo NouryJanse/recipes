@@ -13,12 +13,7 @@ const WrapperRecipeIngredients: React.FC<WrapperRecipeIngredientsType> = ({ id, 
   return (
     <div>
       <FieldContainer classes="border-b-1 border-cyan border-solid">
-        <>
-          {/* <Heading headingLevel="h2" extraClasses="">
-            New ingredient
-          </Heading> */}
-          {id && <AddRecipeIngredient recipe={recipe} />}
-        </>
+        {id ? <AddRecipeIngredient recipe={recipe} /> : <div></div>}
       </FieldContainer>
 
       <FieldContainer classes="mt-6">

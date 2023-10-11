@@ -9,7 +9,7 @@ const getRecipes = async (): Promise<Recipe[] | false> => {
   try {
     const recipes = await prisma.recipe.findMany({
       orderBy: {
-        updatedAt: 'desc',
+        createdAt: 'desc',
       },
       include: {
         Image: {

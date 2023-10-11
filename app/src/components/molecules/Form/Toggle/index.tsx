@@ -14,6 +14,7 @@ const Toggle: React.FC<ToggleProps> = ({ label, name, register, handleToggle, ch
   return (
     <div className="relative">
       <span className="inline-block mb-2">{label}</span>
+
       <StyledInput
         className="react-switch-checkbox"
         id="react-switch-new"

@@ -22,6 +22,7 @@ interface Recipe {
   updatedAt: string
   images?: Image[]
   ingredients: RecipeIngredient[]
+  published: boolean
 }
 interface Ingredient {
   id: number

@@ -13,6 +13,7 @@ import {
   Loader,
   WrapperRecipeIngredients,
   Images,
+  Toggle,
 } from '../../../index'
 
 import RootState from '../../../../types/RootState'
@@ -37,6 +38,7 @@ const EditRecipe: React.FC = (): ReactElement => {
   const [btnClasses, setBtnClasses] = useState('')
   const [recipeName, setRecipeName] = useState<string>('')
   const [course, setCourse] = useState<string>('')
+  const [toggle, setToggle] = useState(false)
   const navigate = useNavigate()
 
   const hasURLParams = useRef(false)
@@ -95,6 +97,11 @@ const EditRecipe: React.FC = (): ReactElement => {
     }, 750),
   ).current
 
+  const handleToggle = (): void => {
+    setValue('published', !toggle)
+    setToggle(!toggle)
+  }
+
   useEffect(() => {
     const subscription = watch(async (data) => {
       await setRecipeName(data.name)
@@ -119,7 +126,7 @@ const EditRecipe: React.FC = (): ReactElement => {
 
         {isLoading(status) && <Loader />}
 
-        <div className="flex">
+        <div className="flex flex-row">
           <Button
             onClick={(): void => navigate('/recipes')}
             type="button"
@@ -149,6 +156,16 @@ const EditRecipe: React.FC = (): ReactElement => {
       <div className="grid xs:grid-cols-1 xl:grid-cols-2 gap-5">
         <div className="mb-4 mr-4 pr-4">
           <form className="" onSubmit={handleSubmit(onSave)} {...formRef}>
+            <FieldContainer>
+              <Toggle
+                handleToggle={(): void => handleToggle()}
+                name="published"
+                label="Published"
+                register={register}
+                checked={toggle}
+              />
+            </FieldContainer>
+
             <FieldContainer>
               <Textfield
                 name="name"
