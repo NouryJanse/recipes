@@ -39,7 +39,7 @@ router.post('/api/ingredients', async (req, res) => {
 
     return res.status(HTTP_CODES.CREATED).send({ ingredients })
   } catch (error) {
-    // LOG
+    console.error(error)
     if (error instanceof ObjectAlreadyExistsError) {
       return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({ message: error.message })
     }
@@ -66,7 +66,7 @@ router.get('/api/ingredients', async (req, res) => {
     // }
     // return res.status(HTTP_CODES.NO_CONTENT).send(recipes)
   } catch (error) {
-    // request.log.error(error)
+    console.error(error)
     if (error instanceof NoContentError) {
       return res.status(HTTP_CODES.NO_CONTENT).send({ message: error.message })
     }
@@ -81,7 +81,7 @@ router.get('/api/ingredients/:id', async (req, res) => {
     const ingredient: Ingredient = await getIngredient(Number.parseInt(id, 10))
     return res.status(HTTP_CODES.OK).send(ingredient)
   } catch (error) {
-    // request.log.error(error)
+    console.error(error)
     if (error instanceof ObjectCouldNotBeFoundError) {
       return res.status(HTTP_CODES.NOT_FOUND).send({ message: error.message })
     }
@@ -137,7 +137,7 @@ router.delete('/api/ingredients/:id', async (req, res) => {
 
     return res.status(HTTP_CODES.OK).send({})
   } catch (error) {
-    // request.log.error(error)
+    console.error(error)
     return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
   }
 })
@@ -202,7 +202,7 @@ router.put('/api/ingredients/recipe/:id', async (req, res) => {
     // request.log.info('Not found')
     return res.status(HTTP_CODES.NOT_FOUND).send({})
   } catch (error) {
-    // request.log.error(error)
+    console.error(error)
     if (error instanceof ObjectCouldNotBeFoundError) {
       return res.status(HTTP_CODES.UNPROCESSABLE_ENTITY).send({ message: error.message })
     }
@@ -225,7 +225,7 @@ router.delete('/api/ingredients/recipe/:id', async (req, res) => {
 
     return res.status(HTTP_CODES.OK).send({})
   } catch (error) {
-    // request.log.error(error)
+    console.error(error)
     return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
   }
 })

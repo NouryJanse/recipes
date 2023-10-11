@@ -22,6 +22,7 @@ const updateRecipe = (
       },
     })
   } catch (error) {
+    console.error(error)
     // LOG ERROR
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
       throw new ObjectCouldNotBeFoundError(`The recipe with id: ${id} could not be found`)

@@ -1,6 +1,7 @@
 process.env.ENV = ''
 
 process.env.LOCAL_URL = ''
+process.env.SHADOW_LOCAL_URL = ''
 process.env.PORT = ''
 
 process.env.DB_URL = ''

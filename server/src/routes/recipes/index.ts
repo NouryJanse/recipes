@@ -51,7 +51,7 @@ router.get('/api/recipes/:id', async (req, res) => {
     return res.status(HTTP_CODES.OK).send(formatRecipeImages([recipe])[0])
     // res.status(HTTP_CODES.OK).send(recipe)
   } catch (error) {
-    // req.log.error(error);
+    console.error(error)
     // if (error instanceof ObjectCouldNotBeFoundError) {
     //   return reply.code(HTTP_CODES.NOT_FOUND).send({ message: error.message });
     // }
@@ -96,6 +96,8 @@ router.put('/api/recipes/:id', async (req, res) => {
     }
     return res.status(HTTP_CODES.NOT_FOUND).send({})
   } catch (error) {
+    console.error(error)
+
     // if (error instanceof ObjectCouldNotBeFoundError) {
     //   return reply.code(HTTP_CODES.UNPROCESSABLE_ENTITY).send({ message: error.message });
     // }
@@ -119,7 +121,7 @@ router.delete('/api/recipes/:id', async (req, res) => {
 
     return res.status(HTTP_CODES.OK).send(result)
   } catch (error) {
-    // request.log.error(error);
+    console.error(error)
     return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
   }
 })

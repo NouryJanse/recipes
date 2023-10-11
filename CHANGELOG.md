@@ -12,12 +12,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Destructuring assignment for all props that are passed through the API
-- 
+- Ingredient type can now be changed
+- Serverside route error logging
 
 ### Changed
 
 - Removed body-parser package as Express already has these features built-in
--
+- Archived fastify-server, removed all .env vars for security reasons - improved .gitignore
+
+### Fixed
+
+- Larger description text length: from 500 to 2000 characters.
 
 ## [0.0.1] - 2023-10-10
 
