@@ -23,6 +23,7 @@ app/src/styles/tailwind.output.css
 
 # jest
 *.jest/*
+*/.jest/*
 !fastify-server/.jest/.example.setEnvVars.ts
 
 # env vars
