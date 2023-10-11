@@ -22,6 +22,13 @@ it('renders the autocomplete component with a label', async () => {
   render(
     <AutoComplete
       name="AutoCompleteName"
+      defaultValue={{
+        id: 0,
+        value: '',
+        label: '',
+        disabled: false,
+        text: 'test',
+      }}
       labelText="AutoComplete element"
       options={optionList}
       handleOnChange={(): boolean => true}
@@ -43,6 +50,13 @@ it('should select the option and display the corresponding label as a result', a
     <div data-testid="test">
       <AutoComplete
         name="AutoCompleteName"
+        defaultValue={{
+          id: 0,
+          value: '',
+          label: '',
+          disabled: false,
+          text: 'test',
+        }}
         labelText="AutoComplete element"
         options={optionList}
         handleOnChange={(): boolean => true}
@@ -70,6 +84,13 @@ it('check if onChange behavior work', async () => {
   render(
     <AutoComplete
       name="AutoCompleteName"
+      defaultValue={{
+        id: 0,
+        value: '',
+        label: '',
+        disabled: false,
+        text: 'test',
+      }}
       labelText="AutoComplete element"
       errors={{ message: '', type: '' }}
       options={optionList}
@@ -93,6 +114,13 @@ it('test whether the error message will be shown', async () => {
   const container = render(
     <AutoComplete
       name="AutoCompleteName"
+      defaultValue={{
+        id: 0,
+        value: '',
+        label: '',
+        disabled: false,
+        text: 'test',
+      }}
       labelText="AutoComplete element"
       errors={{ message: 'This is an error message for testing', type: '' }}
       options={optionList}

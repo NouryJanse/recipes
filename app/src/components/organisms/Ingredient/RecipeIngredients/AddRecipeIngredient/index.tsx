@@ -85,6 +85,10 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
     dispatchEdit(data)
   }
 
+  if (!options) {
+    return <p>Loading...</p>
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="mb-6">

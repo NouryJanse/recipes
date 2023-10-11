@@ -3,23 +3,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
-import {
-  updateRecipe,
-  createRecipeImage,
-  deleteRecipeImage,
-  getRecipe,
-} from '../../../../redux/reducers/recipes/recipeSlice'
+import { updateRecipe } from '../../../../redux/reducers/recipes/recipeSlice'
 import {
   Button,
   Textfield,
   Textarea,
   Dropdown,
-  ImagePicker,
-  ImagePreviewList,
-  ImageSortableList,
   FieldContainer,
   Loader,
-  LinkRecipeIngredients,
+  WrapperRecipeIngredients,
+  Images,
 } from '../../../index'
 
 import RootState from '../../../../types/RootState'
@@ -41,8 +34,6 @@ const EditRecipe: React.FC = (): ReactElement => {
   const [initialRecipeLoad, setInitialRecipeLoad] = useState(false)
   const [id, setId] = useState<string | undefined>('')
   const [recipe, setRecipe] = useState<Recipe>()
-  const [imagePreviewList, setImageViewList] = useState<ImageData[]>([])
-  const [imageSortableList, setImageSortableList] = useState<Image[]>([])
   const [btnClasses, setBtnClasses] = useState('')
   const [recipeName, setRecipeName] = useState<string>('')
   const [course, setCourse] = useState<string>('')
@@ -96,13 +87,6 @@ const EditRecipe: React.FC = (): ReactElement => {
     if (recipe?.course) {
       setCourse(recipe.course)
     }
-
-    if (recipe && recipe.images && !initialRecipeLoad) {
-      setImageSortableList(recipe?.images ? recipe.images : [])
-      setInitialRecipeLoad(true)
-    } else if (recipe && !recipe.images && !initialRecipeLoad) {
-      setImageSortableList([])
-    }
   }, [recipe, id, recipes, params, isDirty, initialRecipeLoad])
 
   const debouncedSubmit = useRef(
@@ -118,47 +102,6 @@ const EditRecipe: React.FC = (): ReactElement => {
     })
     return (): void => subscription.unsubscribe()
   }, [watch, recipe, debouncedSubmit])
-
-  const pushSelectedImage = (image: ImageData): void => {
-    setImageViewList((prevState: ImageData[]) => [...prevState, image])
-  }
-
-  const handleImageUpload = async (image: ImageData): Promise<void> => {
-    // @ts-ignore:next-line
-    const response = await dispatch(createRecipeImage({ image, recipeId: recipe.id }))
-    if (response.type === 'recipes/createRecipeImage/fulfilled') {
-      setImageViewList((prevState: ImageData[]) => [
-        ...prevState.filter((currentImage) => currentImage.data !== image.data),
-      ])
-      setInitialRecipeLoad(false)
-      setImageSortableList(recipe?.images ? recipe.images : [])
-      return
-    }
-    throw new Error('An error occurred, the recipe image was not saved correctly.')
-  }
-
-  const handleSortedImages = (images: Image[]): void => {
-    setImageSortableList(images)
-    setValue(
-      'images',
-      // @ts-ignore:next-line
-      images.map((image: ImageData, index: number) => {
-        return {
-          ...image,
-          position: index + 1,
-        }
-      }),
-    )
-    handleSubmit(onSave)()
-  }
-
-  const deleteImage = async (imageId: string): Promise<void> => {
-    // @ts-ignore:next-line
-    await dispatch(deleteRecipeImage(imageId))
-    // @ts-ignore:next-line
-    await dispatch(getRecipe(recipe.id))
-    setInitialRecipeLoad(false)
-  }
 
   if (!recipe) {
     // Should be styled and moved into a component in the Recipe subfolder
@@ -254,35 +197,18 @@ const EditRecipe: React.FC = (): ReactElement => {
               />
             </FieldContainer>
 
-            {/* IMAGES HERE */}
-            <FieldContainer>
-              <ImagePicker
-                name="images"
-                label="Drag 'n' drop some files here, or click to select files"
-                register={register}
-                validation={{
-                  required: 'Did you forget to add images to your recipe?',
-                }}
-                onSelectedImageCallback={pushSelectedImage}
-              />
-            </FieldContainer>
-
-            {!!imagePreviewList.length && (
-              <ImagePreviewList images={imagePreviewList} callbackUploadImages={handleImageUpload} />
-            )}
-
-            {!!imageSortableList.length && (
-              <ImageSortableList
-                images={imageSortableList}
-                callbackSortedImages={handleSortedImages}
-                onDelete={deleteImage}
-              />
-            )}
+            <Images
+              register={register}
+              recipe={recipe}
+              setValue={setValue}
+              setInitialRecipeLoad={setInitialRecipeLoad}
+              initialRecipeLoad={initialRecipeLoad}
+            />
           </form>
         </div>
 
         {/* LINKING INGREDIENTS HERE */}
-        <LinkRecipeIngredients id={id ? id : ''} recipe={recipe} />
+        <WrapperRecipeIngredients id={id ? id : ''} recipe={recipe} />
       </div>
     </div>
   )
