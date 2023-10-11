@@ -25,7 +25,7 @@ const createImage = async (
       imageBase64,
       { upload_preset: process.env.CLOUDINARY_PRESET_ID },
       (error: string, result: any) => {
-        // logger.error(result, error);
+        console.error(error)
       },
     )
 
@@ -49,7 +49,7 @@ const createImage = async (
 
     return dbImage
   } catch (error) {
-    // LOG ERROR
+    console.error(error)
     return false
   } finally {
     ;async (): Promise<void> => {

@@ -14,11 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Destructuring assignment for all props that are passed through the API
 - Ingredient type can now be changed
 - Serverside route error logging
+- Fixed image upload to Cloudinary
 
 ### Changed
 
 - Removed body-parser package as Express already has these features built-in
 - Archived fastify-server, removed all .env vars for security reasons - improved .gitignore
+- Now 10 MB attachments may be sent to the server
 
 ### Fixed
 

@@ -1,5 +1,5 @@
 import express from 'express'
-import { Recipe } from '@prisma/client'
+import { Image, Recipe } from '@prisma/client'
 import {
   createRecipe,
   deleteRecipe,
@@ -8,7 +8,7 @@ import {
   updateRecipe,
 } from '../../models/recipes'
 // import ObjectAlreadyExistsError from "../../types/ObjectAlreadyExistsError";
-import { updateImage } from '../../models/images'
+import { createImage, deleteImage, updateImage } from '../../models/images'
 import { formatRecipeImages } from '../../helpers'
 import { ERROR_MESSAGES, HTTP_CODES } from '../../constants'
 
@@ -127,13 +127,38 @@ router.delete('/api/recipes/:id', async (req, res) => {
 })
 
 // SAVE RECIPE IMAGE
-router.post('/api/recipes/image/:id', (req, res) => {
-  res.send('About this wiki')
+router.post('/api/recipes/image/:id', async (req, res) => {
+  // console.log(req.params)
+  // console.log(req.body)
+
+  const recipeId = +req.params.id
+  if (req.body.image.data) {
+    const image: Image | false = await createImage(req.body.image.data, recipeId)
+    if (image) {
+      return res.status(HTTP_CODES.CREATED).send(image)
+    }
+  }
+  console.error('An error occurred')
+  return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
 })
 
 // DELETE RECIPE IMAGE
-router.delete('/api/recipes/image', (req, res) => {
-  res.send('About this wiki')
+router.delete('/api/recipes/image', async (req, res) => {
+  console.log(req.body)
+
+  try {
+    // improve the cache by deleting the recipe instance of that relates to this image - instead of all recipes
+    // const cache = request.serverCache()
+    // if (cache) {
+    //   cache.del('recipes')
+    // }
+    const { cloudinaryPublicId } = req.body
+    await deleteImage(cloudinaryPublicId)
+    return res.status(HTTP_CODES.OK).send({})
+  } catch (error) {
+    console.error('An error occurred')
+    return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
+  }
 })
 
 export default router

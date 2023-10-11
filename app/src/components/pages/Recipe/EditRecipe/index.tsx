@@ -146,8 +146,8 @@ const EditRecipe: React.FC = (): ReactElement => {
         </div>
       </div>
 
-      <div className="grid xs:grid-cols-1 lg:grid-cols-2 gap-3">
-        <div className="mb-4">
+      <div className="grid xs:grid-cols-1 xl:grid-cols-2 gap-5">
+        <div className="mb-4 mr-4 pr-4">
           <form className="" onSubmit={handleSubmit(onSave)} {...formRef}>
             <FieldContainer>
               <Textfield
