@@ -46,7 +46,8 @@ router.get('/api/recipes', async (req, res) => {
 // // GET RECIPE
 router.get('/api/recipes/:id', async (req, res) => {
   try {
-    const recipe: Recipe = await getRecipe(Number.parseInt(req.params.id, 10))
+    const { id } = req.params
+    const recipe: Recipe = await getRecipe(Number.parseInt(id, 10))
     return res.status(HTTP_CODES.OK).send(formatRecipeImages([recipe])[0])
     // res.status(HTTP_CODES.OK).send(recipe)
   } catch (error) {
@@ -64,13 +65,9 @@ router.get('/api/recipes/:id', async (req, res) => {
 // UPDATE RECIPE
 router.put('/api/recipes/:id', async (req, res) => {
   try {
-    const recipe = await updateRecipe(
-      Number(req.params.id),
-      req.body.name,
-      req.body.description,
-      req.body.authorId,
-      req.body.course,
-    )
+    const { id } = req.params
+    const { name, description, authorId, course } = req.body
+    const recipe = await updateRecipe(Number(id), name, description, authorId, course)
 
     if (req.body.images && req.body.images.length) {
       const promises = req.body.images.map(async (image: any) => {

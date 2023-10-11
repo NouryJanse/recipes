@@ -25,12 +25,8 @@ const router = express.Router()
 // CREATE INGREDIENT
 router.post('/api/ingredients', async (req, res) => {
   try {
-    const ingredient = await createIngredient(
-      req.body.name,
-      req.body.unit,
-      req.body.calorieCount,
-      req.body.published,
-    )
+    const { name, unit, calorieCount, published } = req.body
+    const ingredient = await createIngredient(name, unit, calorieCount, published)
 
     if (!ingredient) throw new Error('An error occurred')
 
@@ -81,7 +77,8 @@ router.get('/api/ingredients', async (req, res) => {
 // GET INGREDIENT
 router.get('/api/ingredients/:id', async (req, res) => {
   try {
-    const ingredient: Ingredient = await getIngredient(Number.parseInt(req.params.id, 10))
+    const { id } = req.params
+    const ingredient: Ingredient = await getIngredient(Number.parseInt(id, 10))
     return res.status(HTTP_CODES.OK).send(ingredient)
   } catch (error) {
     // request.log.error(error)
@@ -98,13 +95,9 @@ router.get('/api/ingredients/:id', async (req, res) => {
 // UPDATE INGREDIENT
 router.put('/api/ingredients/:id', async (req, res) => {
   try {
-    const recipe = await updateIngredient(
-      Number(req.params.id),
-      req.body.name,
-      req.body.unit,
-      req.body.calorieCount,
-      req.body.published,
-    )
+    const { id } = req.params
+    const { name, unit, calorieCount, published } = req.body
+    const recipe = await updateIngredient(Number(id), name, unit, calorieCount, published)
 
     // const cache = req.serverCache()
     // if (cache && cache.has('ingredients')) {
@@ -133,10 +126,11 @@ router.put('/api/ingredients/:id', async (req, res) => {
 // DELETE INGREDIENT
 router.delete('/api/ingredients/:id', async (req, res) => {
   try {
+    const { id } = req.params
     // improve the cache by implementing an id system so that individual recipes can be invalidated
     // const cache = request.serverCache()
 
-    await deleteIngredient(Number(req.params.id))
+    await deleteIngredient(Number(id))
     // if (cache && cache.has('ingredients')) {
     //   cache.del('ingredients')
     // }
@@ -155,11 +149,12 @@ router.delete('/api/ingredients/:id', async (req, res) => {
 // LINK INGREDIENT TO RECIPE
 router.post('/api/ingredients/recipe', async (req, res) => {
   try {
+    const { recipeId, ingredientId, unit, amount } = req.body
     const ingredient = await createLinkedIngredient(
-      req.body.recipeId,
-      req.body.ingredientId,
-      req.body.unit,
-      req.body.amount,
+      recipeId,
+      ingredientId,
+      unit,
+      Number.parseInt(amount, 10),
     )
 
     if (!ingredient) throw new Error('An error occurred')
@@ -172,6 +167,7 @@ router.post('/api/ingredients/recipe', async (req, res) => {
 
     return res.status(HTTP_CODES.CREATED).send([])
   } catch (error) {
+    console.error(error)
     // req.log.error(error)
     if (error instanceof ObjectAlreadyExistsError) {
       return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({ message: error.message })
@@ -183,7 +179,16 @@ router.post('/api/ingredients/recipe', async (req, res) => {
 // UPDATE INGREDIENT RECIPE LINK
 router.put('/api/ingredients/recipe/:id', async (req, res) => {
   try {
-    const recipe = await updateLinkedIngredient(req.body)
+    const { id, recipeId, ingredientId, addedAt, unit, description, amount } = req.body
+    const ingredient = await updateLinkedIngredient({
+      id,
+      recipeId,
+      ingredientId,
+      addedAt,
+      unit,
+      description,
+      amount,
+    })
 
     // const cache = request.serverCache()
     // if (cache) {
@@ -191,11 +196,8 @@ router.put('/api/ingredients/recipe/:id', async (req, res) => {
     //   cache.del('recipes')
     // }
 
-    if (recipe && recipe.id) {
-      const ingredient = await getIngredient(Number(recipe.id))
-      if (ingredient) {
-        return res.status(HTTP_CODES.CREATED).send(ingredient)
-      }
+    if (ingredient && ingredient.id) {
+      return res.status(HTTP_CODES.CREATED).send(ingredient)
     }
     // request.log.info('Not found')
     return res.status(HTTP_CODES.NOT_FOUND).send({})

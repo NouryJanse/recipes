@@ -19,6 +19,7 @@ const createLinkedIngredientOps = async (
     })
     return ingredient
   } catch (error) {
+    console.error(error)
     // logger.error(error)
     return false
   } finally {

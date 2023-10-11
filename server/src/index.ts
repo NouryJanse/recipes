@@ -15,6 +15,7 @@ const options: cors.CorsOptions = {
 const app: Application = express()
 app.use(cors(options))
 app.use(express.json())
+app.use(express.urlencoded({ extended: true, limit: 50000 }))
 
 app.use('/', [ingredientRoutes, recipeRoutes])
 
