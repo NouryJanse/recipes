@@ -1,5 +1,11 @@
 module.exports = {
-  content: ['./src/App.tsx', './src/Auth.tsx', './src/components/**/*.{html,tsx,ts}', './src/stories/**/*.{html,tsx}'],
+  content: [
+    './src/pages/**/*.{html,tsx,ts}',
+    './src/App.tsx',
+    './src/Auth.tsx',
+    './src/components/**/*.{html,tsx,ts}',
+    './src/stories/**/*.{html,tsx}',
+  ],
   presets: [],
   darkMode: 'media', // or 'class'
   theme: {
