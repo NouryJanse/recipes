@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { PageTitle } from '../..'
+import { PageTitle } from '../../components'
 
 const Ratings: React.FC = (): ReactElement => {
   return (

@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { HiArrowSmRight } from 'react-icons/hi'
 
-import { Icon, RecipeCard, PageTitle } from '../..'
-import { getRecipes } from '../../../redux/reducers/recipes/recipeSlice'
-import RootState from '../../../types/RootState'
-import REPLACEMENT_IMAGES from '../../../constants/REPLACEMENT_IMAGES'
-import compareDateForSorting from '../../../helpers/compareDateForSorting'
+import { Icon, RecipeCard, PageTitle } from '../../components'
+import { getRecipes } from '../../redux/reducers/recipes/recipeSlice'
+import RootState from '../../types/RootState'
+import REPLACEMENT_IMAGES from '../../constants/REPLACEMENT_IMAGES'
+import compareDateForSorting from '../../helpers/compareDateForSorting'
 
 const Dashboard: React.FC = (): JSX.Element => {
   const user = useSelector((state: RootState) => state.userSlice.data.user)

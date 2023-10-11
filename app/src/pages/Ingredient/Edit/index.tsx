@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
-import { updateIngredient } from '../../../../redux/reducers/ingredients/ingredientSlice'
+import { updateIngredient } from '../../../redux/reducers/ingredients/ingredientSlice'
 
-import { Button, Textfield, FieldContainer, Loader, Number, Toggle, Dropdown } from '../../../index'
+import { Button, Textfield, FieldContainer, Loader, Number, Toggle, Dropdown } from '../../../components/index'
 
-import RootState from '../../../../types/RootState'
-import isLoading from '../../../../helpers/LoadingHelper'
-import { PageTitle } from '../../..'
-import { INGREDIENT_UNITS, REDUX_STATE } from '../../../../constants'
+import RootState from '../../../types/RootState'
+import isLoading from '../../../helpers/LoadingHelper'
+import { PageTitle } from '../../../components'
+import { INGREDIENT_UNITS, REDUX_STATE } from '../../../constants'
 
 const EditIngredient: React.FC = (): ReactElement => {
   const dispatch = useDispatch()

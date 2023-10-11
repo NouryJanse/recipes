@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
-import { updateRecipe } from '../../../../redux/reducers/recipes/recipeSlice'
+import { updateRecipe } from '../../../redux/reducers/recipes/recipeSlice'
 import {
   Button,
   Textfield,
@@ -14,13 +14,13 @@ import {
   WrapperRecipeIngredients,
   Images,
   Toggle,
-} from '../../../index'
+} from '../../../components/index'
 
-import RootState from '../../../../types/RootState'
-import isLoading from '../../../../helpers/LoadingHelper'
-import { RECIPE_COURSE_OPTIONS } from '../../../../constants'
+import RootState from '../../../types/RootState'
+import isLoading from '../../../helpers/LoadingHelper'
+import { RECIPE_COURSE_OPTIONS } from '../../../constants'
 import courseName from './helpers'
-import { PageTitle } from '../../..'
+import { PageTitle } from '../../../components'
 
 const EditRecipe: React.FC = (): ReactElement => {
   const dispatch = useDispatch()

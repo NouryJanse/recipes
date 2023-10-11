@@ -5,7 +5,7 @@ import App from './App'
 import { Button } from './components'
 import { storeToken, storeUser } from './redux/reducers/users/userSlice'
 import RootState from './types/RootState'
-import Login from './components/pages/Login'
+import Login from './pages/Login'
 
 const Auth: React.FC = (): ReactElement => {
   // const dispatch = useDispatch()

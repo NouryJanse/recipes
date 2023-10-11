@@ -10,7 +10,7 @@ import { deleteRecipe, getRecipes } from '../../../../redux/reducers/recipes/rec
 import { Button } from '../../../index'
 import { getDifferenceInFormat } from '../../../../helpers/DateHelper'
 import RootState from '../../../../types/RootState'
-import courseName from '../../../pages/Recipe/EditRecipe/helpers'
+import courseName from '../../../../pages/Recipe/Edit/helpers'
 import { RECIPE_COURSE_OPTIONS, REPLACEMENT_IMAGE } from '../../../../constants'
 
 type RecipeCardProps = {

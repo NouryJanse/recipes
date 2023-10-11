@@ -2,15 +2,15 @@ import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import RootState from '../../../../types/RootState'
-import { Textfield, Button, Toggle, FieldContainer, PageTitle, Number, Dropdown } from '../../..'
+import RootState from '../../../types/RootState'
+import { Textfield, Button, Toggle, FieldContainer, PageTitle, Number, Dropdown } from '../../../components'
 
 import {
   createIngredient,
   getIngredients,
   resetCreateIngredientStatus,
-} from '../../../../redux/reducers/ingredients/ingredientSlice'
-import { INGREDIENT_UNITS, REDUX_STATE, ROUTES } from '../../../../constants'
+} from '../../../redux/reducers/ingredients/ingredientSlice'
+import { INGREDIENT_UNITS, REDUX_STATE, ROUTES } from '../../../constants'
 
 const CreateIngredient: React.FC = (): ReactElement => {
   const status = useSelector((state: RootState) => state.ingredientSlice.status)

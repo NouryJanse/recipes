@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Archived fastify-server, removed all .env vars for security reasons - improved .gitignore
 - Now 10 MB attachments may be sent to the server
 - Corrected server entity `RecipeIngredients` to `RecipeIngredient`
+- Re-organised the app pages folder and moved it to the root /src folder for improved DX
 
 ### Fixed
 

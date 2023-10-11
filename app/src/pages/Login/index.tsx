@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 import { useDispatch } from 'react-redux'
-import { PageTitle } from '../..'
-import { storeUser } from '../../../redux/reducers/users/userSlice'
-import Button from '../../atoms/Button'
+import { PageTitle } from '../../components'
+import { storeUser } from '../../redux/reducers/users/userSlice'
+import Button from '../../components/atoms/Button'
 
 const Login: React.FC<AuthProps> = ({ auth0 }): ReactElement => {
   const dispatch = useDispatch()
