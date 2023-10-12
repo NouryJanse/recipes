@@ -1,5 +1,4 @@
 import React, { ChangeEvent, ChangeEventHandler, ReactElement } from 'react'
-import { UseFormRegister, FieldValues } from 'react-hook-form'
 
 import ErrorMessage from '../../../atoms/ErrorMessage'
 import { StyledDropdown, StyledOption, StyledLabel, FieldRowStyle } from './styled'
@@ -7,7 +6,7 @@ import { StyledDropdown, StyledOption, StyledLabel, FieldRowStyle } from './styl
 type DropdownProps = {
   label: string
   name: string
-  register?: UseFormRegister<FieldValues>
+  register?: any
   validation?: object
   errors?: errorObject
   disabled?: boolean

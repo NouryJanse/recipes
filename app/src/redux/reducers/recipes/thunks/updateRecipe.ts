@@ -7,11 +7,11 @@ const updateRecipeAPI = async (recipe: Recipe, token: string): Promise<Recipe | 
   try {
     const { authorId, id, course, description, name, images, published } = recipe
     const requestBody = {
-      name,
-      description,
-      authorId,
-      course,
-      published,
+      ...(name && { name }),
+      ...(description && { description }),
+      ...(authorId && { authorId }),
+      ...(course && { course }),
+      ...(published && { published }),
       ...(images && images.length > 0 && { images: images }),
     }
 

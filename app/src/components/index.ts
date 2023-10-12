@@ -24,15 +24,15 @@ export { default as NavigationLink } from './molecules/NavigationLink'
 // ORGANISMS
 export { default as IngredientCard } from './organisms/Ingredient/IngredientCard'
 export { default as IngredientsTable } from './organisms/Ingredient/IngredientsTable'
-export { default as AddRecipeIngredient } from './organisms/Ingredient/RecipeIngredients/AddRecipeIngredient'
-export { default as WrapperRecipeIngredients } from './organisms/Ingredient/RecipeIngredients/LinkRecipeIngredients'
+export { default as AddRecipeIngredient } from './organisms/Ingredient/RecipeIngredients/Add'
+export { default as WrapperRecipeIngredients } from './organisms/Ingredient/RecipeIngredients/Container'
 
 export { default as Images } from './organisms/Recipe/Images'
 
 export { default as Navigation } from './organisms/Navigation'
 
 export { default as RecipeCard } from './organisms/Recipe/RecipeCard'
-export { default as EditLinkedIngredient } from './organisms/Ingredient/RecipeIngredients/EditLinkedIngredient'
+export { default as EditLinkedIngredient } from './organisms/Ingredient/RecipeIngredients/Edit'
 
 // PAGES
 export { default as Account } from '../pages/Account'

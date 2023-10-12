@@ -1,5 +1,6 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import Select, { ActionMeta } from 'react-select'
+import CreatableSelect from 'react-select/creatable'
 import ErrorMessage from '../../../atoms/ErrorMessage'
 import StyledLabel from './styled'
 
@@ -12,6 +13,7 @@ type AutoCompleteProps = {
   errors: errorObject
   classes?: string
   defaultValue?: Option
+  isCreatable?: boolean
 }
 
 const AutoComplete: React.FC<AutoCompleteProps> = ({
@@ -23,12 +25,33 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
   errors,
   defaultValue,
   classes,
+  isCreatable,
 }): ReactElement => {
+  if (isCreatable) {
+    return (
+      <StyledLabel htmlFor={name} role="caption" className={classes}>
+        {labelText}
+        <CreatableSelect
+          className="pt-2"
+          defaultValue={defaultValue ? defaultValue : undefined}
+          ref={(ref): void => {
+            if (ref !== null) setRef(ref)
+          }}
+          options={options}
+          onChange={handleOnChange}
+          isClearable={true}
+          escapeClearsValue
+        />
+      </StyledLabel>
+    )
+  }
+
   return (
     <StyledLabel htmlFor={name} role="caption" className={classes}>
       {labelText}
       {setRef ? (
         <Select
+          className="pt-2"
           defaultValue={defaultValue ? defaultValue : undefined}
           ref={(ref): void => {
             if (ref !== null) setRef(ref)
@@ -37,16 +60,15 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
           onChange={handleOnChange}
           escapeClearsValue
           isClearable
-          className="pt-2"
         />
       ) : (
         <Select
+          className="pt-2"
           defaultValue={defaultValue ? defaultValue : undefined}
           options={options}
           onChange={handleOnChange}
           escapeClearsValue
           isClearable
-          className="pt-2"
         />
       )}
       {errors && <ErrorMessage errorObject={errors} />}

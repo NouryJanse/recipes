@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.1] - 2023-10-12
+
+### Added
+
+- react-select creatable for linking existing and new ingredients to recipes
+- Server improvement on creating and linking an ingredient in one API call
+- Amount of new recipes (< 7 days createdAt) now shown in menu bar
+
+### Changed
+
+- Improved folder structure for the RecipeIngredients
+
+### Fixed
+
+- Fixed a bug where recipe status and course would be reset due to passing them empty to the API
+
 ## [0.0.1] - 2023-10-11
 
 ### Added
