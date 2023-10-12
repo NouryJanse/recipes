@@ -17,7 +17,7 @@ const getIngredients = async (): Promise<Ingredient[] | false> => {
     return ingredients
     // return formatRecipeImages(ingredients)
   } catch (error) {
-    // LOG
+    console.error(error)
     if (error instanceof NoContentError) {
       throw new NoContentError(error.message)
     }

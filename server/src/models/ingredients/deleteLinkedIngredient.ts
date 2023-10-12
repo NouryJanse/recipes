@@ -13,7 +13,7 @@ const deleteLinkedIngredient = async (id: number): Promise<boolean> => {
 
     return true
   } catch (error) {
-    // logger.error(error)
+    console.error(error)
     throw error
   } finally {
     ;async (): Promise<void> => {

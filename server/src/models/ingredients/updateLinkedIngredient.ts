@@ -21,7 +21,7 @@ const updateIngredient = async (
 
     return ingredient
   } catch (error) {
-    // logger.error(error)
+    console.error(error)
     if (error instanceof PrismaClientKnownRequestError && error.code === 'P2025') {
       throw new ObjectCouldNotBeFoundError(
         `The ingredient with id: ${recipeIngredient.id} could not be found`,

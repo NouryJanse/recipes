@@ -149,15 +149,30 @@ router.delete('/api/ingredients/:id', async (req, res) => {
 // LINK INGREDIENT TO RECIPE
 router.post('/api/ingredients/recipe', async (req, res) => {
   try {
-    const { recipeId, ingredientId, unit, amount } = req.body
-    const ingredient = await createLinkedIngredient(
-      recipeId,
-      ingredientId,
-      unit,
-      Number.parseInt(amount, 10),
-    )
+    let ingredient = req.body
+    let createdIngredient
+    let linkedIngredient
 
-    if (!ingredient) throw new Error('An error occurred')
+    if (ingredient.ingredientId === undefined) {
+      createdIngredient = await createIngredient(ingredient.name, ingredient.unit)
+      if (createdIngredient) {
+        linkedIngredient = await createLinkedIngredient(
+          ingredient.recipeId,
+          createdIngredient.id,
+          ingredient.unit,
+          Number.parseInt(ingredient.amount, 10),
+        )
+      }
+    } else {
+      linkedIngredient = await createLinkedIngredient(
+        ingredient.recipeId,
+        ingredient.ingredientId,
+        ingredient.unit,
+        Number.parseInt(ingredient.amount, 10),
+      )
+    }
+
+    if (!linkedIngredient) throw new Error('An error occurred')
 
     // const cache = req.serverCache()
     // if (cache) {

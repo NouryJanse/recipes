@@ -25,7 +25,7 @@ const getIngredient = async (ingredientId: number): Promise<Ingredient> => {
     if (recipe === null) throw new CustomError(ERROR_MESSAGES.NOT_FOUND)
     return recipe
   } catch (error) {
-    // logger.error(error)
+    console.error(error)
     if (error instanceof PrismaClientValidationError) {
       throw new IdIsOfInvalidFormat(ERROR_MESSAGES.INVALID_ID_FORMAT)
     }

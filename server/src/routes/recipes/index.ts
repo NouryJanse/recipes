@@ -144,8 +144,6 @@ router.post('/api/recipes/image/:id', async (req, res) => {
 
 // DELETE RECIPE IMAGE
 router.delete('/api/recipes/image', async (req, res) => {
-  console.log(req.body)
-
   try {
     // improve the cache by deleting the recipe instance of that relates to this image - instead of all recipes
     // const cache = request.serverCache()

@@ -5,21 +5,20 @@ const prisma = new PrismaClient()
 const createIngredient = async (
   name: string,
   unit: string,
-  calorieCount: number,
-  published: boolean,
+  calorieCount?: number,
+  published?: boolean,
 ): Promise<Ingredient | false> => {
   try {
-    const ingredient = await prisma.ingredient.create({
+    return prisma.ingredient.create({
       data: {
         name,
         unit,
-        calorieCount,
-        published,
+        ...(calorieCount && { calorieCount }),
+        ...(published && { published }),
       },
     })
-    return ingredient
   } catch (error) {
-    // LOG
+    console.error(error)
     return false
   } finally {
     ;async (): Promise<void> => {
