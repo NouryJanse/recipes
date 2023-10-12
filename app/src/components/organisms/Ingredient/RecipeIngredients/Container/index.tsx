@@ -34,7 +34,7 @@ const WrapperRecipeIngredients: React.FC<WrapperRecipeIngredientsType> = ({ reci
           <Button
             type="submit"
             buttonStyle="secondary"
-            label={showAdd ? 'x Hide new ingredient' : '+ New ingredient'}
+            label={showAdd ? 'x Hide new ingredient' : '+ Add ingredient'}
             onClick={() => setShowAdd(!showAdd)}
           />
         </div>

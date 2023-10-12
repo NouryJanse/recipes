@@ -9,7 +9,6 @@ import {
   CreateRecipe,
   EditRecipe,
   RecipeDetail,
-  IngredientDetail,
   Dashboard,
   Ingredients,
   CreateIngredient,
@@ -30,7 +29,7 @@ const App: React.FC = (): ReactElement => {
       <div
         className={classNames(
           { 'ml-64': application.navMenuIsOpened, 'ml-16': !application.navMenuIsOpened },
-          'content p-3  w-full',
+          'content p-4  w-full',
         )}
       >
         <Routes>
@@ -52,7 +51,6 @@ const App: React.FC = (): ReactElement => {
           </Route>
 
           <Route path={ROUTES.INGREDIENTS} element={<Ingredients />}>
-            <Route path=":ingredientId" element={<IngredientDetail />} />
             <Route path=":ingredientId/edit" element={<EditIngredient />} />
           </Route>
           <Route path={ROUTES.INGREDIENTS_CREATE} element={<CreateIngredient />} />

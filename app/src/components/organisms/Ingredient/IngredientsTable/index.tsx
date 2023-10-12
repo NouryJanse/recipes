@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid'
 import { formatNLDateTime } from '../../../../helpers/DateHelper'
 import { Button } from '../../../'
+import { useDispatch } from 'react-redux'
+import { deleteIngredient, getIngredients } from '../../../../redux/reducers/ingredients/ingredientSlice'
 
 type IngredientsTableProps = {
   ingredients: Ingredient[]
@@ -10,6 +12,7 @@ type IngredientsTableProps = {
 
 const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients }): ReactElement => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -45,10 +48,33 @@ const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients }): Rea
         return (
           <Button
             type="button"
+            buttonStyle="secondary"
             onClick={(): void => {
               navigate(`/ingredients/${cellValues.row.id}/edit`)
             }}
             label="Edit"
+          />
+        )
+      },
+    },
+    {
+      field: 'Delete',
+      sortable: false,
+      hideSortIcons: true,
+      disableColumnMenu: true,
+      renderCell: (cellValues: GridRenderCellParams): ReactElement => {
+        return (
+          <Button
+            type="button"
+            buttonStyle="secondary"
+            onClick={async (e): Promise<void> => {
+              e.preventDefault()
+              // @ts-ignore:next-line
+              await dispatch(deleteIngredient(cellValues.row.id))
+              // @ts-ignore:next-line
+              await dispatch(getIngredients())
+            }}
+            label="Delete"
           />
         )
       },

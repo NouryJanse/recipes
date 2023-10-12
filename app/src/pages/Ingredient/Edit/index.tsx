@@ -105,7 +105,9 @@ const EditIngredient: React.FC = (): ReactElement => {
   return (
     <div className="pt-7">
       <div className="flex items-center">
-        <PageTitle text={`Editing ${ingredientName}`} />
+        <div className="mb-16">
+          <PageTitle text={`Editing ${ingredientName}`} />
+        </div>
 
         {isLoading(status) && <Loader />}
       </div>

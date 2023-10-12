@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useSelector } from 'react-redux'
-import { PageTitle } from '../../components'
+import { Loader, PageTitle } from '../../components'
 import RootState from '../../types/RootState'
 
 const Account: React.FC = (): ReactElement => {
@@ -8,8 +8,13 @@ const Account: React.FC = (): ReactElement => {
 
   return (
     <div className="pt-7">
-      <PageTitle text="Hello from account." />
+      <div className="mb-16">
+        <PageTitle text="Hello from account." />
+      </div>
       {user.name && <p>Welcome to your accountpage {user.name}!</p>}
+      <div className="flex flex-row mt-6">
+        Work in progress.... <Loader />
+      </div>
     </div>
   )
 }
