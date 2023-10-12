@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Server improvement on creating and linking an ingredient in one API call
 - Amount of new recipes (< 7 days createdAt) now shown in menu bar
 - Ingredients can now be deleted from the ingredients page
-- Started on the Remix.run Tutorial in the folder /site
+- Finished the Remix.run Tutorial in the folder /site
 
 ### Changed
 
