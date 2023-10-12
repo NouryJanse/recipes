@@ -39,7 +39,7 @@ const WrapperRecipeIngredients: React.FC<WrapperRecipeIngredientsType> = ({ reci
           />
         </div>
 
-        {showAdd && <AddRecipeIngredient recipe={recipe} />}
+        {showAdd && <AddRecipeIngredient recipe={recipe} setShowAdd={setShowAdd} />}
 
         {recipe.ingredients && recipe.ingredients.length ? (
           <>

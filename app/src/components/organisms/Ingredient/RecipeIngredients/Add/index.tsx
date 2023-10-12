@@ -9,7 +9,7 @@ import { INGREDIENT_UNITS } from '../../../../../constants'
 import { getRecipe } from '../../../../../redux/reducers/recipes/recipeSlice'
 import { useForm } from 'react-hook-form'
 
-type AddRecipeIngredientProps = { recipe: Recipe }
+type AddRecipeIngredientProps = { recipe: Recipe; setShowAdd: React.Dispatch<React.SetStateAction<boolean>> }
 
 type Inputs = {
   id: number
@@ -19,7 +19,7 @@ type Inputs = {
   name: string
 }
 
-const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): ReactElement => {
+const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe, setShowAdd }): ReactElement => {
   const ingredients = useSelector((state: RootState) => state.ingredientSlice.data.ingredients)
   const user: User = useSelector((state: RootState) => state.userSlice.data.user)
   const dispatch = useDispatch()
@@ -58,10 +58,12 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
   }, [ingredients])
 
   const dispatchEdit = async (data: Inputs): Promise<boolean> => {
-    if (!data.unit || !data.id || !data.amount) return false
+    if (!data.id && !data.name) return false // when a new ingredient is added
+    if (!data.unit || !data.amount) return false // when an existing ingredient is added
+
     reset() // clear the rest of the form
     clearAutoComplete() // clear the Autocomplete field (separate from form since its custom)
-    setUnit('')
+    setUnit('') // empty the unit field
 
     const obj = {
       authorId: user.sub,
@@ -78,6 +80,7 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
     await dispatch(getRecipe(recipe.id))
     // @ts-ignore:next-line
     await dispatch(getIngredients())
+    setShowAdd(false)
     return true
   }
 

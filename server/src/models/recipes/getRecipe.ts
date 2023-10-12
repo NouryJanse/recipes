@@ -22,7 +22,7 @@ const getRecipe = async (recipeId: number): Promise<Recipe> => {
             ingredient: true,
           },
           orderBy: {
-            amount: 'desc',
+            addedAt: 'desc',
           },
         },
       },

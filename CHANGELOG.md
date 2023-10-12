@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - react-select creatable for linking existing and new ingredients to recipes
 - Server improvement on creating and linking an ingredient in one API call
 - Amount of new recipes (< 7 days createdAt) now shown in menu bar
+- Ingredients can now be deleted from the ingredients page
 
 ### Changed
 
