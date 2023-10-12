@@ -7,7 +7,7 @@ export const initialState = {
   data: {
     user: {
       name: 'Noury',
-      sub: '12345',
+      sub: '1',
     } as User,
   },
 }

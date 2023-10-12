@@ -43,10 +43,7 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
   }
 
   useEffect(() => {
-    if (!ingredients || ingredients?.length < 1) {
-      // @ts-ignore:next-line
-      dispatch(getIngredients())
-    } else {
+    if (ingredients && ingredients.length) {
       setOptions(
         ingredients.map((ingredient: Ingredient): Option => {
           return {
@@ -58,9 +55,10 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
         }),
       )
     }
-  }, [dispatch, ingredients])
+  }, [ingredients])
 
   const dispatchEdit = async (data: Inputs): Promise<boolean> => {
+    if (!data.unit || !data.id || !data.amount) return false
     reset() // clear the rest of the form
     clearAutoComplete() // clear the Autocomplete field (separate from form since its custom)
     setUnit('')
@@ -95,63 +93,61 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} className="mb-6">
-        <FieldContainer>
-          <AutoComplete
-            labelText="Search for an ingredient*"
-            name="ingredient"
-            options={options}
-            handleOnChange={(option: Option | null): void => {
-              if (option && !option.id) {
-                setValue('name', option.value)
-              }
-              if (option && option.value) {
-                setValue('id', option.id)
-              }
-            }}
-            setRef={setRef}
-            errors={{ message: '', type: '' }}
-            isCreatable={true}
-          />
-        </FieldContainer>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row items-end mb-4">
+        <AutoComplete
+          labelText="Ingredient"
+          name="ingredient"
+          options={options}
+          handleOnChange={(option: Option | null): void => {
+            if (option && !option.id) {
+              setValue('name', option.value)
+            }
+            if (option && option.value) {
+              setValue('id', option.id)
+            }
+          }}
+          setRef={setRef}
+          errors={{ message: '', type: '' }}
+          isCreatable={true}
+          classes="mr-4"
+          placeholder="Pick a new ingredient"
+        />
 
-        <FieldContainer>
-          <Dropdown
-            name="unit"
-            label="Unit*"
-            defaultValue={unit}
-            disabled={false}
-            onChange={(changedUnit: ChangeEvent<HTMLInputElement>): void => {
-              setUnit(changedUnit.target.value)
-            }}
-            validation={{
-              required: 'Did you forget to fill in the unit of your ingredient?',
-            }}
-            register={() => register('unit')}
-            options={INGREDIENT_UNITS}
-            // errors={errors.unit}
-          />
-        </FieldContainer>
+        <Number
+          name="amount"
+          label="Amount"
+          placeholder="Enter the amount of the ingredient"
+          validation={{
+            required: 'Did you forget to enter the amount?',
+            min: {
+              value: 1,
+              message: 'Minimal 1',
+            },
+            valueAsNumber: true,
+          }}
+          register={() => register('amount')}
+          classes="mr-4"
+          // errors={errors.amount}
+        />
 
-        <FieldContainer classes="mb-8">
-          <Number
-            name="amount"
-            label="Amount*"
-            placeholder="Enter the amount of the ingredient"
-            validation={{
-              required: 'Did you forget to enter the amount?',
-              min: {
-                value: 1,
-                message: 'Minimal 1',
-              },
-              valueAsNumber: true,
-            }}
-            register={() => register('amount')}
-            // errors={errors.amount}
-          />
-        </FieldContainer>
+        <Dropdown
+          name="unit"
+          label="Unit"
+          defaultValue={unit}
+          disabled={false}
+          onChange={(changedUnit: ChangeEvent<HTMLInputElement>): void => {
+            setUnit(changedUnit.target.value)
+          }}
+          validation={{
+            required: 'Did you forget to fill in the unit of your ingredient?',
+          }}
+          register={() => register('unit')}
+          options={INGREDIENT_UNITS}
+          classes="mr-4"
+          // errors={errors.unit}
+        />
 
-        <Button type="submit" label="Add ingredient" />
+        <Button type="submit" label="Add" />
       </form>
     </div>
   )

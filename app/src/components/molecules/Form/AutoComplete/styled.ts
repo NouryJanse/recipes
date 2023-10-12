@@ -6,6 +6,7 @@ const StyledLabel = styled.label`
   max-width: 320px;
   display: flex;
   flex-direction: column;
+  min-width: 216px;
 `
 
 export default StyledLabel

@@ -232,7 +232,7 @@ const EditRecipe: React.FC = (): ReactElement => {
         </div>
 
         {/* LINKING INGREDIENTS HERE */}
-        <WrapperRecipeIngredients id={id ? id : ''} recipe={recipe} />
+        <WrapperRecipeIngredients recipe={recipe} />
       </div>
     </div>
   )

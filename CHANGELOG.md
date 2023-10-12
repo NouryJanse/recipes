@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Improved folder structure for the RecipeIngredients
+- Refactored add new ingredient front end into one clever block vs adding a new one and a separate existing list
 
 ### Fixed
 

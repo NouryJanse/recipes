@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import Select, { ActionMeta } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 import ErrorMessage from '../../../atoms/ErrorMessage'
@@ -14,6 +14,7 @@ type AutoCompleteProps = {
   classes?: string
   defaultValue?: Option
   isCreatable?: boolean
+  placeholder?: string
 }
 
 const AutoComplete: React.FC<AutoCompleteProps> = ({
@@ -26,7 +27,9 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
   defaultValue,
   classes,
   isCreatable,
+  placeholder,
 }): ReactElement => {
+  if (!placeholder) placeholder = 'Select...'
   if (isCreatable) {
     return (
       <StyledLabel htmlFor={name} role="caption" className={classes}>
@@ -41,6 +44,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
           onChange={handleOnChange}
           isClearable={true}
           escapeClearsValue
+          placeholder={placeholder}
         />
       </StyledLabel>
     )

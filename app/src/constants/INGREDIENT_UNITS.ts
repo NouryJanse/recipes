@@ -1,7 +1,7 @@
 // this list, at some point, will be pushed into the database to make them manageable through the application / CMS
 
 const INGREDIENT_UNITS = [
-  { id: 0, text: 'Make a choice', value: '', disabled: false },
+  { id: 0, text: '---', value: '', disabled: false },
   { id: 1, text: 'mL', value: 'ml', disabled: false },
   { id: 2, text: 'L', value: 'l', disabled: false },
   { id: 3, text: 'mg', value: 'mg', disabled: false },

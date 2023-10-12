@@ -15,6 +15,7 @@ export const StyledDropdown = styled.select`
   transition: all 150ms ease;
   transition: padding 200ms ease-in-out;
   margin-top: 4px;
+  min-width: 48px;
 
   &:focus {
     padding-left: 16px;

@@ -1,5 +1,5 @@
 import { ChangeEvent, ReactElement, useEffect, useRef, useState } from 'react'
-import { BsSave2, BsTrash2 } from 'react-icons/bs'
+import { BsTrash2 } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
 import { debounce } from 'ts-debounce'
 import { Number, Dropdown, Icon, AutoComplete } from '../../../..'
@@ -34,11 +34,9 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
 
   const dispatchEdit = async (localIngredient: RecipeIngredient): Promise<boolean> => {
     // @ts-ignore:next-line
-    const response = await dispatch(updateRecipeIngredient(localIngredient))
-    if (response.type === '') {
-      // @ts-ignore:next-line
-      dispatch(getIngredients())
-    }
+    await dispatch(updateRecipeIngredient(localIngredient))
+    // @ts-ignore:next-line
+    dispatch(getIngredients())
     return true
   }
 
@@ -89,7 +87,7 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
     return o.label === ingredient.name
   })
 
-  if (!option) return <p>Loading..</p>
+  // if (!option) return <p>Loading..</p>
 
   return (
     <div>

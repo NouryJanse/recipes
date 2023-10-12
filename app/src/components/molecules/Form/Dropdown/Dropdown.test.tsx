@@ -1,5 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
-import { useForm, useFormContext, RegisterOptions } from 'react-hook-form'
+import { render, screen } from '@testing-library/react'
 import Dropdown from './index'
 
 const optionList: Option[] = [
