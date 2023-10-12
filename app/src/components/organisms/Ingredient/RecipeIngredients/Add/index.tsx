@@ -1,6 +1,5 @@
 import { ChangeEvent, ReactElement, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { SubmitHandler, UseFormRegisterReturn, useForm } from 'react-hook-form'
 import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
 
 import { AutoComplete, Button, Dropdown, FieldContainer, Number } from '../../../../index'
@@ -8,6 +7,7 @@ import RootState from '../../../../../types/RootState'
 import { getIngredients, createLinkedIngredient } from '../../../../../redux/reducers/ingredients/ingredientSlice'
 import { INGREDIENT_UNITS } from '../../../../../constants'
 import { getRecipe } from '../../../../../redux/reducers/recipes/recipeSlice'
+import { useForm } from 'react-hook-form'
 
 type AddRecipeIngredientProps = { recipe: Recipe }
 
@@ -16,6 +16,7 @@ type Inputs = {
   ingredient: string
   unit: number
   amount: number
+  name: string
 }
 
 const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): ReactElement => {
@@ -70,18 +71,21 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
       ingredientId: data.id,
       amount: data.amount,
       unit: data.unit,
+      name: data.name,
     }
 
     // @ts-ignore:next-line
     await dispatch(createLinkedIngredient(obj))
     // @ts-ignore:next-line
     await dispatch(getRecipe(recipe.id))
+    // @ts-ignore:next-line
+    await dispatch(getIngredients())
     return true
   }
 
   // for now this any is allowed, otherwise the whole form needs to be refactored for typing
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit = (data) => {
     dispatchEdit(data)
   }
 
@@ -98,12 +102,16 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
             name="ingredient"
             options={options}
             handleOnChange={(option: Option | null): void => {
+              if (option && !option.id) {
+                setValue('name', option.value)
+              }
               if (option && option.value) {
                 setValue('id', option.id)
               }
             }}
             setRef={setRef}
             errors={{ message: '', type: '' }}
+            isCreatable={true}
           />
         </FieldContainer>
 
@@ -119,7 +127,7 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
             validation={{
               required: 'Did you forget to fill in the unit of your ingredient?',
             }}
-            register={(): UseFormRegisterReturn => register('unit')}
+            register={() => register('unit')}
             options={INGREDIENT_UNITS}
             // errors={errors.unit}
           />
@@ -138,7 +146,7 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe }): Re
               },
               valueAsNumber: true,
             }}
-            register={(): UseFormRegisterReturn => register('amount')}
+            register={() => register('amount')}
             // errors={errors.amount}
           />
         </FieldContainer>

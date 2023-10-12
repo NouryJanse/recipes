@@ -12,15 +12,18 @@ import { toggleNav } from '../../../redux/reducers/application/applicationSlice'
 import RootState from '../../../types/RootState'
 import ROUTES from '../../../constants/ROUTES'
 import NavigationLink from '../../molecules/NavigationLink'
+import { getDifferenceInFormat } from '../../../helpers/DateHelper'
 
 type NavigationProps = {}
 
 const Navigation: React.FC<NavigationProps> = (): ReactElement => {
   const dispatch = useDispatch()
   const application = useSelector((state: RootState) => state.applicationSlice.data)
+  const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
   const user = useSelector((state: RootState) => state.userSlice.data.user)
   const menuIsOpen = application.navMenuIsOpened
   const login = menuIsOpen ? `Log out` : <MdLogout />
+  const amountOfNewPosts = recipes.filter((r) => getDifferenceInFormat(r.createdAt, 'd') < 7).length
 
   return (
     <nav
@@ -94,7 +97,7 @@ const Navigation: React.FC<NavigationProps> = (): ReactElement => {
             menuIsOpen={menuIsOpen}
             iconSymbol={<BsListNested />}
             text="Discover recipes"
-            unread={2}
+            unread={amountOfNewPosts}
           />
 
           <NavigationLink

@@ -6,6 +6,7 @@ import { Number, Dropdown, Icon, AutoComplete } from '../../../..'
 import { INGREDIENT_UNITS } from '../../../../../constants'
 import {
   deleteLinkedIngredient,
+  getIngredients,
   updateRecipeIngredient,
 } from '../../../../../redux/reducers/ingredients/ingredientSlice'
 import RootState from '../../../../../types/RootState'
@@ -33,7 +34,11 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
 
   const dispatchEdit = async (localIngredient: RecipeIngredient): Promise<boolean> => {
     // @ts-ignore:next-line
-    await dispatch(updateRecipeIngredient(localIngredient))
+    const response = await dispatch(updateRecipeIngredient(localIngredient))
+    if (response.type === '') {
+      // @ts-ignore:next-line
+      dispatch(getIngredients())
+    }
     return true
   }
 
@@ -53,17 +58,13 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
   }, [ingredients])
 
   const debouncedSubmit = useRef(
-    debounce(async (localIngredient: RecipeIngredient) => {
+    debounce((localIngredient: RecipeIngredient) => {
       dispatchEdit(localIngredient)
     }, 500),
   ).current
 
-  const updateIngredient = async (
-    name: string,
-    value: number | string,
-    linkedIngredient: RecipeIngredient,
-  ): Promise<void> => {
-    await setUpdatedIngredient({
+  const updateIngredient = (name: string, value: number | string, linkedIngredient: RecipeIngredient): void => {
+    setUpdatedIngredient({
       authorId: user.sub,
       recipeId: recipe.id,
       id: linkedIngredient.id,
@@ -88,6 +89,8 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
     return o.label === ingredient.name
   })
 
+  if (!option) return <p>Loading..</p>
+
   return (
     <div>
       <div key={ingredient.id} className="flex flex-row items-end mb-4">
@@ -106,6 +109,7 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
           setRef={setRef}
           errors={{ message: '', type: '' }}
           classes="mr-4"
+          isCreatable={true}
         />
 
         <Number

@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 import FieldContainer from '../../../../molecules/Form/FieldContainer'
 import Heading from '../../../../atoms/Typography/Heading'
-import AddRecipeIngredient from '../AddRecipeIngredient'
-import EditLinkedIngredient from '../EditLinkedIngredient'
+import AddRecipeIngredient from '../Add'
+import EditLinkedIngredient from '../Edit'
 
 type WrapperRecipeIngredientsType = {
   id: string
