@@ -6,6 +6,7 @@ async function linkIngredientAPI(recipeIngredient: RecipeIngredient, token: stri
   const response = await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/api/ingredients/recipe`,
     {
+      ...(recipeIngredient.name && { name: recipeIngredient.name }),
       authorId: recipeIngredient.authorId,
       recipeId: recipeIngredient.recipeId,
       ingredientId: recipeIngredient.ingredientId,
