@@ -8,11 +8,11 @@ import Fonts from './styles/fonts'
 import Auth from './Auth'
 import Auth0 from './Auth0'
 
-const redirectURI: string = process.env.REACT_APP_AUTH0_REDIRECT_URI as string
-const domain: string = process.env.REACT_APP_AUTH0_DOMAIN as string
-const clientId: string = process.env.REACT_APP_AUTH0_CLIENT_ID as string
-const audience: string = process.env.REACT_APP_AUTH0_AUDIENCE as string
-const scope: string = process.env.REACT_APP_AUTH0_SCOPE as string
+const redirectURI: string = import.meta.env.VITE_APP_AUTH0_REDIRECT_URI as string
+const domain: string = import.meta.env.VITE_APP_AUTH0_DOMAIN as string
+const clientId: string = import.meta.env.VITE_APP_AUTH0_CLIENT_ID as string
+const audience: string = import.meta.env.VITE_APP_AUTH0_AUDIENCE as string
+const scope: string = import.meta.env.VITE_APP_AUTH0_SCOPE as string
 
 const container = document.getElementById('root')
 if (container) {

@@ -67,7 +67,6 @@ const Images: React.FC<ImagesType> = ({
         }
       }),
     )
-    // handleSubmit(onSave)()
   }
 
   const deleteImage = async (imageId: string): Promise<void> => {

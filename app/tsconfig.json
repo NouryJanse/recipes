@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["vite/client"],
+    "target": "ESNext",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "jsx": "react-jsx",                                  /* Specify what JSX code is generated. */
     "module": "commonjs",                                /* Specify what module code is generated. */
     "typeRoots": [                                       /* Specify multiple folders that act like `./node_modules/@types`. */
@@ -18,6 +20,7 @@
     "noImplicitThis": true,                              /* Enable error reporting when `this` is given the type `any`. */
     "alwaysStrict": true,                                /* Ensure 'use strict' is always emitted. */
     "noUnusedParameters": true,                          /* Raise an error when a function parameter isn't read */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+    "isolatedModules": true
   }
 }

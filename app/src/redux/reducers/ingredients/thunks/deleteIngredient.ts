@@ -3,7 +3,7 @@ import axios from 'axios'
 import RootState from '../../../../types/RootState'
 
 async function deleteIngredientAPI(data: { id: number; authorId: string }, token: string): Promise<Ingredient> {
-  const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/ingredients/${data.id}`, {
+  const response = await axios.delete(`${import.meta.env.VITE_APP_SERVER_URL}/api/ingredients/${data.id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

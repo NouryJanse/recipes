@@ -28,6 +28,7 @@ const ImageSortableList: React.FC<ImageSortableListProps> = ({
       {!!images.length && (
         <div>
           <span className="block mb-2">Sort your inspirational images ({images.length}) here:</span>
+
           <DragDropContext onDragEnd={handleOnDragEnd}>
             <Droppable droppableId="images">
               {(provided): ReactElement => (

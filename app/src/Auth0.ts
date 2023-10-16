@@ -100,7 +100,7 @@ class Auth0 implements Auth0Interface {
       if (!this.auth0Client) return false
       await this.auth0Client.logout({
         logoutParams: {
-          returnTo: process.env.REACT_APP_PUBLIC_URL,
+          returnTo: import.meta.env.VITE_APP_PUBLIC_URL,
         },
       })
       return true

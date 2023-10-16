@@ -85,7 +85,7 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe, setSh
   }
 
   // for now this any is allowed, otherwise the whole form needs to be refactored for typing
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  /* eslint-disable-next-line */
   const onSubmit = (data) => {
     dispatchEdit(data)
   }

@@ -23,6 +23,7 @@ const Toggle: React.FC<ToggleProps> = ({ label, name, register, handleToggle, ch
         onChange={handleToggle}
         checked={checked}
       />
+
       <StyledLabel
         style={{ backgroundColor: checked ? '#06D6A0' : '' }}
         className="react-switch-label"

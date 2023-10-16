@@ -24,6 +24,7 @@ const Dashboard: React.FC = (): JSX.Element => {
   return (
     <div className="pt-7">
       <span className="text-gray-600 mb-6 flex">Welcome {user.name}.</span>
+
       <div className="mb-16">
         <PageTitle text="Discover recipes" />
       </div>

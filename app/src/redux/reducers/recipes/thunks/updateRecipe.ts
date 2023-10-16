@@ -15,7 +15,7 @@ const updateRecipeAPI = async (recipe: Recipe, token: string): Promise<Recipe | 
       ...(images && images.length > 0 && { images: images }),
     }
 
-    const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/recipes/${id}`, requestBody, {
+    const response = await axios.put(`${import.meta.env.VITE_APP_SERVER_URL}/api/recipes/${id}`, requestBody, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

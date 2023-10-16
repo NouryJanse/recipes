@@ -87,13 +87,9 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
     return o.label === ingredient.name
   })
 
-  // if (!option) return <p>Loading..</p>
-
   return (
     <div>
       <div key={ingredient.id} className="flex flex-row items-end mb-4">
-        {/* <div className="pr-3 self-center justify-center w-52">{ingredient.name}</div> */}
-
         <AutoComplete
           labelText="Ingredient"
           name="ingredient"
@@ -132,11 +128,6 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
           }}
           classes="w-24 mr-4"
         />
-
-        {/* <Icon
-          iconElement={<BsSave2 style={{ color: 'gray', width: '32px', height: '32px' }} />}
-          classes="items-center"
-        /> */}
 
         <Icon
           iconElement={

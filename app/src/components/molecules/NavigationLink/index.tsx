@@ -36,6 +36,7 @@ const NavigationLink: React.FC<NavigationLinkProps> = ({
       )}
     >
       <Icon iconElement={iconSymbol} />
+
       <span
         className={classNames({
           'flex ml-4': menuIsOpen === true,
@@ -44,6 +45,7 @@ const NavigationLink: React.FC<NavigationLinkProps> = ({
       >
         {text}
       </span>
+
       {!!unread && menuIsOpen && <Badge text={unread} classes="ml-2" />}
     </Link>
   )

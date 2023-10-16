@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 async function getRecipesAPI(): Promise<Recipe[] | false> {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/recipes`)
+    const response = await axios.get(`${import.meta.env.VITE_APP_SERVER_URL}/api/recipes`)
     if (response && response.data && Array.isArray(response.data)) {
       return response.data
     }

@@ -12,7 +12,7 @@ const updateIngredientAPI = async (data: Ingredient, token: string): Promise<Ing
       published: data.published,
     }
 
-    const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/ingredients/${data.id}`, requestBody, {
+    const response = await axios.put(`${import.meta.env.VITE_APP_SERVER_URL}/api/ingredients/${data.id}`, requestBody, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

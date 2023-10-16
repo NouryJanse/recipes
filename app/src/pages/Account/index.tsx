@@ -11,7 +11,9 @@ const Account: React.FC = (): ReactElement => {
       <div className="mb-16">
         <PageTitle text="Hello from account." />
       </div>
+
       {user.name && <p>Welcome to your accountpage {user.name}!</p>}
+
       <div className="flex flex-row mt-6">
         Work in progress.... <Loader />
       </div>

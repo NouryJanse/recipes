@@ -4,7 +4,7 @@ import RootState from '../../../../types/RootState'
 
 async function linkIngredientAPI(recipeIngredient: RecipeIngredient, token: string): Promise<Recipe> {
   const response = await axios.post(
-    `${process.env.REACT_APP_SERVER_URL}/api/ingredients/recipe`,
+    `${import.meta.env.VITE_APP_SERVER_URL}/api/ingredients/recipe`,
     {
       ...(recipeIngredient.name && { name: recipeIngredient.name }),
       authorId: recipeIngredient.authorId,
