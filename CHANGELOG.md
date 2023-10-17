@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Renamed folders into understandable server and client folders for either the app or the server of both application domains
 - Implemented Socket.io through a simpel and basic socket server in the 'client-server' folder.
 - A shopping list can now be created and propagated with 'amount', 'unit' and the 'ingredient'
   - It is synced to local storage

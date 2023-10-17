@@ -14,7 +14,7 @@
 
 # misc
 .DS_Store
-app/src/styles/tailwind.output.css
+*/tailwind.output.css
 
 # logs
 *npm-debug.log*
@@ -27,12 +27,13 @@ app/src/styles/tailwind.output.css
 !fastify-server/.jest/.example.setEnvVars.ts
 
 # env vars
-*.env*
-!app/.env.local.example
-!fastify-server/.env.example
+*/*.env*
+*/*.env.local.example
+*/*.env.example
 
 # data related
-*server/db_exports
+*/server/db_exports
+
 # Local Netlify folder
 *.netlify
 *.sql

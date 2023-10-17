@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid'
 import { formatNLDateTime } from '../../../../helpers/DateHelper'
-import { Button } from '../../../'
+import { Button } from '../../..'
 import { useDispatch } from 'react-redux'
 import { deleteIngredient, getIngredients } from '../../../../redux/reducers/ingredients/ingredientSlice'
 
