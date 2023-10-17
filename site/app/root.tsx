@@ -10,6 +10,7 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useNavigate,
   useNavigation,
   useSubmit,
 } from "@remix-run/react";
@@ -37,6 +38,8 @@ export const links: LinksFunction = () => [{ rel: "stylesheet", href: appStylesH
 export default function App() {
   const { contacts, q } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
+  const navigate = useNavigate();
+
   const submit = useSubmit();
   const searching = navigation.location && new URLSearchParams(navigation.location.search).has("q");
 
@@ -59,7 +62,7 @@ export default function App() {
 
       <body>
         <div id="sidebar">
-          <h1>Remix Contacts</h1>
+          <h1>Shoppinglist</h1>
 
           <div>
             <Form
@@ -83,13 +86,24 @@ export default function App() {
               />
               <div id="search-spinner" aria-hidden hidden={!searching} />
             </Form>
-
             <Form method="post">
               <button type="submit">New</button>
             </Form>
           </div>
 
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/");
+            }}
+          >
+            <a className="menu-url" href="#">
+              Your shoppinglist
+            </a>
+          </div>
+
           <nav>
+            <h2>Recipes</h2>
             {contacts.length ? (
               <ul>
                 {contacts.map((contact) => (

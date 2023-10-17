@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.1] - 2023-10-17
+
+### Added
+
+- Implemented Socket.io through a simpel and basic socket server in the 'client-server' folder.
+- A shopping list can now be created and propagated with 'amount', 'unit' and the 'ingredient'
+  - It is synced to local storage
+  - It is synced to other subscribers via Socket.io
+- The Remix app is styled with TailwindCSS and Ant Design Component Library
+- Extracted Recipe types to a new custom made public @nouryjanse/recipe-types NPM module
+
+### Changed
+
+- Removed @types/vite from tsconfig.json in the 'app' folder, it is not needed with the newest versions of Vite
+
+## [0.0.1] - 2023-10-16
+
+### Added
+
+- Migrated from CRA to Vite because of its' blazing fast performance
+
 ## [0.0.1] - 2023-10-12
 
 ### Added

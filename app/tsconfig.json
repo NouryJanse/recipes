@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["vite/client"],
     "target": "ESNext",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "jsx": "react-jsx",                                  /* Specify what JSX code is generated. */
     "module": "commonjs",                                /* Specify what module code is generated. */
