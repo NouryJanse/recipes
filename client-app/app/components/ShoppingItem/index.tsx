@@ -1,29 +1,46 @@
 import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Checkbox, InputNumber } from "antd";
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
+import { TypeShoppingItem } from "~/services/types.db";
 
 type ShoppingItemProps = {
-  shoppingItem: any;
+  shoppingItem: TypeShoppingItem;
+  onDelete: (itemId: number) => void;
+  onUpdate: (shoppingItem: TypeShoppingItem) => void;
 };
 
-const ShoppingItem: React.FC<ShoppingItemProps> = ({ shoppingItem }): ReactElement => {
-  const [clickedState, setClickedState] = useState<boolean>(false);
-  const [amount, setAmount] = useState<number>(shoppingItem.amount);
+const ShoppingItem: React.FC<ShoppingItemProps> = ({ shoppingItem, onDelete, onUpdate }): ReactElement => {
+  const [localShoppingItem, setLocalShoppingItem] = useState<TypeShoppingItem>(shoppingItem);
+
+  const onCheck = () => {
+    const updatedItem = {
+      ...localShoppingItem,
+      checked: !localShoppingItem.checked,
+      updatedAt: `${new Date().toISOString()}`,
+    };
+    setLocalShoppingItem(updatedItem);
+    onUpdate(updatedItem);
+  };
+
+  useEffect(() => {
+    setLocalShoppingItem({ ...shoppingItem });
+  }, [shoppingItem]);
 
   return (
     <div className="flex justify-between">
-      <div onClick={() => setClickedState(!clickedState)}>
-        <Checkbox className="mr-2" checked={clickedState} onChange={() => setClickedState(!clickedState)} />
+      <div onClick={onCheck}>
+        <Checkbox className="mr-2" checked={localShoppingItem.checked} onChange={onCheck} />
 
         {shoppingItem.name}
       </div>
 
       <div className="flex flex-row justify-end">
         <InputNumber
-          value={amount}
-          onChange={(value: number | null) => {
-            if (value) {
-              setAmount(value);
+          value={localShoppingItem.amount}
+          onChange={(amount: number | null) => {
+            if (amount) {
+              setLocalShoppingItem({ ...localShoppingItem, amount });
+              onUpdate({ ...localShoppingItem, amount, updatedAt: `${new Date().toISOString()}` });
             }
           }}
           size="middle"
@@ -31,9 +48,9 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ shoppingItem }): ReactEleme
           className="mr-1"
         />
 
-        <span className="flex mr-4">{shoppingItem.unit}</span>
+        <span className="flex mr-4">{localShoppingItem?.unit}</span>
 
-        <Button icon={<DeleteOutlined />} onClick={() => console.log(shoppingItem.id)} />
+        <Button icon={<DeleteOutlined />} onClick={() => onDelete(shoppingItem.id)} />
       </div>
     </div>
   );

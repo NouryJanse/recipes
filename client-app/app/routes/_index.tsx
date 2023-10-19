@@ -6,12 +6,26 @@ import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import ShoppingItem from "~/components/ShoppingItem";
 import AddIngredient from "~/components/AddIngredient";
+import { mongodb } from "~/services/db";
+import sortShoppingListOnDate from "~/helpers/sortShoppingListOnDate";
+import deleteObjectWithIdFromArray from "~/helpers/deleteObjectWithIdFromArray";
+import updateArrayWithObjectById from "~/helpers/updateArrayWithObjectById";
+import getFormattedShoppingList from "~/helpers/getFormattedShoppingList";
+import { TypeShoppingItem } from "~/services/types.db";
 
 const socket = io("localhost:1234", {});
 
 export async function loader() {
   // console.log(process.env.SOME_SECRET);
   const API_URL: string = process.env.API_URL as string;
+  const DB_NAME: string = process.env.DB_NAME as string;
+  const COLLECTION_NAME: string = process.env.COLLECTION_NAME as string;
+
+  let db = await mongodb.db(DB_NAME);
+  let collection = await db.collection(COLLECTION_NAME);
+  let response = await collection.find({}).limit(10).toArray();
+  const dbShoppingList = response[0];
+
   const data: any = await fetchIngredients(API_URL);
   const ingredients = await data.json();
   const ingredientOptions = ingredients.map((ingredient: Ingredient): Option => {
@@ -23,16 +37,14 @@ export async function loader() {
     };
   });
 
-  return { ingredients, ingredientOptions };
+  return { ingredients, ingredientOptions, dbShoppingList };
 }
 
 export default function Index() {
   const isHydrated = useHydrated();
-  const { ingredients, ingredientOptions } = useLoaderData<typeof loader>();
-  const [list, setList] = useState<Ingredient[]>([]);
+  const { ingredients, ingredientOptions, dbShoppingList } = useLoaderData<typeof loader>();
+  const [list, setList] = useState<TypeShoppingItem[]>([]);
   const [isConnected, setIsConnected] = useState(socket.connected);
-  const [lastMessage, setLastMessage] = useState(null);
-  const [firstTime, setFirstTime] = useState(true);
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -41,17 +53,10 @@ export default function Index() {
     socket.on("disconnect", () => {
       setIsConnected(false);
     });
-    socket.on("message", (data) => {
-      setLastMessage(data);
-    });
-    socket.on("firstTimeLoad", (data) => {
-      setList(data);
-    });
     socket.on("onShoppingListUpdate", (data) => {
-      setList(data);
-      if (!firstTime) {
-        localStorage.setItem("shoppingList", JSON.stringify(data));
-      }
+      const parsedData = JSON.parse(data);
+      setList(parsedData.list);
+      updateLocalStorage(parsedData.list);
     });
     return () => {
       socket.off("connect");
@@ -60,51 +65,81 @@ export default function Index() {
     };
   }, []);
 
+  const syncToSocket = (updatedList: TypeShoppingItem[]) => {
+    const body = getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList);
+    socket.emit("listUpdate", body);
+    // todo broadcast to everyone but self
+    // socket.emit("onShoppingListUpdate", body);
+  };
+
+  const updateLocalStorage = (updatedList: TypeShoppingItem[]) => {
+    localStorage.setItem("shoppingList", getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList));
+  };
+
   useEffect(() => {
     const data = localStorage.getItem("shoppingList");
     if (data) {
-      setFirstTime(false);
-      const shoppingList = JSON.parse(data);
-      setList(shoppingList);
-    }
-    if (firstTime) {
-      setFirstTime(false);
-      socket.emit("firstTimeLoad");
+      const localShoppingList = JSON.parse(data);
+      if (dbShoppingList.updatedAt > localShoppingList.updatedAt) {
+        // db version is newer
+        setList(dbShoppingList.list);
+        updateLocalStorage(dbShoppingList.list);
+      } else {
+        // localStorage is newer
+        setList(localShoppingList.list);
+      }
+    } else if (dbShoppingList.list.length) {
+      setList(dbShoppingList.list);
+      updateLocalStorage(dbShoppingList.list);
+    } else {
+      // new user with no data
     }
   }, []);
 
-  const emitSocket = (type: string, updatedList: Ingredient[]) => {
-    socket.emit(type, updatedList);
+  const onAdd = (items: TypeShoppingItem[]): void => {
+    const updatedList = sortShoppingListOnDate(items);
+    setList(updatedList);
+    updateLocalStorage(updatedList);
+    syncToSocket(updatedList);
+  };
+
+  const onDelete = (itemId: number): void => {
+    const updatedList = deleteObjectWithIdFromArray(list, itemId);
+    setList(updatedList);
+    updateLocalStorage(updatedList);
+    syncToSocket(updatedList);
+  };
+
+  const onUpdate = (item: TypeShoppingItem): void => {
+    const updatedList = updateArrayWithObjectById(list, item);
+    setList(updatedList);
+    updateLocalStorage(updatedList);
+    syncToSocket(updatedList);
   };
 
   return (
     <div id="index-page">
       {isHydrated ? (
-        <div className="mb-8">
-          <p>Connected: {"" + isConnected}</p>
-          <p>Last message: {lastMessage || "-"}</p>
-        </div>
-      ) : null}
-
-      {isHydrated ? (
-        <AddIngredient
-          ingredientOptions={ingredientOptions}
-          ingredients={ingredients}
-          list={list}
-          setList={setList}
-          emitSocket={emitSocket}
-        />
+        <AddIngredient ingredientOptions={ingredientOptions} ingredients={ingredients} list={list} onAdd={onAdd} />
       ) : null}
 
       <div className="mb-16">
-        {list.length > 0 && (
+        {list && list.length > 0 && (
           <>
             <span className="flex mb-4">
               There {list.length === 1 ? `is ${list.length} item` : `are ${list.length} items`} in your list
             </span>
 
-            {list.map((i: Ingredient) => {
-              return <ShoppingItem key={i.id} shoppingItem={i} />;
+            {sortShoppingListOnDate(list).map((i: TypeShoppingItem) => {
+              return i.checked === false || i.checked === undefined ? (
+                <ShoppingItem key={i.id} shoppingItem={i} onDelete={onDelete} onUpdate={onUpdate} />
+              ) : null;
+            })}
+
+            {sortShoppingListOnDate(list).map((i: TypeShoppingItem) => {
+              return i.checked === true ? (
+                <ShoppingItem key={i.id} shoppingItem={i} onDelete={onDelete} onUpdate={onUpdate} />
+              ) : null;
             })}
           </>
         )}

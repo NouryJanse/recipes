@@ -7,12 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.1] - 2023-10-19
+
+### Added
+
+- Main functionality of the shopping list is now done
+  - Checked items are now shown on the bottom of the list
+  - Items are synced blazingly fast to local storage, a database and in sync with Socket IO
+  - Ingredients are fetched from the admin-server (creation part of the platform)
+  - Login and user accounts are yet to be built
+- Separate CSS files to improve the look and feel of the app more easily
+
+### Changed
+
+- Cleanup of dirty code: logs, any's, etc.
+- Moved important variables to .env vars
+- Improved the updateArrayWithObjectById by bringing in generic typing
+
+## [0.0.1] - 2023-10-18
+
+### Added
+
+- Permanent persistence implemented through a very fast service Atlas MongoDB
+- Separate functions that process data in the helpers folder
+
+### Changed
+
+- Amount and checked state can now be updated from the list
+- Disabled React StrictMode because of double renders and thus double data calls
+- Improved client-server with functionality to process data
+
 ## [0.0.1] - 2023-10-17
 
 ### Added
 
 - Renamed folders into understandable server and client folders for either the app or the server of both application domains
-- Implemented Socket.io through a simpel and basic socket server in the 'client-server' folder.
+- Implemented Socket.io through a simple and basic socket server in the 'client-server' folder.
 - A shopping list can now be created and propagated with 'amount', 'unit' and the 'ingredient'
   - It is synced to local storage
   - It is synced to other subscribers via Socket.io

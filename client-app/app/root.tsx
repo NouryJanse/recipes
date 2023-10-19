@@ -61,6 +61,10 @@ export default function App() {
       </head>
 
       <body>
+        <div id="detail" className={navigation.state === "loading" && !searching ? "loading" : ""}>
+          <Outlet />
+        </div>
+
         <div id="sidebar">
           <h1>Shoppinglist</h1>
 
@@ -86,6 +90,7 @@ export default function App() {
               />
               <div id="search-spinner" aria-hidden hidden={!searching} />
             </Form>
+              
             <Form method="post">
               <button type="submit">New</button>
             </Form>
@@ -131,10 +136,6 @@ export default function App() {
               </p>
             )}
           </nav>
-        </div>
-
-        <div id="detail" className={navigation.state === "loading" && !searching ? "loading" : ""}>
-          <Outlet />
         </div>
 
         <ScrollRestoration />

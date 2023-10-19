@@ -1,75 +1,81 @@
 import { Button, InputNumber, Select } from "antd";
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import INGREDIENT_UNITS from "~/constants/INGREDIENT_UNITS";
 import { Ingredient, Option } from "@nouryjanse/recipe-types";
-import { ActionMeta } from "react-select";
 import Creatable from "react-select/creatable";
 import { SaveOutlined } from "@ant-design/icons";
+import { TypeShoppingItem } from "~/services/types.db";
 
 type AddIngredientProps = {
-  ingredientOptions: any;
-  ingredients: any;
+  ingredientOptions: Option[];
+  ingredients: Ingredient[];
   list: any;
-  setList: any;
-  emitSocket: any;
+  onAdd: (items: TypeShoppingItem[]) => void;
 };
 
-const AddIngredient: React.FC<AddIngredientProps> = ({
-  ingredientOptions,
-  ingredients,
-  list,
-  setList,
-  emitSocket,
-}): ReactElement => {
+const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingredients, list, onAdd }): ReactElement => {
   const [amount, setAmount] = useState<number | null>(null);
-  const [unit, setUnit] = useState(INGREDIENT_UNITS[0]);
-  const [ingredient, setIngredient] = useState<Option | null>(null);
-
-  const updateList = (updatedList: Ingredient[]) => {
-    setList(
-      updatedList.sort((a, b) => {
-        if (a.updatedAt < b.updatedAt) return 1;
-        return -1;
-      })
-    );
-  };
+  const [ingredientOption, setIngredientOption] = useState<Option | null>(null);
+  const [unit, setUnit] = useState<string | null>(INGREDIENT_UNITS[0].value);
+  const shoppingItems = ingredients.map((i) => {
+    return { ...i, checked: false };
+  });
 
   const onChange = (): void => {
-    const option = ingredient;
-
+    const option = ingredientOption;
     if (option) {
-      const ingredient: Ingredient | null = ingredients.find((i: Ingredient) => i.id === option.id);
+      const ingredient: TypeShoppingItem | undefined = shoppingItems.find((i: Ingredient) => i.id === option.id);
       if (ingredient && ingredient.id) {
-        const ingredientAlreadyExists: Ingredient | undefined = list.find((l: any) => l.id === ingredient.id);
-        let updatedList: Ingredient[] = [];
+        const ingredientAlreadyExists: TypeShoppingItem | undefined = list.find((l: any) => l.id === ingredient.id);
+
+        let updatedList: TypeShoppingItem[] = [];
         if (ingredientAlreadyExists) {
-          updatedList = list.map((u: any) => {
+          updatedList = list.map((u: Ingredient) => {
             return u.id === ingredient.id
               ? {
-                  ...u,
+                  ...ingredient,
                   amount,
+                  unit,
                   updatedAt: Date.now(),
+                  checked: false,
                 }
               : u;
           });
         } else {
-          updatedList = [...list, { ...ingredient, amount: 1, updatedAt: Date.now() }];
+          updatedList = [...list, { ...ingredient, amount, unit, updatedAt: Date.now() }];
         }
-        updateList(updatedList);
-        emitSocket("shoppingList", updatedList);
-        localStorage.setItem("shoppingList", JSON.stringify(updatedList));
+
+        onAdd(updatedList);
       }
     }
   };
 
   return (
     <div className="flex mb-8 items-center">
+      <div className="flex flex-col" style={{ width: "240px" }}>
+        <label className="text-start">Ingredient</label>
+        <Creatable
+          options={ingredientOptions}
+          value={ingredientOption}
+          onChange={(ingredient) => {
+            setIngredientOption(ingredient);
+          }}
+          placeholder="Pick your ingredients"
+          className="mr-4"
+        />
+      </div>
+
       <div className="flex flex-col">
         <label className="text-start">Amount</label>
         <InputNumber
           value={amount}
           defaultValue={0}
-          onChange={(e) => setAmount(e)}
+          min={0}
+          onChange={(amount) => {
+            if (amount) {
+              setAmount(amount);
+            }
+          }}
           size="middle"
           style={{ width: "64px" }}
           className="mr-4"
@@ -78,17 +84,14 @@ const AddIngredient: React.FC<AddIngredientProps> = ({
 
       <div className="flex flex-col">
         <label className="text-start">Unit</label>
-        <Select options={INGREDIENT_UNITS} value={unit} style={{ width: 80 }} className="mr-4" onChange={setUnit} />
-      </div>
-
-      <div className="flex flex-col">
-        <label className="text-start">Ingredient</label>
-        <Creatable
-          options={ingredientOptions}
-          value={ingredient}
-          onChange={setIngredient}
-          placeholder="Pick your ingredients"
+        <Select
+          options={INGREDIENT_UNITS}
+          value={unit}
+          style={{ width: 80 }}
           className="mr-4"
+          onChange={(newUnit: string) => {
+            setUnit(newUnit);
+          }}
         />
       </div>
 
