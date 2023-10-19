@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Moved important variables to .env vars
 - Improved the updateArrayWithObjectById by bringing in generic typing
 
+## Deleted
+
+- A permanent goodbye to Fastify with the removal of \_fastify_server
+
 ## [0.0.1] - 2023-10-18
 
 ### Added
