@@ -26,7 +26,11 @@ export async function loader() {
   let response = await collection.find({}).limit(10).toArray();
   const dbShoppingList = response[0];
 
-  const data: any = await fetchIngredients(API_URL);
+  const data: any = await fetchIngredients(`${API_URL}/ingredients`);
+  const recipes: any = await fetchIngredients(`${API_URL}/recipes`);
+  const recipesData = await recipes.json();
+  console.log(recipesData);
+
   const ingredients = await data.json();
   const ingredientOptions = ingredients.map((ingredient: Ingredient): Option => {
     return {
