@@ -1,12 +1,12 @@
 @keyframes highlight {
   0% {
-    background: red;
+    background: #0352c7;
   }
   100% {
     background: none;
   }
 }
 
-.highlight:target {
+.highlight {
   animation: highlight 1s;
 }

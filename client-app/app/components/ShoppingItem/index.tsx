@@ -9,6 +9,11 @@ type ShoppingItemProps = {
   onUpdate: (shoppingItem: TypeShoppingItem) => void;
 };
 
+// use memo required?
+const isNew = (updatedAt: string): boolean => {
+  return Math.abs(new Date(updatedAt).getTime() - Date.now()) < 1000;
+};
+
 const ShoppingItem: React.FC<ShoppingItemProps> = ({ shoppingItem, onDelete, onUpdate }): ReactElement => {
   const [localShoppingItem, setLocalShoppingItem] = useState<TypeShoppingItem>(shoppingItem);
 
@@ -27,7 +32,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ shoppingItem, onDelete, onU
   }, [shoppingItem]);
 
   return (
-    <div className="flex justify-between">
+    <div className={`${isNew(localShoppingItem.updatedAt) ? "highlight" : ""} flex justify-between rounded p-1`}>
       <div onClick={onCheck}>
         <Checkbox className="mr-2" checked={localShoppingItem.checked} onChange={onCheck} />
 
