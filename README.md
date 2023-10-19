@@ -1,10 +1,15 @@
-# Recipes
+# Welcome to Recipes
 
-Welcome to my Recipes App 🥗!
-Thank you for taking the time to read this document 🙏!
-This app generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others. Note that this app is a work in progress and that its purpose is mostly to demonstrate my experience, current skillset at last but not least: interests as an engineer 🧑‍💻. Please refer to some screenshots below.
+Thank you for taking the time to read. The platform's repository consists of four applications:
 
-🎈 **it's not possible to run this app locally without a Cloudinary, a Auth0 account and a PostgreSQL database (which need be set in an env.local). Please ask me for a demo. 🎈**
+- admin-app
+- admin-server
+- client-app
+- client-server
+
+The app generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others. Note that this app is a work in progress and that its purpose is mostly to demonstrate my experience, current skillset at last but not least: interests as an engineer 🧑‍💻. Please refer to some screenshots below.
+
+🎈 **it's not possible to run this platform locally without a Cloudinary, a PostgreSQL db and a MongoDB db (which need be set in various .env files). Please contact me for a demo. 🎈**
 
 ## Creator application
 
