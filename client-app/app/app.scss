@@ -1,12 +1,13 @@
 @import "./styling/contact.css";
 @import "./styling/sidebar.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html {
   box-sizing: border-box;
 }
-
 *,
 *:before,
 *:after {
@@ -14,7 +15,8 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
@@ -24,25 +26,28 @@ body {
 
 a {
   color: black;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   text-decoration: none;
-}
-a.menu-url {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  overflow: hidden;
-  white-space: pre;
-  padding: 0.5rem;
-  border-radius: 8px;
-  color: inherit;
-  text-decoration: none;
-  gap: 1rem;
-  transition: background-color 100ms;
-  width: 100%;
-}
-a.menu-url:hover {
-  background: #e3e3e3;
+  &.menu-url {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+
+    white-space: pre;
+    padding: 0.5rem;
+    border-radius: 8px;
+    color: inherit;
+    text-decoration: none;
+    gap: 1rem;
+    transition: background-color 100ms;
+    width: 100%;
+
+    &:hover {
+      background: #e3e3e3;
+    }
+  }
 }
 
 html,
@@ -83,7 +88,7 @@ button:active {
   transform: translateY(1px);
 }
 
-form[action$=destroy] button {
+form[action$="destroy"] button {
   color: #f44250;
 }
 
@@ -91,27 +96,30 @@ form[action$=destroy] button {
   flex: 1;
   padding: 2rem 4rem;
   width: 100%;
-}
-#detail.loading {
-  opacity: 0.25;
-  transition: opacity 200ms;
-  transition-delay: 200ms;
+
+  &.loading {
+    opacity: 0.25;
+    transition: opacity 200ms;
+    transition-delay: 200ms;
+  }
 }
 
 #index-page {
   margin: 2rem auto;
   text-align: center;
   color: #818181;
-}
-#index-page a {
-  color: inherit;
-}
-#index-page a:hover {
-  color: #121212;
-}
-#index-page a::before {
-  display: block;
-  margin-bottom: 0.5rem;
+  a {
+    color: inherit;
+
+    &:hover {
+      color: #121212;
+    }
+
+    &::before {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+  }
 }
 
 #error-page {
@@ -121,5 +129,3 @@ form[action$=destroy] button {
   justify-content: center;
   width: 100%;
 }
-
-/*# sourceMappingURL=app.css.map */
