@@ -1,11 +1,12 @@
-// const path = require("path");
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import compression from "compression";
-import morgan from "morgan";
+// import morgan from "morgan";
+import * as dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
+import { mongodb, ObjectId } from "./db";
 
-const MODE = process.env.NODE_ENV;
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
@@ -15,34 +16,12 @@ const io = new Server(httpServer, {
   },
 });
 
-let shoppingList: any = [];
-
-io.on("connection", (socket) => {
-  console.log(`connect: ${socket.id}`);
-
-  socket.on("firstTimeLoad", () => {
-    io.emit("firstTimeLoad", shoppingList);
-  });
-
-  socket.on("shoppingList", (msg) => {
-    io.emit("onShoppingListUpdate", msg);
-    shoppingList = msg;
-  });
-
-  socket.on("disconnect", () => {
-    console.log(`disconnect: ${socket.id}`);
-  });
-});
-
 app.use(compression());
-
 // You may want to be more aggressive with this caching
 app.use(express.static("public", { maxAge: "1h" }));
-
 // Remix fingerprints its assets so we can cache forever
 app.use(express.static("public/build", { immutable: true, maxAge: "1y" }));
-
-app.use(morgan("tiny"));
+// app.use(morgan("tiny"));
 
 const port = process.env.PORT || 1234;
 
@@ -50,20 +29,37 @@ httpServer.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
 });
 
-setInterval(() => {
-  io.emit("message", new Date().toISOString());
-}, 2500);
+io.on("connection", (socket) => {
+  // console.info(`connect: ${socket.id}`);
 
-// ////////////////////////////////////////////////////////////////////////////////
-// function purgeRequireCache() {
-//   // purge require cache on requests for "server side HMR" this won't let
-//   // you have in-memory objects between requests in development,
-//   // alternatively you can set up nodemon/pm2-dev to restart the server on
-//   // file changes, we prefer the DX of this though, so we've included it
-//   // for you by default
-//   for (const key in require.cache) {
-//     if (key.startsWith(BUILD_DIR)) {
-//       delete require.cache[key];
-//     }
-//   }
-// }
+  socket.on("firstTimeLoad", () => {
+    // io.emit("firstTimeLoad", shoppingList);
+  });
+
+  socket.on("listUpdate", async (msg) => {
+    const COLLECTION_NAME = process.env.COLLECTION_NAME as string;
+    const DB_NAME = process.env.DB_NAME as string;
+    try {
+      const shoppingList = JSON.parse(msg);
+      let db = await mongodb.db(DB_NAME);
+      let collection = await db.collection(COLLECTION_NAME);
+
+      if (shoppingList._id) {
+        let res = await collection.replaceOne({ _id: shoppingList._id }, { ...shoppingList });
+        console.info(res);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.info(`disconnect: ${socket.id}`);
+  });
+});
+
+// setInterval(() => {
+//   console.log(Date.now());
+//   console.log(shoppingList);
+//   io.emit("message", new Date().toISOString());
+// }, 3000);
