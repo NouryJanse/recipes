@@ -37,3 +37,6 @@
 # Local Netlify folder
 *.netlify
 *.sql
+
+# dist
+client-app/**/*.css*

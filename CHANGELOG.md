@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added SASS preprocessing with concurrently
 - Main functionality of the shopping list is now done
   - Checked items are now shown on the bottom of the list
   - Items are synced blazingly fast to local storage, a database and in sync with Socket IO

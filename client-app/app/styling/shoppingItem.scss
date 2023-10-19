@@ -1,0 +1,12 @@
+@keyframes highlight {
+  0% {
+    background: red;
+  }
+  100% {
+    background: none;
+  }
+}
+
+.highlight:target {
+  animation: highlight 1s;
+}
