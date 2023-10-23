@@ -7,23 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.1] - 2023-10-23
+
+### Changed
+
+- Improved the README
+
 ## [0.0.1] - 2023-10-19
 
 ### Added
 
-- Added SASS preprocessing with concurrently
+- Added SASS preprocessing with Concurrently
 - Main functionality of the shopping list is now done
   - Checked items are now shown on the bottom of the list
   - Items are synced blazingly fast to local storage, a database and in sync with Socket IO
   - Ingredients are fetched from the admin-server (creation part of the platform)
   - Login and user accounts are yet to be built
+  - Recipes are also fetched from API
 - Separate CSS files to improve the look and feel of the app more easily
+- Added highlight styling feature for new items
 
 ### Changed
 
 - Cleanup of dirty code: logs, any's, etc.
 - Moved important variables to .env vars
 - Improved the updateArrayWithObjectById by bringing in generic typing
+- Refactored sidebar into Sidebar component
 
 ## Deleted
 

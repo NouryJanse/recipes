@@ -7,7 +7,7 @@ Thank you for taking the time to read. The platform's repository consists of fou
 - client-app
 - client-server
 
-The app generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others. Note that this app is a work in progress and that its purpose is mostly to demonstrate my experience, current skillset at last but not least: interests as an engineer 🧑‍💻. Please refer to some screenshots below.
+The app generates groceries shopping lists from recipes. Recipes that you can create yourself or pick from the database of inspiring recipes by others. Note that this app is a work in progress and that its purpose is mostly to demonstrate my experience, current skillset at last but not least: interests as an engineer 🧑‍💻. Please refer to some screenshots at the bottom.
 
 🎈 **it's not possible to run this platform locally without a Cloudinary, a PostgreSQL db and a MongoDB db (which need be set in various .env files). Please contact me for a demo. 🎈**
 
@@ -19,8 +19,6 @@ Roadmap features
 - creator feature for new and managing recipes
 - managing ingredients
 
-_This application is currently being developed as a hobby project with no rush in finishing it._
-
 ## Consumer application
 
 Roadmap features
@@ -29,97 +27,47 @@ Roadmap features
 - a recipes detail page which shows how to cook using the recipe
 - a shopping list feature that allows users to generate shopping lists for doing groceries
 
-## Work management
-
-**[🗓 Backlog of current work can be found here](https://github.com/NouryJanse/recipes/projects/1)**
-
-**[🗓 Roadmap of future features can be found here](https://github.com/NouryJanse/recipes/projects/3)**
+**[🛣️ Roadmap of future features can be found here](https://github.com/users/NouryJanse/projects/4)**
 
 ## Architecture plan
 
-A creator single page web app - Work in Progress
+A creator single page web app
 
 - [React](https://reactjs.org/)
-- [Redux](https://redux.js.org/) with [Redux Toolkit](https://redux-toolkit.js.org/)
-- [React Router](https://reactrouter.com/en/main)
-- [Styled Components](https://styled-components.com/)
-- [Tailwind](https://tailwindcss.com/docs/) styling
-- [Axios](https://axios-http.com/)
-- [Jest](https://jestjs.io/) x [React Testing Library UI](https://testing-library.com/) and Unit tests (such as data transformations or functionality)
-- [MUI React Table](https://mui.com/material-ui/react-table/) for rows, sorting and filtering
-- [Downshift](https://www.downshift-js.com/) for autocompletion
+- [Axios](https://www.npmjs.com/package/axios)
+- [Jest](https://www.npmjs.com/package/jest)
+- [MUI React Table](https://mui.com/material-ui/react-table/)
+- [React-Select](https://www.npmjs.com/package/react-select)
+- [React Redux](https://www.npmjs.com/package/react-redux)
+- [React Router](https://www.npmjs.com/package/react-router)
+- [React Testing Library](https://www.npmjs.com/package/@testing-library/react)
+- [Redux Toolkit](https://www.npmjs.com/package/@reduxjs/toolkit)
+- [Tailwind](https://www.npmjs.com/package/tailwindcss)
 
 A data platform that allows multichannel access
 
-- Fastify back-end
-- Prisma
-- Server side communication from REST to
-  > https://github.com/mercurius-js/mercurius
-- Jest Unit and Integration test
+- [Express](https://www.npmjs.com/package/express)
+- [CORS](https://www.npmjs.com/package/cors)
+- [Cloudinary](https://www.npmjs.com/package/cloudinary)
+- [Jest](https://www.npmjs.com/package/jest)
+- [Prisma](https://www.npmjs.com/package/prisma)
+- [Prisma Client](https://www.npmjs.com/package/@prisma/client)
 
-A consumer high performance website - Future plans (no development yet)
+A consumer high performance website
 
-- Next.js setup that functions as a consumer of the data
-- Static Rendering / ISR?
+- [Remix](https://www.npmjs.com/package/@remix-run/react)
+- [Ant Design](https://www.npmjs.com/package/antd)
+- [MongoDB](https://www.npmjs.com/package/mongodb)
+- [Socket IO Client](https://www.npmjs.com/package/socket.io-client)
+- [Tailwind](https://www.npmjs.com/package/tailwindcss)
 
-## Back-End Justifications
+A lightweight server for sockets and MongoDB storage
 
-#### SQL
-
-- PostgreSQL: SQL is best for relationships between entities, postgresql is known for it's enterprise reliability and vast featureset
-
-#### ORM's
-
-- Prisma: big investors, serious continuous development, nice abstraction over SQL layer
-- Other considered options: Sequelize, TypeORM, Mongoose
-
-#### Frameworks
-
-- Fastify: very high performance routing
-- Considered: Nestjs, AdonisJS, Express, Meteor, Koa, Hapi
-
-#### Logging
-
-To be implemented in the future:
-
-- Datadog
-- Sentry
-- Logrocket
-
-### Moving to GraphQL (Plan for the future)
-
-- Relay
-- Apollo
-
-## Testing Strategy
-
-### Front-End
-
-- Unit tests ...
-- UI tests ...
-
-### Back-End
-
-- Unit tests ...
-- Integration tests ...
-
-## Storybook
-
-Storybook is a work in progress
-
-## Swagger docs on the API
-
-Swagger documentation can be found by navigating to /docs
-
-## Additional notes
-
-- 🚨 Storybook is broken because of [incompatibility with React v18 at the time of writing](https://github.com/storybookjs/storybook/issues/17831)
-  > Construction on the Storybook therefore on hold
-- 🚨 Currently testing is under construction, plans are to test the BE extensively through:
-
-  > integration testing (on the routing and underlying functionality)
-
-  > unit testing the Prisma models and expected behaviours
+- [Express](https://www.npmjs.com/package/express)
+- [Compression](https://www.npmjs.com/package/compression)
+- [MongoDB](https://www.npmjs.com/package/mongodb)
+- [Morgan](https://www.npmjs.com/package/morgan)
+- [Socket IO](https://www.npmjs.com/package/socket.io)
 
 ## Demo screenshots
 

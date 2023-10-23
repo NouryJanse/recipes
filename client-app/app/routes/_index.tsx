@@ -48,14 +48,13 @@ export default function Index() {
   const isHydrated = useHydrated();
   const { ingredients, ingredientOptions, dbShoppingList } = useLoaderData<typeof loader>();
   const [list, setList] = useState<TypeShoppingItem[]>([]);
-  const [isConnected, setIsConnected] = useState(socket.connected);
 
   useEffect(() => {
     socket.on("connect", () => {
-      setIsConnected(true);
+      // setIsConnected(true);
     });
     socket.on("disconnect", () => {
-      setIsConnected(false);
+      // setIsConnected(false);
     });
     socket.on("onShoppingListUpdate", (data) => {
       const parsedData = JSON.parse(data);
