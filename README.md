@@ -27,7 +27,7 @@ Roadmap features
 - a recipes detail page which shows how to cook using the recipe
 - a shopping list feature that allows users to generate shopping lists for doing groceries
 
-**[🛣️ Roadmap of future features can be found here](https://github.com/users/NouryJanse/projects/4)**
+🛣️ **[Roadmap of future features can be found here](https://github.com/users/NouryJanse/projects/4)**
 
 ## Architecture plan
 

@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.1] - 2023-10-25
+
+### Added
+
+- a
+
+### Changed
+
+- a
+
+## [0.0.1] - 2023-10-24
+
+### Changed
+
+- UI now makes a drastic distinction between various mobile device screen resolutions and full desktop resolutions
+
 ## [0.0.1] - 2023-10-23
 
 ### Changed

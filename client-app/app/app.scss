@@ -95,41 +95,12 @@ form[action$="destroy"] button {
 
 #detail {
   flex: 1;
-  padding: 1rem 8px;
   width: 100%;
-
-  // Small devices (landscape phones, 576px and up)
-  @media (min-width: 576px) {
-    padding: 2rem 4rem;
-  }
-
-  // Medium devices (tablets, 768px and up)
-  @media (min-width: 768px) {
-    padding: 2rem 4rem;
-  }
 
   &.loading {
     opacity: 0.25;
     transition: opacity 200ms;
     transition-delay: 200ms;
-  }
-}
-
-#index-page {
-  margin: 2rem auto;
-  text-align: center;
-  color: #818181;
-  a {
-    color: inherit;
-
-    &:hover {
-      color: #121212;
-    }
-
-    &::before {
-      display: block;
-      margin-bottom: 0.5rem;
-    }
   }
 }
 

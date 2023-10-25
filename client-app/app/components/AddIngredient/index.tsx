@@ -5,6 +5,8 @@ import { Ingredient, Option } from "@nouryjanse/recipe-types";
 import Creatable from "react-select/creatable";
 import { SaveOutlined } from "@ant-design/icons";
 import { TypeShoppingItem } from "~/services/types.db";
+import { Grid, Tag } from "antd";
+const { useBreakpoint } = Grid;
 
 type AddIngredientProps = {
   ingredientOptions: Option[];
@@ -20,6 +22,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
   const shoppingItems = ingredients.map((i) => {
     return { ...i, checked: false };
   });
+  const screens = useBreakpoint();
 
   const onChange = (): void => {
     const option = ingredientOption;
@@ -51,8 +54,8 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
   };
 
   return (
-    <div className="flex mb-8 items-center">
-      <div className="flex flex-col" style={{ width: "240px" }}>
+    <div className="flex w-full items-center justify-between mb-4 px-4 md:px-0 md:justify-center">
+      <div className="flex flex-col" style={{ width: `${screens.lg ? "400px" : "280px"}` }}>
         <label className="text-start">Ingredient</label>
         <Creatable
           options={ingredientOptions}
@@ -61,7 +64,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
             setIngredientOption(ingredient);
           }}
           placeholder="Pick your ingredients"
-          className="mr-4"
+          className="mr-4 md:mr-6 lg:mr-8"
         />
       </div>
 
@@ -78,7 +81,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
           }}
           size="middle"
           style={{ width: "64px" }}
-          className="mr-4"
+          className="mr-4 md:mr-6 lg:mr-8"
         />
       </div>
 
@@ -88,7 +91,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
           options={INGREDIENT_UNITS}
           value={unit}
           style={{ width: 80 }}
-          className="mr-4"
+          className="mr-4 md:mr-6 lg:mr-8"
           onChange={(newUnit: string) => {
             setUnit(newUnit);
           }}

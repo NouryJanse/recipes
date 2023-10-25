@@ -22,7 +22,6 @@ const Sidebar: React.FC<SidebarProps> = ({ contacts, q, searching }): ReactEleme
 
   return (
     <>
-      {" "}
       <h1>Shoppinglist</h1>
       <div>
         <Form

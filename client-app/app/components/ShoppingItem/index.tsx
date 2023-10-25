@@ -35,8 +35,7 @@ const ShoppingItem: React.FC<ShoppingItemProps> = ({ shoppingItem, onDelete, onU
     <div className={`${isNew(localShoppingItem.updatedAt) ? "highlight" : ""} flex justify-between rounded p-1`}>
       <div onClick={onCheck}>
         <Checkbox className="mr-2" checked={localShoppingItem.checked} onChange={onCheck} />
-
-        {shoppingItem.name}
+        <span className="text-xs sm:text-sm md:text-md">{shoppingItem.name}</span>
       </div>
 
       <div className="flex flex-row justify-end">

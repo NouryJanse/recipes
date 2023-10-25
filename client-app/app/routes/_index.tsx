@@ -12,6 +12,7 @@ import deleteObjectWithIdFromArray from "~/helpers/deleteObjectWithIdFromArray";
 import updateArrayWithObjectById from "~/helpers/updateArrayWithObjectById";
 import getFormattedShoppingList from "~/helpers/getFormattedShoppingList";
 import { TypeShoppingItem } from "~/services/types.db";
+import Sidebar from "~/components/Sidebar";
 
 const socket = io("localhost:1234", {});
 
@@ -121,12 +122,14 @@ export default function Index() {
   };
 
   return (
-    <div id="index-page">
-      {isHydrated ? (
-        <AddIngredient ingredientOptions={ingredientOptions} ingredients={ingredients} list={list} onAdd={onAdd} />
-      ) : null}
+    <div className="flex flex-col md:flex-row w-full max-h-screen">
+      <div className="flex justify-center items-start lg:items-center w-full pt-16 lg:pt-0 mb-4">
+        {isHydrated ? (
+          <AddIngredient ingredientOptions={ingredientOptions} ingredients={ingredients} list={list} onAdd={onAdd} />
+        ) : null}
+      </div>
 
-      <div className="mb-16">
+      <div id="sidebar" className="max-h-screen min-h-screen md:py-5">
         {list && list.length > 0 && (
           <>
             <span className="flex mb-4">
