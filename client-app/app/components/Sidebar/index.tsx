@@ -1,95 +1,37 @@
-import { Form, NavLink, useNavigate, useNavigation, useSubmit } from "@remix-run/react";
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement } from "react";
+import sortShoppingListOnDate from "~/helpers/sortShoppingListOnDate";
+import { TypeShoppingItem } from "~/services/types.db";
+import ShoppingItem from "../ShoppingItem";
 
 type SidebarProps = {
-  contacts: any;
-  q: any;
-  searching: any;
+  list: any;
+  onDelete: (itemId: number) => void;
+  onUpdate: (item: TypeShoppingItem) => void;
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ contacts, q, searching }): ReactElement => {
-  const navigation = useNavigation();
-  const navigate = useNavigate();
-
-  const submit = useSubmit();
-
-  useEffect(() => {
-    const searchField = document.getElementById("q");
-    if (searchField instanceof HTMLInputElement) {
-      searchField.value = q || "";
-    }
-  }, [q]);
-
+const Sidebar: React.FC<SidebarProps> = ({ list, onDelete, onUpdate }): ReactElement => {
   return (
-    <>
-      <h1>Shoppinglist</h1>
-      <div>
-        <Form
-          id="search-form"
-          role="search"
-          onChange={(event) => {
-            const isFirstSearch = q === null;
-            submit(event.currentTarget, {
-              replace: !isFirstSearch,
-            });
-          }}
-        >
-          <input
-            id="q"
-            aria-label="Search contacts"
-            className={searching ? "loading" : ""}
-            placeholder="Search"
-            type="search"
-            name="q"
-            defaultValue={q || ""}
-          />
-          <div id="search-spinner" aria-hidden hidden={!searching} />
-        </Form>
+    <div className="sidebar max-h-screen min-h-screen md:py-5">
+      {list && list.length > 0 && (
+        <>
+          <h2 className="flex m-4 font-medium">
+            There {list.length === 1 ? `is ${list.length} item` : `are ${list.length} items`} in your list
+          </h2>
 
-        <Form method="post">
-          <button type="submit">New</button>
-        </Form>
-      </div>
-      <div
-        onClick={(e) => {
-          e.preventDefault();
-          navigate("/");
-        }}
-      >
-        <a className="menu-url" href="#">
-          Your shoppinglist
-        </a>
-      </div>
-      <nav>
-        <h2>Recipes</h2>
-        {contacts.length ? (
-          <ul>
-            {contacts.map((contact: any) => (
-              <li key={contact.id}>
-                <NavLink
-                  className={({ isActive, isPending }) => (isActive ? "active" : isPending ? "pending" : "")}
-                  to={`contacts/${contact.id}`}
-                >
-                  {contact.first || contact.last ? (
-                    <>
-                      {contact.first} {contact.last}
-                    </>
-                  ) : (
-                    <i>No Name</i>
-                  )}
+          {sortShoppingListOnDate(list).map((i: TypeShoppingItem) => {
+            return i.checked === false || i.checked === undefined ? (
+              <ShoppingItem key={i.id} shoppingItem={i} onDelete={onDelete} onUpdate={onUpdate} />
+            ) : null;
+          })}
 
-                  {contact.favorite ? <span>★</span> : null}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>
-            <i>No contacts</i>
-          </p>
-        )}
-      </nav>
-    </>
+          {sortShoppingListOnDate(list).map((i: TypeShoppingItem) => {
+            return i.checked === true ? (
+              <ShoppingItem key={i.id} shoppingItem={i} onDelete={onDelete} onUpdate={onUpdate} />
+            ) : null;
+          })}
+        </>
+      )}
+    </div>
   );
 };
 
