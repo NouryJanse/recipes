@@ -1,10 +1,8 @@
 import { useLoaderData } from "@remix-run/react";
-import fetchIngredients from "~/helpers/fetchIngredients";
 import { Ingredient, Option } from "@nouryjanse/recipe-types";
 import { useHydrated } from "~/components/useHydrated";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
-import ShoppingItem from "~/components/ShoppingItem";
 import AddIngredient from "~/components/AddIngredient";
 import { mongodb } from "~/services/db";
 import sortShoppingListOnDate from "~/helpers/sortShoppingListOnDate";
@@ -12,12 +10,12 @@ import deleteObjectWithIdFromArray from "~/helpers/deleteObjectWithIdFromArray";
 import updateArrayWithObjectById from "~/helpers/updateArrayWithObjectById";
 import getFormattedShoppingList from "~/helpers/getFormattedShoppingList";
 import { TypeShoppingItem } from "~/services/types.db";
+import fetchURL from "~/helpers/fetchURL";
 import Sidebar from "~/components/Sidebar";
 
 const socket = io("localhost:1234", {});
 
 export async function loader() {
-  // console.log(process.env.SOME_SECRET);
   const API_URL: string = process.env.API_URL as string;
   const DB_NAME: string = process.env.DB_NAME as string;
   const COLLECTION_NAME: string = process.env.COLLECTION_NAME as string;
@@ -27,11 +25,7 @@ export async function loader() {
   let response = await collection.find({}).limit(10).toArray();
   const dbShoppingList = response[0];
 
-  const data: any = await fetchIngredients(`${API_URL}/ingredients`);
-  const recipes: any = await fetchIngredients(`${API_URL}/recipes`);
-  const recipesData = await recipes.json();
-  console.log(recipesData);
-
+  const data: any = await fetchURL(`${API_URL}/ingredients`);
   const ingredients = await data.json();
   const ingredientOptions = ingredients.map((ingredient: Ingredient): Option => {
     return {
@@ -122,34 +116,14 @@ export default function Index() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row w-full max-h-screen">
-      <div className="flex justify-center items-start lg:items-center w-full pt-16 lg:pt-0 mb-4">
+    <div className="flex flex-col md:flex-row max-h-screen min-w-full justify-between">
+      <div className="flex justify-center items-start lg:items-center pt-16 lg:pt-0 mb-4 mx-4">
         {isHydrated ? (
           <AddIngredient ingredientOptions={ingredientOptions} ingredients={ingredients} list={list} onAdd={onAdd} />
         ) : null}
       </div>
 
-      <div id="sidebar" className="max-h-screen min-h-screen md:py-5">
-        {list && list.length > 0 && (
-          <>
-            <span className="flex mb-4">
-              There {list.length === 1 ? `is ${list.length} item` : `are ${list.length} items`} in your list
-            </span>
-
-            {sortShoppingListOnDate(list).map((i: TypeShoppingItem) => {
-              return i.checked === false || i.checked === undefined ? (
-                <ShoppingItem key={i.id} shoppingItem={i} onDelete={onDelete} onUpdate={onUpdate} />
-              ) : null;
-            })}
-
-            {sortShoppingListOnDate(list).map((i: TypeShoppingItem) => {
-              return i.checked === true ? (
-                <ShoppingItem key={i.id} shoppingItem={i} onDelete={onDelete} onUpdate={onUpdate} />
-              ) : null;
-            })}
-          </>
-        )}
-      </div>
+      <Sidebar list={list} onDelete={onDelete} onUpdate={onUpdate} />
     </div>
   );
 }

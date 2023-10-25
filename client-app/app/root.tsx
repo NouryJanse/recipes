@@ -11,8 +11,9 @@ import {
 
 import { LinksFunction, LoaderFunctionArgs, json, redirect } from "@remix-run/node";
 import appStylesHref from "./app.css";
-import { createEmptyContact, getContacts } from "./data";
-import SidebarTwo from "./components/Sidebar/SidebarTwo";
+import { createEmptyContact } from "./data";
+import Menu from "./components/Menu";
+import fetchURL from "./helpers/fetchURL";
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: appStylesHref }];
 
 export const action = async () => {
@@ -20,15 +21,15 @@ export const action = async () => {
   return redirect(`/contacts/${contact.id}/edit`);
 };
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const url = new URL(request.url);
-  const q = url.searchParams.get("q");
-  const contacts = (await getContacts(q)).slice(0, 10);
-  return json({ contacts, q });
+export const loader = async ({}: LoaderFunctionArgs) => {
+  const API_URL: string = process.env.API_URL as string;
+  const recipesData: any = await fetchURL(`${API_URL}/recipes`);
+  const recipes = await recipesData.json();
+  return json({ recipes });
 };
 
 const App = () => {
-  const { contacts, q } = useLoaderData<typeof loader>();
+  const { recipes } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const searching = navigation.location && new URLSearchParams(navigation.location.search).has("q");
   const loadingState = navigation.state === "loading" && !searching ? "loading" : "";
@@ -44,11 +45,9 @@ const App = () => {
       </head>
 
       <body className="flex flex-col lg:flex-row lg:max-h-screen">
-        <div id="sidebar" className="hidden lg:flex flex-col max-h-screen">
-          <SidebarTwo contacts={contacts} q={q} searching={searching} />
-        </div>
+        <Menu recipes={recipes} searching={searching} />
 
-        <div id="detail" className={`${loadingState}`}>
+        <div className={`w-full ${loadingState}`}>
           <Outlet />
         </div>
 

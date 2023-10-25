@@ -11,11 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- a
+- Bootstrap templating for the Recipe Detail page
 
 ### Changed
 
-- a
+- Improved app UI and refactored+reduced SCSS files
+- Created a Menu component and a Sidebar component
 
 ## [0.0.1] - 2023-10-24
 
