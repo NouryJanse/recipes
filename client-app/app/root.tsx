@@ -44,7 +44,7 @@ const App = () => {
         <Links />
       </head>
 
-      <body className="flex flex-col lg:flex-row lg:max-h-screen">
+      <body className="flex flex-col lg:flex-row lg:max-h-screen bg-gray-100">
         <Menu recipes={recipes} searching={searching} />
 
         <div className={`w-full ${loadingState}`}>

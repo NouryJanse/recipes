@@ -54,7 +54,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
   };
 
   return (
-    <div className="flex w-full items-center justify-between mb-4 md:justify-center">
+    <div className="flex flex-col md:flex-row w-full items-center justify-between mb-4 md:justify-center">
       <div className="flex flex-col" style={{ width: `${screens.xl ? "400px" : screens.lg ? "320px" : "280px"}` }}>
         <label className="text-start">Ingredient</label>
         <Creatable
@@ -68,7 +68,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
         />
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full">
         <label className="text-start">Amount</label>
         <InputNumber
           value={amount}
@@ -80,7 +80,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
             }
           }}
           size="middle"
-          style={{ width: "64px" }}
+          style={{ width: "25%" }}
           className="mr-4 lg:mr-6 xl:mr-8"
         />
       </div>

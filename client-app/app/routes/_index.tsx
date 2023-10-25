@@ -116,8 +116,8 @@ export default function Index() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row max-h-screen min-w-full justify-between">
-      <div className="flex justify-center items-start lg:items-center pt-16 lg:pt-0 mb-4 mx-4">
+    <div className="flex flex-col md:flex-row max-h-screen min-w-full justify-between p-3 sm:p-4 md:p-0 md:pl-4">
+      <div className="flex justify-center items-start lg:items-center pt-16 lg:pt-0 mb-4">
         {isHydrated ? (
           <AddIngredient ingredientOptions={ingredientOptions} ingredients={ingredients} list={list} onAdd={onAdd} />
         ) : null}

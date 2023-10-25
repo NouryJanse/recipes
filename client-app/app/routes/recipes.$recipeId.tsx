@@ -32,7 +32,7 @@ export default function RecipePage() {
   console.log(recipe);
 
   return (
-    <div>
+    <div className="p-2 sm:p-3 md:p-4 lg:p-5 xl:p-6">
       {/* <div>
           <img alt={`${recipe.first} ${recipe.last} avatar`} key={recipe.avatar} src={recipe.avatar} />
         </div> */}
