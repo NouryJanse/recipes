@@ -54,8 +54,8 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
   };
 
   return (
-    <div className="flex w-full items-center justify-between mb-4 px-4 md:px-0 md:justify-center">
-      <div className="flex flex-col" style={{ width: `${screens.lg ? "400px" : "280px"}` }}>
+    <div className="flex w-full items-center justify-between mb-4 md:justify-center">
+      <div className="flex flex-col" style={{ width: `${screens.xl ? "400px" : screens.lg ? "320px" : "280px"}` }}>
         <label className="text-start">Ingredient</label>
         <Creatable
           options={ingredientOptions}
@@ -64,7 +64,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
             setIngredientOption(ingredient);
           }}
           placeholder="Pick your ingredients"
-          className="mr-4 md:mr-6 lg:mr-8"
+          className="mr-4 lg:mr-6 xl:mr-8"
         />
       </div>
 
@@ -81,7 +81,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
           }}
           size="middle"
           style={{ width: "64px" }}
-          className="mr-4 md:mr-6 lg:mr-8"
+          className="mr-4 lg:mr-6 xl:mr-8"
         />
       </div>
 
@@ -91,7 +91,7 @@ const AddIngredient: React.FC<AddIngredientProps> = ({ ingredientOptions, ingred
           options={INGREDIENT_UNITS}
           value={unit}
           style={{ width: 80 }}
-          className="mr-4 md:mr-6 lg:mr-8"
+          className="mr-4 lg:mr-6 xl:mr-8"
           onChange={(newUnit: string) => {
             setUnit(newUnit);
           }}
