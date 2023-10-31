@@ -1,9 +1,9 @@
 import { Ingredient, PrismaClient, Recipe } from '@prisma/client'
-import { PrismaClientValidationError } from '@prisma/client/runtime'
 import { ERROR_MESSAGES } from '../../constants'
 import CustomError from '../../types/CustomError'
 import IdIsOfInvalidFormat from '../../types/IdIsOfInvalidFormat'
 import ObjectCouldNotBeFoundError from '../../types/ObjectCouldNotBeFoundError'
+import { PrismaClientValidationError } from '@prisma/client/runtime'
 
 const prisma = new PrismaClient()
 
