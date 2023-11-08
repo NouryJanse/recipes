@@ -12,6 +12,7 @@ import ShoppingItems from "../ShoppingItems";
 import sortShoppingListOnDate from "../../../helpers/sortShoppingListOnDate";
 
 const SOCKET_API_URL = import.meta.env.PUBLIC_SOCKET_API_URL as string;
+
 const socket = io(SOCKET_API_URL, {});
 
 type ShoppingListProps = {
@@ -29,6 +30,9 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
     // socket.on("disconnect", () => {
     //   // setIsConnected(false);
     // });
+    // socket.on("message", (msg) => {
+    //   console.log(msg);
+    // });
     socket.on("onShoppingListUpdate", (data) => {
       const parsedData = JSON.parse(data);
       setList(parsedData.list);
@@ -45,7 +49,6 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
     const data = localStorage.getItem("shoppingList");
     if (data) {
       const localShoppingList = JSON.parse(data);
-      // setList(localShoppingList.list);
 
       if (dbShoppingList.updatedAt > localShoppingList.updatedAt) {
         // db version is newer
@@ -70,6 +73,7 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   const syncToSocket = (updatedList: TypeShoppingItem[]) => {
     const body = getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList);
     socket.emit("listUpdate", body);
+
     // todo broadcast to everyone but self
     // socket.emit("onShoppingListUpdate", body);
   };

@@ -39,6 +39,7 @@ io.on("connection", (socket) => {
   socket.on("listUpdate", async (msg) => {
     const COLLECTION_NAME = process.env.COLLECTION_NAME as string;
     const DB_NAME = process.env.DB_NAME as string;
+
     try {
       const shoppingList = JSON.parse(msg);
       let db = await mongodb.db(DB_NAME);
@@ -46,6 +47,7 @@ io.on("connection", (socket) => {
 
       if (shoppingList._id) {
         let res = await collection.replaceOne({ _id: shoppingList._id }, { ...shoppingList });
+        io.emit("onShoppingListUpdate", msg);
         console.info(res);
       }
     } catch (error) {
@@ -59,7 +61,5 @@ io.on("connection", (socket) => {
 });
 
 // setInterval(() => {
-//   console.log(Date.now());
-//   console.log(shoppingList);
 //   io.emit("message", new Date().toISOString());
 // }, 3000);
