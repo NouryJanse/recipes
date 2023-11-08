@@ -1,22 +1,17 @@
 {
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["*.ts", "Room.ts"],
+  "types": ["node"],
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
-    "target": "ES2022",
+    "target": "es2016",
+    "module": "commonjs",
+    "outDir": "./dist",
     "strict": true,
-    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./app/*"]
-    },
-
-    // Remix takes care of building everything in `remix build`.
-    "noEmit": true
-  }
+    "typeRoots": [
+      "./node_module/@types",
+      "./src/types"],
+  },
+  "exclude": ["node_modules"],
 }
