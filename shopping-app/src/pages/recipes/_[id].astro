@@ -1,0 +1,32 @@
+---
+import Recipe from "../../components/Recipe";
+import "../../styles/Recipe.scss";
+
+export const prerender = true;
+
+interface Props {
+  recipes: { id: string }[];
+}
+
+export async function getStaticPaths() {
+  const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
+  const response = await fetch(`${RECIPES_API_URL}/recipes`);
+  const recipes = await response.json();
+  const paths = recipes.map((recipe: any) => {
+    return {
+      params: { id: recipe.id },
+      props: { recipes },
+    };
+  });
+
+  return paths;
+}
+
+const { id } = Astro.params;
+const { recipes } = Astro.props;
+const currentRecipe = recipes.find((recipe) => recipe.id == id);
+---
+
+<div>
+  <Recipe recipe={currentRecipe} />
+</div>

@@ -1,0 +1,36 @@
+@import "Recipe.scss";
+@import "Recipes.scss";
+body {
+  background-color: white;
+}
+
+::backdrop {
+  --bg-color: red;
+  background-color: red;
+  width: 100%;
+  height: 100%;
+}
+
+@supports not selector(::backdrop) {
+  body::before {
+    box-sizing: border-box;
+    content: "⚠️ Your browser doesn't support ::backdrop";
+    display: block;
+    max-width: 72rem;
+    margin: auto;
+    color: #f44336;
+    font-weight: bold;
+    padding: 2rem 2rem 0;
+  }
+}
+
+dialog::backdrop {
+  background-color: darkorange;
+  background-image: linear-gradient(130deg, #ff7a18, #af002d 41.07%, #319197 76.05%);
+}
+
+dialog {
+  &:focus {
+    outline: 2px solid #226daa;
+  }
+}

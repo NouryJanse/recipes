@@ -1,8 +1,12 @@
-import { defineConfig } from 'astro/config';
-
+import { defineConfig } from "astro/config";
+import nodejs from "@astrojs/node";
 import preact from "@astrojs/preact";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [preact()]
+  output: "hybrid",
+  adapter: nodejs({
+    mode: "standalone",
+  }),
+  integrations: [preact()],
 });
