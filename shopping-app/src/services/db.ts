@@ -10,7 +10,7 @@ if (!connectionString) {
 if (connectionString.indexOf("appName") === -1) {
   connectionString += connectionString.indexOf("?") > -1 ? "&appName=remix|" : "?appName=remix|";
 } else {
-  connectionString = connectionString.replace(/appName\=([a-z0-9]*)/i, (m: any, p: any) => `appName=remix|${p}`);
+  connectionString = connectionString.replace(/appName\=([a-z0-9]*)/i, (_m: string, p: string) => `appName=remix|${p}`);
 }
 
 let mongodb: MongoClient;

@@ -7,7 +7,7 @@ import deleteObjectWithIdFromArray from "../../../helpers/deleteObjectWithIdFrom
 import updateArrayWithObjectById from "../../../helpers/updateArrayWithObjectById";
 import getFormattedShoppingList from "../../../helpers/getFormattedShoppingList";
 
-import CreateShoppingItem from "../CreateShoppingItem";
+import CreateShoppingItemModal from "../CreateShoppingItemModal";
 import ShoppingItems from "../ShoppingItems";
 import sortShoppingListOnDate from "../../../helpers/sortShoppingListOnDate";
 
@@ -67,7 +67,10 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   }, [dbShoppingList]);
 
   const updateLocalStorage = (updatedList: TypeShoppingItem[]) => {
-    localStorage.setItem("shoppingList", getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList));
+    if (typeof window !== "undefined") {
+      // Perform localStorage action
+      localStorage.setItem("shoppingList", getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList));
+    }
   };
 
   const syncToSocket = (updatedList: TypeShoppingItem[]) => {
@@ -79,10 +82,10 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   };
 
   const onAdd = (items: TypeShoppingItem[]): void => {
-    // const updatedList = sortShoppingListOnDate(list);
-    setList(items);
-    updateLocalStorage(items);
-    syncToSocket(items);
+    const updatedList = sortShoppingListOnDate(items);
+    setList(updatedList);
+    updateLocalStorage(updatedList);
+    syncToSocket(updatedList);
   };
 
   const onEdit = () => {
@@ -106,16 +109,18 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   return (
     <div>
       <h2>Shopping List</h2>
-      <CreateShoppingItem list={list} onAdd={onAdd} />
-      <dialog open={dialogOpened} onClose={() => setDialogOpened(false)}>
-        <p>Greetings, one and all!</p>
 
-        <form method="dialog">
-          <button>OK</button>
-        </form>
-      </dialog>
-      <br />
-      <br />
+      <button onClick={() => setDialogOpened(true)}>Add new</button>
+
+      <CreateShoppingItemModal
+        list={list}
+        onAdd={(items) => {
+          onAdd(items);
+          setDialogOpened(false);
+        }}
+        isOpen={dialogOpened}
+        onClose={() => setDialogOpened(false)}
+      />
       <br />
       <br />
       <ShoppingItems list={list} onUpdate={onUpdate} onDelete={onDelete} onEdit={onEdit} />

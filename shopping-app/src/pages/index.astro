@@ -1,9 +1,11 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Recipes from "../components/Recipes";
-import ShoppingList from "../components/ShoppingList/ShoppingList";
-import "../styles/index.scss";
 import { mongodb } from "../services/db";
+
+import Layout from "../layouts/Layout.astro";
+import ShoppingList from "../components/ShoppingList/ShoppingList";
+import Recipes from "../components/Recipes";
+
+import "../styles/index.scss";
 // const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
 // const recipesJSON = await fetch(`${RECIPES_API_URL}/recipes`);
 // const recipes = await recipesJSON.json();
@@ -16,7 +18,7 @@ let shoppingItems = await collection.find({}).limit(10).toArray();
 const dbShoppingList = shoppingItems[0];
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Your Shopping List.">
   <main>
     <ShoppingList client:load dbShoppingList={dbShoppingList} />
     <br />

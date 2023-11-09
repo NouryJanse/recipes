@@ -1,7 +1,4 @@
-// import type Ingredient from "@nouryjanse/recipe-types";
 import type { WithId, Document } from "mongodb";
-
-// type Ingredient = typeof Ingredient;
 
 export interface TypeShoppingItem {
   id: string;
