@@ -20,19 +20,15 @@ type ShoppingListProps = {
 };
 
 const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) => {
+  console.log(dbShoppingList);
+
   const [list, setList] = useState<TypeShoppingItem[]>([]);
   const [dialogOpened, setDialogOpened] = useState(false);
 
   useEffect(() => {
-    // socket.on("connect", () => {
-    //   // setIsConnected(true);
-    // });
-    // socket.on("disconnect", () => {
-    //   // setIsConnected(false);
-    // });
-    // socket.on("message", (msg) => {
-    //   console.log(msg);
-    // });
+    // socket.on("connect", () => {});
+    // socket.on("disconnect", () => {});
+    // socket.on("message", (msg) => {});
     socket.on("onShoppingListUpdate", (data) => {
       const parsedData = JSON.parse(data);
       setList(parsedData.list);

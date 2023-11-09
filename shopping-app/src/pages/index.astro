@@ -5,6 +5,8 @@ import Layout from "../layouts/Layout.astro";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 import Recipes from "../components/Recipes";
 
+export const prerender = true;
+
 import "../styles/index.scss";
 // const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
 // const recipesJSON = await fetch(`${RECIPES_API_URL}/recipes`);
