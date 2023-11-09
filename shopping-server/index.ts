@@ -30,7 +30,7 @@ httpServer.listen(port, () => {
 });
 
 io.on("connection", (socket) => {
-  // console.info(`connect: ${socket.id}`);
+  console.info(`connect: ${socket.id}`);
 
   socket.on("firstTimeLoad", () => {
     // io.emit("firstTimeLoad", shoppingList);
