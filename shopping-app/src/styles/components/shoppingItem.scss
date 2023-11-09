@@ -1,0 +1,12 @@
+.shoppingItem {
+  display: flex;
+  margin-bottom: var(--step-0);
+
+  @include lg {
+    margin-bottom: var(--step-1);
+  }
+
+  * {
+    margin-right: var(--step--1);
+  }
+}

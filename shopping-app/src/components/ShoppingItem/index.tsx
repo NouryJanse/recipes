@@ -32,18 +32,23 @@ const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem, onDe
   }, [shoppingItem]);
 
   return (
-    <div className={`${isNew(localShoppingItem.updatedAt) ? "highlight" : ""} flex justify-between rounded p-1`}>
+    <div
+      className={`shoppingItem ${
+        isNew(localShoppingItem.updatedAt) ? "highlight" : ""
+      } flex justify-between rounded p-1`}
+    >
       <div onClick={onCheck}>
-        <span className="text-xs sm:text-sm md:text-md">{localShoppingItem?.ingredientName}</span>
+        <span>{localShoppingItem?.ingredientName}</span>
       </div>
 
-      <div className="flex flex-row justify-end">
-        <span>{localShoppingItem.amount}</span>
-
-        <span className="flex mr-4">{localShoppingItem?.unit}</span>
+      <div>
+        <span>
+          {localShoppingItem.amount} {` `}
+          {localShoppingItem?.unit}
+        </span>
 
         <button onClick={() => onEdit(shoppingItem.id)}>Edit</button>
-        <button onClick={() => onDelete(shoppingItem.id)}>Del</button>
+        <button onClick={() => onDelete(shoppingItem.id)}>Delete</button>
       </div>
     </div>
   );

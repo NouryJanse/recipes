@@ -108,9 +108,10 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
 
   return (
     <div>
-      <h2>Shopping List</h2>
+      <h1>Groceries</h1>
+      <p>La la lie la la la by Noury.</p>
 
-      <button onClick={() => setDialogOpened(true)}>Add new</button>
+      <button onClick={() => setDialogOpened(true)}>Add new item</button>
 
       <CreateShoppingItemModal
         list={list}
@@ -123,6 +124,7 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
       />
       <br />
       <br />
+      <h3>Ingredients</h3>
       <ShoppingItems list={list} onUpdate={onUpdate} onDelete={onDelete} onEdit={onEdit} />
     </div>
   );

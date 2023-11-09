@@ -65,49 +65,52 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
           onChange();
         }}
       >
+        <h2>Add new shopping item</h2>
         {/* <div className="flex flex-col" style={{ width: `${screens.xl ? "400px" : screens.lg ? "320px" : "280px"}` }}> */}
-        <div className="">
-          <label className="">
-            Ingredient
-            <input
-              ref={focusInputRef}
-              type="text"
-              value={formState.ingredientName}
-              name="ingredientName"
-              defaultValue={"Courgette"}
-              onChange={(e) => handleInputChange(e)}
-              placeholder="Enter your ingredient"
-            />
-          </label>
+        <div className="inputContainer">
+          <div>
+            <label>
+              <span>Ingredient</span>
+
+              <input
+                ref={focusInputRef}
+                type="text"
+                value={formState.ingredientName}
+                name="ingredientName"
+                defaultValue={"Courgette"}
+                onChange={(e) => handleInputChange(e)}
+                placeholder="Enter your ingredient"
+              />
+            </label>
+          </div>
+
+          <div>
+            <label>
+              <span>Amount</span>
+              <input
+                value={formState.amount}
+                name="amount"
+                min={0}
+                onChange={(e) => handleInputChange(e)}
+                style={{ width: "25%" }}
+                type="number"
+              />
+            </label>
+          </div>
+
+          <div>
+            <label>
+              <span>Unit</span>
+              <select name="unit" onChange={(e) => handleInputChange(e)}>
+                {INGREDIENT_UNITS.map((ingredient) => {
+                  return <option value={ingredient.value}>{ingredient.text}</option>;
+                })}
+              </select>
+            </label>
+          </div>
         </div>
 
-        <div className="">
-          <label className="">
-            Amount
-            <input
-              value={formState.amount}
-              name="amount"
-              min={0}
-              onChange={(e) => handleInputChange(e)}
-              style={{ width: "25%" }}
-              className="mr-4 lg:mr-6 xl:mr-8"
-              type="number"
-            />
-          </label>
-        </div>
-
-        <div className="">
-          <label className="">
-            Unit
-            <select name="unit" onChange={(e) => handleInputChange(e)}>
-              {INGREDIENT_UNITS.map((ingredient) => {
-                return <option value={ingredient.value}>{ingredient.text}</option>;
-              })}
-            </select>
-          </label>
-        </div>
-
-        <div className="">
+        <div>
           <button onClick={() => onChange}>Save</button>
         </div>
       </form>

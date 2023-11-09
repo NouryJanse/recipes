@@ -1,15 +1,36 @@
 @import "Recipe.scss";
 @import "Recipes.scss";
+@import "./_colors";
+@import "./_breakpoints";
+@import "./_mixins";
+@import "./_typography";
+@import "./_scales";
+@import "./_spacing";
+
+@import "./components/index.scss";
 
 body {
   background-color: white;
-}
+  margin: 0;
+  padding: var(--step--1);
 
-.modal {
-  max-width: 20rem;
-  padding: 4rem;
-  border: 0;
-  border-radius: 0.5rem;
-  position: relative;
-  box-shadow: hsl(0 0% 0% / 10%) 0 0 0.5rem 0.25rem;
+  @include sm {
+    padding: var(--step-0);
+  }
+
+  @include md {
+    padding: var(--step-1);
+  }
+
+  @include lg {
+    padding: var(--step-2);
+  }
+
+  @include xl {
+    padding: var(--step-3);
+  }
+
+  @include xxl {
+    padding: var(--step-4);
+  }
 }

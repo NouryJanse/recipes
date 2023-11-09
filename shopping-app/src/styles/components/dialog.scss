@@ -1,0 +1,51 @@
+.modal {
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+  position: relative;
+  box-shadow: hsl(0 0% 0% / 10%) 0 0 0.5rem 0.25rem;
+
+  div.inputContainer {
+    display: flex;
+    flex-direction: column;
+
+    @include sm {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    div {
+      margin-right: var(--step--1);
+      @include lg {
+        margin-right: var(--step-0);
+      }
+    }
+  }
+
+  @include md {
+    width: 80%;
+    height: 80%;
+    border-radius: 0.5rem;
+    padding: 4rem;
+  }
+
+  > button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    @include md {
+      top: 5rem;
+      right: 5rem;
+    }
+
+    @include lg {
+      top: 6rem;
+      right: 6rem;
+    }
+  }
+}
+
+::backdrop {
+  background: linear-gradient(90deg, #b9deed, #efefef);
+}

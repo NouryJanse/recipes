@@ -1,0 +1,72 @@
+h1 {
+  margin-bottom: var(--step-2);
+
+  @include sm {
+    margin-bottom: var(--step-3);
+  }
+
+  @include lg {
+    margin-bottom: var(--step-4);
+  }
+
+  @include xxl {
+    margin-bottom: var(--step-3);
+  }
+}
+
+h2 {
+  margin-bottom: var(--step-1);
+
+  @include sm {
+    margin-bottom: var(--step-2);
+  }
+
+  @include lg {
+    margin-bottom: var(--step-3);
+  }
+
+  @include xxl {
+    margin-bottom: var(--step-2);
+  }
+}
+
+h3 {
+  margin-bottom: var(--step-0);
+
+  @include sm {
+    margin-bottom: var(--step-1);
+  }
+
+  @include lg {
+    margin-bottom: var(--step-2);
+  }
+
+  @include xxl {
+    margin-bottom: var(--step-1);
+  }
+}
+
+p,
+label {
+  margin-bottom: var(--step-0);
+
+  @include sm {
+    margin-bottom: var(--step-1);
+  }
+
+  @include lg {
+    margin-bottom: var(--step-2);
+  }
+
+  @include xxl {
+    margin-bottom: var(--step-1);
+  }
+}
+
+button {
+  margin-bottom: var(--step--1);
+
+  @include lg {
+    margin-bottom: var(--step--2);
+  }
+}
