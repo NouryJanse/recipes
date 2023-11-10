@@ -8,4 +8,5 @@ export default defineConfig({
   output: "hybrid",
   adapter: vercel(),
   integrations: [preact()],
+  prefetch: true,
 });
