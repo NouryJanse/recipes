@@ -1,8 +1,10 @@
 ---
+//
+// login not necessary on, also not SSR but STATICALLY generated
+//
+
 import Recipe from "../../components/Recipe";
 import "../../styles/Recipe.scss";
-
-export const prerender = true;
 
 interface Props {
   recipes: { id: string }[];

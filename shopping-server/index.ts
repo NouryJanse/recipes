@@ -1,8 +1,6 @@
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import compression from "compression";
-// import morgan from "morgan";
 import * as dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
 import { mongodb, ObjectId } from "./db";
@@ -16,18 +14,10 @@ const io = new Server(httpServer, {
   },
 });
 
-app.use(compression());
 // You may want to be more aggressive with this caching
 app.use(express.static("public", { maxAge: "1h" }));
 // Remix fingerprints its assets so we can cache forever
 app.use(express.static("public/build", { immutable: true, maxAge: "1y" }));
-// app.use(morgan("tiny"));
-
-const port = process.env.PORT || 1234;
-
-httpServer.listen(port, () => {
-  console.log(`Express server listening on port ${port}`);
-});
 
 io.on("connection", (socket) => {
   console.info(`connect: ${socket.id}`);
@@ -58,6 +48,18 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.info(`disconnect: ${socket.id}`);
   });
+});
+
+const router = express.Router();
+
+router.get("/", (req, res) => {
+  return res.status(200).send({ status: "OK" });
+});
+
+const port = process.env.PORT || 1234;
+
+httpServer.listen(port, () => {
+  console.log(`Express server listening on port ${port}`);
 });
 
 // setInterval(() => {

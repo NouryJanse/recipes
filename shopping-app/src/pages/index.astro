@@ -1,27 +1,48 @@
 ---
+import jwt from "jsonwebtoken";
 import { mongodb } from "../services/db";
-
 import Layout from "../layouts/Layout.astro";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 import Recipes from "../components/Recipes";
-
 export const prerender = true;
-
 import "../styles/index.scss";
+
 // const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
 // const recipesJSON = await fetch(`${RECIPES_API_URL}/recipes`);
 // const recipes = await recipesJSON.json();
 
+const jwtSecret: string = import.meta.env.JWT_SECRET as string;
 const DB_NAME: string = import.meta.env.DB_NAME as string;
 const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
 let db = await mongodb.db(DB_NAME);
 let collection = await db.collection(COLLECTION_NAME);
 let shoppingItems = await collection.find({}).limit(10).toArray();
 const dbShoppingList = shoppingItems[0];
+
+const token = Astro.cookies.get("jwt")?.value ?? "";
+
+const res = await jwt.verify(token, jwtSecret, (err: any, decodedToken: any) => {
+  if (err) {
+    return false;
+  } else {
+    if (decodedToken.role !== "Basic") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+});
+
+if (!res) {
+  return Astro.redirect("/user/login");
+}
 ---
 
 <Layout title="Your Shopping List.">
   <main>
+    <form action="/api/user/logout" method="POST">
+      <button class="logout" type="submit">Sign out</button>
+    </form>
     <ShoppingList client:load dbShoppingList={dbShoppingList} />
     <br />
     <br />

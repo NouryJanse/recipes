@@ -20,8 +20,6 @@ type ShoppingListProps = {
 };
 
 const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) => {
-  console.log(dbShoppingList);
-
   const [list, setList] = useState<TypeShoppingItem[]>([]);
   const [dialogOpened, setDialogOpened] = useState(false);
 
