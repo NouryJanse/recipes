@@ -1,12 +1,11 @@
 import { defineConfig } from "astro/config";
-// import nodejs from "@astrojs/node";
 import preact from "@astrojs/preact";
-import vercel from "@astrojs/vercel/serverless";
+import netlify from "@astrojs/netlify/functions";
 
 // https://astro.build/config
 export default defineConfig({
   output: "hybrid",
-  adapter: vercel(),
+  adapter: netlify(),
   integrations: [preact()],
   prefetch: true,
 });

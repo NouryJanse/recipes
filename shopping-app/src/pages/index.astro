@@ -20,7 +20,6 @@ let shoppingItems = await collection.find({}).limit(10).toArray();
 const dbShoppingList = shoppingItems[0];
 
 const token = Astro.cookies.get("jwt")?.value ?? "";
-
 const res = await jwt.verify(token, jwtSecret, (err: any, decodedToken: any) => {
   if (err) {
     return false;
