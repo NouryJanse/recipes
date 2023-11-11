@@ -35,9 +35,9 @@ const res = await jwt.verify(token, jwtSecret, (err: any, decodedToken: any) => 
 
 console.log(res);
 
-if (!res) {
-  return Astro.redirect("/user/login");
-}
+// if (!res) {
+//   return Astro.redirect("/user/login");
+// }
 ---
 
 <Layout title="Your Shopping List.">
