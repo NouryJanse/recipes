@@ -1,16 +1,18 @@
 ---
-
+import Layout from "../../layouts/layout.astro";
 ---
 
-<h1>Register</h1>
-<form action="/api/user/register" method="post">
-  <section>
-    <label for="username">Username</label>
-    <input id="username" name="username" type="text" autocomplete="username" required />
-  </section>
-  <section>
-    <label for="new-password">Password</label>
-    <input id="new-password" name="password" type="password" autocomplete="new-password" required />
-  </section>
-  <button type="submit">Sign up</button>
-</form>
+<Layout title="Register">
+  <h1>Register</h1>
+  <form action="/api/user/register" method="post">
+    <section>
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" autocomplete="username" required />
+    </section>
+    <section>
+      <label for="new-password">Password</label>
+      <input id="new-password" name="password" type="password" autocomplete="new-password" required />
+    </section>
+    <button type="submit">Sign up</button>
+  </form>
+</Layout>
