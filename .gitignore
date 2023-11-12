@@ -39,4 +39,4 @@
 *.sql
 
 # dist
-client-app/**/*.css*
+shopping-app/**/*.css*

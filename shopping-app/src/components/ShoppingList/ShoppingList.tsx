@@ -17,9 +17,12 @@ const socket = io(SOCKET_API_URL, {});
 
 type ShoppingListProps = {
   dbShoppingList: any;
+  cookies: any;
 };
 
-const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) => {
+const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList, cookies }) => {
+  console.log("cookies", cookies);
+
   const [list, setList] = useState<TypeShoppingItem[]>([]);
   const [dialogOpened, setDialogOpened] = useState(false);
 
