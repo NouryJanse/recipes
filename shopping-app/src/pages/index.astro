@@ -14,6 +14,8 @@ import "../styles/index.scss";
 const jwt = Astro.cookies.get("jwt")?.value;
 const isLoggedIn = verifyJWT(jwt);
 
+console.log(isLoggedIn);
+
 let dbShoppingList;
 if (isLoggedIn) {
   const DB_NAME: string = import.meta.env.DB_NAME as string;
