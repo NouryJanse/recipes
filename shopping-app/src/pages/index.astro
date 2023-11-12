@@ -2,6 +2,7 @@
 import { mongodb } from "../services/db";
 import Layout from "../layouts/Layout.astro";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
+import verifyJWT from "../services/verifyjwt";
 // import Recipes from "../components/Recipes";
 export const prerender = true;
 import "../styles/index.scss";
@@ -10,23 +11,36 @@ import "../styles/index.scss";
 // const recipesJSON = await fetch(`${RECIPES_API_URL}/recipes`);
 // const recipes = await recipesJSON.json();
 
-const DB_NAME: string = import.meta.env.DB_NAME as string;
-const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
-let db = await mongodb.db(DB_NAME);
-let collection = await db.collection(COLLECTION_NAME);
-let shoppingItems = await collection.find({}).limit(10).toArray();
-const dbShoppingList = shoppingItems[0];
+const jwt = Astro.cookies.get("jwt")?.value;
+const isLoggedIn = verifyJWT(jwt);
+
+let dbShoppingList;
+if (isLoggedIn) {
+  const DB_NAME: string = import.meta.env.DB_NAME as string;
+  const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
+  let db = await mongodb.db(DB_NAME);
+  let collection = await db.collection(COLLECTION_NAME);
+  let shoppingItems = await collection.find({}).limit(10).toArray();
+  dbShoppingList = shoppingItems[0];
+}
 ---
 
 <Layout title="Your Shopping List.">
-  <main>
-    <form action="/api/user/logout" method="POST">
-      <button class="logout" type="submit">Sign out</button>
-    </form>
-    <ShoppingList client:load dbShoppingList={dbShoppingList} />
-    <br />
-    <br />
-    <br />
-    <!-- <Recipes client:idle recipes={recipes} /> -->
-  </main>
+  {
+    isLoggedIn ? (
+      <main>
+      <form action="/api/user/logout" method="POST">
+          <button class="logout" type="submit">
+            Sign out
+          </button>
+        </form>
+        <ShoppingList client:load dbShoppingList={dbShoppingList} />
+        <br />
+        <br />
+        <br />
+        <!-- <Recipes client:idle recipes={recipes} /> -->
+        </main>
+      )
+      :<a href="/user/login">Login</a>
+    }
 </Layout>
