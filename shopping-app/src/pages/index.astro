@@ -28,21 +28,17 @@ if (isLoggedIn) {
 ---
 
 <Layout title="Your Shopping List.">
-  {
-    isLoggedIn ? (
-      <main>
-      <form action="/api/user/logout" method="POST">
-          <button class="logout" type="submit">
-            Sign out
-          </button>
-        </form>
-        <ShoppingList client:load dbShoppingList={dbShoppingList} />
-        <br />
-        <br />
-        <br />
-        <!-- <Recipes client:idle recipes={recipes} /> -->
-        </main>
-      )
-      :<a href="/user/login">Login</a>
-    }
+  {isLoggedIn ? "true" : "false"}
+  <main>
+    <form action="/api/user/logout" method="POST">
+      <button class="logout" type="submit"> Sign out</button>
+    </form>
+    <ShoppingList client:load dbShoppingList={dbShoppingList} />
+    <br />
+    <br />
+    <br />
+    <!-- <Recipes client:idle recipes={recipes} /> -->
+  </main>
+
+  <a href="/user/login">Login</a>
 </Layout>
