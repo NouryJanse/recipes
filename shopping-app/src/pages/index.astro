@@ -18,7 +18,7 @@ const isLoggedIn = verifyJWT(jwt);
 
 console.log(isLoggedIn);
 
-const startTime = Astro.request.get("start-time")?.value ?? "0";
+const startTime = Astro.request.headers.get("start-time")?.value ?? "0";
 
 let dbShoppingList;
 if (isLoggedIn) {
