@@ -1,45 +1,51 @@
 ---
+// export const prerender = true;
 import { mongodb } from "../services/db";
 import Layout from "../layouts/Layout.astro";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 import verifyJWT from "../services/verifyjwt";
 // import Recipes from "../components/Recipes";
-export const prerender = true;
 import "../styles/index.scss";
 
 // const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
 // const recipesJSON = await fetch(`${RECIPES_API_URL}/recipes`);
 // const recipes = await recipesJSON.json();
 
-let jwt;
-jwt = Astro.request.headers.get("cookie");
-// jwt = Astro.cookies.get("jwt")?.value;
-const isLoggedIn = verifyJWT(jwt);
+let counter = 0;
 
+if (Astro.cookies.has("counter")) {
+  const cookie = Astro.cookies.get("counter");
+  counter = cookie.number() + 1;
+}
+
+Astro.cookies.set("counter", counter);
+
+let jwt;
+const request = Astro.request;
+const cookies = Astro.cookies;
+const isLoggedIn = verifyJWT(jwt);
 console.log(isLoggedIn);
 
-const startTime = Astro.request.headers.get("start-time")?.value ?? "0";
-
 let dbShoppingList;
-if (isLoggedIn) {
-  const DB_NAME: string = import.meta.env.DB_NAME as string;
-  const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
-  let db = await mongodb.db(DB_NAME);
-  let collection = await db.collection(COLLECTION_NAME);
-  let shoppingItems = await collection.find({}).limit(10).toArray();
-  dbShoppingList = shoppingItems[0];
-}
+// if (isLoggedIn) {
+const DB_NAME: string = import.meta.env.DB_NAME as string;
+const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
+let db = await mongodb.db(DB_NAME);
+let collection = await db.collection(COLLECTION_NAME);
+let shoppingItems = await collection.find({}).limit(10).toArray();
+dbShoppingList = shoppingItems[0];
+// }
 ---
 
 <Layout title="Your Shopping List.">
   {isLoggedIn ? "true" : "false"}
   {jwt ? jwt : "empty jwt"}
-  {startTime}
+
   <main>
     <form action="/api/user/logout" method="POST">
       <button class="logout" type="submit"> Sign out</button>
     </form>
-    <ShoppingList client:load dbShoppingList={dbShoppingList} />
+    <ShoppingList client:load dbShoppingList={dbShoppingList} request={request} cookies={cookies} />
     <br />
     <br />
     <br />
