@@ -17,12 +17,10 @@ const socket = io(SOCKET_API_URL, {});
 
 type ShoppingListProps = {
   dbShoppingList: any;
-  request: any;
   cookies: any;
 };
 
-const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList, request, cookies }) => {
-  console.log("request", request);
+const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList, cookies }) => {
   console.log("cookies", cookies);
 
   const [list, setList] = useState<TypeShoppingItem[]>([]);
