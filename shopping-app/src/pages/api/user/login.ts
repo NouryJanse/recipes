@@ -43,6 +43,8 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
             maxAge: maxAge * 1000, // 3hrs in ms
           });
 
+          cookies.set("start-time", "31", { path: "/" });
+
           return redirect("/");
           // return new Response(
           //   JSON.stringify({

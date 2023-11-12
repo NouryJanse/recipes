@@ -17,6 +17,8 @@ const isLoggedIn = verifyJWT(jwt);
 
 console.log(isLoggedIn);
 
+const startTime = Astro.cookies.get("start-time")?.value ?? "0";
+
 let dbShoppingList;
 if (isLoggedIn) {
   const DB_NAME: string = import.meta.env.DB_NAME as string;
@@ -30,7 +32,8 @@ if (isLoggedIn) {
 
 <Layout title="Your Shopping List.">
   {isLoggedIn ? "true" : "false"}
-  {jwt}
+  {jwt ? jwt : "empty jwt"}
+  {startTime}
   <main>
     <form action="/api/user/logout" method="POST">
       <button class="logout" type="submit"> Sign out</button>
