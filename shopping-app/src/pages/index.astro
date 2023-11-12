@@ -27,9 +27,7 @@ if (isLoggedIn) {
 ---
 
 <Layout title="Your Shopping List.">
-  {isLoggedIn ? "true" : "false"}
-  <br>
-  {jwt ? jwt : "empty jwt"}
+  {isLoggedIn ? "You are logged in." : "You are not logged in."}
   <br>
 
   {jwt ? <main>
