@@ -10,18 +10,9 @@ import "../styles/index.scss";
 // const recipesJSON = await fetch(`${RECIPES_API_URL}/recipes`);
 // const recipes = await recipesJSON.json();
 
-let counter = 0;
-
-if (Astro.cookies.has("counter")) {
-  const cookie = Astro.cookies.get("counter");
-  counter = cookie.number() + 1;
-}
-
-Astro.cookies.set("counter", counter);
-
-let jwt;
-const cookies = Astro.cookies.get("jwt");
-jwt = cookies;
+const jwtCookie = Astro.cookies.get("jwt");
+const cookies = jwtCookie;
+const jwt = jwtCookie?.value ? jwtCookie.value : "";
 const isLoggedIn = verifyJWT(jwt);
 
 let dbShoppingList;
@@ -37,9 +28,11 @@ dbShoppingList = shoppingItems[0];
 
 <Layout title="Your Shopping List.">
   {isLoggedIn ? "true" : "false"}
-  {jwt && jwt.value ? jwt.value : "empty jwt"}
+  <br>
+  {jwt ? jwt : "empty jwt"}
+  <br>
 
-  <main>
+  {jwt ?   <main>
     <form action="/api/user/logout" method="POST">
       <button class="logout" type="submit"> Sign out</button>
     </form>
@@ -48,7 +41,7 @@ dbShoppingList = shoppingItems[0];
     <br />
     <br />
     <!-- <Recipes client:idle recipes={recipes} /> -->
-  </main>
+  </main> :
 
-  <a href="/user/login">Login</a>
+  <a href="/user/login">Login</a>}
 </Layout>
