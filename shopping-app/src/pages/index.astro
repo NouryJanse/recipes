@@ -1,5 +1,4 @@
 ---
-export const prerender = true;
 import { mongodb } from "../services/db";
 import Layout from "../layouts/Layout.astro";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
@@ -21,7 +20,7 @@ if (Astro.cookies.has("counter")) {
 Astro.cookies.set("counter", counter);
 
 let jwt;
-const cookies = Astro.cookies.get("jwt").value;
+const cookies = Astro.cookies.get("jwt");
 jwt = cookies;
 const isLoggedIn = verifyJWT(jwt);
 
@@ -38,7 +37,7 @@ dbShoppingList = shoppingItems[0];
 
 <Layout title="Your Shopping List.">
   {isLoggedIn ? "true" : "false"}
-  {jwt ? jwt : "empty jwt"}
+  {jwt && jwt.value ? jwt.value : "empty jwt"}
 
   <main>
     <form action="/api/user/logout" method="POST">
