@@ -16,23 +16,21 @@ const jwt = jwtCookie?.value ? jwtCookie.value : "";
 const isLoggedIn = verifyJWT(jwt);
 
 let dbShoppingList;
-// if (isLoggedIn) {
-const DB_NAME: string = import.meta.env.DB_NAME as string;
-const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
-let db = await mongodb.db(DB_NAME);
-let collection = await db.collection(COLLECTION_NAME);
-let shoppingItems = await collection.find({}).limit(10).toArray();
-dbShoppingList = shoppingItems[0];
-// }
+if (isLoggedIn) {
+  const DB_NAME: string = import.meta.env.DB_NAME as string;
+  const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
+  let db = await mongodb.db(DB_NAME);
+  let collection = await db.collection(COLLECTION_NAME);
+  let shoppingItems = await collection.find({}).limit(10).toArray();
+  dbShoppingList = shoppingItems[0];
+}
 ---
 
 <Layout title="Your Shopping List.">
-  {isLoggedIn ? "true" : "false"}
-  <br>
-  {jwt ? jwt : "empty jwt"}
+  {isLoggedIn ? "You are logged in." : "You are not logged in."}
   <br>
 
-  {jwt ?   <main>
+  {jwt ? <main>
     <form action="/api/user/logout" method="POST">
       <button class="logout" type="submit"> Sign out</button>
     </form>
