@@ -11,7 +11,8 @@ import "../styles/index.scss";
 // const recipesJSON = await fetch(`${RECIPES_API_URL}/recipes`);
 // const recipes = await recipesJSON.json();
 
-const jwt = Astro.cookies.get("jwt")?.value;
+let jwt;
+jwt = Astro.cookies.get("jwt")?.value;
 const isLoggedIn = verifyJWT(jwt);
 
 console.log(isLoggedIn);
@@ -29,6 +30,7 @@ if (isLoggedIn) {
 
 <Layout title="Your Shopping List.">
   {isLoggedIn ? "true" : "false"}
+  {jwt}
   <main>
     <form action="/api/user/logout" method="POST">
       <button class="logout" type="submit"> Sign out</button>
