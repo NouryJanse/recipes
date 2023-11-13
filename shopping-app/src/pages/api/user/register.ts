@@ -12,8 +12,11 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const password = formData.get("password")?.toString();
 
   if (!password || password.length < 6) {
-    return redirect("");
-    // return res.status(400).json({ message: "Password less than 6 characters" });
+    return new Response(
+      JSON.stringify({
+        message: "Password less than 6 characters",
+      })
+    );
   }
 
   try {
@@ -32,13 +35,8 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
             httpOnly: true,
             maxAge: maxAge * 1000, // 3hrs in ms
           });
-          return  redirect("/login");
-          // return new Response(
-          //   JSON.stringify({
-          //     message: "User successfully created",
-          //     user: user._id,
-          //   })
-          // );
+
+          return redirect("/user/login");
         })
         .catch((error) => {
           return new Response(

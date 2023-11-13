@@ -1,19 +1,15 @@
-import jwt from "jsonwebtoken";
+import jwt, { type JwtPayload } from "jsonwebtoken";
 const jwtSecret: string = import.meta.env.JWT_SECRET as string;
 
-const verifyJWT = (token: string): boolean => {
+const verifyJWT = (token: string): boolean | JwtPayload => {
   // @ts-ignore
-  return jwt.verify(token, jwtSecret, (err: any, decodedToken: any): any => {
-    if (err) {
-      return false;
-    } else {
-      if (decodedToken.role !== "Basic") {
-        return false;
-      } else {
-        return true;
-      }
+  if (token) {
+    const res: JwtPayload = jwt.verify(token, jwtSecret);
+    if (res) {
+      return res;
     }
-  });
+  }
+  return false;
 };
 
 export default verifyJWT;

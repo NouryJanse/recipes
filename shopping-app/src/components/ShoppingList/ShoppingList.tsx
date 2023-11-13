@@ -17,12 +17,9 @@ const socket = io(SOCKET_API_URL, {});
 
 type ShoppingListProps = {
   dbShoppingList: any;
-  cookies: any;
 };
 
-const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList, cookies }) => {
-  console.log("cookies", cookies);
-
+const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) => {
   const [list, setList] = useState<TypeShoppingItem[]>([]);
   const [dialogOpened, setDialogOpened] = useState(false);
 
@@ -49,11 +46,13 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList, co
 
       if (dbShoppingList.updatedAt > localShoppingList.updatedAt) {
         // db version is newer
-        setList(dbShoppingList.list);
-        updateLocalStorage(dbShoppingList.list);
+        const sorted = sortShoppingListOnDate(dbShoppingList.list);
+        setList(sorted);
+        updateLocalStorage(sorted);
       } else {
         // localStorage is newer
-        setList(localShoppingList.list);
+        const sorted = sortShoppingListOnDate(localShoppingList.list);
+        setList(sorted);
       }
     } else if (dbShoppingList.list.length) {
       setList(dbShoppingList.list);

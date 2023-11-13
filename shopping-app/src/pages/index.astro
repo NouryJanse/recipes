@@ -11,12 +11,11 @@ import "../styles/index.scss";
 // const recipes = await recipesJSON.json();
 
 const jwtCookie = Astro.cookies.get("jwt");
-const cookies = jwtCookie;
 const jwt = jwtCookie?.value ? jwtCookie.value : "";
-const isLoggedIn = verifyJWT(jwt);
+const user = verifyJWT(jwt);
 
 let dbShoppingList;
-if (isLoggedIn) {
+if (user) {
   const DB_NAME: string = import.meta.env.DB_NAME as string;
   const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
   let db = await mongodb.db(DB_NAME);
@@ -27,19 +26,20 @@ if (isLoggedIn) {
 ---
 
 <Layout title="Your Shopping List.">
-  {isLoggedIn ? "You are logged in." : "You are not logged in."}
+  {user ? `Hello ${user.username}` : "You are not logged in."}
+  <br>
+  <br>
   <br>
 
-  {jwt ? <main>
-    <form action="/api/user/logout" method="POST">
-      <button class="logout" type="submit"> Sign out</button>
-    </form>
-    <ShoppingList client:load dbShoppingList={dbShoppingList} cookies={cookies} />
-    <br />
-    <br />
-    <br />
-    <!-- <Recipes client:idle recipes={recipes} /> -->
-  </main> :
-
-  <a href="/user/login">Login</a>}
+  {jwt ?
+    <main>
+      <form action="/api/user/logout" method="POST">
+        <button class="logout" type="submit"> Sign out</button>
+      </form>
+      <ShoppingList client:load dbShoppingList={dbShoppingList} />
+      <!-- <Recipes client:idle recipes={recipes} /> -->
+    </main>
+    :
+    <a href="/user/login">Login</a>
+  }
 </Layout>

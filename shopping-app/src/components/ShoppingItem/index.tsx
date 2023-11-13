@@ -44,7 +44,7 @@ const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem, onDe
       <div>
         <span>
           {localShoppingItem.amount} {` `}
-          {localShoppingItem?.unit}
+          {localShoppingItem?.unit} - {localShoppingItem.updatedAt}
         </span>
 
         <button onClick={() => onEdit(shoppingItem.id)}>Edit</button>
