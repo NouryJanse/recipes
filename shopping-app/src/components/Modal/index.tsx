@@ -18,7 +18,7 @@ const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onCl
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.code === "Escape" || e.code === "Space") onClose();
+    if (e.code === "Escape") onClose();
   };
 
   useEffect(() => {

@@ -6,8 +6,6 @@ const verifyJWT = (token: string): boolean | JwtPayload => {
     // @ts-ignore
     if (token) {
       const res: JwtPayload = jwt.verify(token, jwtSecret);
-      console.log(res);
-
       if (res) {
         return res;
       }
