@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { User } from "../../../data/User";
 import connectToDB from "../../../services/mongoose";
 
-export const POST: APIRoute = async ({ request, cookies, redirect }) => {
+export const POST: APIRoute = async ({ request, redirect }) => {
   await connectToDB();
   const formData = await request.formData();
   const id = formData.get("id")?.toString();
@@ -17,12 +17,14 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
           // Third - Verifies the user is not an admin
           if (user && user.role !== "admin") {
             user.role = role;
-            const res = await user.save();
+            await user.save();
           } else {
             // res.status(400).json({ message: "User is already an Admin" });
           }
         })
         .catch((error) => {
+          console.error(error);
+
           // res.status(400).json({ message: "An error occurred", error: error.message });
         });
     } else {

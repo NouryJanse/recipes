@@ -40,15 +40,22 @@
   }
 }
 
+// HD
+@mixin hd {
+  @media (min-width: #{$screen-hd-min}) {
+    @content;
+  }
+}
+
 // 2K
-@mixin xxxl {
+@mixin twok {
   @media (min-width: #{$screen-2k-min}) {
     @content;
   }
 }
 
 // 4K
-@mixin xxxl {
+@mixin fourk {
   @media (min-width: #{$screen-4k-min}) {
     @content;
   }

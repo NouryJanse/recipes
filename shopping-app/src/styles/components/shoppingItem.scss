@@ -1,12 +1,62 @@
+@keyframes highlight {
+  0% {
+    background: var(--color-orange-3);
+  }
+  100% {
+    background: transparent;
+  }
+}
+
 .shoppingItem {
   display: flex;
   margin-bottom: var(--step-0);
+  justify-content: space-between;
+  align-items: center;
 
-  @include lg {
-    margin-bottom: var(--step-1);
+  div {
+    display: flex;
+    align-items: center;
   }
 
   * {
     margin-right: var(--step--1);
+  }
+
+  .highlight {
+    animation: highlight 2s;
+  }
+
+  .amount-unit-ingredient {
+    display: flex;
+    flex-direction: row;
+
+    div.amount-unit {
+      min-width: var(--step-5);
+    }
+  }
+
+  @include sm {
+    max-width: 70vw;
+  }
+
+  @include md {
+    max-width: 60vw;
+  }
+
+  @include lg {
+    max-width: 45vw;
+    margin-bottom: var(--step--1);
+  }
+
+  @include xl {
+    max-width: 40vw;
+  }
+
+  @include xxl {
+    max-width: 33vw;
+  }
+
+  @include xxxl {
+    max-width: 32vw;
   }
 }

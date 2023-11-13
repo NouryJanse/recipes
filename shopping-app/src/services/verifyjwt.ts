@@ -1,7 +1,7 @@
 import jwt, { type JwtPayload } from "jsonwebtoken";
 const jwtSecret: string = import.meta.env.JWT_SECRET as string;
 
-const verifyJWT = (token: string): boolean | JwtPayload => {
+const verifyJWT = (token: string): boolean | jwt.JwtPayload => {
   try {
     // @ts-ignore
     if (token) {

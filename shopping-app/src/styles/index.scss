@@ -1,5 +1,3 @@
-@import "Recipe.scss";
-@import "Recipes.scss";
 @import "./_colors";
 @import "./_breakpoints";
 @import "./_mixins";
@@ -10,27 +8,6 @@
 @import "./components/index.scss";
 
 body {
-  background-color: white;
+  background-color: rgb(246, 246, 246, 0.6);
   margin: 0;
-  padding: var(--step--1);
-
-  @include sm {
-    padding: var(--step-0);
-  }
-
-  @include md {
-    padding: var(--step-1);
-  }
-
-  @include lg {
-    padding: var(--step-2);
-  }
-
-  @include xl {
-    padding: var(--step-3);
-  }
-
-  @include xxl {
-    padding: var(--step-4);
-  }
 }

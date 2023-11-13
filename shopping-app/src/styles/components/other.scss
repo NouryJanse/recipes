@@ -1,0 +1,18 @@
+.ingredientsTitleContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: var(--step-0);
+
+  h3 {
+    margin: 0 var(--step-0) 0 0;
+
+    @include lg {
+      margin: 0 var(--step-3) 0 0;
+    }
+  }
+
+  @include lg {
+    margin-bottom: var(--step-1);
+  }
+}

@@ -1,46 +1,37 @@
 ---
 import { mongodb } from "../services/db";
-import Layout from "../layouts/Layout.astro";
-import ShoppingList from "../components/ShoppingList/ShoppingList";
 import verifyJWT from "../services/verifyjwt";
-// import Recipes from "../components/Recipes";
-import "../styles/index.scss";
+import Layout from "../layouts/Layout.astro";
+import Header from "../layouts/Header.astro";
+import ShoppingList from "../components/ShoppingList/ShoppingList";
+import Recipes from "../components/Recipes";
 
 // const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
 // const recipesJSON = await fetch(`${RECIPES_API_URL}/recipes`);
 // const recipes = await recipesJSON.json();
+const recipes = [];
 
 const jwtCookie = Astro.cookies.get("jwt");
 const jwt = jwtCookie?.value ? jwtCookie.value : "";
 const user = verifyJWT(jwt);
 
 let dbShoppingList;
+
 if (user) {
   const DB_NAME: string = import.meta.env.DB_NAME as string;
   const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
   let db = await mongodb.db(DB_NAME);
   let collection = await db.collection(COLLECTION_NAME);
+  // fetch USER collection!
   let shoppingItems = await collection.find({}).limit(10).toArray();
   dbShoppingList = shoppingItems[0];
 } else {
-  return Astro.redirect('/user/login');
+  return Astro.redirect("/user/login");
 }
-
 ---
 
 <Layout title="Your Shopping List.">
-  {user ? `Hello ${user.username}` : "You are not logged in."}
-  <br>
-
-  {jwt ?
-    <main>
-      <form action="/api/user/logout" method="POST">
-        <button class="logout" type="submit"> Sign out</button>
-      </form>
-      <ShoppingList client:load dbShoppingList={dbShoppingList} />
-      <!-- <Recipes client:idle recipes={recipes} /> -->
-    </main>
-    :
-    <a href="/user/login">Login</a>
-  }
+  <Header />
+  {user ? <ShoppingList client:load dbShoppingList={dbShoppingList} /> : <a href="/user/login">Login</a>}
+  <Recipes client:idle recipes={recipes} />
 </Layout>

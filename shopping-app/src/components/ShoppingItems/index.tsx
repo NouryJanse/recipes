@@ -6,7 +6,7 @@ type ShoppingItemsProps = {
   list: TypeShoppingItem[];
   onDelete: (id: string) => void;
   onUpdate: (item: TypeShoppingItem) => void;
-  onEdit: (id: string) => void;
+  onEdit: (shoppingItem: TypeShoppingItem) => void;
 };
 
 const ShoppingItems: FunctionalComponent<ShoppingItemsProps> = ({ list, onDelete, onUpdate, onEdit }) => {

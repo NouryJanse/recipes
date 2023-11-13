@@ -7,6 +7,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.1] - 2023-11-13
+
+### Added
+
+- Redirect when JWT is expired
+- Redirects from /login /register when logged in
+- More SCSS Scales for improved precision in styling
+- Improved the recipes' app face 😁
+
+### Changed
+
+- Removed middleware
+
+### Fixed
+
+- Sorting bug
+- TS warnings
+
+## [0.0.1] - 2023-11-12
+
+### Added
+
+- Server deployments on Vercel are now working
+
+## [0.0.1] - 2023-11-11
+
+### Added
+
+- Basic authentication and registration with JWT
+
+## [0.0.1] - 2023-11-10
+
+### Changed
+
+- Upgraded Astro to latest version
+
+## [0.0.1] - 2023-11-09
+
+### Added
+
+- Custom styling implementation setup
+
+### Changed
+
+- New shopping item moved to the modal
+
+## [0.0.1] - 2023-11-08
+
+### Added
+
+- Full functionality restored to Astro project
+- Deployment on Vercel
+
+## [0.0.1] - 2023-11-06
+
+### Added
+
+- Astro here we come 🚀 🌑
+
 ## [0.0.1] - 2023-10-25
 
 ### Added

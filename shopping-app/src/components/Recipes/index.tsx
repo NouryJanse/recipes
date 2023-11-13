@@ -6,13 +6,16 @@ type RecipesProps = {
 
 const Recipes: FunctionComponent<RecipesProps> = ({ recipes }) => {
   return (
-    <div>
+    <div className="container">
       <h2>Recipes</h2>
 
-      {recipes.length &&
+      {recipes && recipes.length > 0 ? (
         recipes.map((recipe: any) => {
           return <a href={`recipes/${recipe.id}`}>{recipe.name}</a>;
-        })}
+        })
+      ) : (
+        <p>Unfortunately, there are no recipes yet...</p>
+      )}
     </div>
   );
 };

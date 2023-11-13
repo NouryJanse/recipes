@@ -1,18 +1,33 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import verifyJWT from "../../services/verifyjwt";
+
+const jwtCookie = Astro.cookies.get("jwt");
+const jwt = jwtCookie?.value ? jwtCookie.value : "";
+const user = verifyJWT(jwt);
+
+if (user) {
+  return Astro.redirect("/");
+}
 ---
 
 <Layout title="Register">
-  <h1>Register</h1>
-  <form action="/api/user/register" method="post">
-    <section>
-      <label for="username">Username</label>
-      <input id="username" name="username" type="text" autocomplete="username" required />
-    </section>
-    <section>
-      <label for="new-password">Password</label>
-      <input id="new-password" name="password" type="password" autocomplete="new-password" required />
-    </section>
-    <button type="submit">Sign up</button>
-  </form>
+  <div class="container">
+    <h1>Register</h1>
+    <form action="/api/user/register" method="post">
+      <section>
+        <label for="username">
+          <span>Username</span>
+          <input id="username" name="username" type="text" autocomplete="username" required />
+        </label>
+      </section>
+      <section>
+        <label for="new-password">
+          <span>Password</span>
+          <input id="new-password" name="password" type="password" autocomplete="new-password" required />
+        </label>
+      </section>
+      <button type="submit">Sign up</button>
+    </form>
+  </div>
 </Layout>

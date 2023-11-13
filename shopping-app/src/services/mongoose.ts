@@ -93,10 +93,7 @@ const connectToDB = async () => {
     // );
 
     //creating the mongodb database connection by using MONOG_DB_URI
-    const DBConnection = await mongoose.connect(connectionString, {
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
-    });
+    await mongoose.connect(connectionString, {});
 
     // console.log(DBConnection.connect);
 

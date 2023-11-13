@@ -12,7 +12,6 @@ import ShoppingItems from "../ShoppingItems";
 import sortShoppingListOnDate from "../../../helpers/sortShoppingListOnDate";
 
 const SOCKET_API_URL = import.meta.env.PUBLIC_SOCKET_API_URL as string;
-
 const socket = io(SOCKET_API_URL, {});
 
 type ShoppingListProps = {
@@ -22,6 +21,7 @@ type ShoppingListProps = {
 const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) => {
   const [list, setList] = useState<TypeShoppingItem[]>([]);
   const [dialogOpened, setDialogOpened] = useState(false);
+  const [editedShoppingItem, setEditedShoppingItem] = useState<TypeShoppingItem>();
 
   useEffect(() => {
     // socket.on("connect", () => {});
@@ -84,7 +84,8 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
     syncToSocket(updatedList);
   };
 
-  const onEdit = () => {
+  const onEdit = (shoppingItem: TypeShoppingItem) => {
+    setEditedShoppingItem(shoppingItem);
     setDialogOpened(true);
   };
 
@@ -103,24 +104,29 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   };
 
   return (
-    <div>
-      <h1>Groceries</h1>
-      <p>La la lie la la la by Noury.</p>
-
-      <button onClick={() => setDialogOpened(true)}>Add new item</button>
-
+    <div className="container">
       <CreateShoppingItemModal
         list={list}
         onAdd={(items) => {
+          setEditedShoppingItem(undefined);
           onAdd(items);
           setDialogOpened(false);
         }}
         isOpen={dialogOpened}
-        onClose={() => setDialogOpened(false)}
+        onClose={() => {
+          setDialogOpened(false);
+          setEditedShoppingItem(undefined);
+        }}
+        editedShoppingItem={editedShoppingItem}
       />
-      <br />
-      <br />
-      <h3>Ingredients</h3>
+
+      <div className="ingredientsTitleContainer">
+        <h3>Ingredients</h3>
+        <button className="attention" onClick={() => setDialogOpened(true)}>
+          Add another
+        </button>
+      </div>
+
       <ShoppingItems list={list} onUpdate={onUpdate} onDelete={onDelete} onEdit={onEdit} />
     </div>
   );

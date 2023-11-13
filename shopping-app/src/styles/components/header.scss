@@ -1,0 +1,36 @@
+header {
+  border-bottom: 1px solid var(--color-gray-2);
+  padding: var(--step--1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h1 {
+    margin: 0;
+    color: var(--color-blue-5);
+  }
+
+  @include sm {
+    padding: var(--step-0);
+  }
+
+  @include md {
+    padding: var(--step-1);
+  }
+
+  @include lg {
+    padding: var(--step-2);
+  }
+
+  @include xl {
+    padding: var(--step-3);
+  }
+
+  @include xxl {
+    padding: var(--step-3);
+  }
+
+  @include xxxl {
+    padding: var(--step-2);
+  }
+}

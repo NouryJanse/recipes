@@ -1,7 +1,9 @@
-/* @link https://utopia.fyi/type/calculator?c=320,14,1.2,4096,32,1.25,8,6,576-768-992-1200-1400-1600-2048&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+/* @link https://utopia.fyi/type/calculator?c=320,14,1.2,4096,32,1.25,8,8,576-768-992-1200-1400-1600-2048&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 // https://blog.logrocket.com/fluid-vs-responsive-typography-css-clamp/#creating-fluid-typography-scale
 
 :root {
+  --step--8: clamp(0.2038rem, 0.1926rem + 0.0559vw, 0.3356rem);
+  --step--7: clamp(0.2444rem, 0.2295rem + 0.0742vw, 0.4194rem);
   --step--6: clamp(0.2931rem, 0.2735rem + 0.098vw, 0.5244rem);
   --step--5: clamp(0.3519rem, 0.3261rem + 0.1287vw, 0.6556rem);
   --step--4: clamp(0.4219rem, 0.3882rem + 0.1684vw, 0.8194rem);

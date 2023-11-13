@@ -22,9 +22,16 @@ type CreateShoppingItemProps = {
   onAdd: (items: TypeShoppingItem[]) => void;
   isOpen: boolean;
   onClose: () => void;
+  editedShoppingItem: undefined | TypeShoppingItem;
 };
 
-const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({ list, onAdd, isOpen, onClose }) => {
+const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
+  list,
+  onAdd,
+  isOpen,
+  onClose,
+  editedShoppingItem,
+}) => {
   const focusInputRef = useRef<HTMLInputElement | null>(null);
   const [formState, setFormState] = useState<ShoppingItemModalData>(initialShoppingItemModalData);
   // const screens = useBreakpoint();
@@ -34,6 +41,18 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
       focusInputRef.current!.focus();
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (editedShoppingItem) {
+      setFormState({
+        amount: editedShoppingItem.amount.toString(),
+        ingredientName: editedShoppingItem.ingredientName,
+        unit: editedShoppingItem.unit,
+      });
+    } else {
+      setFormState(initialShoppingItemModalData);
+    }
+  }, [editedShoppingItem]);
 
   const handleInputChange = (event: Event): void => {
     const target = event.target as HTMLInputElement | HTMLSelectElement;
@@ -45,6 +64,25 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
   };
 
   const onChange = (): void => {
+    if (editedShoppingItem && editedShoppingItem.id) {
+      // editing mode
+      const newShoppingItem: TypeShoppingItem = {
+        ...editedShoppingItem,
+        ingredientName: formState.ingredientName,
+        amount: Number.parseInt(formState.amount),
+        unit: formState.unit,
+        updatedAt: new Date().toISOString(),
+      };
+
+      onAdd([
+        ...list.map((existingShoppingItem) => {
+          return existingShoppingItem.id === editedShoppingItem.id ? newShoppingItem : existingShoppingItem;
+        }),
+      ]);
+      return;
+    }
+
+    // new mode
     const newShoppingItem: TypeShoppingItem = {
       id: nanoid(),
       ingredientName: formState.ingredientName,
@@ -59,15 +97,18 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
   };
 
   return (
-    <Modal hasCloseBtn={true} isOpen={isOpen} onClose={onClose}>
+    <Modal
+      hasCloseBtn={true}
+      isOpen={isOpen}
+      onClose={onClose}
+      title={editedShoppingItem ? `Editing ${formState.ingredientName}...` : "Add new shopping item"}
+    >
       <form
         onSubmit={(e) => {
           e.preventDefault();
           onChange();
         }}
       >
-        <h2>Add new shopping item</h2>
-        {/* <div className="flex flex-col" style={{ width: `${screens.xl ? "400px" : screens.lg ? "320px" : "280px"}` }}> */}
         <div className="inputContainer">
           <div>
             <label>
@@ -79,7 +120,7 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
                 value={formState.ingredientName}
                 name="ingredientName"
                 defaultValue={"Courgette"}
-                onChange={(e) => handleInputChange(e)}
+                onInput={handleInputChange}
                 placeholder="Enter your ingredient"
               />
             </label>
@@ -92,8 +133,8 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
                 value={formState.amount}
                 name="amount"
                 min={0}
-                onChange={(e) => handleInputChange(e)}
-                style={{ width: "25%" }}
+                onInput={handleInputChange}
+                style={{ maxWidth: "80px" }}
                 type="number"
               />
             </label>
@@ -102,9 +143,13 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
           <div>
             <label>
               <span>Unit</span>
-              <select name="unit" onChange={(e) => handleInputChange(e)}>
+              <select name="unit" onInput={handleInputChange}>
                 {INGREDIENT_UNITS.map((ingredient) => {
-                  return <option value={ingredient.value}>{ingredient.text}</option>;
+                  return (
+                    <option value={ingredient.value} selected={formState.unit === ingredient.value}>
+                      {ingredient.text}
+                    </option>
+                  );
                 })}
               </select>
             </label>
@@ -112,7 +157,9 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
         </div>
 
         <div>
-          <button onClick={() => onChange}>Save</button>
+          <button className="blue" onClick={() => onChange}>
+            Save
+          </button>
         </div>
       </form>
     </Modal>

@@ -1,0 +1,72 @@
+button {
+  padding-top: var(--step--5);
+  padding-bottom: var(--step--5);
+  padding-left: var(--step-2);
+  padding-right: var(--step-2);
+  box-sizing: border-box;
+  margin: 0;
+  flex-shrink: 0;
+  color: white;
+  background-color: black;
+  border-radius: 80px;
+  border: 2px solid transparent;
+  outline: 0;
+  font-size: var(--step--2);
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  @include md {
+    &:hover {
+      cursor: pointer;
+      background-color: transparent ;
+      color: black;
+      border-color: black;
+    }
+  }
+
+  &.attention {
+    background-color: black;
+    border-color: transparent;
+    border: 2px solid black;
+    color: white;
+    font-weight: 700;
+
+    @include md {
+      &:hover {
+        color: black;
+        background-color: transparent;
+      }
+    }
+  }
+
+  &.blue {
+    background-color: var(--color-blue-3);
+    border-color: transparent;
+    color: white;
+
+    @include md {
+      &:hover {
+        background-color: var(--color-blue-4);
+      }
+    }
+  }
+
+  &.red {
+    background-color: var(--color-red-3);
+    border-color: transparent;
+
+    @include md {
+      &:hover {
+        color: white;
+        background-color: var(--color-red-4);
+      }
+    }
+  }
+
+  @include xxl {
+    font-size: var(--step--2);
+  }
+}

@@ -6,9 +6,11 @@ interface ModalProps {
   hasCloseBtn?: boolean;
   onClose: () => void;
   children: any;
+  isEditing: boolean;
+  title: string;
 }
 
-const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onClose, children }) => {
+const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onClose, children, title }) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
   const handleCloseModal = () => {
@@ -33,7 +35,10 @@ const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onCl
 
   return (
     <dialog ref={modalRef} className="modal" onKeyDown={handleKeyDown}>
-      {hasCloseBtn && <button onClick={handleCloseModal}>Close</button>}
+      <div>
+        {title ? <h2>{title}</h2> : ""}
+        {hasCloseBtn && <button onClick={handleCloseModal}>Close</button>}
+      </div>
       {children}
     </dialog>
   );

@@ -6,10 +6,9 @@ type ShoppingItemProps = {
   shoppingItem: TypeShoppingItem;
   onDelete: (id: string) => void;
   onUpdate: (shoppingItem: TypeShoppingItem) => void;
-  onEdit: (id: string) => void;
+  onEdit: (shoppingItem: TypeShoppingItem) => void;
 };
 
-// use memo required?
 const isNew = (updatedAt: string): boolean => {
   return Math.abs(new Date(updatedAt).getTime() - Date.now()) < 1000;
 };
@@ -21,34 +20,37 @@ const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem, onDe
     const updatedItem = {
       ...localShoppingItem,
       checked: !localShoppingItem.checked,
-      updatedAt: `${new Date().toISOString()}`,
     };
     setLocalShoppingItem(updatedItem);
     onUpdate(updatedItem);
   };
 
   useEffect(() => {
-    setLocalShoppingItem({ ...shoppingItem });
+    setLocalShoppingItem(shoppingItem);
   }, [shoppingItem]);
 
   return (
-    <div
-      className={`shoppingItem ${
-        isNew(localShoppingItem.updatedAt) ? "highlight" : ""
-      } flex justify-between rounded p-1`}
-    >
+    <div className="shoppingItem">
       <div onClick={onCheck}>
-        <span>{localShoppingItem?.ingredientName}</span>
+        <input type="checkbox" name="checked" value="Bike" checked={shoppingItem.checked} />
+
+        <span className={`amount-unit-ingredient ${isNew(localShoppingItem.updatedAt) ? "highlight" : ""}`}>
+          <div className="amount-unit">
+            {localShoppingItem.amount}
+            {localShoppingItem?.unit} {` `}
+          </div>
+          {localShoppingItem?.ingredientName}
+        </span>
       </div>
 
       <div>
-        <span>
-          {localShoppingItem.amount} {` `}
-          {localShoppingItem?.unit} - {localShoppingItem.updatedAt}
-        </span>
+        <button className="blue" onClick={() => onEdit(shoppingItem)}>
+          Edit
+        </button>
 
-        <button onClick={() => onEdit(shoppingItem.id)}>Edit</button>
-        <button onClick={() => onDelete(shoppingItem.id)}>Delete</button>
+        <button className="red" onClick={() => onDelete(shoppingItem.id)}>
+          Delete
+        </button>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 
-export const GET: APIRoute = async ({ request, cookies, redirect }) => {
+export const GET: APIRoute = async () => {
   return new Response(
     JSON.stringify({
       message: "Welcome.",
