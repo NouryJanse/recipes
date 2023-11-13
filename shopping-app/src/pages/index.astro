@@ -6,10 +6,9 @@ import Header from "../layouts/Header.astro";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 import Recipes from "../components/Recipes";
 
-// const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
-// const recipesJSON = await fetch(`${RECIPES_API_URL}/recipes`);
-// const recipes = await recipesJSON.json();
-const recipes = [];
+const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
+const recipesJSON = await fetch(`${RECIPES_API_URL}/recipes`);
+const recipes = await recipesJSON.json();
 
 const jwtCookie = Astro.cookies.get("jwt");
 const jwt = jwtCookie?.value ? jwtCookie.value : "";
@@ -33,5 +32,5 @@ if (user) {
 <Layout title="Your Shopping List.">
   <Header />
   {user ? <ShoppingList client:load dbShoppingList={dbShoppingList} /> : <a href="/user/login">Login</a>}
-  <Recipes client:idle recipes={recipes} />
+  <Recipes recipes={recipes} />
 </Layout>
