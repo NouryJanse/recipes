@@ -50,9 +50,10 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
       ingredientName: formState.ingredientName,
       amount: Number.parseInt(formState.amount),
       unit: formState.unit,
-      updatedAt: Date.now().toString(),
+      updatedAt: new Date().toISOString(),
       checked: false,
     };
+
     onAdd([...list, newShoppingItem]);
     setFormState(initialShoppingItemModalData);
   };
