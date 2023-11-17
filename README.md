@@ -1,5 +1,8 @@
 # Welcome to Recipes
 
+![Homescreen on XL size with menu expanded](_screens/Home-XL.png?raw=true "Home XL")
+![Create Recipe on XL size with menu expanded](_screens/CreateRecipe-XL.png?raw=true "Create Recipe XL")
+
 Thank you for taking the time to read. The platform's repository consists of four applications:
 
 - admin-app
@@ -71,9 +74,8 @@ A lightweight server for sockets and MongoDB storage
 
 ## Demo screenshots
 
-![Homescreen on SM size](screens/Home-SM.png?raw=true "Homescreen SM")
-![Create recipe page on MD size](screens/CreateRecipe-MD.png?raw=true "Create recipe MD")
-![Homescreen on XL size with menu expanded](screens/Home-XL.png?raw=true "Home XL")
-![Recipes overview on SM size](screens/Recipes-SM.png?raw=true "Recipes SM")
-![Create ingredient on XL size](screens/CreateIngredient-XL.png?raw=true "Create ingredient XL")
-![Ingredients overview on XL size](screens/AllIngredients-XL.png?raw=true "All ingredients XL")
+![Homescreen on SM size](_screens/Home-SM.png?raw=true "Homescreen SM")
+![Create recipe page on XL size](_screens/CreateRecipe-XL.png?raw=true "Create recipe XL")
+![Recipes overview on SM size](_screens/Recipes-SM.png?raw=true "Recipes SM")
+![Create ingredient on LG size](_screens/CreateIngredient-LG.png?raw=true "Create ingredient LG")
+![Ingredients overview on LG size](_screens/AllIngredients-LG.png?raw=true "All ingredients LG")
