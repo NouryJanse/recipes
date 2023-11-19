@@ -1,5 +1,5 @@
 import express from 'express'
-import { Ingredient, Recipe } from '@prisma/client'
+import { Ingredient } from '@prisma/client'
 import {
   createIngredient,
   createLinkedIngredient,
@@ -11,9 +11,6 @@ import {
   updateLinkedIngredient,
 } from '../../models/ingredients'
 
-// import ObjectAlreadyExistsError from "../../types/ObjectAlreadyExistsError";
-import { updateImage } from '../../models/images'
-import { formatRecipeImages } from '../../helpers'
 import { ERROR_MESSAGES, HTTP_CODES } from '../../constants'
 import ObjectAlreadyExistsError from '../../types/ObjectAlreadyExistsError'
 import NoContentError from '../../types/NoContentError'

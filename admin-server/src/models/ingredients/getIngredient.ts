@@ -3,7 +3,7 @@ import { ERROR_MESSAGES } from '../../constants'
 import CustomError from '../../types/CustomError'
 import IdIsOfInvalidFormat from '../../types/IdIsOfInvalidFormat'
 import ObjectCouldNotBeFoundError from '../../types/ObjectCouldNotBeFoundError'
-import { PrismaClientValidationError } from '@prisma/client/runtime'
+import { PrismaClientValidationError } from '@prisma/client/runtime/library'
 
 const prisma = new PrismaClient()
 

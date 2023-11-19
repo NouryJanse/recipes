@@ -1,5 +1,5 @@
 import { PrismaClient, Ingredient } from '@prisma/client'
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import ObjectCouldNotBeFoundError from '../../types/ObjectCouldNotBeFoundError'
 
 const prisma = new PrismaClient()

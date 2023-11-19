@@ -58,8 +58,7 @@ A data platform that allows multichannel access
 
 A consumer high performance website
 
-- [Remix](https://www.npmjs.com/package/@remix-run/react)
-- [Ant Design](https://www.npmjs.com/package/antd)
+- [Astro](https://astro.build/)
 - [MongoDB](https://www.npmjs.com/package/mongodb)
 - [Socket IO Client](https://www.npmjs.com/package/socket.io-client)
 - [Tailwind](https://www.npmjs.com/package/tailwindcss)
