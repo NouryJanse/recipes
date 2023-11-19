@@ -12,7 +12,7 @@ export interface ShoppingItemModalData {
 }
 
 const initialShoppingItemModalData: ShoppingItemModalData = {
-  amount: "0",
+  amount: "",
   ingredientName: "",
   unit: "",
 };
@@ -156,11 +156,11 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
           </div>
         </div>
 
-        <div>
-          <button className="blue" onClick={() => onChange}>
-            Save
-          </button>
-        </div>
+        {/* <div> */}
+        <button className="blue" onClick={() => onChange}>
+          Save
+        </button>
+        {/* </div> */}
       </form>
     </Modal>
   );

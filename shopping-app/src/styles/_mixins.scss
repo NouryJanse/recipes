@@ -60,3 +60,9 @@
     @content;
   }
 }
+
+@mixin fine {
+  @media screen and (pointer: fine) {
+    @content;
+  }
+}

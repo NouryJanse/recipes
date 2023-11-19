@@ -1,6 +1,11 @@
 label {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
+  color: var(--color-gray-3);
+
+  span {
+    opacity: 0.6;
+  }
 
   > :first-child {
     margin-bottom: var(--step--4);
@@ -9,13 +14,17 @@ label {
 
 input,
 select {
-  padding: var(--step--7);
-  border: 2px solid var(--color-blue-4);
-  border-radius: 4px;
-  color: var(--color-blue-5);
+  padding: var(--step--3) var(--step--1) var(--step--3) var(--step--1);
+  border: 0;
+  // border: 2px solid var(--color-blue-4);
+  border-radius: 8px;
+  color: black;
+  background-color: var(--color-gray-2);
+  outline: 0;
+  // max-width: 320px;
 
   @include xl {
-    padding: var(--step--4);
+    // padding: var(--step--4);
   }
 }
 

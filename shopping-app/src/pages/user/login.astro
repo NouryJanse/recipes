@@ -12,35 +12,54 @@ if (user) {
 ---
 
 <Layout title="Login">
-  <div class="container">
-    <h1>Sign in</h1>
+  <div class="page--login">
+    <div class="container login-hero">
+      <h1>Sign in</h1>
+    </div>
 
-    <form action="/api/user/login" method="post">
-      <section>
-        <label for="username">
-          <span>Username</span>
-          <input id="username" name="username" type="text" autocomplete="username" required autofocus value="alice" />
-        </label>
-      </section>
+    <div class="container login-form">
+      <h1>Sign in</h1>
 
-      <section>
-        <label for="current-password">
-          <span>Password</span>
-          <input
-            id="current-password"
-            name="password"
-            type="password"
-            autocomplete="current-password"
-            required
-            value="wonderland"
-          />
-        </label>
-      </section>
-      <button class="">
-        <a href="/user/register">Register</a>
-      </button>
+      <form action="/api/user/login" method="post">
+        <section>
+          <label for="username">
+            <span>Username</span>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              autocomplete="username"
+              placeholder="Username here..."
+              required
+              autofocus
+              value="alice"
+            />
+          </label>
+        </section>
 
-      <button type="submit" class="blue">Sign in</button>
-    </form>
+        <section>
+          <label for="current-password">
+            <span>Password</span>
+            <input
+              id="current-password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Password here..."
+              required
+              value="wonderland"
+            />
+          </label>
+        </section>
+
+        <div class="buttons">
+          <a href="/user/register">
+            <button type="button">Register</button>
+          </a>
+
+          <button type="submit" class="blue">Sign in</button>
+        </div>
+      </form>
+    </div>
   </div>
 </Layout>

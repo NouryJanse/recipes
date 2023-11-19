@@ -6,7 +6,6 @@ interface ModalProps {
   hasCloseBtn?: boolean;
   onClose: () => void;
   children: any;
-  isEditing: boolean;
   title: string;
 }
 

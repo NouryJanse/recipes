@@ -12,22 +12,47 @@ if (user) {
 ---
 
 <Layout title="Register">
-  <div class="container">
-    <h1>Register</h1>
-    <form action="/api/user/register" method="post">
-      <section>
-        <label for="username">
-          <span>Username</span>
-          <input id="username" name="username" type="text" autocomplete="username" required />
-        </label>
-      </section>
-      <section>
-        <label for="new-password">
-          <span>Password</span>
-          <input id="new-password" name="password" type="password" autocomplete="new-password" required />
-        </label>
-      </section>
-      <button type="submit">Sign up</button>
-    </form>
+  <div class="page--login">
+    <div class="container login-hero">
+      <h1>Register</h1>
+    </div>
+
+    <div class="container login-form">
+      <h1>Register</h1>
+      <form action="/api/user/register" method="post">
+        <section>
+          <label for="username">
+            <span>Username</span>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              autocomplete="username"
+              required
+              placeholder="Username here..."
+            />
+          </label>
+        </section>
+        <section>
+          <label for="new-password">
+            <span>Password</span>
+            <input
+              id="new-password"
+              name="password"
+              type="password"
+              autocomplete="new-password"
+              required
+              placeholder="Password here..."
+            />
+          </label>
+        </section>
+        <div class="buttons">
+          <button type="submit">
+            <a href="/user/login">To sign in</a>
+          </button>
+          <button type="submit" class="blue">Sign up</button>
+        </div>
+      </form>
+    </div>
   </div>
 </Layout>
