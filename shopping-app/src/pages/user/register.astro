@@ -1,6 +1,11 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import verifyJWT from "../../services/verifyjwt";
+import Tokens from "csrf";
+
+const tokens = new Tokens();
+const csrfSecret: string = import.meta.env.CSRF_SECRET as string;
+const token = await tokens.create(csrfSecret);
 
 const jwtCookie = Astro.cookies.get("jwt");
 const jwt = jwtCookie?.value ? jwtCookie.value : "";
@@ -19,6 +24,7 @@ if (user) {
 
     <div class="container login-form">
       <h1>Register</h1>
+
       <form action="/api/user/register" method="post">
         <section>
           <label for="username">
@@ -33,6 +39,7 @@ if (user) {
             />
           </label>
         </section>
+
         <section>
           <label for="new-password">
             <span>Password</span>
@@ -46,6 +53,9 @@ if (user) {
             />
           </label>
         </section>
+
+        <input type="hidden" name="_csrf" value={token} />
+
         <div class="buttons">
           <button type="submit">
             <a href="/user/login">To sign in</a>

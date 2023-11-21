@@ -26,7 +26,9 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   useEffect(() => {
     // socket.on("connect", () => {});
     // socket.on("disconnect", () => {});
-    // socket.on("message", (msg) => {});
+    socket.on("message", (msg) => {
+      console.log(msg);
+    });
     socket.on("onShoppingListUpdate", (data) => {
       const parsedData = JSON.parse(data);
       setList(parsedData.list);

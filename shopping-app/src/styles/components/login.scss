@@ -20,6 +20,7 @@
   .login-form {
     display: flex;
     flex-direction: column;
+    min-width: 240px;
 
     h1 {
       @include md {

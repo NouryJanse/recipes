@@ -7,8 +7,11 @@ import ShoppingList from "../components/ShoppingList/ShoppingList";
 import Recipes from "../components/Recipes";
 
 const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
-const recipesJSON = await fetch(`${RECIPES_API_URL}/recipes`);
-const recipes = await recipesJSON.json();
+const recipesJSON = await fetch(`${RECIPES_API_URL}/api/recipes`);
+let recipes = [];
+if (recipesJSON.status === 200) {
+  recipes = await recipesJSON.json();
+}
 
 const jwtCookie = Astro.cookies.get("jwt");
 const jwt = jwtCookie?.value ? jwtCookie.value : "";
@@ -21,7 +24,7 @@ if (user) {
   const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
   let db = await mongodb.db(DB_NAME);
   let collection = await db.collection(COLLECTION_NAME);
-  // fetch USER collection!
+  // TODO: fetch USER collection.
   let shoppingItems = await collection.find({}).limit(10).toArray();
   dbShoppingList = shoppingItems[0];
 } else {
@@ -32,5 +35,5 @@ if (user) {
 <Layout title="Your Shopping List.">
   <Header />
   {user ? <ShoppingList client:load dbShoppingList={dbShoppingList} /> : <a href="/user/login">Login</a>}
-  <Recipes recipes={recipes} />
+  <Recipes client:idle recipes={recipes} />
 </Layout>

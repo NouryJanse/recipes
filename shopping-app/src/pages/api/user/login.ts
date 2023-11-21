@@ -3,13 +3,26 @@ import connectToDB from "../../../services/mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../../../data/User";
+import Tokens from "csrf";
+const tokens = new Tokens();
+
 const jwtSecret = import.meta.env.JWT_SECRET || "";
+const csrfSecret: string = import.meta.env.CSRF_SECRET as string;
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   await connectToDB();
   const formData = await request.formData();
   const username = formData.get("username")?.toString();
   const password = formData.get("password")?.toString();
+  const _csrf = formData.get("_csrf")?.toString();
+
+  if (!_csrf || (_csrf && !tokens.verify(csrfSecret, _csrf))) {
+    return new Response(
+      JSON.stringify({
+        message: "Login not succesful",
+      })
+    );
+  }
 
   if (!username || !password) {
     return new Response(

@@ -20,11 +20,7 @@ app.use(express.static("public", { maxAge: "1h" }));
 app.use(express.static("public/build", { immutable: true, maxAge: "1y" }));
 
 io.on("connection", (socket) => {
-  console.info(`connect: ${socket.id}`);
-
-  socket.on("firstTimeLoad", () => {
-    // io.emit("firstTimeLoad", shoppingList);
-  });
+  // console.info(`connect: ${socket.id}`);
 
   socket.on("listUpdate", async (msg) => {
     const COLLECTION_NAME = process.env.COLLECTION_NAME as string;
@@ -46,7 +42,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.info(`disconnect: ${socket.id}`);
+    // console.info(`disconnect: ${socket.id}`);
   });
 });
 
@@ -63,5 +59,6 @@ httpServer.listen(port, () => {
 });
 
 // setInterval(() => {
+//   console.log("message");
 //   io.emit("message", new Date().toISOString());
 // }, 3000);

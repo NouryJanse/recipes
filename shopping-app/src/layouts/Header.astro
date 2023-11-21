@@ -2,7 +2,7 @@
 import verifyJWT from "../services/verifyjwt";
 const jwtCookie = Astro.cookies.get("jwt");
 const jwt = jwtCookie?.value ? jwtCookie.value : "";
-const user = verifyJWT(jwt);
+const user: any = verifyJWT(jwt);
 ---
 
 <header>
