@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { GoX, GoHome, GoPlus } from 'react-icons/go'
+import { FaAlignJustify } from 'react-icons/fa6'
 import { MdLogout, MdSwitchAccount } from 'react-icons/md'
 import { BsStarHalf, BsListNested } from 'react-icons/bs'
 import { GiShinyApple, GiChiliPepper } from 'react-icons/gi'
@@ -69,7 +70,7 @@ const Navigation: React.FC<NavigationProps> = (): ReactElement => {
               dispatch(toggleNav())
             }}
           >
-            {/* {!menuIsOpen && <Icon iconElement={<GoThreeBars style={{}} />} />} */}
+            {!menuIsOpen && <Icon iconElement={<FaAlignJustify />} />}
 
             {menuIsOpen && (
               <Icon

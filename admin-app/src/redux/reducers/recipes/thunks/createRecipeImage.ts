@@ -7,7 +7,7 @@ interface FormDataWithImage extends ImageData {
 }
 
 const createRecipeImageAPI = async (data: FormDataWithImage, recipeId: number, token: string): Promise<Image> => {
-  const response = await axios.post(`${import.meta.env.VITE_APP_SERVER_URL}/api/recipes/image/${recipeId}`, data, {
+  const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/recipes/image/${recipeId}`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

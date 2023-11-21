@@ -4,7 +4,7 @@ import RootState from '../../../../types/RootState'
 
 async function createIngredientAPI(ingredient: Ingredient, token: string): Promise<Ingredient> {
   const response = await axios.post(
-    `${import.meta.env.VITE_APP_SERVER_URL}/api/ingredients`,
+    `${import.meta.env.VITE_SERVER_URL}/api/ingredients`,
     {
       name: ingredient.name,
       unit: ingredient.unit,

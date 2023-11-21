@@ -6,7 +6,7 @@ import RootState from '../../../../types/RootState'
 const updateRecipeIngredientAPI = async (data: RecipeIngredient, token: string): Promise<Ingredient | false> => {
   try {
     const response = await axios.put(
-      `${import.meta.env.VITE_APP_SERVER_URL}/api/ingredients/recipe/${data.recipeId}`,
+      `${import.meta.env.VITE_SERVER_URL}/api/ingredients/recipe/${data.recipeId}`,
       data,
       {
         headers: {

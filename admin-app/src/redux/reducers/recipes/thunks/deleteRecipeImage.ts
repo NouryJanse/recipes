@@ -3,7 +3,7 @@ import axios from 'axios'
 import RootState from '../../../../types/RootState'
 
 const deleteRecipeImageAPI = async (cloudinaryPublicId: string, token: string): Promise<Image> => {
-  const response = await axios.delete(`${import.meta.env.VITE_APP_SERVER_URL}/api/recipes/image`, {
+  const response = await axios.delete(`${import.meta.env.VITE_SERVER_URL}/api/recipes/image`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

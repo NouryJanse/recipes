@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 export const initialState = {
   data: {
     navMenuIsOpened: false,
-    appURL: import.meta.env.VITE_APP_PUBLIC_URL as string,
-    serverURL: import.meta.env.VITE_APP_SERVER_URL as string,
+    appURL: import.meta.env.VITE_PUBLIC_URL as string,
+    serverURL: import.meta.env.VITE_SERVER_URL as string,
   },
   status: {
     state: 'initial',

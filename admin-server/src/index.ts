@@ -21,7 +21,10 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 const router = express.Router()
 
 router.use((req, res, next) => {
-  if (env === 'production' && !req.originalUrl.includes('/api/recipes')) {
+  if (
+    env === 'production' &&
+    (!req.originalUrl.includes('/api/recipes') || req.hostname.includes('localhost'))
+  ) {
     // only allow the route /api/recipes for now in production
     return res.status(500).send()
   }

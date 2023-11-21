@@ -29,7 +29,7 @@
 # env vars
 */*.env*
 */*.env.local.example
-*/*.env.example
+!*.env.example
 
 # data related
 */server/db_exports
