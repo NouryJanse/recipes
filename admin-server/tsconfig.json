@@ -10,7 +10,8 @@
     "typeRoots": [
       "./node_module/@types",
       "./src/types"],
-  },
-  "include": ["src/**/*.ts", "types.d.ts"],
-  "exclude": ["node_modules"],
+    },
+    "types": ["node"],
+    "include": ["src/**/*.ts", "types.d.ts"],
+    "exclude": ["node_modules"],
 }
