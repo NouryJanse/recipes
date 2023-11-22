@@ -33,7 +33,9 @@ const getRecipes = async (): Promise<Recipe[] | false> => {
   } catch (error) {
     // LOG ERROR
     if (error instanceof NoContentError) {
-      throw new NoContentError(error.message)
+      console.error(error)
+      // throw new NoContentError(error.message)
+      return []
     }
     throw error
   } finally {
