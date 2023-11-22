@@ -44,7 +44,7 @@ router.get('/api/recipes', async (req, res) => {
     res.status(200).send(recipes)
   } catch (error) {
     console.error(error)
-    return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send([])
+    return res.status(HTTP_CODES.NOT_FOUND).send([])
   }
 })
 
@@ -63,7 +63,7 @@ router.get('/api/recipes/:id', async (req, res) => {
     // if (error instanceof IdIsOfInvalidFormat) {
     //   return reply.code(HTTP_CODES.UNPROCESSABLE_ENTITY).send({ message: error.message });
     // }
-    return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send([])
+    return res.status(HTTP_CODES.NOT_FOUND).send([])
   }
 })
 

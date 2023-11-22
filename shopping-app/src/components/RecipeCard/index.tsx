@@ -22,7 +22,7 @@ type RecipeCardProps = {
   withRemovalButton?: boolean;
 };
 
-const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe, withEditButton, withRemovalButton }) => {
+const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
 

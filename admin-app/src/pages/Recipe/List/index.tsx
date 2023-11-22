@@ -19,7 +19,7 @@ const Recipes: React.FC = (): ReactElement | null => {
       // @ts-ignore:next-line
       dispatch(getRecipes())
     }
-  }, [dispatch, recipes])
+  }, [])
 
   // useInterval(() => {
   //   // @ts-ignore:next-line

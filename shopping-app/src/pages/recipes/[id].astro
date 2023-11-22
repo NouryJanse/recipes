@@ -7,10 +7,12 @@ interface Props {
 
 export async function getStaticPaths() {
   const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
-  const recipesJSON = await fetch(`${RECIPES_API_URL}/api/recipes`);
   let recipes = [];
-  if (recipesJSON.status === 200) {
-    recipes = await recipesJSON.json();
+  if (RECIPES_API_URL) {
+    const recipesJSON = await fetch(`${RECIPES_API_URL}/api/recipes`);
+    if (recipesJSON.status === 200) {
+      recipes = await recipesJSON.json();
+    }
   }
 
   const paths = recipes.map((recipe: any) => {

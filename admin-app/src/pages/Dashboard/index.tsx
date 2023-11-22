@@ -19,7 +19,7 @@ const Dashboard: React.FC = (): JSX.Element => {
       // @ts-ignore:next-line
       dispatch(getRecipes())
     }
-  }, [dispatch, recipes])
+  }, [])
 
   return (
     <div className="pt-7">
