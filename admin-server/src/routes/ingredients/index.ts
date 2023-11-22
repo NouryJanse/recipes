@@ -65,7 +65,7 @@ router.get('/api/ingredients', async (req, res) => {
   } catch (error) {
     console.error(error)
     if (error instanceof NoContentError) {
-      return res.status(HTTP_CODES.NO_CONTENT).send({ message: error.message })
+      return res.status(HTTP_CODES.NO_CONTENT).send([])
     }
     return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
   }
@@ -80,10 +80,10 @@ router.get('/api/ingredients/:id', async (req, res) => {
   } catch (error) {
     console.error(error)
     if (error instanceof ObjectCouldNotBeFoundError) {
-      return res.status(HTTP_CODES.NOT_FOUND).send({ message: error.message })
+      return res.status(HTTP_CODES.NOT_FOUND).send({})
     }
     if (error instanceof IdIsOfInvalidFormat) {
-      return res.status(HTTP_CODES.UNPROCESSABLE_ENTITY).send({ message: error.message })
+      return res.status(HTTP_CODES.UNPROCESSABLE_ENTITY).send({})
     }
     return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({})
   }
