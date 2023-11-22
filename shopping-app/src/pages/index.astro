@@ -6,13 +6,17 @@ import Header from "../layouts/Header.astro";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 // import Recipes from "../components/Recipes";
 
-// const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
-// let recipes = [];
-// if (RECIPES_API_URL) {
-//   const recipesJSON = await fetch(`${RECIPES_API_URL}/api/recipes`);
-//   if (recipesJSON.status === 200) {
-//     recipes = await recipesJSON.json();
+let recipes = [];
+// try {
+//   const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
+//   if (RECIPES_API_URL) {
+//     const recipesJSON = await fetch(`${RECIPES_API_URL}/api/recipes`);
+//     if (recipesJSON.status === 200) {
+//       recipes = await recipesJSON.json();
+//     }
 //   }
+// } catch (error) {
+//   console.error(error);
 // }
 
 const jwtCookie = Astro.cookies.get("jwt");
