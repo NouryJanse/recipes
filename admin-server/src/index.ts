@@ -21,13 +21,17 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 const router = express.Router()
 
 router.use((req, res, next) => {
+  console.log('request received')
+
   if (
     env === 'production' &&
     (!req.originalUrl.includes('/api/recipes') || req.hostname.includes('localhost'))
   ) {
+    console.log('blocked')
     // only allow the route /api/recipes for now in production
     return res.status(500).send()
   }
+  console.log('returned')
   next()
 })
 

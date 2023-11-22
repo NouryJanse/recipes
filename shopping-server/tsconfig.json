@@ -1,5 +1,5 @@
 {
-  "include": ["*.ts", "Room.ts"],
+  "include": ["*.ts"],
   "types": ["node"],
   "compilerOptions": {
     "target": "es2016",
