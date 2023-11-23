@@ -10,6 +10,7 @@ import getFormattedShoppingList from "../../../helpers/getFormattedShoppingList"
 import CreateShoppingItemModal from "../CreateShoppingItemModal";
 import ShoppingItems from "../ShoppingItems";
 import sortShoppingListOnDate from "../../../helpers/sortShoppingListOnDate";
+import SeasonalVeggieList from "../SeasonalVeggieList";
 
 const SOCKET_API_URL = import.meta.env.PUBLIC_SOCKET_API_URL as string;
 const socket = io(SOCKET_API_URL, {});
@@ -106,30 +107,35 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   };
 
   return (
-    <div className="container">
-      <CreateShoppingItemModal
-        list={list}
-        onAdd={(items) => {
-          setEditedShoppingItem(undefined);
-          onAdd(items);
-          setDialogOpened(false);
-        }}
-        isOpen={dialogOpened}
-        onClose={() => {
-          setDialogOpened(false);
-          setEditedShoppingItem(undefined);
-        }}
-        editedShoppingItem={editedShoppingItem}
-      />
+    <div className="container shopping--container-">
+      <div>
+        <CreateShoppingItemModal
+          list={list}
+          onAdd={(items) => {
+            setEditedShoppingItem(undefined);
+            onAdd(items);
+            setDialogOpened(false);
+          }}
+          isOpen={dialogOpened}
+          onClose={() => {
+            setDialogOpened(false);
+            setEditedShoppingItem(undefined);
+          }}
+          editedShoppingItem={editedShoppingItem}
+        />
 
-      <div className="ingredientsTitleContainer">
-        <h3>Ingredients</h3>
-        <button className="attention" onClick={() => setDialogOpened(true)}>
-          Add another
-        </button>
+        <div className="ingredientsTitleContainer">
+          <h3>Ingredients</h3>
+          <button className="attention" onClick={() => setDialogOpened(true)}>
+            Add another
+          </button>
+        </div>
+
+        <ShoppingItems list={list} onUpdate={onUpdate} onDelete={onDelete} onEdit={onEdit} />
       </div>
-
-      <ShoppingItems list={list} onUpdate={onUpdate} onDelete={onDelete} onEdit={onEdit} />
+      {/* <div className="">
+        <SeasonalVeggieList />
+      </div> */}
     </div>
   );
 };

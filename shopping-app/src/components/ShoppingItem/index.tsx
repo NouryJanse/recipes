@@ -48,7 +48,7 @@ const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem, onDe
           Edit
         </button>
 
-        <button className="red" onClick={() => onDelete(shoppingItem.id)}>
+        <button className="white" onClick={() => onDelete(shoppingItem.id)}>
           Delete
         </button>
       </div>

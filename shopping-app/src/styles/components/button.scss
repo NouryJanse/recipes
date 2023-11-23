@@ -63,14 +63,15 @@ button {
     }
   }
 
-  &.red {
-    background-color: var(--color-red-3);
-    border-color: transparent;
+  &.white {
+    background-color: var(--color-white);
+    border-color: black;
+    color: black;
 
     @include fine {
       &:hover {
         color: white;
-        background-color: var(--color-red-4);
+        background-color: black;
       }
     }
   }
