@@ -1,4 +1,9 @@
 .shopping--container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include md {
+    flex-direction: row;
+  }
 }

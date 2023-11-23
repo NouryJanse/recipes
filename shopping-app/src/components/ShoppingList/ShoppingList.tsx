@@ -94,6 +94,7 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
 
   const onUpdate = (item: TypeShoppingItem): void => {
     const updatedList = updateArrayWithObjectById(list, item);
+
     setList(updatedList);
     updateLocalStorage(updatedList);
     syncToSocket(updatedList);
@@ -107,8 +108,8 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   };
 
   return (
-    <div className="container shopping--container-">
-      <div>
+    <div className="container shopping--container">
+      <div className="shoppping-list">
         <CreateShoppingItemModal
           list={list}
           onAdd={(items) => {
@@ -133,9 +134,9 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
 
         <ShoppingItems list={list} onUpdate={onUpdate} onDelete={onDelete} onEdit={onEdit} />
       </div>
-      {/* <div className="">
-        <SeasonalVeggieList />
-      </div> */}
+      <div className="seasonal-veggies">
+        <SeasonalVeggieList onClickHandler={() => setDialogOpened(true)} />
+      </div>
     </div>
   );
 };

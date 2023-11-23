@@ -1,0 +1,12 @@
+.seasonal--veggie {
+  background-size: cover;
+  background-position: center;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  padding: var(--step-4) var(--step-7);
+  border-radius: 8px;
+  overflow: hidden;
+  color: white;
+  cursor: pointer;
+}
