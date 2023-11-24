@@ -96,12 +96,12 @@ const november: { id: number; title: string; imgUrl: string }[] = [
   {
     id: 17,
     title: "Waterkers",
-    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/rode-kool.jpg",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/rode-kool.jpeg",
   },
   {
     id: 17,
     title: "Radicchio",
-    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/radicchio.jpg",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/radicchio.jpeg",
   },
 ];
 

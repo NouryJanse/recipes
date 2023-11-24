@@ -134,8 +134,11 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
 
         <ShoppingItems list={list} onUpdate={onUpdate} onDelete={onDelete} onEdit={onEdit} />
       </div>
-      <div className="seasonal-veggies">
-        <SeasonalVeggieList onClickHandler={() => setDialogOpened(true)} />
+      <div>
+        <h3>Seasonal veggies</h3>
+        <div className="seasonal-veggies">
+          <SeasonalVeggieList onClickHandler={() => setDialogOpened(true)} />
+        </div>
       </div>
     </div>
   );
