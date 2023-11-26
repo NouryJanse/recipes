@@ -18,7 +18,7 @@ export async function getStaticPaths() {
   } catch (error) {
     console.error(error);
   }
-  
+
   const paths = recipes.map((recipe: any) => {
     return {
       params: { id: recipe.id },
@@ -33,6 +33,4 @@ const { recipes } = Astro.props;
 const currentRecipe = recipes.find((recipe) => recipe.id == id);
 ---
 
-<div>
-  <Recipe recipe={currentRecipe} />
-</div>
+<Recipe recipe={currentRecipe} />

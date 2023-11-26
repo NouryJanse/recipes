@@ -4,14 +4,17 @@ import INGREDIENT_UNITS from "../../constants/INGREDIENT_UNITS";
 import type { TypeShoppingItem } from "../../services/types.db";
 import { nanoid } from "nanoid";
 import Modal from "../Modal";
+import Button from "../Form/Button";
+import InputText from "../Form/InputText";
+import Select from "../Form/Select";
 
-export interface ShoppingItemModalData {
+export interface FormStateType {
   amount: string;
   ingredientName: string;
   unit: string;
 }
 
-const initialShoppingItemModalData: ShoppingItemModalData = {
+const initialShoppingItemModalData: FormStateType = {
   amount: "",
   ingredientName: "",
   unit: "",
@@ -33,8 +36,7 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
   editedShoppingItem,
 }) => {
   const focusInputRef = useRef<HTMLInputElement | null>(null);
-  const [formState, setFormState] = useState<ShoppingItemModalData>(initialShoppingItemModalData);
-  // const screens = useBreakpoint();
+  const [formState, setFormState] = useState<FormStateType>(initialShoppingItemModalData);
 
   useEffect(() => {
     if (isOpen && focusInputRef.current) {
@@ -64,15 +66,10 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
   };
 
   const onChange = (): void => {
+    console.log(editedShoppingItem);
+
     if (editedShoppingItem && editedShoppingItem.id) {
-      // editing mode
-      const newShoppingItem: TypeShoppingItem = {
-        ...editedShoppingItem,
-        ingredientName: formState.ingredientName,
-        amount: Number.parseInt(formState.amount),
-        unit: formState.unit,
-        updatedAt: new Date().toISOString(),
-      };
+      const newShoppingItem = formatShoppingItem(formState, editedShoppingItem);
 
       onAdd([
         ...list.map((existingShoppingItem) => {
@@ -82,15 +79,7 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
       return;
     }
 
-    // new mode
-    const newShoppingItem: TypeShoppingItem = {
-      id: nanoid(),
-      ingredientName: formState.ingredientName,
-      amount: Number.parseInt(formState.amount),
-      unit: formState.unit,
-      updatedAt: new Date().toISOString(),
-      checked: false,
-    };
+    const newShoppingItem = formatShoppingItem(formState, undefined);
 
     onAdd([...list, newShoppingItem]);
     setFormState(initialShoppingItemModalData);
@@ -110,21 +99,14 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
         }}
       >
         <div className="inputContainer">
-          <div>
-            <label>
-              <span>Ingredient</span>
-
-              <input
-                ref={focusInputRef}
-                type="text"
-                value={formState.ingredientName}
-                name="ingredientName"
-                defaultValue={"Courgette"}
-                onInput={handleInputChange}
-                placeholder="Enter your ingredient"
-              />
-            </label>
-          </div>
+          <InputText
+            inputRef={focusInputRef}
+            value={formState.ingredientName}
+            onInput={handleInputChange}
+            label="Ingredient"
+            defaultValue={"Courgette"}
+            placeholder="Enter your ingredient"
+          />
 
           <div>
             <label>
@@ -140,30 +122,33 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
             </label>
           </div>
 
-          <div>
-            <label>
-              <span>Unit</span>
-              <select name="unit" onInput={handleInputChange}>
-                {INGREDIENT_UNITS.map((ingredient) => {
-                  return (
-                    <option value={ingredient.value} selected={formState.unit === ingredient.value}>
-                      {ingredient.text}
-                    </option>
-                  );
-                })}
-              </select>
-            </label>
-          </div>
+          <Select label="Unit" onInput={handleInputChange} selected={formState.unit} />
         </div>
 
-        {/* <div> */}
-        <button className="blue" onClick={() => onChange}>
-          Save
-        </button>
-        {/* </div> */}
+        <Button type="button" children="Save" style="primary" onClick={onChange} />
       </form>
     </Modal>
   );
+};
+
+const formatShoppingItem = (formState: FormStateType, editedShoppingItem?: TypeShoppingItem): TypeShoppingItem => {
+  if (editedShoppingItem) {
+    return {
+      ...editedShoppingItem,
+      ingredientName: formState.ingredientName,
+      amount: Number.parseInt(formState.amount),
+      unit: formState.unit,
+      updatedAt: new Date().toISOString(),
+    };
+  }
+  return {
+    id: nanoid(),
+    ingredientName: formState.ingredientName,
+    amount: Number.parseInt(formState.amount),
+    unit: formState.unit,
+    updatedAt: new Date().toISOString(),
+    checked: false,
+  };
 };
 
 export default CreateShoppingItemModal;

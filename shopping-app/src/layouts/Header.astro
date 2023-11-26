@@ -1,4 +1,6 @@
 ---
+import Button from "../components/Button";
+
 import verifyJWT from "../services/verifyjwt";
 const jwtCookie = Astro.cookies.get("jwt");
 const jwt = jwtCookie?.value ? jwtCookie.value : "";
@@ -7,13 +9,15 @@ const user: any = verifyJWT(jwt);
 
 <header>
   <h1>My Groceries.</h1>
+
   {
     user && (
       <form action="/api/user/logout" method="POST">
         <p>{user ? `Hello ${user.username}` : "You are not logged in."}</p>
-        <button class="logout blue" type="submit">
+
+        <Button type="submit" style="tertiary" children="Edit">
           Sign out
-        </button>
+        </Button>
       </form>
     )
   }

@@ -12,18 +12,9 @@ interface ModalProps {
 const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onClose, children, title }) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
-  const handleCloseModal = () => {
-    if (onClose) {
-      onClose();
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.code === "Escape") onClose();
-  };
-
   useEffect(() => {
     const modalElement = modalRef.current;
+
     if (modalElement) {
       if (isOpen) {
         return modalElement.showModal();
@@ -33,11 +24,19 @@ const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onCl
   }, [isOpen]);
 
   return (
-    <dialog ref={modalRef} className="modal" onKeyDown={handleKeyDown}>
+    <dialog
+      ref={modalRef}
+      className="modal"
+      onKeyDown={(e: KeyboardEvent) => {
+        if (e.code === "Escape") onClose();
+      }}
+    >
       <div>
         {title ? <h2>{title}</h2> : ""}
-        {hasCloseBtn && <button onClick={handleCloseModal}>Close</button>}
+
+        {hasCloseBtn && <button onClick={() => onClose()}>Close</button>}
       </div>
+
       {children}
     </dialog>
   );

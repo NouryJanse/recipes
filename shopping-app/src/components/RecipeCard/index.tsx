@@ -1,6 +1,3 @@
-// import React, { useState, useEffect, ReactElement } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
 // import { AiTwotoneEdit } from "react-icons/ai";
 // import { MdDelete } from "react-icons/md";
 // import classNames from "classnames";
@@ -26,18 +23,8 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
   // const dispatch = useDispatch();
   // const navigate = useNavigate();
 
-  // const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes);
   const [mainImage, setMainImage] = useState<string>("");
   const [isHovering, setIsHovering] = useState(false);
-
-  // const onDelete = async (recipeId: number): Promise<boolean> => {
-  //   if (!recipeId) return false;
-  //   // @ts-ignore:next-line
-  //   await dispatch(deleteRecipe(recipeId));
-  //   // @ts-ignore:next-line
-  //   await dispatch(getRecipes());
-  //   return true;
-  // };
 
   const handleMouseEnter = (): void => {
     setIsHovering(true);
@@ -62,7 +49,7 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
     }
   }, [recipe]);
 
-  // // Should be styled and moved into a component in the Recipe subfolder
+  // Should be styled and moved into a component in the Recipe subfolder
   if (!recipe) return <p>Error, no recipe found.</p>;
 
   return (
@@ -73,9 +60,6 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
             backgroundImage: mainImage,
             boxShadow: !isHovering ? "inset 0 0 0 2000px rgba(0, 0, 0, 0.3)" : "inset 0 0 0 2000px rgba(0, 0, 0, 0.4)",
           }}
-          // onClick={(): void => {
-          //   navigate(`/recipes/${recipe.id}`);
-          // }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -100,40 +84,6 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
                 {/* <i>{courseName(recipe.course ? recipe.course : "", RECIPE_COURSE_OPTIONS)}</i> */}
               </p>
             </div>
-
-            {/* {(withEditButton || withRemovalButton) && (
-          <div className="flex align-end">
-            {withEditButton && (
-              <Button
-                type="button"
-                classes="mr-2 h-max"
-                onClick={(e: Event): void => {
-                  e.stopPropagation();
-                  navigate(`/recipes/${recipe.id}/edit`);
-                }}
-                buttonStyle="secondary"
-                noedge
-              >
-                <AiTwotoneEdit />
-              </Button>
-            )}
-
-            {withRemovalButton && (
-              <Button
-                type="button"
-                classes="h-max"
-                onClick={(e: Event): void => {
-                  e.stopPropagation();
-                  onDelete(recipe.id);
-                }}
-                buttonStyle="primary"
-                noedge
-              >
-                <MdDelete />
-              </Button>
-            )}
-          </div>
-        )} */}
           </div>
         </div>
       </a>

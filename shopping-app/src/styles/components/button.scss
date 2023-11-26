@@ -36,7 +36,7 @@ button {
     }
   }
 
-  &.attention {
+  &.secondary {
     background-color: black;
     border-color: transparent;
     border: 2px solid black;
@@ -51,7 +51,7 @@ button {
     }
   }
 
-  &.blue {
+  &.primary {
     background-color: var(--color-blue-3);
     border-color: transparent;
     color: white;
@@ -63,7 +63,7 @@ button {
     }
   }
 
-  &.white {
+  &.tertiary {
     background-color: var(--color-white);
     border-color: black;
     color: black;

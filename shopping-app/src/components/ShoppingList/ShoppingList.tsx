@@ -10,7 +10,7 @@ import getFormattedShoppingList from "../../../helpers/getFormattedShoppingList"
 import CreateShoppingItemModal from "../CreateShoppingItemModal";
 import ShoppingItems from "../ShoppingItems";
 import sortShoppingListOnDate from "../../../helpers/sortShoppingListOnDate";
-import SeasonalVeggieList from "../SeasonalVeggieList";
+import SeasonalVeggieList, { SeasonalProducts } from "../SeasonalVeggieList";
 
 const SOCKET_API_URL = import.meta.env.PUBLIC_SOCKET_API_URL as string;
 const socket = io(SOCKET_API_URL, {});
@@ -64,21 +64,6 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
       // new user with no data
     }
   }, [dbShoppingList]);
-
-  const updateLocalStorage = (updatedList: TypeShoppingItem[]) => {
-    if (typeof window !== "undefined") {
-      // Perform localStorage action
-      localStorage.setItem("shoppingList", getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList));
-    }
-  };
-
-  const syncToSocket = (updatedList: TypeShoppingItem[]) => {
-    const body = getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList);
-    socket.emit("listUpdate", body);
-
-    // todo broadcast to everyone but self
-    // socket.emit("onShoppingListUpdate", body);
-  };
 
   const onAdd = (items: TypeShoppingItem[]): void => {
     const updatedList = sortShoppingListOnDate(items);
@@ -134,14 +119,21 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
 
         <ShoppingItems list={list} onUpdate={onUpdate} onDelete={onDelete} onEdit={onEdit} />
       </div>
-      <div>
-        <h3>Seasonal veggies</h3>
-        <div className="seasonal-veggies">
-          <SeasonalVeggieList onClickHandler={() => setDialogOpened(true)} />
-        </div>
-      </div>
+      <SeasonalProducts setDialogOpened={setDialogOpened} />
     </div>
   );
+};
+
+const updateLocalStorage = (updatedList: TypeShoppingItem[]) => {
+  if (typeof window !== "undefined") {
+    // Perform localStorage action
+    localStorage.setItem("shoppingList", getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList));
+  }
+};
+
+const syncToSocket = (updatedList: TypeShoppingItem[]) => {
+  const body = getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList);
+  socket.emit("listUpdate", body);
 };
 
 export default ShoppingList;

@@ -1,16 +1,13 @@
 import { useEffect, useState } from "preact/hooks";
 import type { TypeShoppingItem } from "../../services/types.db";
 import type { FunctionComponent } from "preact";
+import Button from "../Form/Button";
 
 type ShoppingItemProps = {
   shoppingItem: TypeShoppingItem;
   onDelete: (id: string) => void;
   onUpdate: (shoppingItem: TypeShoppingItem) => void;
   onEdit: (shoppingItem: TypeShoppingItem) => void;
-};
-
-const isNew = (updatedAt: string): boolean => {
-  return Math.abs(new Date(updatedAt).getTime() - Date.now()) < 1000;
 };
 
 const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem, onDelete, onUpdate, onEdit }) => {
@@ -44,16 +41,15 @@ const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem, onDe
       </div>
 
       <div>
-        <button className="blue" onClick={() => onEdit(shoppingItem)}>
-          Edit
-        </button>
-
-        <button className="white" onClick={() => onDelete(shoppingItem.id)}>
-          Delete
-        </button>
+        <Button type="button" style="primary" children="Edit" onClick={() => onEdit(shoppingItem)} />
+        <Button type="button" style="tertiary" children="Delete" onClick={() => onDelete(shoppingItem.id)} />
       </div>
     </div>
   );
+};
+
+const isNew = (updatedAt: string): boolean => {
+  return Math.abs(new Date(updatedAt).getTime() - Date.now()) < 1000;
 };
 
 export default ShoppingItem;

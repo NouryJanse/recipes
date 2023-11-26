@@ -11,11 +11,11 @@ type ShoppingItemsProps = {
 
 const ShoppingItems: FunctionalComponent<ShoppingItemsProps> = ({ list, onDelete, onUpdate, onEdit }) => {
   return (
-    <div>
+    <>
       {list.map((shoppingItem) => {
         return <ShoppingItem shoppingItem={shoppingItem} onDelete={onDelete} onUpdate={onUpdate} onEdit={onEdit} />;
       })}
-    </div>
+    </>
   );
 };
 
