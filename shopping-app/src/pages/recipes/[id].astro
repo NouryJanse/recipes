@@ -5,6 +5,8 @@ interface Props {
   recipes: { id: string }[];
 }
 
+export const prerender = true
+
 export async function getStaticPaths() {
   let recipes = [];
   const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
