@@ -3,6 +3,8 @@ import Layout from "../../layouts/Layout.astro";
 import verifyJWT from "../../services/verifyjwt";
 import Tokens from "csrf";
 
+export const prerender = true;
+
 const tokens = new Tokens();
 const csrfSecret: string = import.meta.env.CSRF_SECRET as string;
 const token = await tokens.create(csrfSecret);
