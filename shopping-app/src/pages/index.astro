@@ -6,6 +6,8 @@ import Header from "../layouts/Header.astro";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 import Recipes from "../components/Recipes";
 
+export const prerender = true;
+
 let recipes = [];
 try {
   const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
