@@ -7,9 +7,15 @@ type RecipeProps = {
 const Recipe: FunctionComponent<RecipeProps> = ({ recipe }) => {
   return (
     <>
-      <p>{recipe.name}</p>
-      <p>{recipe.description}</p>
+      <h1>{recipe.name}</h1>
       <a href="/">Back</a>
+      <p>
+        <i>{recipe.course}</i>
+      </p>
+
+      <img src={recipe.images[0].url} alt={recipe.name} />
+
+      <p>{recipe.description}</p>
     </>
   );
 };

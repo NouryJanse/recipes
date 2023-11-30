@@ -1,4 +1,4 @@
-export const november: { id: number; title: string; imgUrl: string }[] = [
+export const fall: { id: number; title: string; imgUrl: string }[] = [
   {
     id: 0,
     title: "Aardappelen",
