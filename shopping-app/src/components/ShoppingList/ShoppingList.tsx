@@ -25,20 +25,22 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   const [editedShoppingItem, setEditedShoppingItem] = useState<TypeShoppingItem>();
 
   useEffect(() => {
+    // activateSocket();
     // socket.on("connect", () => {});
     // socket.on("disconnect", () => {});
-    socket.on("message", (msg) => {
-      console.log(msg);
-    });
+    // socket.on("message", (msg) => {
+    //   console.log(msg);
+    // });
     socket.on("onShoppingListUpdate", (data) => {
       const parsedData = JSON.parse(data);
       setList(parsedData.list);
       updateLocalStorage(parsedData.list);
     });
     return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-      socket.off("message");
+      // socket.off("connect");
+      // socket.off("disconnect");
+      // socket.off("message");
+      socket.off("onShoppingListUpdate");
     };
   }, []);
 
@@ -50,16 +52,16 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
       if (dbShoppingList.updatedAt > localShoppingList.updatedAt) {
         // db version is newer
         const sorted = sortShoppingListOnDate(dbShoppingList.list);
-        setList(sorted);
         updateLocalStorage(sorted);
+        setList(sorted);
       } else {
         // localStorage is newer
         const sorted = sortShoppingListOnDate(localShoppingList.list);
         setList(sorted);
       }
     } else if (dbShoppingList.list.length) {
-      setList(dbShoppingList.list);
       updateLocalStorage(dbShoppingList.list);
+      setList(dbShoppingList.list);
     } else {
       // new user with no data
     }

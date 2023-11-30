@@ -13,13 +13,9 @@ const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onCl
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
   useEffect(() => {
-    const modalElement = modalRef.current;
-
-    if (modalElement) {
-      if (isOpen) {
-        return modalElement.showModal();
-      }
-      return modalElement.close();
+    if (modalRef.current) {
+      if (isOpen) return modalRef.current.showModal();
+      return modalRef.current.close();
     }
   }, [isOpen]);
 
@@ -33,7 +29,6 @@ const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onCl
     >
       <div>
         {title ? <h2>{title}</h2> : ""}
-
         {hasCloseBtn && <button onClick={() => onClose()}>Close</button>}
       </div>
 

@@ -1,4 +1,4 @@
-import type { FunctionalComponent } from "preact";
+import type { FunctionalComponent, Ref, RefObject } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import INGREDIENT_UNITS from "../../constants/INGREDIENT_UNITS";
 import type { TypeShoppingItem } from "../../services/types.db";
@@ -39,19 +39,21 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
   const [formState, setFormState] = useState<FormStateType>(initialShoppingItemModalData);
 
   useEffect(() => {
-    if (isOpen && focusInputRef.current) {
-      focusInputRef.current!.focus();
+    if (isOpen) {
+      focusOnIngredientInput(focusInputRef);
     }
   }, [isOpen]);
 
   useEffect(() => {
     if (editedShoppingItem) {
+      // update form state
       setFormState({
         amount: editedShoppingItem.amount.toString(),
         ingredientName: editedShoppingItem.ingredientName,
         unit: editedShoppingItem.unit,
       });
     } else {
+      // reset from state
       setFormState(initialShoppingItemModalData);
     }
   }, [editedShoppingItem]);
@@ -66,21 +68,15 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
   };
 
   const onChange = (): void => {
-    console.log(editedShoppingItem);
-
+    // editing a shopping item
     if (editedShoppingItem && editedShoppingItem.id) {
-      const newShoppingItem = formatShoppingItem(formState, editedShoppingItem);
-
-      onAdd([
-        ...list.map((existingShoppingItem) => {
-          return existingShoppingItem.id === editedShoppingItem.id ? newShoppingItem : existingShoppingItem;
-        }),
-      ]);
+      const newShoppingItem = getShoppingItemObject(formState, editedShoppingItem);
+      onAdd(replaceShoppingItemInList(list, editedShoppingItem, newShoppingItem));
       return;
     }
 
-    const newShoppingItem = formatShoppingItem(formState, undefined);
-
+    // append new shopping item and empty the form
+    const newShoppingItem = getShoppingItemObject(formState, undefined);
     onAdd([...list, newShoppingItem]);
     setFormState(initialShoppingItemModalData);
   };
@@ -131,7 +127,7 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
   );
 };
 
-const formatShoppingItem = (formState: FormStateType, editedShoppingItem?: TypeShoppingItem): TypeShoppingItem => {
+const getShoppingItemObject = (formState: FormStateType, editedShoppingItem?: TypeShoppingItem): TypeShoppingItem => {
   if (editedShoppingItem) {
     return {
       ...editedShoppingItem,
@@ -149,6 +145,20 @@ const formatShoppingItem = (formState: FormStateType, editedShoppingItem?: TypeS
     updatedAt: new Date().toISOString(),
     checked: false,
   };
+};
+
+const focusOnIngredientInput = (focusInputRef: RefObject<HTMLInputElement>) => {
+  focusInputRef.current!.focus();
+};
+
+const replaceShoppingItemInList = (
+  list: TypeShoppingItem[],
+  editedShoppingItem: TypeShoppingItem,
+  newShoppingItem: TypeShoppingItem
+) => {
+  return list.map((existingShoppingItem) => {
+    return existingShoppingItem.id === editedShoppingItem.id ? newShoppingItem : existingShoppingItem;
+  });
 };
 
 export default CreateShoppingItemModal;

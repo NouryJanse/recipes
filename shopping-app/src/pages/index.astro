@@ -2,24 +2,15 @@
 export const prerender = false;
 
 import { mongodb } from "../services/db";
+import { fetchRecipes } from "../services/fetchRecipes";
 import verifyJWT from "../services/verifyjwt";
 import Layout from "../layouts/Layout.astro";
 import Header from "../layouts/Header.astro";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
-// import Recipes from "../components/Recipes";
+import Recipes from "../components/Recipes";
 
-// let recipes = [];
-// try {
-//   const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
-//   if (RECIPES_API_URL) {
-//     const recipesJSON = await fetch(`${RECIPES_API_URL}/api/recipes`);
-//     if (recipesJSON.status === 200) {
-//       recipes = await recipesJSON.json();
-//     }
-//   }
-// } catch (error) {
-//   console.error(error);
-// }
+let recipes = [];
+recipes = await fetchRecipes();
 
 const jwtCookie = Astro.cookies.get("jwt");
 const jwt = jwtCookie?.value ? jwtCookie.value : "";
@@ -43,5 +34,5 @@ if (user) {
 <Layout title="Your Shopping List.">
   <Header />
   {user ? <ShoppingList client:load dbShoppingList={dbShoppingList} /> : <a href="/user/login">Login</a>}
-  <!-- <Recipes client:idle recipes={recipes} /> -->
+  <Recipes client:idle recipes={recipes} />
 </Layout>
