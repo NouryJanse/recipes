@@ -7,10 +7,12 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   @include md {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   @include lg {
-    // grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  // width: 100%;
+  @include xl {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }

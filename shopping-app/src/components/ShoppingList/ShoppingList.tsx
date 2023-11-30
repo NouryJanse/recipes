@@ -2,15 +2,20 @@ import type { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import io from "socket.io-client";
 
-import type { TypeShoppingItem } from "../../services/types.db";
-import deleteObjectWithIdFromArray from "../../../helpers/deleteObjectWithIdFromArray";
-import updateArrayWithObjectById from "../../../helpers/updateArrayWithObjectById";
-import getFormattedShoppingList from "../../../helpers/getFormattedShoppingList";
+// data
+import { $list, $modalShoppingItem, $user, setModalShoppingItem, setShoppingList } from "../../services/store";
+import { useStore } from "@nanostores/preact";
 
-import CreateShoppingItemModal from "../CreateShoppingItemModal";
+// helpers
+import type { TypeShoppingItem, User } from "../../services/types.db";
+import deleteObjectWithIdFromArray from "../../helpers/deleteObjectWithIdFromArray";
+import updateArrayWithObjectById from "../../helpers/updateArrayWithObjectById";
+import getFormattedShoppingList from "../../helpers/getFormattedShoppingList";
+import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
+
+// UI
+import CreateShoppingItemModal, { type FormStateType } from "../CreateShoppingItemModal";
 import ShoppingItems from "../ShoppingItems";
-import sortShoppingListOnDate from "../../../helpers/sortShoppingListOnDate";
-import SeasonalVeggieList, { SeasonalProducts } from "../SeasonalVeggieList";
 
 const SOCKET_API_URL = import.meta.env.PUBLIC_SOCKET_API_URL as string;
 const socket = io(SOCKET_API_URL, {});
@@ -20,122 +25,123 @@ type ShoppingListProps = {
 };
 
 const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) => {
-  const [list, setList] = useState<TypeShoppingItem[]>([]);
+  const list = useStore($list);
   const [dialogOpened, setDialogOpened] = useState(false);
-  const [editedShoppingItem, setEditedShoppingItem] = useState<TypeShoppingItem>();
+  const modalShoppingItem = useStore($modalShoppingItem);
+  const user = useStore($user);
 
   useEffect(() => {
-    // activateSocket();
-    // socket.on("connect", () => {});
-    // socket.on("disconnect", () => {});
-    // socket.on("message", (msg) => {
-    //   console.log(msg);
-    // });
-    socket.on("onShoppingListUpdate", (data) => {
-      const parsedData = JSON.parse(data);
-      setList(parsedData.list);
-      updateLocalStorage(parsedData.list);
-    });
-    return () => {
-      // socket.off("connect");
-      // socket.off("disconnect");
-      // socket.off("message");
-      socket.off("onShoppingListUpdate");
-    };
+    activateSocket();
+    checkForExistingShoppingList(dbShoppingList);
   }, []);
 
   useEffect(() => {
-    const data = localStorage.getItem("shoppingList");
-    if (data) {
-      const localShoppingList = JSON.parse(data);
-
-      if (dbShoppingList.updatedAt > localShoppingList.updatedAt) {
-        // db version is newer
-        const sorted = sortShoppingListOnDate(dbShoppingList.list);
-        updateLocalStorage(sorted);
-        setList(sorted);
-      } else {
-        // localStorage is newer
-        const sorted = sortShoppingListOnDate(localShoppingList.list);
-        setList(sorted);
-      }
-    } else if (dbShoppingList.list.length) {
-      updateLocalStorage(dbShoppingList.list);
-      setList(dbShoppingList.list);
+    if (modalShoppingItem) {
+      setModalShoppingItem(modalShoppingItem);
+      setDialogOpened(true);
     } else {
-      // new user with no data
+      setDialogOpened(false);
     }
-  }, [dbShoppingList]);
+  }, [modalShoppingItem]);
 
-  const onAdd = (items: TypeShoppingItem[]): void => {
-    const updatedList = sortShoppingListOnDate(items);
-    setList(updatedList);
-    updateLocalStorage(updatedList);
-    syncToSocket(updatedList);
-  };
-
-  const onEdit = (shoppingItem: TypeShoppingItem) => {
-    setEditedShoppingItem(shoppingItem);
-    setDialogOpened(true);
-  };
-
-  const onUpdate = (item: TypeShoppingItem): void => {
-    const updatedList = updateArrayWithObjectById(list, item);
-
-    setList(updatedList);
-    updateLocalStorage(updatedList);
-    syncToSocket(updatedList);
-  };
-
-  const onDelete = (itemId: string): void => {
-    const updatedList = deleteObjectWithIdFromArray(list, itemId);
-    setList(updatedList);
-    updateLocalStorage(updatedList);
-    syncToSocket(updatedList);
-  };
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
-    <div className="container shopping--container">
-      <div className="shoppping-list">
-        <CreateShoppingItemModal
-          list={list}
-          onAdd={(items) => {
-            setEditedShoppingItem(undefined);
-            onAdd(items);
-            setDialogOpened(false);
-          }}
-          isOpen={dialogOpened}
-          onClose={() => {
-            setDialogOpened(false);
-            setEditedShoppingItem(undefined);
-          }}
-          editedShoppingItem={editedShoppingItem}
-        />
+    <div className="shoppping-list">
+      <CreateShoppingItemModal
+        isOpen={dialogOpened}
+        onClose={() => {
+          setDialogOpened(false);
+          setModalShoppingItem(undefined);
+        }}
+        editedShoppingItem={modalShoppingItem}
+      />
 
-        <div className="ingredientsTitleContainer">
-          <h3>Ingredients</h3>
-          <button className="attention" onClick={() => setDialogOpened(true)}>
-            Add another
-          </button>
-        </div>
-
-        <ShoppingItems list={list} onUpdate={onUpdate} onDelete={onDelete} onEdit={onEdit} />
+      <div className="ingredientsTitleContainer">
+        <h3>Ingredients</h3>
+        <button className="attention" onClick={() => setDialogOpened(true)}>
+          Add another
+        </button>
       </div>
-      <SeasonalProducts setDialogOpened={setDialogOpened} />
+
+      <ShoppingItems list={list} onUpdate={onUpdate} onDelete={onDelete} onEdit={onEdit} />
     </div>
   );
 };
 
-const updateLocalStorage = (updatedList: TypeShoppingItem[]) => {
+export const updateLocalStorage = (updatedList: TypeShoppingItem[]) => {
   if (typeof window !== "undefined") {
     // Perform localStorage action
     localStorage.setItem("shoppingList", getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList));
   }
 };
 
-const syncToSocket = (updatedList: TypeShoppingItem[]) => {
+export const syncToSocket = (updatedList: TypeShoppingItem[]) => {
   const body = getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList);
   socket.emit("listUpdate", body);
+};
+
+const activateSocket = () => {
+  // socket.on("connect", () => {});
+  // socket.on("disconnect", () => {});
+  // socket.on("message", (msg) => {
+  //   console.log(msg);
+  // });
+  socket.on("onShoppingListUpdate", (data) => {
+    const parsedData = JSON.parse(data);
+    setShoppingList(parsedData.list);
+    updateLocalStorage(parsedData.list);
+  });
+  return () => {
+    // comments here for debugging purposes
+    // socket.off("connect");
+    // socket.off("disconnect");
+    // socket.off("message");
+    socket.off("onShoppingListUpdate");
+  };
+};
+
+const checkForExistingShoppingList = (dbShoppingList: any) => {
+  const data = localStorage.getItem("shoppingList");
+  if (data) {
+    const localShoppingList = JSON.parse(data);
+
+    if (dbShoppingList.updatedAt > localShoppingList.updatedAt) {
+      // db version is newer
+      const sorted = sortShoppingListOnDate(dbShoppingList.list);
+      updateLocalStorage(sorted);
+      setShoppingList(sorted);
+    } else {
+      // localStorage is newer
+      const sorted = sortShoppingListOnDate(localShoppingList.list);
+      setShoppingList(sorted);
+    }
+  } else if (dbShoppingList.list.length) {
+    updateLocalStorage(dbShoppingList.list);
+    setShoppingList(dbShoppingList.list);
+  } else {
+    // new user with no data
+  }
+};
+
+const onUpdate = (item: TypeShoppingItem): void => {
+  const updatedList = updateArrayWithObjectById($list.get(), item);
+  setShoppingList(updatedList);
+  updateLocalStorage(updatedList);
+  syncToSocket(updatedList);
+};
+
+const onDelete = (itemId: string): void => {
+  const updatedList = deleteObjectWithIdFromArray($list.get(), itemId);
+  setShoppingList(updatedList);
+  updateLocalStorage(updatedList);
+  syncToSocket(updatedList);
+};
+
+const onEdit = (shoppingItem: FormStateType) => {
+  setModalShoppingItem(shoppingItem);
 };
 
 export default ShoppingList;

@@ -1,30 +1,23 @@
 import type { FunctionalComponent } from "preact";
 import SeasonalVeggie from "../SeasonalVeggie";
 import { november } from "./SeasonalVeggies";
-// import type { TypeShoppingItem } from "../../services/types.db";
 
-type SeasonalProductsProps = {
-  setDialogOpened: (boolean: boolean) => void;
-};
-export const SeasonalProducts: FunctionalComponent<SeasonalProductsProps> = ({ setDialogOpened }) => {
+export const SeasonalVeggieList: FunctionalComponent = ({}) => {
   return (
     <div>
-      <h3>Seasonal veggies</h3>
+      <h3>Add seasonal veggies</h3>
       <div className="seasonal-veggies">
-        <SeasonalVeggieList onClickHandler={() => setDialogOpened(true)} />
+        <SeasonalVeggies />
       </div>
     </div>
   );
 };
 
-type SeasonalVeggieListProps = {
-  onClickHandler: () => void;
-};
-const SeasonalVeggieList: FunctionalComponent<SeasonalVeggieListProps> = ({ onClickHandler }) => {
+const SeasonalVeggies: FunctionalComponent = ({}) => {
   return (
     <>
       {november.map((veggie) => {
-        return <SeasonalVeggie veggie={veggie} onClickHandler={onClickHandler} />;
+        return <SeasonalVeggie veggie={veggie} />;
       })}
     </>
   );

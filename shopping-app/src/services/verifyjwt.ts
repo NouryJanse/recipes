@@ -1,16 +1,14 @@
 import jwt, { type JwtPayload } from "jsonwebtoken";
 const jwtSecret: string = import.meta.env.JWT_SECRET as string;
 
-const verifyJWT = (token: string): boolean | jwt.JwtPayload => {
+const verifyJWT = (token: string): boolean | string | jwt.JwtPayload => {
   try {
     // @ts-ignore
     if (token) {
-      const res: JwtPayload = jwt.verify(token, jwtSecret);
-      if (res) {
-        return res;
-      }
+      const res: string | JwtPayload = jwt.verify(token, jwtSecret);
+      return res;
     }
-    return false;
+    throw Error("No token provided");
   } catch (error) {
     return false;
   }

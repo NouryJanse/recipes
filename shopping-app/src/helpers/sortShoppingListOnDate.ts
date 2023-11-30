@@ -1,4 +1,4 @@
-import type { TypeShoppingItem } from "../src/services/types.db";
+import type { TypeShoppingItem } from "../services/types.db";
 
 const sortShoppingListOnDate = (shoppingList: TypeShoppingItem[]) => {
   if (!shoppingList || !shoppingList.length) return [];

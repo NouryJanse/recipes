@@ -10,7 +10,6 @@ export const prerender = true;
 export const getRecipes = async () => {
   const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
   const recipesJSON = await fetch(`${RECIPES_API_URL}/api/recipes`);
-
   if (recipesJSON.status === 200) {
     return recipesJSON.json();
   }

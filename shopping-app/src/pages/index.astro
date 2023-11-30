@@ -1,38 +1,37 @@
 ---
 export const prerender = false;
 
-import { mongodb } from "../services/db";
-import { fetchRecipes } from "../services/fetchRecipes";
-import verifyJWT from "../services/verifyjwt";
-import Layout from "../layouts/Layout.astro";
-import Header from "../layouts/Header.astro";
+import { fetchShoppingList } from "../services/api/fetchShoppingList";
+import { fetchRecipes } from "../services/api/fetchRecipes";
+import { fetchUser } from "../services/api/fetchUser";
+import Layout from "../layouts/layout.astro";
+import Header from "../layouts/header.astro";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
 import Recipes from "../components/Recipes";
+import SeasonalVeggieList from "../components/SeasonalVeggieList";
+import App from "../components/App";
+import { $user } from "../services/store";
 
 let recipes = [];
 recipes = await fetchRecipes();
-
-const jwtCookie = Astro.cookies.get("jwt");
-const jwt = jwtCookie?.value ? jwtCookie.value : "";
-const user = verifyJWT(jwt);
+const user = await fetchUser(Astro.cookies.get("jwt"));
 
 let dbShoppingList;
-
 if (user) {
-  const DB_NAME: string = import.meta.env.DB_NAME as string;
-  const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
-  let db = await mongodb.db(DB_NAME);
-  let collection = await db.collection(COLLECTION_NAME);
-  // TODO: fetch USER collection.
-  let shoppingItems = await collection.find({}).limit(10).toArray();
-  dbShoppingList = shoppingItems[0];
+  dbShoppingList = await fetchShoppingList(0);
 } else {
   return Astro.redirect("/user/login");
 }
 ---
 
 <Layout title="Your Shopping List.">
+  <App client:load user={user} />
   <Header />
-  {user ? <ShoppingList client:load dbShoppingList={dbShoppingList} /> : <a href="/user/login">Login</a>}
+
+  <div class="container shopping--container">
+    {user ? <ShoppingList client:load dbShoppingList={dbShoppingList} /> : <a href="/user/login">Login</a>}
+    <SeasonalVeggieList client:idle />
+  </div>
+
   <Recipes client:idle recipes={recipes} />
 </Layout>

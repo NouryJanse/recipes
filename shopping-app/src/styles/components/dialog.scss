@@ -26,8 +26,6 @@ dialog.modal {
     padding-top: var(--step--2);
     display: flex;
     flex-direction: column;
-    // height: 100%;
-    // justify-content: center;
   }
 
   @include md {

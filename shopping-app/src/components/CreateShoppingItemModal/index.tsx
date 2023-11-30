@@ -7,6 +7,10 @@ import Modal from "../Modal";
 import Button from "../Form/Button";
 import InputText from "../Form/InputText";
 import Select from "../Form/Select";
+import { $list, setModalShoppingItem, setShoppingList } from "../../services/store";
+import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
+import { syncToSocket, updateLocalStorage } from "../ShoppingList/ShoppingList";
+import replaceShoppingItemInList from "../../helpers/replaceShoppingItemInList";
 
 export interface FormStateType {
   amount: string;
@@ -14,23 +18,19 @@ export interface FormStateType {
   unit: string;
 }
 
-const initialShoppingItemModalData: FormStateType = {
+export const initialShoppingItemModalData: FormStateType = {
   amount: "",
   ingredientName: "",
   unit: "",
 };
 
 type CreateShoppingItemProps = {
-  list: TypeShoppingItem[];
-  onAdd: (items: TypeShoppingItem[]) => void;
   isOpen: boolean;
   onClose: () => void;
-  editedShoppingItem: undefined | TypeShoppingItem;
+  editedShoppingItem: undefined | FormStateType | TypeShoppingItem;
 };
 
 const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
-  list,
-  onAdd,
   isOpen,
   onClose,
   editedShoppingItem,
@@ -67,18 +67,18 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
     }));
   };
 
-  const onChange = (): void => {
+  const onSubmit = (): void => {
     // editing a shopping item
     if (editedShoppingItem && editedShoppingItem.id) {
-      const newShoppingItem = getShoppingItemObject(formState, editedShoppingItem);
-      onAdd(replaceShoppingItemInList(list, editedShoppingItem, newShoppingItem));
+      handleOnEdit(formState, editedShoppingItem);
       return;
     }
 
     // append new shopping item and empty the form
-    const newShoppingItem = getShoppingItemObject(formState, undefined);
-    onAdd([...list, newShoppingItem]);
+    handleOnAdd(formState);
+    onClose();
     setFormState(initialShoppingItemModalData);
+    return;
   };
 
   return (
@@ -86,12 +86,18 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
       hasCloseBtn={true}
       isOpen={isOpen}
       onClose={onClose}
-      title={editedShoppingItem ? `Editing ${formState.ingredientName}...` : "Add new shopping item"}
+      title={
+        editedShoppingItem?.id
+          ? `Editing ${formState.ingredientName}`
+          : editedShoppingItem?.ingredientName
+            ? `Adding ${formState.ingredientName}`
+            : "Add new shopping item"
+      }
     >
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          onChange();
+          onSubmit();
         }}
       >
         <div className="inputContainer">
@@ -121,7 +127,7 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
           <Select label="Unit" onInput={handleInputChange} selected={formState.unit} />
         </div>
 
-        <Button type="button" children="Save" style="primary" onClick={onChange} />
+        <Button type="button" children="Save" style="primary" onClick={onSubmit} />
       </form>
     </Modal>
   );
@@ -137,6 +143,7 @@ const getShoppingItemObject = (formState: FormStateType, editedShoppingItem?: Ty
       updatedAt: new Date().toISOString(),
     };
   }
+
   return {
     id: nanoid(),
     ingredientName: formState.ingredientName,
@@ -151,14 +158,26 @@ const focusOnIngredientInput = (focusInputRef: RefObject<HTMLInputElement>) => {
   focusInputRef.current!.focus();
 };
 
-const replaceShoppingItemInList = (
-  list: TypeShoppingItem[],
-  editedShoppingItem: TypeShoppingItem,
-  newShoppingItem: TypeShoppingItem
-) => {
-  return list.map((existingShoppingItem) => {
-    return existingShoppingItem.id === editedShoppingItem.id ? newShoppingItem : existingShoppingItem;
-  });
+const handleOnAdd = (formState: FormStateType) => {
+  const newShoppingItem = getShoppingItemObject(formState, undefined);
+  const items = [...$list.get(), newShoppingItem];
+  const updatedList = sortShoppingListOnDate(items);
+
+  setShoppingList(updatedList);
+  setModalShoppingItem(undefined);
+  updateLocalStorage(updatedList);
+  syncToSocket(updatedList);
+};
+
+const handleOnEdit = (formState: FormStateType, editedShoppingItem: TypeShoppingItem) => {
+  const newShoppingItem = getShoppingItemObject(formState, editedShoppingItem);
+  const items = replaceShoppingItemInList($list.get(), editedShoppingItem, newShoppingItem);
+  const updatedList = sortShoppingListOnDate(items);
+
+  setShoppingList(updatedList);
+  setModalShoppingItem(undefined);
+  updateLocalStorage(updatedList);
+  syncToSocket(updatedList);
 };
 
 export default CreateShoppingItemModal;

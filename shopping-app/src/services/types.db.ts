@@ -14,3 +14,7 @@ export interface ShoppingList extends WithId<Document> {
   id: number;
   items: TypeShoppingItem[];
 }
+
+export interface User {
+  id: number;
+}

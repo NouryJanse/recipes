@@ -1,6 +1,6 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import verifyJWT from "../../services/verifyjwt";
+import Layout from "../../layouts/layout.astro";
+import { fetchUser } from "../../services/api/fetchUser";
 import Tokens from "csrf";
 
 export const prerender = true;
@@ -9,10 +9,7 @@ const tokens = new Tokens();
 const csrfSecret: string = import.meta.env.CSRF_SECRET as string;
 const token = await tokens.create(csrfSecret);
 
-const jwtCookie = Astro.cookies.get("jwt");
-const jwt = jwtCookie?.value ? jwtCookie.value : "";
-const user = verifyJWT(jwt);
-
+const user = await fetchUser(Astro.cookies.get("jwt"));
 if (user) {
   return Astro.redirect("/");
 }

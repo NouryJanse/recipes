@@ -8,8 +8,6 @@ type ButtonProps = {
   classes?: string;
   children?: any;
   style?: "primary" | "secondary" | "tertiary";
-  noedge?: boolean;
-  fullwidth?: boolean;
 };
 
 const Button: FunctionalComponent<ButtonProps> = ({
@@ -19,24 +17,11 @@ const Button: FunctionalComponent<ButtonProps> = ({
   classes = "",
   children,
   style,
-  noedge,
-  fullwidth,
   disabled,
 }) => {
   const classNames = `${classes} ${style}`;
   return (
-    <button
-      type={type}
-      disabled={disabled}
-      onClick={onClick}
-      className={classNames}
-      // $primary={buttonStyle === "primary"}
-      // $secondary={buttonStyle === "secondary"}
-      // $tertiary={buttonStyle === "tertiary"}
-      // $noedge={noedge}
-      // $fullwidth={fullwidth}
-      // $disabled={disabled}
-    >
+    <button type={type} disabled={disabled} onClick={onClick} className={classNames}>
       {children || label}
     </button>
   );

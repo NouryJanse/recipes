@@ -79,37 +79,12 @@ let connectionString = import.meta.env.DATA_CONNECTION || "";
 //Importing the mongoose library used to make the mongodb connection
 import mongoose from "mongoose";
 
-//Importing the mongodb atlas link
-// const MONGO_DB_URI = process.env.MONO_REMOTE_URL;
-//creating a function called connectToDB that handles the database connectio
 const connectToDB = async () => {
   try {
-    // console.log("connecting");
-
-    // printConsole(
-    //   { data: "Connecting to MongoDB ......" },
-    //   { printLocation: "db_config.js:12" },
-    //   { textColor: "yellow" }
-    // );
-
-    //creating the mongodb database connection by using MONOG_DB_URI
     await mongoose.connect(connectionString, {});
-
-    // console.log(DBConnection.connect);
-
-    // printConsole(
-    //   { data: `Database Connected : ${DBConnection.connection.host}` },
-    //   { printLocation: "db_config.js:24" },
-    //   {
-    //     textColor: "green",
-    //   }
-    // );
   } catch (error) {
     console.log(error);
-
     process.exit(1);
   }
 };
-
-// EXPORTING THE connectToDB function
 export default connectToDB;
