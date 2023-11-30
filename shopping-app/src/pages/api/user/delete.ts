@@ -10,7 +10,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
   if (user) {
     await user.deleteOne();
-    // const res = await user.remove();
   }
   return redirect("http://localhost:4321/");
 };
