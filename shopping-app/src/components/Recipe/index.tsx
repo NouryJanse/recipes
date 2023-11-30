@@ -6,11 +6,11 @@ type RecipeProps = {
 
 const Recipe: FunctionComponent<RecipeProps> = ({ recipe }) => {
   return (
-    <div>
+    <>
       <p>{recipe.name}</p>
       <p>{recipe.description}</p>
       <a href="/">Back</a>
-    </div>
+    </>
   );
 };
 

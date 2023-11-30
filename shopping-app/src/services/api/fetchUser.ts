@@ -1,4 +1,3 @@
-import type { User } from "../types.db";
 import verifyJWT from "../verifyjwt";
 
 const fetchUser = async (jwtCookie: {
@@ -13,6 +12,8 @@ const fetchUser = async (jwtCookie: {
     // user exists and verified
     return {
       id: verified.id,
+      name: verified.name,
+      role: verified.role,
     };
   }
   return false;

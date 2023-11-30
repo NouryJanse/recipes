@@ -1,5 +1,6 @@
 ---
 import Recipe from "../../components/Recipe";
+import Layout from "../../layouts/Layout.astro";
 
 interface Props {
   recipes: { id: string }[];
@@ -40,9 +41,11 @@ if (recipes) {
 
 {
   currentRecipe && currentRecipe.id ? (
-    <div>
-      <Recipe recipe={currentRecipe} />
-    </div>
+    <Layout title={currentRecipe.name}>
+      <div class="container">
+        <Recipe recipe={currentRecipe} />
+      </div>
+    </Layout>
   ) : (
     ""
   )

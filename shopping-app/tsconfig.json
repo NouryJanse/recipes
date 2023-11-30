@@ -4,6 +4,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "types": ["astro/env"]
+    "types": ["astro/env"],
+    "typeRoots": ["./node_modules/@nouryjanse/index.d.ts"],
   }
 }

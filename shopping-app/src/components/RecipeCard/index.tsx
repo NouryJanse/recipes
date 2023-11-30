@@ -20,9 +20,6 @@ type RecipeCardProps = {
 };
 
 const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-
   const [mainImage, setMainImage] = useState<string>("");
   const [isHovering, setIsHovering] = useState(false);
 

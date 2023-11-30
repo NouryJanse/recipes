@@ -5,8 +5,7 @@ const verifyJWT = (token: string): boolean | string | jwt.JwtPayload => {
   try {
     // @ts-ignore
     if (token) {
-      const res: string | JwtPayload = jwt.verify(token, jwtSecret);
-      return res;
+      return jwt.verify(token, jwtSecret);
     }
     throw Error("No token provided");
   } catch (error) {
