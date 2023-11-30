@@ -26,7 +26,7 @@ const SeasonalVeggie: FunctionalComponent<SeasonalVeggieProps> = ({ veggie }) =>
         });
       }}
     >
-      {veggie.title}
+      <span>{veggie.title}</span>
     </div>
   );
 };

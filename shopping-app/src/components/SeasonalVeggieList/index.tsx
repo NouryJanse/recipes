@@ -1,12 +1,12 @@
 import type { FunctionalComponent } from "preact";
 import SeasonalVeggie from "../SeasonalVeggie";
-import { herfst } from "./herfst";
+import { fall } from "./fall";
 
 export const SeasonalVeggieList: FunctionalComponent = ({}) => {
   return (
-    <div>
+    <div class="seasonal-veggies">
       <h3>Add seasonal veggies during fall</h3>
-      <div className="seasonal-veggies">
+      <div>
         <SeasonalVeggies />
       </div>
     </div>
@@ -16,7 +16,7 @@ export const SeasonalVeggieList: FunctionalComponent = ({}) => {
 const SeasonalVeggies: FunctionalComponent = ({}) => {
   return (
     <>
-      {herfst.map((veggie) => {
+      {fall.map((veggie) => {
         return <SeasonalVeggie veggie={veggie} />;
       })}
     </>

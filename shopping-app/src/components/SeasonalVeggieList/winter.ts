@@ -1,8 +1,8 @@
-export const fall: { id: number; title: string; imgUrl: string }[] = [
+export const winter: { id: number; title: string; imgUrl: string }[] = [
   {
     id: 0,
     title: "Aardappelen",
-    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/aardappelen.webp",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/aardappelen.webp?raw=true",
   },
   {
     id: 1,
@@ -62,41 +62,61 @@ export const fall: { id: number; title: string; imgUrl: string }[] = [
   {
     id: 12,
     title: "Wortels",
-    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/wortels.webp",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/wortels.webp?raw=true",
   },
   {
     id: 13,
     title: "Schorseneer",
-    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/schorseneer.png",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/schorseneer.png?raw=true",
   },
   {
     id: 13,
     title: "Courgette",
-    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/courgette.jpeg",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/courgette.jpeg?raw=true",
   },
   {
     id: 14,
     title: "Zoete aardappel",
-    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/zoete-aardappel.jpeg",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/zoete-aardappel.jpeg?raw=true",
   },
   {
     id: 15,
     title: "Koolrabi",
-    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/koolrabi.jpg",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/koolrabi.jpg?raw=true",
   },
   {
     id: 16,
     title: "Waterkers",
-    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/waterkers.jpg",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/waterkers.jpg?raw=true",
   },
   {
     id: 17,
-    title: "Waterkers",
-    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/rode-kool.jpeg",
+    title: "Rode kool",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/rode-kool.jpeg?raw=true",
   },
   {
     id: 17,
     title: "Radicchio",
-    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/radicchio.jpeg",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/radicchio.jpeg?raw=true",
+  },
+  {
+    id: 18,
+    title: "Boerenkool",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/boerenkool.jpeg?raw=true",
+  },
+  {
+    id: 19,
+    title: "Elstar",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/elstar.webp?raw=true",
+  },
+  {
+    id: 20,
+    title: "Peer",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/peer.jpeg?raw=true",
+  },
+  {
+    id: 20,
+    title: "Knolselderij",
+    imgUrl: "https://raw.githubusercontent.com/NouryJanse/recipes/main/_assets/veggies/knolselderij.jpeg?raw=true",
   },
 ];

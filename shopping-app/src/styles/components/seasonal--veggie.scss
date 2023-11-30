@@ -4,9 +4,28 @@
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-  padding: var(--step-4) var(--step-7);
+  padding: var(--step--1) var(--step-0);
   border-radius: 8px;
   overflow: hidden;
   color: white;
   cursor: pointer;
+  align-items: flex-end;
+
+  span {
+    margin-top: var(--step-3);
+    font-size: var(--step--1);
+    display: grid;
+    grid-auto-columns: max-content;
+
+    @include sm {
+      font-size: var(--step--1);
+    }
+
+    @include md {
+    }
+
+    @include lg {
+      font-size: var(--step--2);
+    }
+  }
 }

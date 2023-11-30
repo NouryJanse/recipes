@@ -18,8 +18,16 @@
     align-items: center;
   }
 
-  * {
+  input[type="checkbox"],
+  .amount-unit,
+  button:nth-child(1) {
     margin-right: var(--step--1);
+  }
+
+  @include md {
+    * {
+      margin-right: var(--step--1);
+    }
   }
 
   .highlight {
