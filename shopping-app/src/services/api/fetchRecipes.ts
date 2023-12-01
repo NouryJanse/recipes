@@ -2,7 +2,7 @@ const fetchRecipes = async () => {
   try {
     const RECIPES_API_URL = import.meta.env.RECIPES_API_URL;
     if (RECIPES_API_URL) {
-      const recipesJSON = await fetchWithTimeout(`${RECIPES_API_URL}/api/recipes`, { timeout: 1200 });
+      const recipesJSON = await fetchWithTimeout(`${RECIPES_API_URL}/api/recipes`, { timeout: 750 });
       if (recipesJSON.status === 200) {
         return await recipesJSON.json();
       }

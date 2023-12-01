@@ -4,6 +4,7 @@ type InputTextProps = {
   label: string;
   inputRef: any;
   value: string;
+  name: string;
   onInput: (event: Event) => void;
   defaultValue: string;
   placeholder: string;
@@ -13,6 +14,7 @@ const InputText: FunctionComponent<InputTextProps> = ({
   label,
   inputRef,
   value,
+  name,
   onInput,
   defaultValue,
   placeholder,
@@ -26,7 +28,7 @@ const InputText: FunctionComponent<InputTextProps> = ({
           ref={inputRef}
           type="text"
           value={value}
-          name="ingredientName"
+          name={name}
           defaultValue={defaultValue}
           onInput={onInput}
           placeholder={placeholder}

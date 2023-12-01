@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "preact/hooks";
 import type { FunctionComponent } from "preact";
+import Button from "../Form/Button";
 
 interface ModalProps {
   isOpen: boolean;
@@ -29,7 +30,11 @@ const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onCl
     >
       <div>
         {title ? <h2>{title}</h2> : ""}
-        {hasCloseBtn && <button onClick={() => onClose()}>Close</button>}
+        {hasCloseBtn && (
+          <Button type="submit" style="tertiary" onClick={onClose}>
+            Close
+          </Button>
+        )}
       </div>
 
       {children}

@@ -22,11 +22,9 @@
   .amount-unit,
   button:nth-child(1) {
     margin-right: var(--step--1);
-  }
 
-  @include md {
-    * {
-      margin-right: var(--step--1);
+    @include lg {
+      margin-right: var(--step-0);
     }
   }
 
@@ -37,34 +35,14 @@
   .amount-unit-ingredient {
     display: flex;
     flex-direction: row;
+    margin-right: var(--step-1);
+
+    @include lg {
+      margin-right: var(--step-2);
+    }
 
     div.amount-unit {
       min-width: var(--step-5);
     }
-  }
-
-  @include sm {
-    max-width: 70vw;
-  }
-
-  @include md {
-    max-width: 60vw;
-  }
-
-  @include lg {
-    max-width: 45vw;
-    margin-bottom: var(--step--1);
-  }
-
-  @include xl {
-    max-width: 40vw;
-  }
-
-  @include xxl {
-    max-width: 33vw;
-  }
-
-  @include xxxl {
-    max-width: 32vw;
   }
 }

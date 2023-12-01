@@ -16,6 +16,7 @@ import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
 // UI
 import CreateShoppingItemModal, { type FormStateType } from "../CreateShoppingItemModal";
 import ShoppingItems from "../ShoppingItems";
+import Button from "../Form/Button";
 
 const SOCKET_API_URL = import.meta.env.PUBLIC_SOCKET_API_URL as string;
 const socket = io(SOCKET_API_URL, {});
@@ -49,7 +50,7 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   }, [user]);
 
   return (
-    <div className="shoppping-list">
+    <div className="shopping--items">
       <CreateShoppingItemModal
         isOpen={dialogOpened}
         onClose={() => {
@@ -61,9 +62,9 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
 
       <div className="ingredientsTitleContainer">
         <h3>Ingredients</h3>
-        <button className="attention" onClick={() => setDialogOpened(true)}>
+        <Button type="button" style="secondary" onClick={() => setDialogOpened(true)}>
           Add another
-        </button>
+        </Button>
       </div>
 
       <ShoppingItems list={list} onUpdate={onUpdate} onDelete={onDelete} onEdit={onEdit} />

@@ -1,0 +1,30 @@
+.shopping--items {
+  padding: 0;
+  margin-bottom: var(--step--1);
+  width: 100%;
+
+  @include md {
+    padding-right: var(--step-1);
+  }
+
+  @include md {
+    max-width: 50vw;
+  }
+
+  @include lg {
+    max-width: 45vw;
+    margin-bottom: var(--step--1);
+  }
+
+  @include xl {
+    max-width: 40vw;
+  }
+
+  @include xxl {
+    max-width: 33vw;
+  }
+
+  @include xxxl {
+    max-width: 30vw;
+  }
+}
