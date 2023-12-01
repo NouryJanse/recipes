@@ -67,13 +67,6 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   );
 };
 
-export const updateLocalStorage = (updatedList: TypeShoppingItem[]) => {
-  if (typeof window !== "undefined") {
-    // Perform localStorage action
-    localStorage.setItem("shoppingList", getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList));
-  }
-};
-
 export const syncToSocket = (updatedList: TypeShoppingItem[]) => {
   const body = getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList);
   socket.emit("listUpdate", body);
@@ -97,6 +90,13 @@ const activateSocket = () => {
     // socket.off("message");
     socket.off("onShoppingListUpdate");
   };
+};
+
+export const updateLocalStorage = (updatedList: TypeShoppingItem[]) => {
+  if (typeof window !== "undefined") {
+    // Perform localStorage action
+    localStorage.setItem("shoppingList", getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList));
+  }
 };
 
 const checkForExistingShoppingList = (dbShoppingList: any) => {

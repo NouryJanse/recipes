@@ -4,9 +4,10 @@ import Footer from "./Footer.astro";
 interface Props {
   title: string;
   description?: string;
+  showFooter?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, showFooter = true } = Astro.props;
 ---
 
 <!doctype html>
@@ -21,7 +22,7 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <slot />
-    <Footer />
+    {showFooter ? <Footer /> : ""}
   </body>
 </html>
 <style is:global></style>

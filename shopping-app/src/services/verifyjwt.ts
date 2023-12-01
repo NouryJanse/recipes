@@ -1,4 +1,4 @@
-import jwt, { type JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 const jwtSecret: string = import.meta.env.JWT_SECRET as string;
 
 const verifyJWT = (token: string): boolean | string | jwt.JwtPayload => {
