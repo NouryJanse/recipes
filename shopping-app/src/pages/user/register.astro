@@ -17,44 +17,41 @@ if (user) {
 ---
 
 <Layout title="Register">
-  <div class="page--login">
+  <div class="page--register-login page--register">
     <div class="container login-hero">
       <h1>Register</h1>
+      <div class="blob"></div>
     </div>
 
     <div class="container login-form">
       <h1>Register</h1>
 
       <form action="/api/user/register" method="post">
-        <section>
-          <label for="username">
-            <span>Username</span>
+        <label for="username">
+          <span>Username</span>
 
-            <input
-              id="username"
-              name="username"
-              type="text"
-              autocomplete="username"
-              required
-              placeholder="Username here..."
-            />
-          </label>
-        </section>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            required
+            placeholder="Username here..."
+          />
+        </label>
 
-        <section>
-          <label for="new-password">
-            <span>Password</span>
+        <label for="new-password">
+          <span>Password</span>
 
-            <input
-              id="new-password"
-              name="password"
-              type="password"
-              autocomplete="new-password"
-              required
-              placeholder="Password here..."
-            />
-          </label>
-        </section>
+          <input
+            id="new-password"
+            name="password"
+            type="password"
+            autocomplete="new-password"
+            required
+            placeholder="Password here..."
+          />
+        </label>
 
         <input type="hidden" name="_csrf" value={token} />
 

@@ -50,17 +50,17 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
   if (!recipe) return <p>Error, no recipe found.</p>;
 
   return (
-    <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 overflow-hidden">
-      <a href={`recipes/${recipe.id}`} className="recipe--card">
-        <div
-          style={{
-            backgroundImage: mainImage,
-            boxShadow: !isHovering ? "inset 0 0 0 2000px rgba(0, 0, 0, 0.3)" : "inset 0 0 0 2000px rgba(0, 0, 0, 0.4)",
-          }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {/* <div
+    <a
+      className="recipe--card"
+      style={{
+        backgroundImage: mainImage,
+        boxShadow: !isHovering ? "inset 0 0 0 2000px rgba(0, 0, 0, 0.21)" : "inset 0 0 0 2000px rgba(0, 0, 0, 0.5)",
+      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      href={`recipes/${recipe.id}`}
+    >
+      {/* <div
         className={classNames(
           {
             visible: showNewLabel(),
@@ -72,19 +72,15 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
         New!
       </div> */}
 
-          <div className="">
-            <div className="">
-              <h2 className="">{recipe.name}</h2>
+      <div>
+        <h3>{recipe.name}</h3>
 
-              <p className="">
-                {recipe.course}
-                {/* <i>{courseName(recipe.course ? recipe.course : "", RECIPE_COURSE_OPTIONS)}</i> */}
-              </p>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
+        <span className="">
+          {recipe.course}
+          {/* <i>{courseName(recipe.course ? recipe.course : "", RECIPE_COURSE_OPTIONS)}</i> */}
+        </span>
+      </div>
+    </a>
   );
 };
 

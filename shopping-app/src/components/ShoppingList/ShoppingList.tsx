@@ -29,7 +29,6 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   const list = useStore($list);
   const [dialogOpened, setDialogOpened] = useState(false);
   const modalShoppingItem = useStore($modalShoppingItem);
-  const user = useStore($user);
 
   useEffect(() => {
     activateSocket();
@@ -44,10 +43,6 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
       setDialogOpened(false);
     }
   }, [modalShoppingItem]);
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   return (
     <div className="shopping--items">

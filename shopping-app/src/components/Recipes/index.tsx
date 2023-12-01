@@ -7,10 +7,10 @@ type RecipesProps = {
 
 const Recipes: FunctionComponent<RecipesProps> = ({ recipes }) => {
   return (
-    <div className="container">
+    <div className="recipe--cards">
       <h2>Recipes</h2>
 
-      <div className="row">
+      <div>
         {recipes && recipes.length > 0 ? (
           recipes.map((recipe: any) => {
             return <RecipeCard recipe={recipe} withEditButton={false} withRemovalButton={false} />;

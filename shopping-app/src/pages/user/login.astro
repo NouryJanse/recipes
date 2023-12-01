@@ -17,45 +17,44 @@ if (user) {
 ---
 
 <Layout title="Login" description="Login to the groceries and recipes application.">
-  <div class="page--login">
+  <div class="page--register-login">
     <div class="container login-hero">
-      <h1>Sign in</h1>
+      <div>
+        <h1>Sign in</h1>
+        <div class="blob"></div>
+      </div>
     </div>
 
     <div class="container login-form">
       <h1>Sign in</h1>
 
       <form action="/api/user/login" method="post">
-        <section>
-          <label for="username">
-            <span>Username</span>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              autocomplete="username"
-              placeholder="Username here..."
-              required
-              autofocus
-              value="alice"
-            />
-          </label>
-        </section>
+        <label for="username">
+          <span>Username</span>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            placeholder="Username here..."
+            required
+            autofocus
+            value="alice"
+          />
+        </label>
 
-        <section>
-          <label for="current-password">
-            <span>Password</span>
-            <input
-              id="current-password"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-              placeholder="Password here..."
-              required
-              value="wonderland"
-            />
-          </label>
-        </section>
+        <label for="current-password">
+          <span>Password</span>
+          <input
+            id="current-password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Password here..."
+            required
+            value="wonderland"
+          />
+        </label>
 
         <input type="hidden" name="_csrf" value={token} />
 

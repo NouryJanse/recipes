@@ -43,7 +43,7 @@ dialog.modal {
     padding: 4rem;
   }
 
-  > div {
+  > div:first-of-type {
     margin-bottom: var(--step-2);
     display: flex;
     flex-direction: row;

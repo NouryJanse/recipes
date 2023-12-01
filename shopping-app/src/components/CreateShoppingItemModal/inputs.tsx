@@ -2,16 +2,16 @@ import type { FunctionComponent, RefObject } from "preact";
 import InputText from "../Form/InputText";
 import InputNumber from "../Form/InputNumber";
 import Select from "../Form/Select";
-import type { FormStateType } from ".";
 import { useEffect, useRef } from "preact/hooks";
+import { handleInputChange } from "./helpers";
+import type { FormStateType } from "../../services/store";
 
 type InputsProps = {
   formState: FormStateType;
-  handleInputChange: (event: Event) => void;
   isOpen: boolean;
 };
 
-const Inputs: FunctionComponent<InputsProps> = ({ formState, handleInputChange, isOpen }) => {
+const Inputs: FunctionComponent<InputsProps> = ({ formState, isOpen }) => {
   const focusInputRef = useRef<HTMLInputElement | null>(null);
   useEffect(() => {
     if (isOpen) {

@@ -30,8 +30,6 @@ if (user) {
 
   <div class="container shopping--container">
     {user ? <ShoppingList client:load dbShoppingList={dbShoppingList} /> : <a href="/user/login">Login</a>}
-    <SeasonalVeggieList client:idle />
+    <Recipes client:idle recipes={recipes} />
   </div>
-
-  <Recipes client:idle recipes={recipes} />
 </Layout>

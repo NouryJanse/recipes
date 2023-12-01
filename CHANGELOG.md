@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.1] - 2023-12-01
+
+### Added
+
+- Blob animation to login/register page
+
+### Changed
+
+- Moved seasonal veggies into modal
+- Moved recipes next to groceries list
+- Refactored code of modal in separate file
+- FormState now in nanostore instead of useState
+- General styling improved
+
 ## [0.0.1] - 2023-11-13
 
 ### Added
