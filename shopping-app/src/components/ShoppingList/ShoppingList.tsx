@@ -26,7 +26,11 @@ import ShoppingItems from "../ShoppingItems";
 import Button from "../Form/Button";
 
 function getSomeEnvVariable() {
-  return import.meta.env.PUBLIC_SOCKET_API_URL ?? process.env.PUBLIC_SOCKET_API_URL;
+  return import.meta.env.PUBLIC_SOCKET_API_URL
+    ? import.meta.env.PUBLIC_SOCKET_API_URL
+    : process.env.SOCKET_API_URL
+      ? process.env.SOCKET_API_URL
+      : "";
 }
 
 const SOCKET_API_URL = getSomeEnvVariable() as string;
