@@ -14,7 +14,7 @@ import {
 import { useStore } from "@nanostores/preact";
 
 // helpers
-import type { TypeShoppingItem, User } from "../../services/types.db";
+import type { TypeShoppingItem } from "../../services/types.db";
 import deleteObjectWithIdFromArray from "../../helpers/deleteObjectWithIdFromArray";
 import updateArrayWithObjectById from "../../helpers/updateArrayWithObjectById";
 import getFormattedShoppingList from "../../helpers/getFormattedShoppingList";
@@ -25,7 +25,11 @@ import CreateShoppingItemModal from "../CreateShoppingItemModal";
 import ShoppingItems from "../ShoppingItems";
 import Button from "../Form/Button";
 
-const SOCKET_API_URL = import.meta.env.PUBLIC_SOCKET_API_URL as string;
+function getSomeEnvVariable() {
+  return import.meta.env.PUBLIC_SOCKET_API_URL ?? process.env.PUBLIC_SOCKET_API_URL;
+}
+
+const SOCKET_API_URL = getSomeEnvVariable() as string;
 console.log(SOCKET_API_URL);
 
 const socket = io(SOCKET_API_URL, {});
