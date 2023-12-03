@@ -30,7 +30,7 @@ function getSomeEnvVariable() {
     ? import.meta.env.PUBLIC_SOCKET_API_URL
     : process.env.SOCKET_API_URL
       ? process.env.SOCKET_API_URL
-      : "";
+      : "https://shopping-server-iggv.onrender.com";
 }
 
 const SOCKET_API_URL = getSomeEnvVariable() as string;
