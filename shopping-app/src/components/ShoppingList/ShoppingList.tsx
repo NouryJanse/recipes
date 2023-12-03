@@ -3,7 +3,14 @@ import { useEffect, useState } from "preact/hooks";
 import io from "socket.io-client";
 
 // data
-import { $list, $modalShoppingItem, $user, setModalShoppingItem, setShoppingList } from "../../services/store";
+import {
+  $list,
+  $modalShoppingItem,
+  $user,
+  setModalShoppingItem,
+  setShoppingList,
+  type FormStateType,
+} from "../../services/store";
 import { useStore } from "@nanostores/preact";
 
 // helpers
@@ -14,11 +21,13 @@ import getFormattedShoppingList from "../../helpers/getFormattedShoppingList";
 import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
 
 // UI
-import CreateShoppingItemModal, { type FormStateType } from "../CreateShoppingItemModal";
+import CreateShoppingItemModal from "../CreateShoppingItemModal";
 import ShoppingItems from "../ShoppingItems";
 import Button from "../Form/Button";
 
 const SOCKET_API_URL = import.meta.env.PUBLIC_SOCKET_API_URL as string;
+console.log(SOCKET_API_URL);
+
 const socket = io(SOCKET_API_URL, {});
 
 type ShoppingListProps = {
