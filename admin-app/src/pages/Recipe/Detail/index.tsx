@@ -1,68 +1,71 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
-import RecipeContainer from './styled'
-import { deleteRecipe, getRecipes } from '../../../redux/reducers/recipes/recipeSlice'
 import { formatNLDateTime } from '../../../helpers/DateHelper'
-import RootState from '../../../types/RootState'
 import REPLACEMENT_IMAGES from '../../../constants/REPLACEMENT_IMAGES'
 import Navigation from './navigation'
+import { useDeleteRecipeMutation, useGetRecipeQuery } from '../../../redux/reducers/recipes/recipes'
 
 const RecipeDetail: React.FC = (): ReactElement => {
-  const [recipe, setRecipe] = useState<Recipe>({} as Recipe)
-  const dispatch = useDispatch()
+  const [id, setId] = useState<number>(-1)
+  const [skip, setSkip] = useState<boolean>(true)
   const navigate = useNavigate()
   const params = useParams()
-  const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
+  const { data, error, isLoading } = useGetRecipeQuery(id, {
+    skip,
+  })
+  const [deleteRecipe, { isLoading: isDeleting }] = useDeleteRecipeMutation()
 
   useEffect(() => {
     if (params.recipeId !== undefined) {
-      const localRecipe = recipes.find((currentRecipe) => {
-        return currentRecipe.id === Number(params.recipeId!)
-      })
-      if (localRecipe) setRecipe(localRecipe as Recipe)
+      setId(Number.parseInt(params.recipeId, 10))
+      setSkip(false)
     }
-  }, [params.recipeId, recipes])
+  }, [params.recipeId])
 
   const onDelete = async (recipeId: number): Promise<boolean> => {
     if (!recipeId) return false
-    // @ts-ignore:next-line
-    await dispatch(deleteRecipe(recipeId))
-    // @ts-ignore:next-line
-    await dispatch(getRecipes())
+    await deleteRecipe(id).unwrap()
     navigate('/recipes')
     return true
   }
 
-  if (!recipe.id) return <p>Error, no recipe found.</p>
-
   return (
-    <RecipeContainer>
-      <div
-        style={{
-          backgroundImage:
-            recipe.images && recipe.images.length
-              ? `url('${recipe.images[0].url}')`
-              : `url('${REPLACEMENT_IMAGES.recipeCard}')`,
-          boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.18)',
-        }}
-        className="relative mb-16 bg-cover bg-no-repeat bg-center overflow-hidden"
-      >
-        <h1 className="text-xl xl:text-4xl font-bold pt-32 pb-32 pl-10 text-white">{recipe.name}</h1>
-      </div>
+    <>
+      {error ? (
+        <>Oh no, there was an error</>
+      ) : isLoading ? (
+        <>loading...</>
+      ) : data ? (
+        <>
+          <div>
+            <div
+              style={{
+                backgroundImage:
+                  data.images && data.images.length
+                    ? `url('${data.images[0].url}')`
+                    : `url('${REPLACEMENT_IMAGES.recipeCard}')`,
+                boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.18)',
+              }}
+              className="relative mb-16 bg-cover bg-no-repeat bg-center overflow-hidden"
+            >
+              <h1 className="text-xl xl:text-4xl font-bold pt-32 pb-32 pl-10 text-white">{data.name}</h1>
+            </div>
 
-      <div className="mb-4">
-        {recipe.updatedAt && <p>Updated: {formatNLDateTime(recipe.updatedAt)}</p>}
-        {recipe.createdAt && <p>Created: {formatNLDateTime(recipe.createdAt)}</p>}
-      </div>
+            <div className="mb-4">
+              {data.updatedAt && <p>Updated: {formatNLDateTime(data.updatedAt)}</p>}
+              {data.createdAt && <p>Created: {formatNLDateTime(data.createdAt)}</p>}
+            </div>
 
-      {recipe.description && <p className="mb-4">{recipe.description}</p>}
+            {data.description && <p className="mb-4">{data.description}</p>}
 
-      <i className="block mb-4">{recipe.course}</i>
+            <i className="block mb-4">{data.course}</i>
 
-      <Navigation recipe={recipe} onDelete={onDelete} />
-    </RecipeContainer>
+            <Navigation recipe={data} onDelete={onDelete} />
+          </div>
+        </>
+      ) : null}
+    </>
   )
 }
 

@@ -12,7 +12,6 @@ type IngredientsTableProps = {
 
 const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients }): ReactElement => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -30,8 +29,7 @@ const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients }): Rea
       headerName: 'Updated At',
       type: 'date',
       width: 200,
-      valueGetter: (params: GridValueGetterParams) =>
-        `${params.row.updatedAt ? formatNLDateTime(params.row.updatedAt) : ''}`,
+      valueGetter: (params: GridValueGetterParams) => new Date(params.row.updatedAt), //`${params.row.updatedAt ? formatNLDateTime(params.row.updatedAt) : ''}`,
     },
     {
       field: 'published',

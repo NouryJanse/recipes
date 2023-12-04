@@ -23,8 +23,8 @@ const router = express.Router()
 router.use((req, res, next) => {
   if (
     env === 'production' &&
-    ((!req.originalUrl.includes('/api/recipes') && !req.originalUrl.includes('/api/ingredients')) ||
-      req.hostname.includes('localhost'))
+    !req.originalUrl.includes('/api/recipes') &&
+    !req.originalUrl.includes('/api/ingredients')
   ) {
     // only allow the route /api/recipes for now in production
     return res.status(500).send()
@@ -35,5 +35,5 @@ router.use((req, res, next) => {
 app.use('/', [router, ingredientRoutes, recipeRoutes])
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`)
+  console.info(`Server running at http://localhost:${port}`)
 })

@@ -1,39 +1,22 @@
-import React, { ReactElement, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { ReactElement } from 'react'
 import { Outlet, useParams } from 'react-router-dom'
 
-import { getRecipes } from '../../../redux/reducers/recipes/recipeSlice'
-import RootState from '../../../types/RootState'
 import { Loader, PageTitle, RecipeCard } from '../../../components'
-import { REDUX_STATE } from '../../../constants'
+import { useGetRecipesQuery } from '../../../redux/reducers/recipes/recipes'
 
 const Recipes: React.FC = (): ReactElement | null => {
-  const dispatch = useDispatch()
-  const recipes: Recipe[] = useSelector((state: RootState) => state.recipeSlice.data.recipes)
-  const status = useSelector((state: RootState) => state.recipeSlice.status)
   const params = useParams()
+  const { data: recipes, isLoading } = useGetRecipesQuery()
 
-  useEffect(() => {
-    if (!recipes || recipes?.length < 1) {
-      // @ts-ignore:next-line
-      dispatch(getRecipes())
-    }
-  }, [])
-
-  // Should be styled and moved into a component in the Recipe subfolder
-  if (status.getRecipes === REDUX_STATE.REJECTED) {
-    return <span>Error in fetching the recipes.</span>
-  }
-
-  if (recipes?.length < 1) {
+  if (!recipes || (recipes && recipes?.length < 1)) {
     return null
   }
 
   return (
     <div className="pt-7">
-      <div>{status.getRecipes === REDUX_STATE.LOADING && <Loader />}</div>
+      <div>{isLoading && <Loader />}</div>
 
-      {!params.recipeId && recipes?.length ? (
+      {!params.recipeId ? (
         <div>
           <PageTitle text={`${recipes.length} delicous meals`} />
 

@@ -1,35 +1,27 @@
-import { useEffect, useState, useRef, ReactElement, ChangeEvent } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams, Link } from 'react-router-dom'
+import { useEffect, useState, useRef, ReactElement } from 'react'
+import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
 import { updateIngredient } from '../../../redux/reducers/ingredients/ingredientSlice'
 
-import { Button, Textfield, FieldContainer, Loader, Number, Toggle, Dropdown } from '../../../components/index'
-
-import RootState from '../../../types/RootState'
-import isLoading from '../../../helpers/LoadingHelper'
-import { PageTitle } from '../../../components'
-import { INGREDIENT_UNITS, REDUX_STATE } from '../../../constants'
+import { Loader, PageTitle } from '../../../components'
 import Form from './form'
+import { useGetIngredientQuery } from '../../../redux/reducers/ingredients/ingredients'
 
 const EditIngredient: React.FC = (): ReactElement => {
   const dispatch = useDispatch()
   const params = useParams()
   const formRef = useRef()
 
-  const ingredients = useSelector((state: RootState) => state.ingredientSlice.data.ingredients)
-  const status = useSelector((state: RootState) => state.ingredientSlice.status)
-
-  const [id, setId] = useState<string | undefined>('')
-  const [ingredient, setIngredient] = useState<Ingredient>()
   const [btnClasses, setBtnClasses] = useState('mb-10')
-  const [toggle, setToggle] = useState(ingredient ? ingredient.published : false)
   const [unit, setUnit] = useState<string>('')
   const [ingredientName, setIngredientName] = useState<string>('')
 
-  const hasURLParams = useRef(false)
-
+  const [id, setId] = useState<number>(-1)
+  const [skip, setSkip] = useState<boolean>(true)
+  const { data: ingredient, isLoading } = useGetIngredientQuery(id, { skip })
+  const [toggle, setToggle] = useState(ingredient ? ingredient.published : false)
   const {
     register,
     handleSubmit,
@@ -37,6 +29,23 @@ const EditIngredient: React.FC = (): ReactElement => {
     watch,
     setValue,
   } = useForm()
+
+  useEffect(() => {
+    if (params.ingredientId !== undefined) {
+      setId(Number.parseInt(params.ingredientId, 10))
+      setSkip(false)
+    }
+  }, [params.ingredientId])
+
+  useEffect(() => {
+    if (isDirty) setBtnClasses('font-bold mb-10')
+    if (ingredient?.name) setIngredientName(ingredient.name)
+
+    if (ingredient) {
+      setToggle(ingredient.published)
+      setUnit(ingredient.unit)
+    }
+  }, [ingredient, ingredient, isDirty])
 
   const dispatchEdit = async (data: Ingredient, editedIngredient: Ingredient): Promise<boolean> => {
     if (!editedIngredient.id || !data.name) return false
@@ -51,42 +60,21 @@ const EditIngredient: React.FC = (): ReactElement => {
     if (ingredient) dispatchEdit(formData, ingredient)
   }
 
-  useEffect(() => {
-    if (isDirty) setBtnClasses('font-bold mb-10')
-
-    if (hasURLParams.current === false || !ingredient || !id) {
-      if (!typeof params.ingredientId !== undefined) setId(params.ingredientId)
-
-      if (id !== undefined && ingredients && ingredients.length) {
-        // push find into a helper function
-        setIngredient(
-          ingredients.find((currentIngredient) => {
-            return currentIngredient.id === parseInt(id.toString(), 10)
-          }),
-        )
-      }
-    }
-
-    if (ingredient?.name) {
-      setIngredientName(ingredient.name)
-    }
-
-    if (ingredient && status.updateIngredient !== REDUX_STATE.LOADING) {
-      setToggle(ingredient.published)
-      setUnit(ingredient.unit)
-    }
-  }, [watch, ingredient, id, ingredient, params, isDirty])
+  const handleToggle = (): void => {
+    setValue('published', !toggle)
+    setToggle(!toggle)
+  }
 
   const debouncedSubmit = useRef(
-    debounce(async (data, currentIngredient) => {
-      dispatchEdit(data, currentIngredient)
+    debounce(async (data, currentIngredient, func) => {
+      func(data, currentIngredient)
     }, 750),
   ).current
 
   useEffect(() => {
     const subscription = watch(async (data) => {
       await setIngredientName(data.name)
-      debouncedSubmit(data, ingredient)
+      debouncedSubmit(data, ingredient, dispatchEdit)
     })
     return (): void => subscription.unsubscribe()
   }, [watch, ingredient, debouncedSubmit])
@@ -94,17 +82,11 @@ const EditIngredient: React.FC = (): ReactElement => {
   // Should be styled and moved into a component in the Ingredient subfolder
   if (!ingredient) return <p>Error, no ingredient found or still loading the ingredient from the server.</p>
 
-  const handleToggle = (): void => {
-    setValue('published', !toggle)
-    setToggle(!toggle)
-  }
-
   return (
     <div className="pt-7">
       <div className="flex items-center">
         <PageTitle text={`Editing ${ingredientName}`} />
-
-        {isLoading(status) && <Loader />}
+        {isLoading && <Loader />}
       </div>
 
       <Form

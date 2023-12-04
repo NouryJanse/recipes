@@ -6,22 +6,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import RootState from '../../../../../types/RootState'
 import { getIngredients } from '../../../../../redux/reducers/ingredients/ingredientSlice'
 import { Button, FieldContainer } from '../../../../index'
+import { useGetIngredientsQuery } from '../../../../../redux/reducers/ingredients/ingredients'
 
 type WrapperRecipeIngredientsType = {
   recipe: Recipe
 }
 
 const WrapperRecipeIngredients: React.FC<WrapperRecipeIngredientsType> = ({ recipe }): ReactElement => {
-  const dispatch = useDispatch()
-  const ingredients = useSelector((state: RootState) => state.ingredientSlice.data.ingredients)
-  const [showAdd, setShowAdd] = useState<boolean>(false)
-
-  useEffect(() => {
-    if (!ingredients || ingredients?.length < 1) {
-      // @ts-ignore:next-line
-      dispatch(getIngredients())
-    }
-  }, [dispatch, ingredients])
+  const [show, setShow] = useState<boolean>(false)
 
   return (
     <FieldContainer classes="mt-6">
@@ -34,12 +26,12 @@ const WrapperRecipeIngredients: React.FC<WrapperRecipeIngredientsType> = ({ reci
           <Button
             type="submit"
             buttonStyle="secondary"
-            label={showAdd ? 'x Hide new ingredient' : '+ Add ingredient'}
-            onClick={() => setShowAdd(!showAdd)}
+            label={show ? 'x Hide new ingredient' : '+ Add ingredient'}
+            onClick={() => setShow(!show)}
           />
         </div>
 
-        {showAdd && <AddRecipeIngredient recipe={recipe} setShowAdd={setShowAdd} />}
+        {show && <AddRecipeIngredient recipe={recipe} setShowAdd={setShow} />}
 
         {recipe.ingredients && recipe.ingredients.length ? (
           <>

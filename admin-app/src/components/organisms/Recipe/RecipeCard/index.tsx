@@ -36,14 +36,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
     return true
   }
 
-  const handleMouseEnter = (): void => {
-    setIsHovering(true)
-  }
-
-  const handleMouseLeave = (): void => {
-    setIsHovering(false)
-  }
-
   const showNewLabel = (): boolean => {
     if (recipe.createdAt && getDifferenceInFormat(recipe.createdAt, 'd') < 7) return true
     return false
@@ -57,7 +49,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
     }
   }, [recipe, recipes])
 
-  // Should be styled and moved into a component in the Recipe subfolder
   if (!recipe) return <p>Error, no recipe found.</p>
 
   return (
@@ -69,8 +60,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
       onClick={(): void => {
         navigate(`/recipes/${recipe.id}`)
       }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
       className="cardAnimation"
     >
       <div

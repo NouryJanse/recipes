@@ -32,14 +32,6 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
     return true
   }
 
-  const handleMouseEnter = (): void => {
-    setIsHovering(true)
-  }
-
-  const handleMouseLeave = (): void => {
-    setIsHovering(false)
-  }
-
   return (
     <IngredientContainer
       style={{
@@ -49,8 +41,8 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
       onClick={(): void => {
         navigate(`/ingredients/${ingredient.id}`)
       }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
     >
       <span className="mb-2 flex">{ingredient.name}</span>
       <div className="mb-2">{ingredient.calorieCount}</div>

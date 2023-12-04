@@ -12,6 +12,7 @@ import {
 import RootState from '../../../../../types/RootState'
 import { getRecipe } from '../../../../../redux/reducers/recipes/recipeSlice'
 import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
+import { useGetIngredientsQuery } from '../../../../../redux/reducers/ingredients/ingredients'
 
 interface EditableIngredientListProps {
   ingredient: RecipeIngredient
@@ -27,7 +28,8 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
   const user: User = useSelector((state: RootState) => state.userSlice.data.user)
   const dispatch = useDispatch()
   const [updatedIngredient, setUpdatedIngredient] = useState<RecipeIngredient>()
-  const ingredients = useSelector((state: RootState) => state.ingredientSlice.data.ingredients)
+  // const ingredients = useSelector((state: RootState) => state.ingredientSlice.data.ingredients)
+  // const { data: ingredients, isLoading } = useGetIngredientsQuery()
   const [unit, setUnit] = useState<LocalUnit>({ id: ingredient.id, unit: ingredient.unit })
   const [ref, setRef] = useState<StateManagedSelect>()
   const [options, setOptions] = useState<Option[]>()

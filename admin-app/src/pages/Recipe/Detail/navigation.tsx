@@ -15,6 +15,7 @@ const Navigation: React.FC<NavigationProps> = ({ recipe, onDelete }): ReactEleme
         <IoChevronBackOutline />
         Back to Recipes
       </Link>
+
       <div className="flex flex-row">
         <Link to={`/recipes/${recipe.id}/edit`}>
           <Button type="button" label="Edit" buttonStyle="secondary" classes="mr-2" />

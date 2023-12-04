@@ -20,14 +20,7 @@ router.post('/api/recipes', async (req, res) => {
     const { name, description, authorId, course } = req.body
     const recipe = await createRecipe(name, description, authorId, course)
     if (!recipe) throw new Error('An error occurred')
-    const recipes = await getRecipes()
-
-    // const cache = req.serverCache()
-    // if (cache && cache.has('recipes')) {
-    //   cache.del('recipes')
-    // }
-
-    return res.status(HTTP_CODES.CREATED).send({ recipes })
+    return res.status(HTTP_CODES.CREATED).send({ recipe })
   } catch (error) {
     console.error(error)
     // if (error instanceof ObjectAlreadyExistsError) {
@@ -37,7 +30,7 @@ router.post('/api/recipes', async (req, res) => {
   }
 })
 
-// // GET RECIPES
+// GET RECIPES
 router.get('/api/recipes', async (req, res) => {
   try {
     const recipes = await getRecipes()
@@ -48,13 +41,12 @@ router.get('/api/recipes', async (req, res) => {
   }
 })
 
-// // GET RECIPE
+// GET RECIPE
 router.get('/api/recipes/:id', async (req, res) => {
   try {
     const { id } = req.params
     const recipe: Recipe = await getRecipe(Number.parseInt(id, 10))
     return res.status(HTTP_CODES.OK).send(formatRecipeImages([recipe])[0])
-    // res.status(HTTP_CODES.OK).send(recipe)
   } catch (error) {
     console.error(error)
     // if (error instanceof ObjectCouldNotBeFoundError) {
@@ -84,14 +76,8 @@ router.put('/api/recipes/:id', async (req, res) => {
         })
         .catch((err) => {
           console.error(err)
-          // req.log.error(err);
         })
     }
-
-    // const cache = req.serverCache();
-    // if (cache && cache.has("recipes")) {
-    //   cache.del("recipes");
-    // }
 
     if (recipe && recipe.id) {
       const recipeWithImage = await getRecipe(Number(recipe.id))
@@ -102,7 +88,6 @@ router.put('/api/recipes/:id', async (req, res) => {
     return res.status(HTTP_CODES.NOT_FOUND).send({})
   } catch (error) {
     console.error(error)
-
     // if (error instanceof ObjectCouldNotBeFoundError) {
     //   return reply.code(HTTP_CODES.UNPROCESSABLE_ENTITY).send({ message: error.message });
     // }
@@ -116,14 +101,7 @@ router.put('/api/recipes/:id', async (req, res) => {
 router.delete('/api/recipes/:id', async (req, res) => {
   try {
     const { id } = req.params
-    // // improve the cache by implementing an id system so that individual recipes can be invalidated
-    // const cache = request.serverCache();
-
     const result = await deleteRecipe(Number(id))
-    // if (cache && cache.has("recipes")) {
-    //   cache.del("recipes");
-    // }
-
     return res.status(HTTP_CODES.OK).send(result)
   } catch (error) {
     console.error(error)
@@ -133,9 +111,6 @@ router.delete('/api/recipes/:id', async (req, res) => {
 
 // SAVE RECIPE IMAGE
 router.post('/api/recipes/image/:id', async (req, res) => {
-  // console.log(req.params)
-  // console.log(req.body)
-
   const recipeId = +req.params.id
   if (req.body.image.data) {
     const image: Image | false = await createImage(req.body.image.data, recipeId)
@@ -150,11 +125,6 @@ router.post('/api/recipes/image/:id', async (req, res) => {
 // DELETE RECIPE IMAGE
 router.delete('/api/recipes/image', async (req, res) => {
   try {
-    // improve the cache by deleting the recipe instance of that relates to this image - instead of all recipes
-    // const cache = request.serverCache()
-    // if (cache) {
-    //   cache.del('recipes')
-    // }
     const { cloudinaryPublicId } = req.body
     await deleteImage(cloudinaryPublicId)
     return res.status(HTTP_CODES.OK).send({})

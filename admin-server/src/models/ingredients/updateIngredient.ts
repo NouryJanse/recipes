@@ -12,7 +12,7 @@ const updateIngredient = async (
   published: boolean,
 ): Promise<Ingredient | false> => {
   try {
-    const ingredient = await prisma.ingredient.update({
+    return prisma.ingredient.update({
       where: {
         id,
       },
@@ -23,8 +23,6 @@ const updateIngredient = async (
         published,
       },
     })
-
-    return ingredient
   } catch (error) {
     console.error(error)
     if (error instanceof PrismaClientKnownRequestError && error.code === 'P2025') {

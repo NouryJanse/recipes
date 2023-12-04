@@ -1,6 +1,5 @@
 import { atom } from "nanostores";
 import type { TypeShoppingItem, User } from "./types.db";
-import type { FormStateType } from "../components/CreateShoppingItemModal";
 
 export interface FormStateType {
   amount: string;

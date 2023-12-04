@@ -1,13 +1,5 @@
 import React, { ChangeEvent, ReactElement } from 'react'
-import {
-  Dropdown,
-  FieldContainer,
-  Images,
-  Textarea,
-  Textfield,
-  Toggle,
-  WrapperRecipeIngredients,
-} from '../../../components'
+import { Dropdown, FieldContainer, Images, Textarea, Textfield, Toggle } from '../../../components'
 import { RECIPE_COURSE_OPTIONS } from '../../../constants'
 
 type FormProps = {
@@ -112,8 +104,6 @@ const Form: React.FC<FormProps> = ({
           />
         </form>
       </div>
-      {/* LINKING INGREDIENTS HERE */}
-      <WrapperRecipeIngredients recipe={recipe} />
     </>
   )
 }

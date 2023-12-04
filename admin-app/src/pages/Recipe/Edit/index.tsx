@@ -1,51 +1,49 @@
 import { useEffect, useState, useRef, ReactElement } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
-import { updateRecipe } from '../../../redux/reducers/recipes/recipeSlice'
-import { Loader } from '../../../components/index'
-
-import RootState from '../../../types/RootState'
-import isLoading from '../../../helpers/LoadingHelper'
+import { Loader, WrapperRecipeIngredients } from '../../../components/index'
 import { RECIPE_COURSE_OPTIONS } from '../../../constants'
 import courseName from './helpers'
 import { PageTitle } from '../../../components'
 import Form from './form'
 import Navigation from './navigation'
+import { useGetRecipeQuery, useUpdateRecipeMutation } from '../../../redux/reducers/recipes/recipes'
 
 const EditRecipe: React.FC = (): ReactElement => {
-  const dispatch = useDispatch()
-  const params = useParams()
   const formRef = useRef()
 
-  const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
-  const recipeStatus = useSelector((state: RootState) => state.recipeSlice.status)
-  const ingredientStatus = useSelector((state: RootState) => state.ingredientSlice.status)
-  const status = { ...recipeStatus, ...ingredientStatus }
-
+  const [id, setId] = useState<number>(-1)
+  const [skip, setSkip] = useState<boolean>(true)
+  const params = useParams()
+  const { data: recipe } = useGetRecipeQuery(id, {
+    skip,
+  })
+  const [updateRecipe, { isLoading: isUpdating }] = useUpdateRecipeMutation()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+  } = useForm()
   const [initialRecipeLoad, setInitialRecipeLoad] = useState(false)
-  const [id, setId] = useState<string | undefined>('')
-  const [recipe, setRecipe] = useState<Recipe>()
-  const [btnClasses, setBtnClasses] = useState('')
   const [recipeName, setRecipeName] = useState<string>('')
   const [course, setCourse] = useState<string>('')
   const [toggle, setToggle] = useState(false)
 
-  const hasURLParams = useRef(false)
+  useEffect(() => {
+    if (params.recipeId !== undefined) {
+      setId(Number.parseInt(params.recipeId, 10))
+      setSkip(false)
+    }
+  }, [params.recipeId])
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isDirty },
-    watch,
-    setValue,
-  } = useForm()
-
-  const dispatchEdit = async (data: Recipe, editedRecipe: Recipe): Promise<boolean> => {
-    if (!editedRecipe.id || !data.name) return false
+  const dispatchEdit = async (recipe: Recipe, editedRecipe: Recipe): Promise<boolean> => {
+    if (!editedRecipe.id || !recipe.name) return false
     // @ts-ignore:next-line
-    await dispatch(updateRecipe({ id: editedRecipe.id, ...editedRecipe, ...data }))
+    await updateRecipe({ id: editedRecipe.id, ...editedRecipe, ...recipe })
+    // await dispatch(updateRecipe({ id: editedRecipe.id, ...editedRecipe, ...recipe }))
     return true
   }
 
@@ -55,30 +53,10 @@ const EditRecipe: React.FC = (): ReactElement => {
     if (recipe) dispatchEdit(formData, recipe)
   }
 
-  // useEffect for reacting to the fetched recipe
-  useEffect(() => {
-    if (isDirty) setBtnClasses('font-bold')
-
-    if (hasURLParams.current === false || !recipe || !id) {
-      if (!typeof params.recipeId !== undefined) {
-        setId(params.recipeId)
-      }
-
-      if (id !== undefined && recipes && recipes.length) {
-        // push find into a helper function
-        setRecipe(
-          recipes.find((currentRecipe) => {
-            /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
-            return currentRecipe.id === Number(id!)
-          }),
-        )
-      }
-    }
-
-    if (recipe?.name) setRecipeName(recipe.name)
-    if (recipe?.course) setCourse(recipe.course)
-    if (recipe) setToggle(recipe.published)
-  }, [recipe, id, recipes, params, isDirty, initialRecipeLoad])
+  const handleToggle = (): void => {
+    setValue('published', !toggle)
+    setToggle(!toggle)
+  }
 
   const debouncedSubmit = useRef(
     debounce(async (data, currentRecipe) => {
@@ -86,12 +64,6 @@ const EditRecipe: React.FC = (): ReactElement => {
     }, 750),
   ).current
 
-  const handleToggle = (): void => {
-    setValue('published', !toggle)
-    setToggle(!toggle)
-  }
-
-  // useEffect for the form
   useEffect(() => {
     const subscription = watch(async (data) => {
       await setRecipeName(data.name)
@@ -101,7 +73,6 @@ const EditRecipe: React.FC = (): ReactElement => {
   }, [watch, recipe, debouncedSubmit])
 
   if (!recipe) {
-    // Should be styled and moved into a component in the Recipe subfolder
     return <p>Error, no recipe found or still loading the recipe from the server.</p>
   }
 
@@ -114,9 +85,9 @@ const EditRecipe: React.FC = (): ReactElement => {
           }`}
         />
 
-        {isLoading(status) && <Loader />}
+        {isUpdating && <Loader />}
 
-        <Navigation btnClasses={btnClasses} handleSubmit={handleSubmit} onSave={onSave} recipe={recipe} />
+        <Navigation handleSubmit={handleSubmit} onSave={onSave} recipe={recipe} btnClasses={''} />
       </div>
 
       <div className="grid xs:grid-cols-1 xl:grid-cols-2 gap-5">
@@ -135,6 +106,9 @@ const EditRecipe: React.FC = (): ReactElement => {
           setInitialRecipeLoad={setInitialRecipeLoad}
           initialRecipeLoad={initialRecipeLoad}
         />
+
+        {/* LINKING INGREDIENTS HERE */}
+        <WrapperRecipeIngredients recipe={recipe} />
       </div>
     </div>
   )

@@ -19,7 +19,6 @@ export const applicationSlice = createSlice({
       state.data.navMenuIsOpened = !state.data.navMenuIsOpened
     },
   },
-  extraReducers: {},
 })
 
 export const { toggleNav } = applicationSlice.actions

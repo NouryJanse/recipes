@@ -1,9 +1,7 @@
 import React, { ChangeEvent, ReactElement } from 'react'
 import { Button, Dropdown, FieldContainer, Number, Textfield, Toggle } from '../../../components'
 import { Link } from 'react-router-dom'
-import { INGREDIENT_UNITS, REDUX_STATE } from '../../../constants'
-import { useSelector } from 'react-redux'
-import RootState from '../../../types/RootState'
+import { INGREDIENT_UNITS } from '../../../constants'
 
 type FormProps = {
   handleSubmit: any
@@ -34,7 +32,6 @@ const Form: React.FC<FormProps> = ({
   ingredient,
   btnClasses,
 }): ReactElement => {
-  const status = useSelector((state: RootState) => state.ingredientSlice.status)
   return (
     <form onSubmit={handleSubmit(onSave)} {...formRef}>
       <FieldContainer>
@@ -95,12 +92,7 @@ const Form: React.FC<FormProps> = ({
         />
       </FieldContainer>
 
-      <Button
-        type="submit"
-        label="Save ingredient"
-        classes={btnClasses}
-        disabled={status.updateIngredient === REDUX_STATE.LOADING}
-      />
+      <Button type="submit" label="Save ingredient" classes={btnClasses} disabled={false} />
 
       <Link to="/ingredients">Back to ingredients</Link>
     </form>
