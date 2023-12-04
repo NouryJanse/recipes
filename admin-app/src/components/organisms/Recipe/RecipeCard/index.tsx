@@ -1,17 +1,14 @@
 import React, { useState, useEffect, ReactElement } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { AiTwotoneEdit } from 'react-icons/ai'
 import { MdDelete } from 'react-icons/md'
 import classNames from 'classnames'
-
-import RecipeContainer from './styled'
-import { deleteRecipe, getRecipes } from '../../../../redux/reducers/recipes/recipeSlice'
 import { Button } from '../../../index'
 import { getDifferenceInFormat } from '../../../../helpers/DateHelper'
-import RootState from '../../../../types/RootState'
 import courseName from '../../../../pages/Recipe/Edit/helpers'
 import { RECIPE_COURSE_OPTIONS, REPLACEMENT_IMAGE } from '../../../../constants'
+import { useGetRecipesQuery } from '../../../../redux/reducers/recipes/recipes'
+import onDelete from './deleteRecipe'
 
 type RecipeCardProps = {
   recipe: Recipe
@@ -20,26 +17,11 @@ type RecipeCardProps = {
 }
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRemovalButton }): ReactElement => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  const recipes = useSelector((state: RootState) => state.recipeSlice.data.recipes)
+  const { data: recipes } = useGetRecipesQuery()
   const [mainImage, setMainImage] = useState<string>('')
   const [isHovering, setIsHovering] = useState(false)
-
-  const onDelete = async (recipeId: number): Promise<boolean> => {
-    if (!recipeId) return false
-    // @ts-ignore:next-line
-    await dispatch(deleteRecipe(recipeId))
-    // @ts-ignore:next-line
-    await dispatch(getRecipes())
-    return true
-  }
-
-  const showNewLabel = (): boolean => {
-    if (recipe.createdAt && getDifferenceInFormat(recipe.createdAt, 'd') < 7) return true
-    return false
-  }
+  const { execute, isLoading, isError, isSuccess } = onDelete()
 
   useEffect(() => {
     if (recipe?.images?.length) {
@@ -52,7 +34,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
   if (!recipe) return <p>Error, no recipe found.</p>
 
   return (
-    <RecipeContainer
+    <div
       style={{
         backgroundImage: mainImage,
         boxShadow: !isHovering ? 'inset 0 0 0 2000px rgba(0, 0, 0, 0.3)' : 'inset 0 0 0 2000px rgba(0, 0, 0, 0.4)',
@@ -62,13 +44,13 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
       }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      className="cardAnimation"
+      className="cardAnimation mb-6 p-4 rounded-lg border-transparent bg-center bg-cover hover:cursor-pointer transition-all"
     >
       <div
         className={classNames(
           {
-            visible: showNewLabel(),
-            invisible: !showNewLabel(),
+            visible: showNewLabel(recipe),
+            invisible: !showNewLabel(recipe),
           },
           'inline-flex font-bold text-white border-2 rounded-lg p-1',
         )}
@@ -108,7 +90,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
                 classes="h-max"
                 onClick={(e: Event): void => {
                   e.stopPropagation()
-                  onDelete(recipe.id)
+                  execute(recipe.id)
                 }}
                 buttonStyle="primary"
                 noedge
@@ -119,13 +101,18 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
           </div>
         )}
       </div>
-    </RecipeContainer>
+    </div>
   )
 }
 
 RecipeCard.defaultProps = {
   withEditButton: false,
   withRemovalButton: false,
+}
+
+const showNewLabel = (recipe): boolean => {
+  if (recipe.createdAt && getDifferenceInFormat(recipe.createdAt, 'd') < 7) return true
+  return false
 }
 
 export default RecipeCard

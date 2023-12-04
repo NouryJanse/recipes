@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid'
 import { formatNLDateTime } from '../../../../helpers/DateHelper'
 import { Button } from '../../..'
-import { useDispatch } from 'react-redux'
-import { deleteIngredient, getIngredients } from '../../../../redux/reducers/ingredients/ingredientSlice'
+import { useDeleteIngredientMutation } from '../../../../redux/reducers/ingredients/ingredients'
 
 type IngredientsTableProps = {
   ingredients: Ingredient[]
@@ -12,6 +11,7 @@ type IngredientsTableProps = {
 
 const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients }): ReactElement => {
   const navigate = useNavigate()
+  const [deleteIngredient] = useDeleteIngredientMutation()
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -67,10 +67,7 @@ const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients }): Rea
             buttonStyle="secondary"
             onClick={async (e): Promise<void> => {
               e.preventDefault()
-              // @ts-ignore:next-line
-              await dispatch(deleteIngredient(cellValues.row.id))
-              // @ts-ignore:next-line
-              await dispatch(getIngredients())
+              await deleteIngredient(cellValues.row.id)
             }}
             label="Delete"
           />

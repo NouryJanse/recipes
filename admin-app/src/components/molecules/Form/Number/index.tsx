@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
 import { FieldRowStyle, LabelStyle, InputStyle } from './styled'
 

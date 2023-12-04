@@ -7,7 +7,7 @@ interface FieldContainerProps {
 }
 
 const FieldContainer: React.FC<FieldContainerProps> = ({ children, classes }): ReactElement => {
-  return <StyledFieldContainer className={classes}>{children}</StyledFieldContainer>
+  return <div className={`${classes} mb-2`}>{children}</div>
 }
 
 export default FieldContainer

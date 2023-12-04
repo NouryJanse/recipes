@@ -71,7 +71,7 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
       />
 
       <div className="ingredientsTitleContainer">
-        <h3>Ingredients</h3>
+        <h3>Your shopping list</h3>
         <Button type="button" style="secondary" onClick={() => setDialogOpened(true)}>
           Add another
         </Button>

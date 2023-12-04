@@ -1,5 +1,4 @@
 import React, { ReactElement, ReactNode } from 'react'
-import StyledBadge from './styled'
 
 type BadgeProps = {
   text: ReactNode | string
@@ -7,7 +6,7 @@ type BadgeProps = {
 }
 
 const Badge: React.FC<BadgeProps> = ({ text, classes }): ReactElement => {
-  return <StyledBadge className={classes}>{text}</StyledBadge>
+  return <div className={`${classes} rounded-full bg-blue px-3 py-1 text-white`}>{text}</div>
 }
 
 Badge.defaultProps = {

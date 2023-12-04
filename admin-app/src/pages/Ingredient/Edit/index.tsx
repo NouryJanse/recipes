@@ -7,7 +7,7 @@ import { updateIngredient } from '../../../redux/reducers/ingredients/ingredient
 
 import { Loader, PageTitle } from '../../../components'
 import Form from './form'
-import { useGetIngredientQuery } from '../../../redux/reducers/ingredients/ingredients'
+import { useGetIngredientQuery, useUpdateIngredientMutation } from '../../../redux/reducers/ingredients/ingredients'
 
 const EditIngredient: React.FC = (): ReactElement => {
   const dispatch = useDispatch()
@@ -21,6 +21,7 @@ const EditIngredient: React.FC = (): ReactElement => {
   const [id, setId] = useState<number>(-1)
   const [skip, setSkip] = useState<boolean>(true)
   const { data: ingredient, isLoading } = useGetIngredientQuery(id, { skip })
+  const [updateIngredient] = useUpdateIngredientMutation()
   const [toggle, setToggle] = useState(ingredient ? ingredient.published : false)
   const {
     register,
@@ -50,7 +51,8 @@ const EditIngredient: React.FC = (): ReactElement => {
   const dispatchEdit = async (data: Ingredient, editedIngredient: Ingredient): Promise<boolean> => {
     if (!editedIngredient.id || !data.name) return false
     // @ts-ignore:next-line
-    await dispatch(updateIngredient({ id: editedIngredient.id, ...editedIngredient, ...data }))
+    await updateIngredient({ id: editedIngredient.id, ...editedIngredient, ...data })
+    // await dispatch(updateIngredient({ id: editedIngredient.id, ...editedIngredient, ...data }))
     return true
   }
 

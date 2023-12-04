@@ -1,12 +1,8 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import Heading from '../../../../atoms/Typography/Heading'
 import AddRecipeIngredient from '../Add'
 import EditLinkedIngredient from '../Edit'
-import { useDispatch, useSelector } from 'react-redux'
-import RootState from '../../../../../types/RootState'
-import { getIngredients } from '../../../../../redux/reducers/ingredients/ingredientSlice'
 import { Button, FieldContainer } from '../../../../index'
-import { useGetIngredientsQuery } from '../../../../../redux/reducers/ingredients/ingredients'
 
 type WrapperRecipeIngredientsType = {
   recipe: Recipe

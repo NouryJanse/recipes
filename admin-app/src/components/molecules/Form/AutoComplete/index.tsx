@@ -2,7 +2,16 @@ import React, { ReactElement } from 'react'
 import Select, { ActionMeta } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 import ErrorMessage from '../../../atoms/ErrorMessage'
-import StyledLabel from './styled'
+import styled from 'styled-components'
+
+const StyledLabel = styled.label`
+  color: black;
+  position: relative;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  min-width: 216px;
+`
 
 type AutoCompleteProps = {
   name: string

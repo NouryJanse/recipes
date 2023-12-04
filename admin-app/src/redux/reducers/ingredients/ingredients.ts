@@ -7,6 +7,10 @@ export const ingredientsAPI = createApi({
   tagTypes: ['Ingredient'],
   baseQuery: fetchBaseQuery({ baseUrl: url }),
   endpoints: (builder) => ({
+    getIngredients: builder.query<Ingredient[], void>({
+      query: () => `/ingredients`,
+      providesTags: ['Ingredient'],
+    }),
     createIngredient: builder.mutation<Ingredient, Ingredient>({
       query(data) {
         const { id, ...body } = data
@@ -16,13 +20,19 @@ export const ingredientsAPI = createApi({
           body,
         }
       },
-      invalidatesTags: [{ type: 'Ingredient', id: 'LIST' }],
+      invalidatesTags: ['Ingredient'],
     }),
     createLinkedIngredient: builder.mutation<Ingredient[], void>({
       query: () => `/ingredients`,
     }),
-    deleteIngredient: builder.mutation<Ingredient[], void>({
-      query: () => `/ingredients`,
+    deleteIngredient: builder.mutation<{ success: boolean; id: number }, number>({
+      query(id) {
+        return {
+          url: `/ingredients/${id}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: ['Ingredient'],
     }),
     deleteLinkedIngredient: builder.mutation<Ingredient[], void>({
       query: () => `/ingredients`,
@@ -30,18 +40,17 @@ export const ingredientsAPI = createApi({
     getIngredient: builder.query<Ingredient, number>({
       query: (id) => `/ingredients/${id}`,
     }),
-    getIngredients: builder.query<Ingredient[], void>({
-      query: () => `/ingredients`,
-    }),
     updateIngredient: builder.mutation<void, Pick<Ingredient, 'id'> & Partial<Ingredient>>({
       query({ id, ...patch }) {
+        console.log(patch)
+
         return {
-          url: `ingredrients/${id}`,
+          url: `ingredients/${id}`,
           method: 'PUT',
           body: patch,
         }
       },
-      invalidatesTags: (result, error, { id }) => [{ type: 'Ingredient', id }],
+      invalidatesTags: ['Ingredient'],
     }),
     updateLinkedIngredient: builder.mutation<Ingredient[], void>({
       query: () => `/ingredients`,

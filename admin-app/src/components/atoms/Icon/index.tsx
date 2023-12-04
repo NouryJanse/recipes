@@ -1,5 +1,4 @@
 import React, { ReactElement, ReactNode } from 'react'
-import StyledIcon from './styled'
 
 interface IconProps {
   iconElement: ReactNode
@@ -13,5 +12,17 @@ const Icon: React.FC<IconProps> = ({ iconElement, classes }): ReactElement => {
 Icon.defaultProps = {
   classes: '',
 }
+
+import styled from 'styled-components'
+
+const StyledIcon = styled.div`
+  display: flex;
+  position: relative;
+
+  svg {
+    min-height: 24px;
+    width: 24px;
+  }
+`
 
 export default Icon
