@@ -11,6 +11,7 @@ import RootState from '../../../types/RootState'
 import isLoading from '../../../helpers/LoadingHelper'
 import { PageTitle } from '../../../components'
 import { INGREDIENT_UNITS, REDUX_STATE } from '../../../constants'
+import Form from './form'
 
 const EditIngredient: React.FC = (): ReactElement => {
   const dispatch = useDispatch()
@@ -54,9 +55,7 @@ const EditIngredient: React.FC = (): ReactElement => {
     if (isDirty) setBtnClasses('font-bold mb-10')
 
     if (hasURLParams.current === false || !ingredient || !id) {
-      if (!typeof params.ingredientId !== undefined) {
-        setId(params.ingredientId)
-      }
+      if (!typeof params.ingredientId !== undefined) setId(params.ingredientId)
 
       if (id !== undefined && ingredients && ingredients.length) {
         // push find into a helper function
@@ -92,10 +91,8 @@ const EditIngredient: React.FC = (): ReactElement => {
     return (): void => subscription.unsubscribe()
   }, [watch, ingredient, debouncedSubmit])
 
-  if (!ingredient) {
-    // Should be styled and moved into a component in the Ingredient subfolder
-    return <p>Error, no ingredient found or still loading the ingredient from the server.</p>
-  }
+  // Should be styled and moved into a component in the Ingredient subfolder
+  if (!ingredient) return <p>Error, no ingredient found or still loading the ingredient from the server.</p>
 
   const handleToggle = (): void => {
     setValue('published', !toggle)
@@ -105,81 +102,25 @@ const EditIngredient: React.FC = (): ReactElement => {
   return (
     <div className="pt-7">
       <div className="flex items-center">
-        <div className="mb-16">
-          <PageTitle text={`Editing ${ingredientName}`} />
-        </div>
+        <PageTitle text={`Editing ${ingredientName}`} />
 
         {isLoading(status) && <Loader />}
       </div>
 
-      <form onSubmit={handleSubmit(onSave)} {...formRef}>
-        <FieldContainer>
-          <Textfield
-            name="name"
-            type="text"
-            label="Ingredient name*"
-            defaultValue={ingredient.name}
-            placeholder="Fill in a name"
-            validation={{
-              required: 'Did you forget to name your ingredient?',
-            }}
-            register={register}
-            errors={errors.name}
-          />
-        </FieldContainer>
-
-        <FieldContainer>
-          <Dropdown
-            name="unit"
-            label="Ingredient unit type*"
-            defaultValue={unit}
-            disabled={false}
-            onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-              setUnit(event.target.value)
-              setValue('unit', event.target.value)
-            }}
-            validation={{
-              required: 'Did you forget to fill in the unit of your ingredient?',
-            }}
-            register={register}
-            errors={errors.unit}
-            options={INGREDIENT_UNITS}
-          />
-        </FieldContainer>
-
-        <FieldContainer>
-          <Number
-            name="calorieCount"
-            label="Calories"
-            defaultValue={ingredient.calorieCount}
-            placeholder="Enter the number of calories"
-            validation={{
-              required: 'Did you forget to enter the calories?',
-            }}
-            register={register}
-            errors={errors.description}
-          />
-        </FieldContainer>
-
-        <FieldContainer>
-          <Toggle
-            handleToggle={(): void => handleToggle()}
-            name="published"
-            label="Enable ingredient"
-            register={register}
-            checked={toggle}
-          />
-        </FieldContainer>
-
-        <Button
-          type="submit"
-          label="Save ingredient"
-          classes={btnClasses}
-          disabled={status.updateIngredient === REDUX_STATE.LOADING}
-        />
-
-        <Link to="/ingredients">Back to ingredients</Link>
-      </form>
+      <Form
+        handleSubmit={handleSubmit}
+        register={register}
+        errors={errors}
+        unit={unit}
+        setUnit={setUnit}
+        setValue={setValue}
+        handleToggle={handleToggle}
+        toggle={toggle}
+        onSave={onSave}
+        formRef={formRef}
+        ingredient={ingredient}
+        btnClasses={btnClasses}
+      />
     </div>
   )
 }

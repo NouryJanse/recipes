@@ -6,7 +6,6 @@ import { getRecipes } from '../../../redux/reducers/recipes/recipeSlice'
 import RootState from '../../../types/RootState'
 import { Loader, PageTitle, RecipeCard } from '../../../components'
 import { REDUX_STATE } from '../../../constants'
-// import useInterval from '../../helpers/polling'
 
 const Recipes: React.FC = (): ReactElement | null => {
   const dispatch = useDispatch()
@@ -20,11 +19,6 @@ const Recipes: React.FC = (): ReactElement | null => {
       dispatch(getRecipes())
     }
   }, [])
-
-  // useInterval(() => {
-  //   // @ts-ignore:next-line
-  //   dispatch(getRecipes())
-  // }, 5000)
 
   // Should be styled and moved into a component in the Recipe subfolder
   if (status.getRecipes === REDUX_STATE.REJECTED) {
@@ -41,9 +35,7 @@ const Recipes: React.FC = (): ReactElement | null => {
 
       {!params.recipeId && recipes?.length ? (
         <div>
-          <div className="mb-16">
-            <PageTitle text={`${recipes.length} delicous meals`} />
-          </div>
+          <PageTitle text={`${recipes.length} delicous meals`} />
 
           <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {recipes.map((recipe: Recipe) => {

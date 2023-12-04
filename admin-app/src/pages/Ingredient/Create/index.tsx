@@ -1,16 +1,18 @@
-import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import RootState from '../../../types/RootState'
-import { Textfield, Button, Toggle, FieldContainer, PageTitle, Number, Dropdown } from '../../../components'
 
+import { REDUX_STATE, ROUTES } from '../../../constants'
+import RootState from '../../../types/RootState'
 import {
   createIngredient,
   getIngredients,
   resetCreateIngredientStatus,
 } from '../../../redux/reducers/ingredients/ingredientSlice'
-import { INGREDIENT_UNITS, REDUX_STATE, ROUTES } from '../../../constants'
+
+import Form from './form'
+import { PageTitle } from '../../../components'
 
 const CreateIngredient: React.FC = (): ReactElement => {
   const status = useSelector((state: RootState) => state.ingredientSlice.status)
@@ -71,69 +73,19 @@ const CreateIngredient: React.FC = (): ReactElement => {
 
   return (
     <div className="pt-7">
-      <div className="mb-16">
-        <PageTitle text="Add a new ingredient to the platform" />
-      </div>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FieldContainer>
-          <Textfield
-            name="name"
-            type="text"
-            label="Ingredient name*"
-            placeholder="Fill in a name"
-            validation={{
-              required: 'Did you forget to name your ingredient?',
-            }}
-            register={register}
-            errors={errors.name}
-          />
-        </FieldContainer>
-
-        <FieldContainer>
-          <Dropdown
-            name="unit"
-            label="Ingredient unit type*"
-            defaultValue={unit}
-            register={register}
-            validation={{
-              required: 'Did you forget to fill in the unit of your ingredient?',
-            }}
-            errors={errors.unit}
-            options={INGREDIENT_UNITS}
-            onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-              setUnit(event.target.value)
-              setValue('unit', event.target.value)
-            }}
-          />
-        </FieldContainer>
-
-        <FieldContainer>
-          <Number
-            name="calorieCount"
-            label="Number of calories*"
-            placeholder="Enter the amount of calories"
-            validation={{
-              required: 'Did you forget to enter the amount of calories?',
-            }}
-            register={register}
-            errors={errors.calorieCount}
-          />
-        </FieldContainer>
-
-        <FieldContainer>
-          <Toggle
-            handleToggle={(): void => handleToggle()}
-            name="published"
-            label="Enable ingredient"
-            register={register}
-            checked={toggle}
-          />
-        </FieldContainer>
-
-        <Button type="submit" label="Save ingredient" classes="mb-4" />
-        <Button type="button" label="Save and add another" onClick={saveAndAddAnother} />
-      </form>
+      <PageTitle text="Add a new ingredient to the platform" />
+      <Form
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        register={register}
+        errors={errors}
+        unit={unit}
+        setUnit={setUnit}
+        setValue={setValue}
+        handleToggle={handleToggle}
+        toggle={toggle}
+        saveAndAddAnother={saveAndAddAnother}
+      />
     </div>
   )
 }

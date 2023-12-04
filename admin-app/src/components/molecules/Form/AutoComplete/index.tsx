@@ -30,6 +30,7 @@ const AutoComplete: React.FC<AutoCompleteProps> = ({
   placeholder,
 }): ReactElement => {
   if (!placeholder) placeholder = 'Select...'
+
   if (isCreatable) {
     return (
       <StyledLabel htmlFor={name} role="caption" className={classes}>

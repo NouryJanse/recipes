@@ -34,8 +34,6 @@ function getSomeEnvVariable() {
 }
 
 const SOCKET_API_URL = getSomeEnvVariable() as string;
-console.log(SOCKET_API_URL);
-
 const socket = io(SOCKET_API_URL, {});
 
 type ShoppingListProps = {

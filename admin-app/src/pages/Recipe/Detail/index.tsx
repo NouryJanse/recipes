@@ -1,14 +1,13 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { IoChevronBackOutline } from 'react-icons/io5'
 
 import RecipeContainer from './styled'
 import { deleteRecipe, getRecipes } from '../../../redux/reducers/recipes/recipeSlice'
-import { Button } from '../../../components/index'
 import { formatNLDateTime } from '../../../helpers/DateHelper'
 import RootState from '../../../types/RootState'
 import REPLACEMENT_IMAGES from '../../../constants/REPLACEMENT_IMAGES'
+import Navigation from './navigation'
 
 const RecipeDetail: React.FC = (): ReactElement => {
   const [recipe, setRecipe] = useState<Recipe>({} as Recipe)
@@ -62,19 +61,7 @@ const RecipeDetail: React.FC = (): ReactElement => {
 
       <i className="block mb-4">{recipe.course}</i>
 
-      <div className="flex flex-row justify-between items-center">
-        <Link to="/recipes" className="flex items-center mr-4">
-          <IoChevronBackOutline />
-          Back to Recipes
-        </Link>
-        <div className="flex flex-row">
-          <Link to={`/recipes/${recipe.id}/edit`}>
-            <Button type="button" label="Edit" buttonStyle="secondary" classes="mr-2" />
-          </Link>
-
-          <Button type="button" label="Delete" onClick={(): Promise<boolean> => onDelete(recipe.id)} />
-        </div>
-      </div>
+      <Navigation recipe={recipe} onDelete={onDelete} />
     </RecipeContainer>
   )
 }

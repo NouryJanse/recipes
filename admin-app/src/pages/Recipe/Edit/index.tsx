@@ -1,26 +1,18 @@
-import { useEffect, useState, useRef, ReactElement, ChangeEvent } from 'react'
+import { useEffect, useState, useRef, ReactElement } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
 import { updateRecipe } from '../../../redux/reducers/recipes/recipeSlice'
-import {
-  Button,
-  Textfield,
-  Textarea,
-  Dropdown,
-  FieldContainer,
-  Loader,
-  WrapperRecipeIngredients,
-  Images,
-  Toggle,
-} from '../../../components/index'
+import { Loader } from '../../../components/index'
 
 import RootState from '../../../types/RootState'
 import isLoading from '../../../helpers/LoadingHelper'
 import { RECIPE_COURSE_OPTIONS } from '../../../constants'
 import courseName from './helpers'
 import { PageTitle } from '../../../components'
+import Form from './form'
+import Navigation from './navigation'
 
 const EditRecipe: React.FC = (): ReactElement => {
   const dispatch = useDispatch()
@@ -39,8 +31,6 @@ const EditRecipe: React.FC = (): ReactElement => {
   const [recipeName, setRecipeName] = useState<string>('')
   const [course, setCourse] = useState<string>('')
   const [toggle, setToggle] = useState(false)
-
-  const navigate = useNavigate()
 
   const hasURLParams = useRef(false)
 
@@ -85,16 +75,9 @@ const EditRecipe: React.FC = (): ReactElement => {
       }
     }
 
-    if (recipe?.name) {
-      setRecipeName(recipe.name)
-    }
-    if (recipe?.course) {
-      setCourse(recipe.course)
-    }
-
-    if (recipe) {
-      setToggle(recipe.published)
-    }
+    if (recipe?.name) setRecipeName(recipe.name)
+    if (recipe?.course) setCourse(recipe.course)
+    if (recipe) setToggle(recipe.published)
   }, [recipe, id, recipes, params, isDirty, initialRecipeLoad])
 
   const debouncedSubmit = useRef(
@@ -133,106 +116,25 @@ const EditRecipe: React.FC = (): ReactElement => {
 
         {isLoading(status) && <Loader />}
 
-        <div className="flex flex-row">
-          <Button
-            onClick={(): void => navigate('/recipes')}
-            type="button"
-            label="To recipes"
-            classes={`${btnClasses} self-center mr-3`}
-            buttonStyle="tertiary"
-          />
-          {params.recipeId && (
-            <Button
-              onClick={(): void => navigate(`/recipes/${params.recipeId}`)}
-              type="button"
-              label={`To ${recipe.name}`}
-              classes={`${btnClasses} self-center mr-3`}
-              buttonStyle="secondary"
-            />
-          )}
-          <Button
-            onClick={(): Promise<void> => handleSubmit(onSave)()}
-            type="button"
-            label="Save"
-            classes={`${btnClasses} self-center`}
-            buttonStyle="primary"
-          />
-        </div>
+        <Navigation btnClasses={btnClasses} handleSubmit={handleSubmit} onSave={onSave} recipe={recipe} />
       </div>
 
       <div className="grid xs:grid-cols-1 xl:grid-cols-2 gap-5">
-        <div className="mb-4 mr-4 pr-4">
-          <form className="" onSubmit={handleSubmit(onSave)} {...formRef}>
-            <FieldContainer>
-              <Toggle
-                handleToggle={(): void => handleToggle()}
-                name="published"
-                label="Published"
-                register={register}
-                checked={toggle}
-              />
-            </FieldContainer>
-
-            <FieldContainer>
-              <Textfield
-                name="name"
-                type="text"
-                defaultValue={recipe.name}
-                label="Recipe name*"
-                placeholder="Fill in a name"
-                validation={{
-                  required: 'Did you forget to name your recipe?',
-                }}
-                register={register}
-                errors={errors.name}
-              />
-            </FieldContainer>
-
-            <FieldContainer>
-              <Textarea
-                name="description"
-                label="Recipe description*"
-                defaultValue={recipe.description}
-                placeholder="Fill in a description"
-                validation={{
-                  required: 'Did you forget to fill in the description of your recipe?',
-                }}
-                register={register}
-                errors={errors.description}
-              />
-            </FieldContainer>
-
-            <FieldContainer>
-              <Dropdown
-                name="course"
-                label="Course*"
-                defaultValue={course}
-                register={register}
-                classes="mb-10"
-                validation={{
-                  required: 'Did you forget to fill in the course of your recipe?',
-                }}
-                errors={errors.description}
-                options={RECIPE_COURSE_OPTIONS}
-                onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-                  setCourse(event.target.value)
-                  setValue('course', event.target.value)
-                }}
-              />
-            </FieldContainer>
-
-            <Images
-              register={register}
-              recipe={recipe}
-              setValue={setValue}
-              setInitialRecipeLoad={setInitialRecipeLoad}
-              initialRecipeLoad={initialRecipeLoad}
-            />
-          </form>
-        </div>
-
-        {/* LINKING INGREDIENTS HERE */}
-        <WrapperRecipeIngredients recipe={recipe} />
+        <Form
+          handleSubmit={handleSubmit}
+          onSave={onSave}
+          formRef={formRef}
+          handleToggle={handleToggle}
+          register={register}
+          toggle={toggle}
+          recipe={recipe}
+          errors={errors}
+          course={course}
+          setCourse={setCourse}
+          setValue={setValue}
+          setInitialRecipeLoad={setInitialRecipeLoad}
+          initialRecipeLoad={initialRecipeLoad}
+        />
       </div>
     </div>
   )
