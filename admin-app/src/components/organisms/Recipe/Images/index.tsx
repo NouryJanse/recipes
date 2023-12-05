@@ -1,12 +1,13 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 
-import { createRecipeImage, deleteRecipeImage, getRecipe } from '../../../../redux/reducers/recipes/recipeSlice'
+// import { createRecipeImage, deleteRecipeImage, getRecipe } from '../../../../redux/reducers/recipes/recipeSlice'
 import FieldContainer from '../../../molecules/Form/FieldContainer'
 import ImagePicker from '../../../molecules/Form/ImagePicker'
 import ImagePreviewList from '../../../molecules/Form/ImagePreviewList'
 import ImageSortableList from '../../../molecules/Form/ImageSortableList'
+import { useCreateRecipeImageMutation, useDeleteRecipeImageMutation } from '../../../../redux/reducers/recipes/recipes'
 
 type ImagesType = {
   register: UseFormRegister<FieldValues>
@@ -23,9 +24,10 @@ const Images: React.FC<ImagesType> = ({
   setInitialRecipeLoad,
   initialRecipeLoad,
 }): ReactElement => {
-  const dispatch = useDispatch()
   const [imagePreviewList, setImageViewList] = useState<ImageData[]>([])
   const [imageSortableList, setImageSortableList] = useState<Image[]>([])
+  const [createRecipeImage, {}] = useCreateRecipeImageMutation()
+  const [deleteRecipeImage, {}] = useDeleteRecipeImageMutation()
 
   useEffect(() => {
     if (recipe && recipe.images && !initialRecipeLoad) {
@@ -41,18 +43,19 @@ const Images: React.FC<ImagesType> = ({
   }
 
   const handleImageUpload = async (image: ImageData): Promise<void> => {
-    // @ts-ignore:next-line
-    const response = await dispatch(createRecipeImage({ image, recipeId: recipe.id }))
+    const res = await createRecipeImage({ image, recipeId: recipe.id })
 
-    if (response.type === 'recipes/createRecipeImage/fulfilled') {
-      setImageViewList((prevState: ImageData[]) => [
-        ...prevState.filter((currentImage) => currentImage.data !== image.data),
-      ])
-      setInitialRecipeLoad(false)
-      setImageSortableList(recipe?.images ? recipe.images : [])
-      return
-    }
-    throw new Error('An error occurred, the recipe image was not saved correctly.')
+    // const response = await createRecipeImage({ image, recipeId: recipe.id })
+
+    // if (response.type === 'recipes/createRecipeImage/fulfilled') {
+    //   setImageViewList((prevState: ImageData[]) => [
+    //     ...prevState.filter((currentImage) => currentImage.data !== image.data),
+    //   ])
+    setInitialRecipeLoad(false)
+    setImageSortableList(recipe?.images ? recipe.images : [])
+    //   return
+    // }
+    // throw new Error('An error occurred, the recipe image was not saved correctly.')
   }
 
   const handleSortedImages = (images: Image[]): void => {
@@ -71,9 +74,7 @@ const Images: React.FC<ImagesType> = ({
 
   const deleteImage = async (imageId: string): Promise<void> => {
     // @ts-ignore:next-line
-    await dispatch(deleteRecipeImage(imageId))
-    // @ts-ignore:next-line
-    await dispatch(getRecipe(recipe.id))
+    await deleteRecipeImage(imageId)
     setInitialRecipeLoad(false)
   }
 

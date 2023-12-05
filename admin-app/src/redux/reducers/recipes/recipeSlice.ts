@@ -45,26 +45,6 @@ export const recipeSlice = createSlice({
   },
   // extraReducers: (builder) => {
   //   builder
-  //     .addCase(updateRecipe.pending, (state) => {
-  //       state.status.updateRecipe = REDUX_STATE.LOADING
-  //       state.error = {}
-  //     })
-  //     .addCase(updateRecipe.rejected, (state) => {
-  //       state.status.updateRecipe = REDUX_STATE.REJECTED
-  //       LogHelper({ logType: 'error', message: 'An error occurred' })
-  //       state.error = {}
-  //     })
-  //     .addCase(updateRecipe.fulfilled, (state, action) => {
-  //       state.status.updateRecipe = REDUX_STATE.FULFILLED
-  //       // eslint-disable-next-line prefer-destructuring
-  //       const recipes: Recipe[] = state.data.recipes
-  //       if (action?.payload) {
-  //         const updatedRecipe: Recipe = action.payload
-  //         state.data.recipes = replaceRecipeWithIdInArrayWithRecipes(recipes, updatedRecipe)
-  //       }
-  //       state.error = {}
-  //     })
-
   //     .addCase(createRecipeImage.pending, (state) => {
   //       state.status.createRecipeImage = REDUX_STATE.LOADING
   //       state.error = {}

@@ -55,16 +55,16 @@ const Form: React.FC<FormProps> = ({
           label="Ingredient unit type*"
           defaultValue={unit}
           disabled={false}
-          onChange={(event: ChangeEvent<HTMLInputElement>): void => {
-            setUnit(event.target.value)
-            setValue('unit', event.target.value)
-          }}
           validation={{
             required: 'Did you forget to fill in the unit of your ingredient?',
           }}
           register={register}
           errors={errors.unit}
           options={INGREDIENT_UNITS}
+          onChange={(event: ChangeEvent<HTMLInputElement>): void => {
+            setUnit(event.target.value)
+            setValue('unit', event.target.value)
+          }}
         />
       </FieldContainer>
 

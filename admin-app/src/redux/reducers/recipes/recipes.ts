@@ -4,15 +4,11 @@ const url = `${import.meta.env.VITE_SERVER_URL}/api`
 
 export const recipesAPI = createApi({
   reducerPath: 'recipesAPI',
-  tagTypes: ['Recipe'],
+  tagTypes: ['Recipes', 'Recipe'],
   // refetchOnFocus: true,
   // refetchOnReconnect: true,
   baseQuery: fetchBaseQuery({ baseUrl: url }),
   endpoints: (builder) => ({
-    getRecipes: builder.query<Recipe[], void>({
-      query: () => `/recipes`,
-      providesTags: ['Recipe'],
-    }),
     createRecipe: builder.mutation<Recipe, Recipe>({
       query(data) {
         const { id, ...body } = data
@@ -22,10 +18,36 @@ export const recipesAPI = createApi({
           body,
         }
       },
-      invalidatesTags: ['Recipe'],
+      invalidatesTags: ['Recipes'],
     }),
     createRecipeImage: builder.mutation<any, any>({
-      query: () => ``,
+      query(data) {
+        const { id, ...body } = data
+        return {
+          url: `/recipes/image/${id}`,
+          method: 'POST',
+          body,
+        }
+      },
+      invalidatesTags: ['Recipe'],
+    }),
+    getRecipes: builder.query<Recipe[], void>({
+      query: () => `/recipes`,
+      providesTags: ['Recipes'],
+    }),
+    getRecipe: builder.query<Recipe, number>({
+      query: (id) => `/recipes/${id}`,
+      providesTags: ['Recipe'],
+    }),
+    updateRecipe: builder.mutation<void, Pick<Recipe, 'id'> & Partial<Recipe>>({
+      query({ id, ...patch }) {
+        return {
+          url: `recipes/${id}`,
+          method: 'PUT',
+          body: patch,
+        }
+      },
+      invalidatesTags: ['Recipe', 'Recipes'],
     }),
     deleteRecipe: builder.mutation<{ success: boolean; id: number }, number>({
       query(id) {
@@ -37,17 +59,10 @@ export const recipesAPI = createApi({
       invalidatesTags: ['Recipe'],
     }),
     deleteRecipeImage: builder.mutation<any, any>({
-      query: () => ``,
-    }),
-    getRecipe: builder.query<Recipe, number>({
-      query: (id) => `/recipes/${id}`,
-    }),
-    updateRecipe: builder.mutation<void, Pick<Recipe, 'id'> & Partial<Recipe>>({
-      query({ id, ...patch }) {
+      query(id) {
         return {
-          url: `recipes/${id}`,
-          method: 'PUT',
-          body: patch,
+          url: `/recipes/image/${id}`,
+          method: 'DELETE',
         }
       },
       invalidatesTags: ['Recipe'],

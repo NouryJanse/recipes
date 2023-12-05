@@ -32,7 +32,9 @@ const WrapperRecipeIngredients: React.FC<WrapperRecipeIngredientsType> = ({ reci
         {recipe.ingredients && recipe.ingredients.length ? (
           <>
             {recipe.ingredients.map((linkedIngredient: RecipeIngredient) => {
-              return <EditLinkedIngredient key={linkedIngredient.id} ingredient={linkedIngredient} recipe={recipe} />
+              return (
+                <EditLinkedIngredient key={linkedIngredient.id} ingredient={linkedIngredient} recipeId={recipe.id} />
+              )
             })}
           </>
         ) : (

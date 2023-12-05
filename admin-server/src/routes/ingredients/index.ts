@@ -81,6 +81,8 @@ router.put('/api/ingredients/:id', async (req, res) => {
     }
     return res.status(HTTP_CODES.NOT_FOUND).send(ingredient)
   } catch (error) {
+    console.error(error)
+
     if (error instanceof ObjectCouldNotBeFoundError) {
       return res.status(HTTP_CODES.UNPROCESSABLE_ENTITY).send({ message: error.message })
     } else {
@@ -148,9 +150,10 @@ router.post('/api/ingredients/recipe', async (req, res) => {
 // UPDATE INGREDIENT RECIPE LINK
 router.put('/api/ingredients/recipe/:id', async (req, res) => {
   try {
-    const { id, recipeId, ingredientId, addedAt, unit, description, amount } = req.body
+    const { id } = req.params
+    const { recipeId, ingredientId, addedAt, unit, description, amount } = req.body
     const ingredient = await updateLinkedIngredient({
-      id,
+      id: Number.parseInt(id),
       recipeId,
       ingredientId,
       addedAt,

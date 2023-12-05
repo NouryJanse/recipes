@@ -78,7 +78,7 @@ const IngredientsTable: React.FC<IngredientsTableProps> = ({ ingredients }): Rea
 
   return (
     <div style={{ height: 600, width: '100%' }}>
-      <DataGrid rows={ingredients} columns={columns} pageSize={15} rowsPerPageOptions={[20]} />
+      <DataGrid rows={ingredients} columns={columns} pageSizeOptions={[5, 10, 25]} />
     </div>
   )
 }

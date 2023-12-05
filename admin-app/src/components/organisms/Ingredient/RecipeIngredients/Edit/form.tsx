@@ -1,16 +1,32 @@
-import React, { ReactElement, useEffect, useState } from 'react'
-import AutoComplete from '../../../../molecules/Form/AutoComplete'
-import Number from '../../../../molecules/Form/Number'
-import Dropdown from '../../../../molecules/Form/Dropdown'
-import Icon from '../../../../atoms/Icon'
+import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
+import { Number, Dropdown, Icon, AutoComplete } from '../../../..'
+import {
+  useDeleteLinkedIngredientMutation,
+  useGetIngredientsQuery,
+} from '../../../../../redux/reducers/ingredients/ingredients'
+import { INGREDIENT_UNITS } from '../../../../../constants'
 import { BsTrash2 } from 'react-icons/bs'
-import { useGetIngredientsQuery } from '../../../../../redux/reducers/ingredients/ingredients'
+import { useGetRecipeQuery } from '../../../../../redux/reducers/recipes/recipes'
+import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
 
-type FormProps = {}
+type FormProps = {
+  updateIngredient: any
+  ingredient: RecipeIngredient
+  recipeId: number
+}
 
-const Form: React.FC<FormProps> = ({}): ReactElement => {
-  const { data: ingredients, isLoading } = useGetIngredientsQuery()
+type LocalUnit = {
+  id: number
+  unit: string | undefined
+}
+
+const Form: React.FC<FormProps> = ({ updateIngredient, ingredient, recipeId }): ReactElement => {
+  const { data: ingredients } = useGetIngredientsQuery()
+  const [deleteLinkedIngredient, {}] = useDeleteLinkedIngredientMutation()
+  const { refetch } = useGetRecipeQuery(recipeId)
   const [options, setOptions] = useState<Option[]>()
+  const [unit, setUnit] = useState<LocalUnit>({ id: ingredient.id, unit: ingredient.unit })
+  const [ref, setRef] = useState<StateManagedSelect>()
 
   useEffect(() => {
     if (ingredients && ingredients.length) {
@@ -27,11 +43,13 @@ const Form: React.FC<FormProps> = ({}): ReactElement => {
     }
   }, [ingredients])
 
-  if (!options) return <p>Loading..</p>
+  const onDeleteIngredient = async (): Promise<void> => {
+    // @ts-ignore:next-line
+    await deleteLinkedIngredient(ingredient.id)
+    refetch()
+  }
 
-  const option: Option | undefined = options.find((o) => {
-    return o.label === ingredient.name
-  })
+  if (!options) return <p>Loading..</p>
 
   return (
     <div className="flex flex-row items-end mb-4">
@@ -44,7 +62,7 @@ const Form: React.FC<FormProps> = ({}): ReactElement => {
             updateIngredient('ingredientId', parseInt(option.value), ingredient)
           }
         }}
-        defaultValue={option}
+        defaultValue={getSelectedOption(options, ingredient)}
         setRef={setRef}
         errors={{ message: '', type: '' }}
         classes="mr-4"
@@ -85,6 +103,12 @@ const Form: React.FC<FormProps> = ({}): ReactElement => {
       />
     </div>
   )
+}
+
+const getSelectedOption = (options, ingredient): Option | undefined => {
+  return options.find((o) => {
+    return o.label === ingredient.name
+  })
 }
 
 export default Form

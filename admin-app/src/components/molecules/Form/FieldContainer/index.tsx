@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import StyledFieldContainer from './styled'
 
 interface FieldContainerProps {
   children: JSX.Element

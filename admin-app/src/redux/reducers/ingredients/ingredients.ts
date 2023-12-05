@@ -4,11 +4,15 @@ const url = `${import.meta.env.VITE_SERVER_URL}/api`
 
 export const ingredientsAPI = createApi({
   reducerPath: 'ingredientsAPI',
-  tagTypes: ['Ingredient'],
+  tagTypes: ['Ingredients', 'Ingredient'],
   baseQuery: fetchBaseQuery({ baseUrl: url }),
   endpoints: (builder) => ({
     getIngredients: builder.query<Ingredient[], void>({
       query: () => `/ingredients`,
+      providesTags: ['Ingredients'],
+    }),
+    getIngredient: builder.query<Ingredient, number>({
+      query: (id) => `/ingredients/${id}`,
       providesTags: ['Ingredient'],
     }),
     createIngredient: builder.mutation<Ingredient, Ingredient>({
@@ -20,10 +24,17 @@ export const ingredientsAPI = createApi({
           body,
         }
       },
-      invalidatesTags: ['Ingredient'],
+      invalidatesTags: ['Ingredient', 'Ingredients'],
     }),
-    createLinkedIngredient: builder.mutation<Ingredient[], void>({
-      query: () => `/ingredients`,
+    updateIngredient: builder.mutation<void, Pick<Ingredient, 'id'> & Partial<Ingredient>>({
+      query({ id, ...patch }) {
+        return {
+          url: `ingredients/${id}`,
+          method: 'PUT',
+          body: patch,
+        }
+      },
+      invalidatesTags: ['Ingredient', 'Ingredients'],
     }),
     deleteIngredient: builder.mutation<{ success: boolean; id: number }, number>({
       query(id) {
@@ -32,28 +43,35 @@ export const ingredientsAPI = createApi({
           method: 'DELETE',
         }
       },
-      invalidatesTags: ['Ingredient'],
+      invalidatesTags: ['Ingredient', 'Ingredients'],
     }),
-    deleteLinkedIngredient: builder.mutation<Ingredient[], void>({
-      query: () => `/ingredients`,
-    }),
-    getIngredient: builder.query<Ingredient, number>({
-      query: (id) => `/ingredients/${id}`,
-    }),
-    updateIngredient: builder.mutation<void, Pick<Ingredient, 'id'> & Partial<Ingredient>>({
-      query({ id, ...patch }) {
-        console.log(patch)
 
+    createLinkedIngredient: builder.mutation<Ingredient, Ingredient>({
+      query(data) {
+        const { id, ...body } = data
         return {
-          url: `ingredients/${id}`,
+          url: `/ingredients/recipe`,
+          method: 'POST',
+          body,
+        }
+      },
+    }),
+    updateLinkedIngredient: builder.mutation<void, Pick<Ingredient, 'id'> & Partial<Ingredient>>({
+      query({ id, ...patch }) {
+        return {
+          url: `/ingredients/recipe/${id}`,
           method: 'PUT',
           body: patch,
         }
       },
-      invalidatesTags: ['Ingredient'],
     }),
-    updateLinkedIngredient: builder.mutation<Ingredient[], void>({
-      query: () => `/ingredients`,
+    deleteLinkedIngredient: builder.mutation<{ success: boolean; id: number }, number>({
+      query(id) {
+        return {
+          url: `/ingredients/recipe/${id}`,
+          method: 'DELETE',
+        }
+      },
     }),
   }),
 })

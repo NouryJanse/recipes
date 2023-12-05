@@ -60,7 +60,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
 
       <div className="flex flex-col sm:flex-row justify-between mt-4 sm:mt-9 md:mt-12 lg:mt-22 xl:mt-28">
         <div className="flex-row">
-          <h2 className="font-bold text-white">{recipe.name}</h2>
+          <h2 className="font-bold text-white bg-white/[0.3] py-0.5 px-2 rounded-md">{recipe.name}</h2>
 
           <p className="flex xl:hidden text-white">
             <i>{courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}</i>

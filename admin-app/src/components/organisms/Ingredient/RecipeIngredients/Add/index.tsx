@@ -1,13 +1,13 @@
 import { ReactElement, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
 
 import RootState from '../../../../../types/RootState'
-import { getIngredients, createLinkedIngredient } from '../../../../../redux/reducers/ingredients/ingredientSlice'
 
-import { getRecipe } from '../../../../../redux/reducers/recipes/recipeSlice'
 import { useForm } from 'react-hook-form'
 import Form from './form'
+import { useCreateLinkedIngredientMutation } from '../../../../../redux/reducers/ingredients/ingredients'
+import { useGetRecipeQuery } from '../../../../../redux/reducers/recipes/recipes'
 
 type AddRecipeIngredientProps = { recipe: Recipe; setShowAdd: React.Dispatch<React.SetStateAction<boolean>> }
 
@@ -21,9 +21,10 @@ type Inputs = {
 
 const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe, setShowAdd }): ReactElement => {
   const user: User = useSelector((state: RootState) => state.userSlice.data.user)
-  const dispatch = useDispatch()
   const [ref, setRef] = useState<StateManagedSelect>()
   const [unit, setUnit] = useState<string>('')
+  const [createLinkedIngredient] = useCreateLinkedIngredientMutation()
+  const { refetch } = useGetRecipeQuery(recipe.id)
 
   const {
     register,
@@ -58,14 +59,8 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe, setSh
     }
 
     // @ts-ignore:next-line
-    await dispatch(createLinkedIngredient(obj))
-
-    // @ts-ignore:next-line
-    await dispatch(getRecipe(recipe.id))
-
-    // @ts-ignore:next-line
-    await dispatch(getIngredients())
-
+    createLinkedIngredient(obj)
+    refetch()
     setShowAdd(false)
     return true
   }

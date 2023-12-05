@@ -1,16 +1,13 @@
 import { useEffect, useState, useRef, ReactElement } from 'react'
-import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
-import { updateIngredient } from '../../../redux/reducers/ingredients/ingredientSlice'
 
 import { Loader, PageTitle } from '../../../components'
 import Form from './form'
 import { useGetIngredientQuery, useUpdateIngredientMutation } from '../../../redux/reducers/ingredients/ingredients'
 
 const EditIngredient: React.FC = (): ReactElement => {
-  const dispatch = useDispatch()
   const params = useParams()
   const formRef = useRef()
 
@@ -50,9 +47,12 @@ const EditIngredient: React.FC = (): ReactElement => {
 
   const dispatchEdit = async (data: Ingredient, editedIngredient: Ingredient): Promise<boolean> => {
     if (!editedIngredient.id || !data.name) return false
-    // @ts-ignore:next-line
-    await updateIngredient({ id: editedIngredient.id, ...editedIngredient, ...data })
-    // await dispatch(updateIngredient({ id: editedIngredient.id, ...editedIngredient, ...data }))
+    await updateIngredient({
+      ...editedIngredient,
+      ...data,
+      // @ts-ignore:next-line
+      calorieCount: Number.parseInt(editedIngredient.calorieCount, 10),
+    })
     return true
   }
 
@@ -70,7 +70,7 @@ const EditIngredient: React.FC = (): ReactElement => {
   const debouncedSubmit = useRef(
     debounce(async (data, currentIngredient, func) => {
       func(data, currentIngredient)
-    }, 750),
+    }, 350),
   ).current
 
   useEffect(() => {

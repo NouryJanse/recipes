@@ -45,6 +45,7 @@ A creator single page web app
 - [React Router](https://www.npmjs.com/package/react-router)
 - [React Testing Library](https://www.npmjs.com/package/@testing-library/react)
 - [Redux Toolkit](https://www.npmjs.com/package/@reduxjs/toolkit)
+- [Redux Toolkit Query](https://www.npmjs.com/package/@reduxjs/toolkit)
 - [Tailwind](https://www.npmjs.com/package/tailwindcss)
 
 A data platform that allows multichannel access

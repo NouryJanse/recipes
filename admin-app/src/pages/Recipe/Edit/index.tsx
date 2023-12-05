@@ -3,9 +3,6 @@ import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { debounce } from 'ts-debounce'
 import { Loader, WrapperRecipeIngredients } from '../../../components/index'
-import { RECIPE_COURSE_OPTIONS } from '../../../constants'
-import courseName from './helpers'
-import { PageTitle } from '../../../components'
 import Form from './form'
 import Navigation from './navigation'
 import { useGetRecipeQuery, useUpdateRecipeMutation } from '../../../redux/reducers/recipes/recipes'
@@ -18,6 +15,7 @@ const EditRecipe: React.FC = (): ReactElement => {
   const params = useParams()
   const { data: recipe } = useGetRecipeQuery(id, {
     skip,
+    refetchOnMountOrArgChange: true,
   })
   const [updateRecipe, { isLoading: isUpdating }] = useUpdateRecipeMutation()
   const {
@@ -29,8 +27,6 @@ const EditRecipe: React.FC = (): ReactElement => {
   } = useForm()
   const [initialRecipeLoad, setInitialRecipeLoad] = useState(false)
   const [recipeName, setRecipeName] = useState<string>('')
-  const [course, setCourse] = useState<string>('')
-  const [toggle, setToggle] = useState(false)
 
   useEffect(() => {
     if (params.recipeId !== undefined) {
@@ -42,8 +38,7 @@ const EditRecipe: React.FC = (): ReactElement => {
   const dispatchEdit = async (recipe: Recipe, editedRecipe: Recipe): Promise<boolean> => {
     if (!editedRecipe.id || !recipe.name) return false
     // @ts-ignore:next-line
-    await updateRecipe({ id: editedRecipe.id, ...editedRecipe, ...recipe })
-    // await dispatch(updateRecipe({ id: editedRecipe.id, ...editedRecipe, ...recipe }))
+    await updateRecipe({ ...editedRecipe, ...recipe })
     return true
   }
 
@@ -53,18 +48,14 @@ const EditRecipe: React.FC = (): ReactElement => {
     if (recipe) dispatchEdit(formData, recipe)
   }
 
-  const handleToggle = (): void => {
-    setValue('published', !toggle)
-    setToggle(!toggle)
-  }
-
   const debouncedSubmit = useRef(
     debounce(async (data, currentRecipe) => {
       dispatchEdit(data, currentRecipe)
-    }, 750),
+    }, 350),
   ).current
 
   useEffect(() => {
+    if (recipe && recipe.name) setRecipeName(recipe.name)
     const subscription = watch(async (data) => {
       await setRecipeName(data.name)
       debouncedSubmit(data, recipe)
@@ -73,17 +64,13 @@ const EditRecipe: React.FC = (): ReactElement => {
   }, [watch, recipe, debouncedSubmit])
 
   if (!recipe) {
-    return <p>Error, no recipe found or still loading the recipe from the server.</p>
+    return <p>Fetching the recipe from the server...</p>
   }
 
   return (
     <div className="pt-7">
-      <div className="flex justify-between mb-16">
-        <PageTitle
-          text={`Editing ${recipeName} - ${
-            recipe.course ? `${courseName(recipe.course ? recipe.course : '', RECIPE_COURSE_OPTIONS)}` : ''
-          }`}
-        />
+      <div className="flex justify-between mb-16 items-center">
+        <h1 className="text-xl md:text-3xl xl:text-4xl 2xl:text-5xl font-bold">{`Editing ${recipeName}`}</h1>
 
         {isUpdating && <Loader />}
 
@@ -95,19 +82,14 @@ const EditRecipe: React.FC = (): ReactElement => {
           handleSubmit={handleSubmit}
           onSave={onSave}
           formRef={formRef}
-          handleToggle={handleToggle}
           register={register}
-          toggle={toggle}
           recipe={recipe}
           errors={errors}
-          course={course}
-          setCourse={setCourse}
           setValue={setValue}
           setInitialRecipeLoad={setInitialRecipeLoad}
           initialRecipeLoad={initialRecipeLoad}
         />
 
-        {/* LINKING INGREDIENTS HERE */}
         <WrapperRecipeIngredients recipe={recipe} />
       </div>
     </div>
