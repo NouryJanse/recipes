@@ -1,29 +1,15 @@
 import classNames from 'classnames'
 import React, { ReactElement } from 'react'
 
-import tw from 'tailwind-styled-components'
-
-interface TWImageStyle {
-  $rounded: boolean
-}
-
-const ImageStyle = tw.img`
-  flex
-  object-contain
-
-  ${(p: TWImageStyle): string => (p.$rounded ? 'rounded-md' : '')}
-`
-
 type ImageComponentProps = {
   src: string
   alt: string
-  width?: number | string
-  height?: number | string
-  rounded?: boolean
+  width?: number
+  height?: number
   classes?: string
 }
 
-const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, width, height, rounded, classes }): ReactElement => {
+const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, width, height, classes }): ReactElement => {
   const dimensions = {
     ...((width === undefined || width > 0) && { width }),
     ...((height === undefined || height > 0) && { height }),
@@ -37,16 +23,24 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, width, height
   )
 
   if (dimensions.width || dimensions.height) {
-    return <ImageStyle src={src} alt={alt} {...dimensions} {...otherClasses} loading="lazy" decoding="async" />
+    return <img src={src} alt={alt} {...dimensions} className={otherClasses} loading="lazy" decoding="async" />
   }
   // @ts-ignore:next-line
-  return <ImageStyle src={src} alt={alt} {...dimensions} $rounded={rounded} />
+  return (
+    <img
+      className="flex object-contain"
+      src={src}
+      alt={alt}
+      {...dimensions}
+      // $rounded={rounded}
+    />
+  )
 }
 
 ImageComponent.defaultProps = {
   width: undefined,
   height: undefined,
-  rounded: false,
+  // rounded: false,
   classes: '',
 }
 

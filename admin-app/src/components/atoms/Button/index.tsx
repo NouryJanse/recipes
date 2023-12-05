@@ -1,9 +1,8 @@
-import React, { ReactElement } from 'react'
-import ButtonStyle from './styled'
+import React, { ReactElement, useEffect } from 'react'
 
 type ButtonProps = {
   type: 'submit' | 'reset' | 'button'
-  onClick?: (e: MouseEvent) => void
+  onClick?: any
   disabled?: boolean
   label?: string | JSX.Element
   classes?: string
@@ -24,21 +23,25 @@ const Button: React.FC<ButtonProps> = ({
   fullwidth,
   disabled,
 }): ReactElement => {
+  useEffect(() => {
+    console.log(buttonStyle, noedge, fullwidth)
+  }, [])
+
   return (
-    <ButtonStyle
+    <button
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={classes}
-      $primary={buttonStyle === 'primary'}
-      $secondary={buttonStyle === 'secondary'}
-      $tertiary={buttonStyle === 'tertiary'}
-      $noedge={noedge}
-      $fullwidth={fullwidth}
-      $disabled={disabled}
+      className={`${classes} flex outline-none align-middle justify-center p-2 rounded no-underline border-1 border-solid border-transparent transition-colors focus:border-solid focus:border-blue h-fit`}
+      // $primary={buttonStyle === 'primary'}
+      // $secondary={buttonStyle === 'secondary'}
+      // $tertiary={buttonStyle === 'tertiary'}
+      // $noedge={noedge}
+      // $fullwidth={fullwidth}
+      // $disabled={disabled}
     >
       {children || label}
-    </ButtonStyle>
+    </button>
   )
 }
 

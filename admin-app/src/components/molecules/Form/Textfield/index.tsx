@@ -72,7 +72,7 @@ const Textfield: React.FC<TextFieldProps> = ({
           type={type}
           defaultValue={editingValue}
           placeholder={placeholder}
-          $isEditing={isEditing}
+          // $isEditing={isEditing}
         />
       ) : (
         <InputStyle
@@ -85,7 +85,7 @@ const Textfield: React.FC<TextFieldProps> = ({
           onKeyDown={onKeyDown}
           onBlur={onBlur}
           onFocus={onFocus}
-          $isEditing={isEditing}
+          // $isEditing={isEditing}
         />
       )}
 

@@ -27,7 +27,11 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ name, label, register, onSele
 
   const { getRootProps, getInputProps, isDragActive, isFileDialogActive } = useDropzone({
     onDrop,
-    accept: 'image/jpeg, image/png, image/webp',
+    accept: {
+      'image/png': ['.png'],
+      'image/jpeg': ['.jpeg'],
+      'image/webp': ['.webp'],
+    },
     multiple: false,
   })
 

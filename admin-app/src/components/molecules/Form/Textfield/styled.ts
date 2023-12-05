@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-interface TWStyledInputParameter {
-  $isEditing: boolean
-}
+// interface TWStyledInputParameter {
+//   $isEditing: boolean
+// }
 
 export const InputStyle = styled.input`
   display: flex
@@ -17,8 +17,8 @@ export const InputStyle = styled.input`
     padding-left: 12px;
   }
 
-  ${(p: TWStyledInputParameter): string => (p.$isEditing ? 'border-color: blue' : 'border-color: transparent')}
-`
+  `
+// ${(p: TWStyledInputParameter): string => (p.$isEditing ? 'border-color: blue' : 'border-color: transparent')}
 
 export const FieldRowStyle = styled.div`
   max-width: 320px;
