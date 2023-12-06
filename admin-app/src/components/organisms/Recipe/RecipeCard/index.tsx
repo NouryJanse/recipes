@@ -21,7 +21,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
   const { data: recipes } = useGetRecipesQuery()
   const [mainImage, setMainImage] = useState<string>('')
   const [isHovering, setIsHovering] = useState(false)
-  const { execute, isLoading, isError, isSuccess } = onDelete()
+  const { execute } = onDelete()
 
   useEffect(() => {
     if (recipe?.images?.length) {

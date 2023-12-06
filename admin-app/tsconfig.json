@@ -3,7 +3,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "target": "ESNext",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "jsx": "react-jsx",                                  /* Specify what JSX code is generated. */
-     "module": "es2022",
+    "module": "es2022",
     "moduleResolution": "Node",
     "typeRoots": [                                       /* Specify multiple folders that act like `./node_modules/@types`. */
       "./node_module/@types",

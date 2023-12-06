@@ -43,7 +43,7 @@ const Form: React.FC<FormProps> = ({
         />
       </FieldContainer>
 
-      <FieldContainer>
+      {/* <FieldContainer>
         <Dropdown
           name="unit"
           label="Ingredient unit type*"
@@ -59,9 +59,9 @@ const Form: React.FC<FormProps> = ({
             setValue('unit', event.target.value)
           }}
         />
-      </FieldContainer>
+      </FieldContainer> */}
 
-      <FieldContainer>
+      {/* <FieldContainer>
         <Number
           name="calorieCount"
           label="Number of calories*"
@@ -72,7 +72,7 @@ const Form: React.FC<FormProps> = ({
           register={register}
           errors={errors.calorieCount}
         />
-      </FieldContainer>
+      </FieldContainer> */}
 
       <FieldContainer>
         <Toggle

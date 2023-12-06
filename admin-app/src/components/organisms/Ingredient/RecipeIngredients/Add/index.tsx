@@ -1,13 +1,14 @@
 import { ReactElement, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useForm } from 'react-hook-form'
 import StateManagedSelect from 'react-select/dist/declarations/src/stateManager'
 
 import RootState from '../../../../../types/RootState'
 
-import { useForm } from 'react-hook-form'
-import Form from './form'
 import { useCreateLinkedIngredientMutation } from '../../../../../redux/reducers/ingredients/ingredients'
 import { useGetRecipeQuery } from '../../../../../redux/reducers/recipes/recipes'
+
+import Form from './form'
 
 type AddRecipeIngredientProps = { recipe: Recipe; setShowAdd: React.Dispatch<React.SetStateAction<boolean>> }
 
@@ -26,13 +27,7 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe, setSh
   const [createLinkedIngredient] = useCreateLinkedIngredientMutation()
   const { refetch } = useGetRecipeQuery(recipe.id)
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    reset,
-  } = useForm<Inputs>()
+  const { register, handleSubmit, setValue, reset } = useForm<Inputs>()
 
   const clearAutoComplete = (): void => {
     if (ref !== null) {

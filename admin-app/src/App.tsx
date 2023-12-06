@@ -3,6 +3,9 @@ import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import classNames from 'classnames'
 
+import RootState from './types/RootState'
+import ROUTES from './constants/ROUTES'
+
 import {
   Navigation,
   Recipes,
@@ -15,9 +18,8 @@ import {
   Ratings,
   Account,
   EditIngredient,
+  Login,
 } from './components'
-import RootState from './types/RootState'
-import ROUTES from './constants/ROUTES'
 
 const App: React.FC = (): ReactElement => {
   const application = useSelector((state: RootState) => state.applicationSlice.data)
@@ -34,6 +36,9 @@ const App: React.FC = (): ReactElement => {
       >
         <Routes>
           <Route path={ROUTES.HOME} element={<Dashboard />} />
+
+          <Route path={ROUTES.LOGIN} element={<Login />} />
+          {/* <Route path={ROUTES.REGISTER} element={<Register />} /> */}
 
           <Route path={ROUTES.RECIPES_CREATE} element={<CreateRecipe />} />
 
@@ -57,7 +62,7 @@ const App: React.FC = (): ReactElement => {
           <Route path={ROUTES.RATINGS} element={<Ratings />} />
           <Route path={ROUTES.ACCOUNT} element={<Account />} />
 
-          <Route path="*" element={`There's nothing here!`} />
+          <Route path="*" element={`Oops, there is nothing here...`} />
         </Routes>
       </div>
     </div>

@@ -19,7 +19,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   if (!_csrf || (_csrf && !tokens.verify(csrfSecret, _csrf))) {
     return new Response(
       JSON.stringify({
-        message: "Login not succesful",
+        message: "Registration not successful",
       })
     );
   }

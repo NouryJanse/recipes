@@ -1,17 +1,7 @@
 import React, { ReactElement } from 'react'
-import { useDispatch } from 'react-redux'
 import { PageTitle } from '../../components'
-import { storeUser } from '../../redux/reducers/users/userSlice'
-import Button from '../../components/atoms/Button'
 
-const Login: React.FC<AuthProps> = ({ auth0 }): ReactElement => {
-  const dispatch = useDispatch()
-
-  const loginUser = async (): Promise<void> => {
-    const auth0User = await auth0.login()
-    dispatch(storeUser(auth0User))
-  }
-
+const Login: React.FC = (): ReactElement => {
   return (
     <div className="inline-flex flex-col justify-center p-5 sm:p-15 md:p-24 xl:p-48">
       <PageTitle text="Please login to continue." />
@@ -21,17 +11,60 @@ const Login: React.FC<AuthProps> = ({ auth0 }): ReactElement => {
         manage recipes.
       </p>
 
-      <p className="mb-6">
-        By clicking on the button below, you will be redirected to a very reliable authentication system from{' '}
-        <a href="https://auth0.com/" className="inline-block font-bold underline hover:text-orange-600">
-          0Auth.
-        </a>{' '}
-        Via this way all security and privacy practices are implemented via a professional party rather than trying to
-        reinvent the wheel by myself.
-      </p>
+      <div className="page--register-login">
+        <div className="container login-hero">
+          <div>
+            <h1>Sign in</h1>
+            <div className="blob"></div>
+          </div>
+        </div>
+
+        <div className="container login-form">
+          <h1>Sign in</h1>
+
+          <form action="/api/user/login" method="post">
+            <label htmlFor="username">
+              <span>Username</span>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="username"
+                placeholder="Username here..."
+                required
+                autoFocus
+                value="alice"
+              />
+            </label>
+
+            <label htmlFor="current-password">
+              <span>Password</span>
+              <input
+                id="current-password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                placeholder="Password here..."
+                required
+                value="wonderland"
+              />
+            </label>
+
+            {/* <input type="hidden" name="_csrf" value={token} /> */}
+
+            <div className="buttons">
+              <a href="/user/register">
+                <button type="button">Register</button>
+              </a>
+
+              <button type="submit">Sign in</button>
+            </div>
+          </form>
+        </div>
+      </div>
 
       <div>
-        <Button type="button" onClick={(): Promise<void> => loginUser()} label="Login" />
+        <button type="button">Login</button>
       </div>
     </div>
   )

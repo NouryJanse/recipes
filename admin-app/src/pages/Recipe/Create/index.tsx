@@ -20,7 +20,7 @@ const CreateRecipe: React.FC = (): ReactElement => {
 
   const onSubmit = async (data: object): Promise<void> => {
     // @ts-ignore:next-line
-    await createRecipe(data).unwrap()
+    await createRecipe(data)
     navigate('/recipes')
   }
 

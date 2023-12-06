@@ -1,10 +1,10 @@
 import express, { Application } from 'express'
-import * as dotenv from 'dotenv'
+import 'dotenv/config'
 import cors from 'cors'
-dotenv.config({ path: './.env' }) // repo root, not in src
 
 import ingredientRoutes from './routes/ingredients'
 import recipeRoutes from './routes/recipes'
+import apiRouter from './routes'
 
 const port = parseInt(process.env.PORT as string, 10 || 3000)
 const env = process.env.ENV
@@ -32,7 +32,7 @@ router.use((req, res, next) => {
   next()
 })
 
-app.use('/', [router, ingredientRoutes, recipeRoutes])
+app.use('/', [router, ingredientRoutes, recipeRoutes, apiRouter])
 
 app.listen(port, () => {
   console.info(`Server running at http://localhost:${port}`)

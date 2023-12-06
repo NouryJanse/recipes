@@ -5,8 +5,7 @@ const url = `${import.meta.env.VITE_SERVER_URL}/api`
 export const recipesAPI = createApi({
   reducerPath: 'recipesAPI',
   tagTypes: ['Recipes', 'Recipe'],
-  // refetchOnFocus: true,
-  // refetchOnReconnect: true,
+  refetchOnReconnect: true,
   baseQuery: fetchBaseQuery({ baseUrl: url }),
   endpoints: (builder) => ({
     createRecipe: builder.mutation<Recipe, Recipe>({

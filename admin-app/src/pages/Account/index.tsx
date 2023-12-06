@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react'
 import { useSelector } from 'react-redux'
-import { Loader, PageTitle } from '../../components'
+
 import RootState from '../../types/RootState'
+
+import { Loader, PageTitle } from '../../components'
 
 const Account: React.FC = (): ReactElement => {
   const user = useSelector((state: RootState) => state.userSlice.data.user)

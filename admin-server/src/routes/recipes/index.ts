@@ -1,45 +1,12 @@
 import express from 'express'
 import { Image, Recipe } from '@prisma/client'
-import {
-  createRecipe,
-  deleteRecipe,
-  getRecipe,
-  getRecipes,
-  updateRecipe,
-} from '../../models/recipes'
+import { deleteRecipe, getRecipe, updateRecipe } from '../../models/recipes'
 // import ObjectAlreadyExistsError from "../../types/ObjectAlreadyExistsError";
 import { createImage, deleteImage, updateImage } from '../../models/images'
 import { formatRecipeImages } from '../../helpers'
 import { ERROR_MESSAGES, HTTP_CODES } from '../../constants'
 
 const router = express.Router()
-
-// CREATE RECIPE
-router.post('/api/recipes', async (req, res) => {
-  try {
-    const { name, description, authorId, course } = req.body
-    const recipe = await createRecipe(name, description, authorId, course)
-    if (!recipe) throw new Error('An error occurred')
-    return res.status(HTTP_CODES.CREATED).send({ recipe })
-  } catch (error) {
-    console.error(error)
-    // if (error instanceof ObjectAlreadyExistsError) {
-    //   return res.sendStatus(HTTP_CODES.INTERNAL_SERVER_ERROR).json({ message: error.message });
-    // }
-    return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR)
-  }
-})
-
-// GET RECIPES
-router.get('/api/recipes', async (req, res) => {
-  try {
-    const recipes = await getRecipes()
-    res.status(200).send(recipes)
-  } catch (error) {
-    console.error(error)
-    return res.status(HTTP_CODES.NOT_FOUND).send([])
-  }
-})
 
 // GET RECIPE
 router.get('/api/recipes/:id', async (req, res) => {

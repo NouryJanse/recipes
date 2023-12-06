@@ -5,6 +5,7 @@ const url = `${import.meta.env.VITE_SERVER_URL}/api`
 export const ingredientsAPI = createApi({
   reducerPath: 'ingredientsAPI',
   tagTypes: ['Ingredients', 'Ingredient'],
+  refetchOnReconnect: true,
   baseQuery: fetchBaseQuery({ baseUrl: url }),
   endpoints: (builder) => ({
     getIngredients: builder.query<Ingredient[], void>({
