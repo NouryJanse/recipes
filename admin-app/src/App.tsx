@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import classNames from 'classnames'
+import clsx from 'clsx'
 
 import RootState from './types/RootState'
 import ROUTES from './constants/ROUTES'
@@ -23,17 +23,16 @@ import {
 
 const App: React.FC = (): ReactElement => {
   const application = useSelector((state: RootState) => state.applicationSlice.data)
+  const navBar = clsx('content p-4  w-full', {
+    'ml-64': application.navMenuIsOpened,
+    'ml-16': !application.navMenuIsOpened,
+  })
 
   return (
     <div className="flex flex-row">
       <Navigation />
 
-      <div
-        className={classNames(
-          { 'ml-64': application.navMenuIsOpened, 'ml-16': !application.navMenuIsOpened },
-          'content p-4  w-full',
-        )}
-      >
+      <div className={navBar}>
         <Routes>
           <Route path={ROUTES.HOME} element={<Dashboard />} />
 

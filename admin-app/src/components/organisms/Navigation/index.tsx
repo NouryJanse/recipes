@@ -6,7 +6,6 @@ import { FaAlignJustify } from 'react-icons/fa6'
 import { MdLogout, MdSwitchAccount } from 'react-icons/md'
 import { BsStarHalf, BsListNested } from 'react-icons/bs'
 import { GiShinyApple, GiChiliPepper } from 'react-icons/gi'
-import classNames from 'classnames'
 
 import { Button, Icon } from '../..'
 import { toggleNav } from '../../../redux/reducers/application/applicationSlice'
@@ -15,6 +14,7 @@ import ROUTES from '../../../constants/ROUTES'
 import NavigationLink from '../../molecules/NavigationLink'
 import { getDifferenceInFormat } from '../../../helpers/DateHelper'
 import { useGetRecipesQuery } from '../../../redux/reducers/recipes/recipes'
+import clsx from 'clsx'
 
 type NavigationProps = {}
 
@@ -29,24 +29,18 @@ const Navigation: React.FC<NavigationProps> = (): ReactElement => {
 
   return (
     <nav
-      className={classNames(
-        {
-          opened: menuIsOpen === true,
-          closed: menuIsOpen === false,
-        },
-        'bg-gray-100 flex flex-col justify-between fixed align-top',
-      )}
+      className={clsx('bg-gray-100 flex flex-col justify-between fixed align-top', {
+        opened: menuIsOpen === true,
+        closed: menuIsOpen === false,
+      })}
       data-testid="Navigation"
     >
       <div className="w-full">
         <div
-          className={classNames(
-            {
-              'bg-purpleDark text-white flex flex-col': menuIsOpen === true,
-              hidden: menuIsOpen === false,
-            },
-            'transition-colors py-10 px-4 mb-8',
-          )}
+          className={clsx('transition-colors py-10 px-4 mb-8', {
+            'bg-purpleDark text-white flex flex-col': menuIsOpen === true,
+            hidden: menuIsOpen === false,
+          })}
         >
           <span className="text-gray-300 font-bold">Foody</span>
 
@@ -57,7 +51,7 @@ const Navigation: React.FC<NavigationProps> = (): ReactElement => {
           </Link>
         </div>
 
-        <div className={classNames({ 'items-center': menuIsOpen !== true }, 'pt-3 flex flex-col justify-between')}>
+        <div className="pt-3 flex flex-col justify-between">
           {menuIsOpen && <span className="px-3 mb-4 text-gray-500 text-sm">MENU</span>}
 
           <div
@@ -79,7 +73,7 @@ const Navigation: React.FC<NavigationProps> = (): ReactElement => {
                   <div className="flex flex-row items-center ">
                     <GoX style={{ color: 'black' }} className="hover:text-green-400" />
                     <span
-                      className={classNames({
+                      className={clsx({
                         'flex ml-4': menuIsOpen === true,
                         hidden: menuIsOpen !== true,
                       })}
@@ -105,7 +99,7 @@ const Navigation: React.FC<NavigationProps> = (): ReactElement => {
           <NavigationLink
             to={ROUTES.RECIPES_CREATE}
             menuIsOpen={menuIsOpen}
-            additionalClasses={classNames({
+            additionalClasses={clsx({
               flex: menuIsOpen === false,
               hidden: menuIsOpen === true,
             })}
@@ -132,20 +126,17 @@ const Navigation: React.FC<NavigationProps> = (): ReactElement => {
       </div>
 
       <div
-        className={classNames(
-          {
-            'flex flex-col items-center': !menuIsOpen,
-          },
-          'w-full',
-        )}
+        className={clsx('w-full', {
+          'flex flex-col items-center': !menuIsOpen,
+        })}
       >
         {menuIsOpen && <span className="mb-1 text-gray-500 text-sm flex px-3">MY ACCOUNT</span>}
 
         <span
-          className={classNames(
-            { visible: menuIsOpen, invisible: !menuIsOpen },
-            'mb-4 text-xs flex text-gray-700 font-bold px-3',
-          )}
+          className={clsx('mb-4 text-xs flex text-gray-700 font-bold px-3', {
+            visible: menuIsOpen,
+            invisible: !menuIsOpen,
+          })}
         >
           Logged in as {user.name}
         </span>
@@ -159,11 +150,11 @@ const Navigation: React.FC<NavigationProps> = (): ReactElement => {
           onKeyDown={(e: React.KeyboardEvent): React.KeyboardEvent => {
             return e
           }}
-          className={classNames('flex flex-row mb-6 px-3')}
+          className="flex flex-row mb-6 px-3"
         >
           <Icon iconElement={<MdLogout />} />
           <span
-            className={classNames({
+            className={clsx({
               'flex ml-4 font-bold': menuIsOpen === true,
               hidden: menuIsOpen !== true,
             })}

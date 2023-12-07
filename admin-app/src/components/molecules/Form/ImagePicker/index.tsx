@@ -1,10 +1,9 @@
 import React, { useEffect, useCallback, ReactElement } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
 import { useDropzone } from 'react-dropzone'
-import classNames from 'classnames'
 
-import StyledLabel from './styled'
 import readAsDataURLViaPromise from '../../../../helpers/FileSystemHelper'
+import clsx from 'clsx'
 
 type ImagePickerProps = {
   name: string
@@ -39,22 +38,25 @@ const ImagePicker: React.FC<ImagePickerProps> = ({ name, label, register, onSele
     register(`${name}`)
   }, [register, name])
 
-  const labelClass = classNames({
+  const baseClasses = `block border-2 border-black border-dashed p-2 pt-3 items-center justify-center
+  h-full text-black relative text-center w-full hover:cursor-pointer max-w-2x`
+
+  const labelClass = clsx(baseClasses, {
     'border-blue': isDragActive || isFileDialogActive,
     'border-grey hover:border-black': !isDragActive && !isFileDialogActive,
   })
 
-  const paragraphClass = classNames({
+  const paragraphClass = clsx({
     'font-bold text-blue': isDragActive || isFileDialogActive,
     'font-normal': !isDragActive && !isFileDialogActive,
   })
 
   return (
     <div {...getRootProps({ className: 'dropzone' })} className="m-0 p-0">
-      <StyledLabel htmlFor={name} className={labelClass}>
+      <label htmlFor={name} className={labelClass}>
         <input type="file" {...getInputProps()} />
         <p className={paragraphClass}>{label}</p>
-      </StyledLabel>
+      </label>
     </div>
   )
 }

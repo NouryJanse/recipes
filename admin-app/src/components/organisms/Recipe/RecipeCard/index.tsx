@@ -2,13 +2,13 @@ import React, { useState, useEffect, ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AiTwotoneEdit } from 'react-icons/ai'
 import { MdDelete } from 'react-icons/md'
-import classNames from 'classnames'
 import { Button } from '../../../index'
 import { getDifferenceInFormat } from '../../../../helpers/DateHelper'
 import courseName from '../../../../pages/Recipe/Edit/helpers'
 import { RECIPE_COURSE_OPTIONS, REPLACEMENT_IMAGE } from '../../../../constants'
 import { useGetRecipesQuery } from '../../../../redux/reducers/recipes/recipes'
 import onDelete from './deleteRecipe'
+import clsx from 'clsx'
 
 type RecipeCardProps = {
   recipe: Recipe
@@ -33,6 +33,11 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
 
   if (!recipe) return <p>Error, no recipe found.</p>
 
+  const newClasses = clsx('inline-flex font-bold text-white border-2 rounded-lg p-1', {
+    visible: showNewLabel(recipe),
+    invisible: !showNewLabel(recipe),
+  })
+
   return (
     <div
       style={{
@@ -46,17 +51,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
       onMouseLeave={() => setIsHovering(false)}
       className="cardAnimation mb-6 p-4 rounded-lg border-transparent bg-center bg-cover hover:cursor-pointer transition-all"
     >
-      <div
-        className={classNames(
-          {
-            visible: showNewLabel(recipe),
-            invisible: !showNewLabel(recipe),
-          },
-          'inline-flex font-bold text-white border-2 rounded-lg p-1',
-        )}
-      >
-        New!
-      </div>
+      <div className={newClasses}>New!</div>
 
       <div className="flex flex-col sm:flex-row justify-between mt-4 sm:mt-9 md:mt-12 lg:mt-22 xl:mt-28">
         <div className="flex-row">

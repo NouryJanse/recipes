@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import React, { ReactElement } from 'react'
 
 type ImageComponentProps = {
@@ -14,7 +14,7 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, width, height
     ...((width === undefined || width > 0) && { width }),
     ...((height === undefined || height > 0) && { height }),
   }
-  const otherClasses = classNames(
+  const otherClasses = clsx(
     {
       'w-full': width === 0,
       'h-auto': height === 0,
