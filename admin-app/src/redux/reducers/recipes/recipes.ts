@@ -58,10 +58,13 @@ export const recipesAPI = createApi({
       invalidatesTags: ['Recipe'],
     }),
     deleteRecipeImage: builder.mutation<any, any>({
-      query(id) {
+      query({ imageId }) {
+        console.log({ imageId })
+
         return {
-          url: `/recipes/image/${id}`,
+          url: `/recipes/image`,
           method: 'DELETE',
+          body: { imageId },
         }
       },
       invalidatesTags: ['Recipe'],

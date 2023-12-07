@@ -1,13 +1,14 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form'
-// import { useDispatch } from 'react-redux'
-
-// import { createRecipeImage, deleteRecipeImage, getRecipe } from '../../../../redux/reducers/recipes/recipeSlice'
 import FieldContainer from '../../../molecules/Form/FieldContainer'
 import ImagePicker from '../../../molecules/Form/ImagePicker'
 import ImagePreviewList from '../../../molecules/Form/ImagePreviewList'
 import ImageSortableList from '../../../molecules/Form/ImageSortableList'
-import { useCreateRecipeImageMutation, useDeleteRecipeImageMutation } from '../../../../redux/reducers/recipes/recipes'
+import {
+  useCreateRecipeImageMutation,
+  useDeleteRecipeImageMutation,
+  useGetRecipeQuery,
+} from '../../../../redux/reducers/recipes/recipes'
 
 type ImagesType = {
   register: UseFormRegister<FieldValues>
@@ -28,6 +29,7 @@ const Images: React.FC<ImagesType> = ({
   const [imageSortableList, setImageSortableList] = useState<Image[]>([])
   const [createRecipeImage, {}] = useCreateRecipeImageMutation()
   const [deleteRecipeImage, {}] = useDeleteRecipeImageMutation()
+  const { refetch } = useGetRecipeQuery(recipe.id)
 
   useEffect(() => {
     if (recipe && recipe.images && !initialRecipeLoad) {
@@ -43,10 +45,10 @@ const Images: React.FC<ImagesType> = ({
   }
 
   const handleImageUpload = async (image: ImageData): Promise<void> => {
-    const res = await createRecipeImage({ image, recipeId: recipe.id })
+    const res = await createRecipeImage({ image, id: recipe.id })
+    console.log(res)
 
-    // const response = await createRecipeImage({ image, recipeId: recipe.id })
-
+    refetch()
     // if (response.type === 'recipes/createRecipeImage/fulfilled') {
     //   setImageViewList((prevState: ImageData[]) => [
     //     ...prevState.filter((currentImage) => currentImage.data !== image.data),
@@ -74,7 +76,9 @@ const Images: React.FC<ImagesType> = ({
 
   const deleteImage = async (imageId: string): Promise<void> => {
     // @ts-ignore:next-line
-    await deleteRecipeImage(imageId)
+    const res = await deleteRecipeImage({ imageId })
+    console.log(res)
+
     setInitialRecipeLoad(false)
   }
 

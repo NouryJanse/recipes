@@ -13,9 +13,6 @@ router.post('/api/recipes', async (req, res) => {
     return res.status(HTTP_CODES.CREATED).send({ recipe })
   } catch (error) {
     console.error(error)
-    // if (error instanceof ObjectAlreadyExistsError) {
-    //   return res.sendStatus(HTTP_CODES.INTERNAL_SERVER_ERROR).json({ message: error.message });
-    // }
     return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send()
   }
 })

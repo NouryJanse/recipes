@@ -1,8 +1,12 @@
 import { Router } from 'express'
 
 import createRecipe from './recipes/createRecipe'
+import createRecipeImage from './recipes/createRecipeImage'
+import deleteRecipe from './recipes/deleteRecipe'
+import deleteRecipeImage from './recipes/deleteRecipeImage'
+import getRecipe from './recipes/getRecipe'
 import getRecipes from './recipes/getRecipes'
-import recipesRouter from './recipes'
+import updateRecipe from './recipes/updateRecipe'
 import ingredientRouter from './ingredients'
 
 import registerUser from './users/register'
@@ -13,8 +17,12 @@ import deleteUser from './users/delete'
 
 let apiRouter = Router().use('/', [
   createRecipe,
+  createRecipeImage,
+  deleteRecipe,
+  deleteRecipeImage,
+  getRecipe,
   getRecipes,
-  recipesRouter,
+  updateRecipe,
   ingredientRouter,
   registerUser,
   loginUser,
