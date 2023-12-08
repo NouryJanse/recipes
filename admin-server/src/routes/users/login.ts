@@ -30,11 +30,11 @@ router.post('/api/users/login', async (req, res) => {
         })
         return res.status(HTTP_CODES.OK).send({ id: user.id, token })
       }
-      return res.status(500).send()
+      return res.status(500).send({ message: 'An error occurred.' })
     }
   } catch (error: any) {
     console.error('error')
-    return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send()
+    return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({ error })
   }
 })
 
