@@ -50,9 +50,9 @@ const CreateIngredient: React.FC = (): ReactElement => {
         onSubmit={onSubmit}
         register={register}
         errors={errors}
-        unit={unit}
-        setUnit={setUnit}
-        setValue={setValue}
+        // unit={unit}
+        // setUnit={setUnit}
+        // setValue={setValue}
         handleToggle={handleToggle}
         toggle={toggle}
         saveAndAddAnother={saveAndAddAnother}

@@ -33,7 +33,7 @@ const EditLinkedIngredient: React.FC<EditableIngredientListProps> = ({ ingredien
 
   const updateIngredient = (name: string, value: number | string, linkedIngredient: RecipeIngredient): void => {
     setUpdatedIngredient({
-      authorId: user.sub,
+      authorId: '1',
       recipeId,
       id: linkedIngredient.id,
       [name]: value,

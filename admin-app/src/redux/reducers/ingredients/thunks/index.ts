@@ -1,8 +1,0 @@
-export { default as createIngredientThunk } from './createIngredient'
-export { default as deleteIngredientThunk } from './deleteIngredient'
-export { default as getIngredientThunk } from './getIngredient'
-export { default as getIngredientsThunk } from './getIngredients'
-export { default as updateIngredientThunk } from './updateIngredient'
-export { default as createLinkedIngredientThunk } from './createLinkedIngredient'
-export { default as updateRecipeIngredientThunk } from './updateLinkedIngredient'
-export { default as deleteLinkedIngredientThunk } from './deleteLinkedIngredient'

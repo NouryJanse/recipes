@@ -84,8 +84,8 @@ interface RecipeFormProps {
 
 interface User {
   name: string
+  id: string
   token: string
-  sub: string
 }
 
 interface Auth0Interface {

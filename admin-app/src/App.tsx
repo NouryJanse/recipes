@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import clsx from 'clsx'
@@ -18,26 +18,45 @@ import {
   Ratings,
   Account,
   EditIngredient,
-  Login,
 } from './components'
 
-const App: React.FC = (): ReactElement => {
+type AppProps = {
+  onUserLogout: () => void
+}
+
+const App: React.FC<AppProps> = ({ onUserLogout }): ReactElement => {
   const application = useSelector((state: RootState) => state.applicationSlice.data)
   const navBar = clsx('content p-4  w-full', {
     'ml-64': application.navMenuIsOpened,
     'ml-16': !application.navMenuIsOpened,
   })
 
+  useEffect(() => {
+    const animatedEls = document.querySelectorAll('.appFadeIn')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.contains('appFadeIn') ? entry.target.classList.add('reveal') : ''
+          }
+        })
+      },
+      { threshold: 0.1 },
+    )
+
+    for (let i = 0; i < animatedEls.length; i++) {
+      const elements = animatedEls[i]
+      observer.observe(elements)
+    }
+  }, [])
+
   return (
-    <div className="flex flex-row">
-      <Navigation />
+    <div className="flex flex-row appFadeIn">
+      <Navigation onUserLogout={onUserLogout} />
 
       <div className={navBar}>
         <Routes>
           <Route path={ROUTES.HOME} element={<Dashboard />} />
-
-          <Route path={ROUTES.LOGIN} element={<Login />} />
-          {/* <Route path={ROUTES.REGISTER} element={<Register />} /> */}
 
           <Route path={ROUTES.RECIPES_CREATE} element={<CreateRecipe />} />
 

@@ -7,6 +7,75 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.1] - 2023-12-08
+
+### Added
+
+- Registration flow for users
+- SASS compile for future migrations away from tailwind
+- Added fade in on login or reload of application
+- Authentication middleware for authenticated api calls
+- User is stored in redux via normal reducers
+- Back-end typing on express requests
+- Back-end authentication and authorization protection on routes other than GET and userValidation
+
+### Changed
+
+- Removed all thunks since they migrated to RTK Query
+
+### Fixed
+
+- Invalidation of 'Recipes' after creating and deleting a Recipe
+- Some cleanup for production
+
+## [0.0.1] - 2023-12-07
+
+### Added
+
+- Recipe images are also implemented via RTK Query
+-
+
+### Changed
+
+- Replaced classnames with clsx
+
+## [0.0.1] - 2023-12-06
+
+### Added
+
+- Admin server now also includes a user authentication system: including a login template
+- Finished RTK Query migration
+- Split routes in to separate files for better DX
+
+### Changed
+
+- Disabled calorieCount and unit for ingredients: not used yet.
+
+## [0.0.1] - 2023-12-05
+
+### Changed
+
+- Updated all admin-app node deps
+- Lowered debounce on forms
+- Extracted some functions and components into separate files or subcomponents
+
+## [0.0.1] - 2023-12-04
+
+### Added
+
+- Redux Toolkit v9.0.0 and migrating away from extraReducers by using RTK Query
+
+## [0.0.1] - 2023-12-03
+
+### Fixed
+
+- Fixed socket.io fallback for production API in shopping-app
+
+### Changed
+
+- Updated all admin-app node deps with breaking change RTK
+- Lots of component breakdowns into subcomponents
+
 ## [0.0.1] - 2023-12-01
 
 ### Added

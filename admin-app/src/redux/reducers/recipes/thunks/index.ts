@@ -1,7 +1,0 @@
-export { default as createRecipeThunk } from './createRecipe'
-export { default as createRecipeImageThunk } from './createRecipeImage'
-export { default as deleteRecipeThunk } from './deleteRecipe'
-export { default as deleteRecipeImageThunk } from './deleteRecipeImage'
-export { default as getRecipeThunk } from './getRecipe'
-export { default as getRecipesThunk } from './getRecipes'
-export { default as updateRecipeThunk } from './updateRecipe'

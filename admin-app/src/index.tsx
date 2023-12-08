@@ -4,8 +4,10 @@ import { BrowserRouter } from 'react-router-dom'
 import { store } from './redux/store'
 
 import GlobalStyle from './styles/globalStyle'
+import './styles/index.scss'
+
 import Fonts from './styles/fonts'
-import App from './App'
+import Auth from './Auth'
 
 const container = document.getElementById('root')
 if (container) {
@@ -15,7 +17,7 @@ if (container) {
       <BrowserRouter>
         <GlobalStyle />
         <Fonts />
-        <App />
+        <Auth />
       </BrowserRouter>
     </Provider>,
   )

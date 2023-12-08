@@ -1,12 +1,13 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 
 import connectToDB from './services/mongoose'
 import { User } from './services/User'
 import { HTTP_CODES } from '../../constants'
+import handleUserAuthentication from '../../services/handleUserValidation'
 
 const router = express.Router()
 
-router.delete('/api/users', async (req, res) => {
+router.delete('/api/users', handleUserAuthentication, async (req: Request, res: Response) => {
   try {
     await connectToDB()
     const { id } = req.body

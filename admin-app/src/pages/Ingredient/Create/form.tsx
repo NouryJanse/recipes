@@ -7,9 +7,9 @@ type FormProps = {
   onSubmit: any
   register: any
   errors: any
-  unit: any
-  setUnit: any
-  setValue: any
+  // unit: any
+  // setUnit: any
+  // setValue: any
   handleToggle: any
   toggle: any
   saveAndAddAnother: any
@@ -20,9 +20,9 @@ const Form: React.FC<FormProps> = ({
   onSubmit,
   register,
   errors,
-  unit,
-  setUnit,
-  setValue,
+  // unit,
+  // setUnit,
+  // setValue,
   handleToggle,
   toggle,
   saveAndAddAnother,

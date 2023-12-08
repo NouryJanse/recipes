@@ -1,13 +1,14 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { getRecipe, updateRecipe } from '../../models/recipes'
 import { updateImage } from '../../models/images'
 import { formatRecipeImages } from '../../helpers'
 import { ERROR_MESSAGES, HTTP_CODES } from '../../constants'
+import handleUserAuthentication from '../../services/handleUserValidation'
 
 const router = express.Router()
 
 // UPDATE RECIPE
-router.put('/api/recipes/:id', async (req, res) => {
+router.put('/api/recipes/:id', handleUserAuthentication, async (req: Request, res: Response) => {
   try {
     const { id } = req.params
     const { name, description, authorId, course, published } = req.body

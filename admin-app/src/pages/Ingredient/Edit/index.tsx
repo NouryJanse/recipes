@@ -19,7 +19,6 @@ const EditIngredient: React.FC = (): ReactElement => {
   const [skip, setSkip] = useState<boolean>(true)
   const { data: ingredient, isLoading } = useGetIngredientQuery(id, { skip })
   const [updateIngredient] = useUpdateIngredientMutation()
-  const [toggle, setToggle] = useState(ingredient ? ingredient.published : false)
   const {
     register,
     handleSubmit,
@@ -40,16 +39,17 @@ const EditIngredient: React.FC = (): ReactElement => {
     if (ingredient?.name) setIngredientName(ingredient.name)
 
     if (ingredient) {
-      setToggle(ingredient.published)
       setUnit(ingredient.unit)
     }
   }, [ingredient, ingredient, isDirty])
 
   const dispatchEdit = async (data: Ingredient, editedIngredient: Ingredient): Promise<boolean> => {
     if (!editedIngredient.id || !data.name) return false
+
     await updateIngredient({
       ...editedIngredient,
       ...data,
+      published: data.published !== undefined ? data.published : ingredient?.published,
       // @ts-ignore:next-line
       calorieCount: Number.parseInt(editedIngredient.calorieCount, 10),
     })
@@ -62,9 +62,8 @@ const EditIngredient: React.FC = (): ReactElement => {
     if (ingredient) dispatchEdit(formData, ingredient)
   }
 
-  const handleToggle = (): void => {
-    setValue('published', !toggle)
-    setToggle(!toggle)
+  const handleToggle = (toggle): void => {
+    setValue('published', toggle)
   }
 
   const debouncedSubmit = useRef(
@@ -95,11 +94,10 @@ const EditIngredient: React.FC = (): ReactElement => {
         handleSubmit={handleSubmit}
         register={register}
         errors={errors}
-        unit={unit}
-        setUnit={setUnit}
-        setValue={setValue}
+        // unit={unit}
+        // setUnit={setUnit}
+        // setValue={setValue}
         handleToggle={handleToggle}
-        toggle={toggle}
         onSave={onSave}
         formRef={formRef}
         ingredient={ingredient}

@@ -6,7 +6,17 @@ export const recipesAPI = createApi({
   reducerPath: 'recipesAPI',
   tagTypes: ['Recipes', 'Recipe'],
   refetchOnReconnect: true,
-  baseQuery: fetchBaseQuery({ baseUrl: url }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: url,
+    prepareHeaders: (headers, { getState }) => {
+      // @ts-ignore:next-line
+      const token = getState().userSlice.data.user.token
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+        return headers
+      }
+    },
+  }),
   endpoints: (builder) => ({
     createRecipe: builder.mutation<Recipe, Recipe>({
       query(data) {
@@ -31,7 +41,12 @@ export const recipesAPI = createApi({
       invalidatesTags: ['Recipe'],
     }),
     getRecipes: builder.query<Recipe[], void>({
-      query: () => `/recipes`,
+      query() {
+        return {
+          url: `recipes/`,
+          method: 'GET',
+        }
+      },
       providesTags: ['Recipes'],
     }),
     getRecipe: builder.query<Recipe, number>({
@@ -55,12 +70,10 @@ export const recipesAPI = createApi({
           method: 'DELETE',
         }
       },
-      invalidatesTags: ['Recipe'],
+      invalidatesTags: ['Recipes'],
     }),
     deleteRecipeImage: builder.mutation<any, any>({
       query({ imageId }) {
-        console.log({ imageId })
-
         return {
           url: `/recipes/image`,
           method: 'DELETE',

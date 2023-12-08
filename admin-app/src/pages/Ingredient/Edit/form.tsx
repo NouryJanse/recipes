@@ -1,17 +1,15 @@
-import React, { ChangeEvent, ReactElement } from 'react'
-import { Button, Dropdown, FieldContainer, Number, Textfield, Toggle } from '../../../components'
+import React, { ReactElement, useState } from 'react'
+import { Button, FieldContainer, Textfield, Toggle } from '../../../components'
 import { Link } from 'react-router-dom'
-import { INGREDIENT_UNITS } from '../../../constants'
 
 type FormProps = {
   handleSubmit: any
   register: any
   errors: any
-  unit: any
-  setUnit: any
-  setValue: any
+  // unit: any
+  // setUnit: any
+  // setValue: any
   handleToggle: any
-  toggle: any
   onSave: any
   formRef: any
   ingredient: any
@@ -22,16 +20,16 @@ const Form: React.FC<FormProps> = ({
   handleSubmit,
   register,
   errors,
-  unit,
-  setUnit,
-  setValue,
+  // unit,
+  // setUnit,
+  // setValue,
   handleToggle,
-  toggle,
   onSave,
   formRef,
   ingredient,
   btnClasses,
 }): ReactElement => {
+  const [toggle, setToggle] = useState<boolean>(ingredient.published)
   return (
     <form onSubmit={handleSubmit(onSave)} {...formRef}>
       <FieldContainer>
@@ -84,7 +82,10 @@ const Form: React.FC<FormProps> = ({
 
       <FieldContainer>
         <Toggle
-          handleToggle={(): void => handleToggle()}
+          handleToggle={(): void => {
+            handleToggle(!toggle)
+            setToggle(!toggle)
+          }}
           name="published"
           label="Enable ingredient"
           register={register}

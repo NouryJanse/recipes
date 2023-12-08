@@ -25,7 +25,7 @@ const RecipeDetail: React.FC = (): ReactElement => {
 
   const onDelete = async (recipeId: number): Promise<boolean> => {
     if (!recipeId) return false
-    await deleteRecipe(id).unwrap()
+    await deleteRecipe(id)
     navigate('/recipes')
     return true
   }

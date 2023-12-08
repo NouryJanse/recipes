@@ -1,0 +1,21 @@
+@import './sass/breakpoints';
+@import './sass/mixins';
+@import './sass/scales';
+
+@import './sass/login-register.scss';
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.appFadeIn {
+  opacity: 0;
+  transition: opacity 750ms ease-in-out;
+
+  &.reveal {
+    opacity: 1;
+  }
+}

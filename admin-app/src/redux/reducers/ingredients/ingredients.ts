@@ -6,7 +6,18 @@ export const ingredientsAPI = createApi({
   reducerPath: 'ingredientsAPI',
   tagTypes: ['Ingredients', 'Ingredient'],
   refetchOnReconnect: true,
-  baseQuery: fetchBaseQuery({ baseUrl: url }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: url,
+    prepareHeaders: (headers, { getState }) => {
+      // @ts-ignore:next-line
+      const token = getState().userSlice.data.user.token
+      if (token) {
+        // include token in req header
+        headers.set('authorization', `Bearer ${token}`)
+        return headers
+      }
+    },
+  }),
   endpoints: (builder) => ({
     getIngredients: builder.query<Ingredient[], void>({
       query: () => `/ingredients`,

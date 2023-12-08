@@ -1,11 +1,12 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { deleteRecipe } from '../../models/recipes'
 import { HTTP_CODES } from '../../constants'
+import handleUserAuthentication from '../../services/handleUserValidation'
 
 const router = express.Router()
 
 // DELETE RECIPE
-router.delete('/api/recipes/:id', async (req, res) => {
+router.delete('/api/recipes/:id', handleUserAuthentication, async (req: Request, res: Response) => {
   try {
     const { id } = req.params
     const result = await deleteRecipe(Number(id))

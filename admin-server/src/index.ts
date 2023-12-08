@@ -1,4 +1,4 @@
-import express, { Application } from 'express'
+import express, { Application, NextFunction, Request, Response } from 'express'
 import 'dotenv/config'
 import cors from 'cors'
 import apiRouter from './routes'
@@ -16,8 +16,7 @@ app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
 const router = express.Router()
-
-router.use((req, res, next) => {
+router.use((req: Request, res: Response, next: NextFunction) => {
   if (
     env === 'production' &&
     !req.originalUrl.includes('/api/recipes') &&

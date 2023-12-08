@@ -45,7 +45,7 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe, setSh
     setUnit('') // empty the unit field
 
     const obj = {
-      authorId: user.sub,
+      authorId: 1,
       recipeId: recipe.id,
       ingredientId: data.id,
       amount: data.amount,

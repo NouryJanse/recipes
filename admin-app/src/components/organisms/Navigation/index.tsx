@@ -16,9 +16,11 @@ import { getDifferenceInFormat } from '../../../helpers/DateHelper'
 import { useGetRecipesQuery } from '../../../redux/reducers/recipes/recipes'
 import clsx from 'clsx'
 
-type NavigationProps = {}
+type NavigationProps = {
+  onUserLogout: () => void
+}
 
-const Navigation: React.FC<NavigationProps> = (): ReactElement => {
+const Navigation: React.FC<NavigationProps> = ({ onUserLogout }): ReactElement => {
   const dispatch = useDispatch()
   const application = useSelector((state: RootState) => state.applicationSlice.data)
   const { data: recipes } = useGetRecipesQuery()
@@ -145,7 +147,7 @@ const Navigation: React.FC<NavigationProps> = (): ReactElement => {
 
         <div
           role="button"
-          onClick={(): void => {}}
+          onClick={() => onUserLogout()}
           tabIndex={0}
           onKeyDown={(e: React.KeyboardEvent): React.KeyboardEvent => {
             return e

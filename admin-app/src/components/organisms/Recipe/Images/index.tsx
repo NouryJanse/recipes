@@ -45,19 +45,10 @@ const Images: React.FC<ImagesType> = ({
   }
 
   const handleImageUpload = async (image: ImageData): Promise<void> => {
-    const res = await createRecipeImage({ image, id: recipe.id })
-    console.log(res)
-
+    await createRecipeImage({ image, id: recipe.id })
     refetch()
-    // if (response.type === 'recipes/createRecipeImage/fulfilled') {
-    //   setImageViewList((prevState: ImageData[]) => [
-    //     ...prevState.filter((currentImage) => currentImage.data !== image.data),
-    //   ])
     setInitialRecipeLoad(false)
     setImageSortableList(recipe?.images ? recipe.images : [])
-    //   return
-    // }
-    // throw new Error('An error occurred, the recipe image was not saved correctly.')
   }
 
   const handleSortedImages = (images: Image[]): void => {
@@ -76,9 +67,7 @@ const Images: React.FC<ImagesType> = ({
 
   const deleteImage = async (imageId: string): Promise<void> => {
     // @ts-ignore:next-line
-    const res = await deleteRecipeImage({ imageId })
-    console.log(res)
-
+    await deleteRecipeImage({ imageId })
     setInitialRecipeLoad(false)
   }
 

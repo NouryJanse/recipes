@@ -1,11 +1,11 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import { HTTP_CODES } from '../../constants'
 import { getRecipes } from '../../models/recipes'
 
 const router = express.Router()
 
 // GET RECIPES
-router.get('/api/recipes', async (req, res) => {
+router.get('/api/recipes', async (req: Request, res: Response) => {
   try {
     const recipes = await getRecipes()
     res.status(200).send(recipes)

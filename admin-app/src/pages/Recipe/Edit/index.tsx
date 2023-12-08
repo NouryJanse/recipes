@@ -38,7 +38,11 @@ const EditRecipe: React.FC = (): ReactElement => {
   const dispatchEdit = async (recipe: Recipe, editedRecipe: Recipe): Promise<boolean> => {
     if (!editedRecipe.id || !recipe.name) return false
     // @ts-ignore:next-line
-    await updateRecipe({ ...editedRecipe, ...recipe })
+    await updateRecipe({
+      ...editedRecipe,
+      ...recipe,
+      published: editedRecipe.published !== undefined ? editedRecipe.published : recipe.published,
+    })
     return true
   }
 
