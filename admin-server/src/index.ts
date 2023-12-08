@@ -17,14 +17,14 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
 const router = express.Router()
 router.use((req: Request, res: Response, next: NextFunction) => {
-  if (
-    env === 'production' &&
-    !req.originalUrl.includes('/api/recipes') &&
-    !req.originalUrl.includes('/api/ingredients')
-  ) {
-    // only allow the routes /api/recipes and /api/ingredients for now in production
-    return res.status(500).send()
-  }
+  // if (
+  //   env === 'production' &&
+  //   !req.originalUrl.includes('/api/recipes') &&
+  //   !req.originalUrl.includes('/api/ingredients')
+  // ) {
+  //   // only allow the routes /api/recipes and /api/ingredients for now in production
+  //   return res.status(500).send()
+  // }
   next()
 })
 
