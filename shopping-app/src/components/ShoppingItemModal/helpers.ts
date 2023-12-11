@@ -10,10 +10,11 @@ import {
   setShoppingList,
   type FormStateType,
 } from "../../services/store";
-import { syncToSocket, updateLocalStorage } from "../ShoppingList/ShoppingList";
 import replaceShoppingItemInList from "../../helpers/replaceShoppingItemInList";
+import { syncToSocket, updateLocalStorage } from "../ShoppingList/helpers";
 
 const createShoppingItem = (formState: FormStateType, editedShoppingItem?: TypeShoppingItem): TypeShoppingItem => {
+  // update existing shopping item
   if (editedShoppingItem) {
     return {
       ...editedShoppingItem,
@@ -24,6 +25,7 @@ const createShoppingItem = (formState: FormStateType, editedShoppingItem?: TypeS
     };
   }
 
+  // create new shopping item
   return {
     id: nanoid(),
     ingredientName: formState.ingredientName,
@@ -36,8 +38,7 @@ const createShoppingItem = (formState: FormStateType, editedShoppingItem?: TypeS
 
 const handleOnAdd = (formState: FormStateType) => {
   const newShoppingItem = createShoppingItem(formState, undefined);
-  const items = [...$list.get(), newShoppingItem];
-  const updatedList = sortShoppingListOnDate(items);
+  const updatedList = sortShoppingListOnDate([...$list.get(), newShoppingItem]);
 
   setShoppingList(updatedList);
   setModalShoppingItem(undefined);

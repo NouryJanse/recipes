@@ -2,16 +2,19 @@ import { useEffect, useState } from "preact/hooks";
 import type { TypeShoppingItem } from "../../services/types.db";
 import type { FunctionComponent } from "preact";
 import Button from "../Form/Button";
+import { onDelete, onEdit, onUpdate } from "./helpers";
 
 type ShoppingItemProps = {
   shoppingItem: TypeShoppingItem;
-  onDelete: (id: string) => void;
-  onUpdate: (shoppingItem: TypeShoppingItem) => void;
-  onEdit: (shoppingItem: TypeShoppingItem) => void;
 };
 
-const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem, onDelete, onUpdate, onEdit }) => {
+const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem }) => {
   const [localShoppingItem, setLocalShoppingItem] = useState<TypeShoppingItem>(shoppingItem);
+
+  useEffect(() => {
+    // if changes occur in the shopping item, update immediately
+    setLocalShoppingItem(shoppingItem);
+  }, [shoppingItem]);
 
   const onCheck = () => {
     const updatedItem = {
@@ -21,10 +24,6 @@ const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem, onDe
     setLocalShoppingItem(updatedItem);
     onUpdate(updatedItem);
   };
-
-  useEffect(() => {
-    setLocalShoppingItem(shoppingItem);
-  }, [shoppingItem]);
 
   return (
     <div className="shoppingItem">

@@ -9,10 +9,10 @@ type FormProps = {
 
 const Form: FunctionComponent<FormProps> = ({ onSubmit, isOpen }) => {
   return (
-    <>
+    <div className="shopping-form">
       <Inputs isOpen={isOpen} />
       <Button type="button" children="Save" style="primary" onClick={onSubmit} />
-    </>
+    </div>
   );
 };
 

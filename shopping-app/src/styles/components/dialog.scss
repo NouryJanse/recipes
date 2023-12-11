@@ -58,6 +58,10 @@ dialog.modal {
     align-self: flex-end;
     width: fit-content;
   }
+
+  .shopping-form {
+    margin-bottom: var(--step-2);
+  }
 }
 
 ::backdrop {

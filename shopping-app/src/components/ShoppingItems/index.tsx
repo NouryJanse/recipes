@@ -4,16 +4,13 @@ import type { TypeShoppingItem } from "../../services/types.db";
 
 type ShoppingItemsProps = {
   list: TypeShoppingItem[];
-  onDelete: (id: string) => void;
-  onUpdate: (item: TypeShoppingItem) => void;
-  onEdit: (shoppingItem: TypeShoppingItem) => void;
 };
 
-const ShoppingItems: FunctionalComponent<ShoppingItemsProps> = ({ list, onDelete, onUpdate, onEdit }) => {
+const ShoppingItems: FunctionalComponent<ShoppingItemsProps> = ({ list }) => {
   return (
     <>
       {list.map((shoppingItem) => {
-        return <ShoppingItem shoppingItem={shoppingItem} onDelete={onDelete} onUpdate={onUpdate} onEdit={onEdit} />;
+        return <ShoppingItem shoppingItem={shoppingItem} />;
       })}
     </>
   );

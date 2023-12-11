@@ -2,9 +2,9 @@ import type { FunctionComponent, RefObject } from "preact";
 import InputText from "../Form/InputText";
 import InputNumber from "../Form/InputNumber";
 import Select from "../Form/Select";
-import { useEffect, useRef, useState } from "preact/hooks";
+import { useEffect, useRef } from "preact/hooks";
 import { handleInputChange } from "./helpers";
-import { $formState, type FormStateType } from "../../services/store";
+import { $formState } from "../../services/store";
 import { useStore } from "@nanostores/preact";
 
 type InputsProps = {

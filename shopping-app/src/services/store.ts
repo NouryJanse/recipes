@@ -31,10 +31,14 @@ export function setUser(user: User) {
 }
 
 export function setShoppingList(list: TypeShoppingItem[]) {
-  // $users.set([...$users.get(), user]);
   $list.set(list);
 }
 
-export function setModalShoppingItem(item: FormStateType | undefined) {
-  $modalShoppingItem.set(item);
+export function setModalShoppingItem(item: TypeShoppingItem | undefined) {
+  if (item) {
+    const { ingredientName, amount, unit } = item;
+    $modalShoppingItem.set({ ingredientName, amount: amount.toString(), unit });
+  } else {
+    $modalShoppingItem.set(undefined);
+  }
 }
