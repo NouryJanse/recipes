@@ -59,13 +59,14 @@ const handleOnEdit = (formState: FormStateType, editedShoppingItem: TypeShopping
 const handleInputChange = (event: Event): void => {
   const target = event.target as HTMLInputElement | HTMLSelectElement;
   const { name, value } = target;
-  setFormState((prevFormData: FormStateType) => ({
-    ...prevFormData,
+
+  setFormState({
+    ...$formState.get(),
     [name]: value,
-  }));
+  });
 };
 
-const handleOnSubmit = (editedShoppingItem: TypeShoppingItem) => {
+const handleOnSubmit = (editedShoppingItem: any) => {
   // editing a shopping item
   if (editedShoppingItem && editedShoppingItem.id) {
     handleOnEdit($formState.get(), editedShoppingItem);

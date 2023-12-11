@@ -20,9 +20,10 @@ app.use(express.static("public", { maxAge: "1h" }));
 app.use(express.static("public/build", { immutable: true, maxAge: "1y" }));
 
 io.on("connection", (socket) => {
-  // console.info(`connect: ${socket.id}`);
+  console.info(`connect: ${socket.id}`);
 
   socket.on("listUpdate", async (msg) => {
+    console.log(msg);
     const COLLECTION_NAME = process.env.COLLECTION_NAME as string;
     const DB_NAME = process.env.DB_NAME as string;
 
@@ -42,7 +43,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    // console.info(`disconnect: ${socket.id}`);
+    console.info(`disconnect: ${socket.id}`);
   });
 });
 

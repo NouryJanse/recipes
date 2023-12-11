@@ -25,7 +25,7 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
     if (editedShoppingItem) {
       // update form state
       setFormState({
-        amount: editedShoppingItem.amount.toString(),
+        amount: editedShoppingItem?.amount ? editedShoppingItem?.amount.toString() : "",
         ingredientName: editedShoppingItem.ingredientName,
         unit: editedShoppingItem.unit,
       });
@@ -36,7 +36,7 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
   }, [editedShoppingItem]);
 
   const onSubmit = (): void => {
-    if (editedShoppingItem?.id) handleOnSubmit(editedShoppingItem);
+    handleOnSubmit(editedShoppingItem);
     onClose();
   };
 
@@ -53,8 +53,8 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
             : "Add new shopping item"
       }
     >
-      <Form onSubmit={onSubmit} formState={formState} isOpen={isOpen} />
-      <SeasonalVeggieList />
+      <Form onSubmit={onSubmit} isOpen={isOpen} />
+      {!editedShoppingItem && <SeasonalVeggieList />}
     </Modal>
   );
 };

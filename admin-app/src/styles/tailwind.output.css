@@ -772,10 +772,6 @@ video {
   width: 100%;
 }
 
-.max-w-2xl {
-  max-width: 42rem;
-}
-
 .max-w-full {
   max-width: 100%;
 }
@@ -930,11 +926,6 @@ video {
   background-color: rgb(255 255 255 / 0.3);
 }
 
-.bg-blueDark {
-  --tw-bg-opacity: 1;
-  background-color: rgb(3 82 199 / var(--tw-bg-opacity));
-}
-
 .bg-cover {
   background-size: cover;
 }
@@ -969,10 +960,6 @@ video {
 
 .p-4 {
   padding: 1rem;
-}
-
-.p-5 {
-  padding: 1.25rem;
 }
 
 .px-2 {
@@ -1287,10 +1274,6 @@ video {
     padding: 5rem;
   }
 
-  .md\:p-24 {
-    padding: 6rem;
-  }
-
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -1327,10 +1310,6 @@ video {
 
   .xl\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .xl\:p-48 {
-    padding: 12rem;
   }
 
   .xl\:text-3xl {
