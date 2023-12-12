@@ -8,6 +8,7 @@ import deleteRecipeImage from './recipes/deleteRecipeImage'
 import deleteRecipe from './recipes/deleteRecipe'
 import getRecipe from './recipes/getRecipe'
 import getRecipes from './recipes/getRecipes'
+import getRecipesFilter from './recipes/getRecipesFilter'
 import updateRecipe from './recipes/updateRecipe'
 
 import registerUser from './users/register'
@@ -24,6 +25,7 @@ let apiRouter = Router().use('/', [
   deleteRecipe,
   getRecipe,
   getRecipes,
+  getRecipesFilter,
   updateRecipe,
   ingredientRouter,
   registerUser,

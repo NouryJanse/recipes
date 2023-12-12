@@ -4,10 +4,15 @@ import { getRecipes } from '../../models/recipes'
 
 const router = express.Router()
 
-// GET RECIPES
-router.get('/api/recipes', async (req: Request, res: Response) => {
+// function sleep(ms: number) {
+//   return new Promise((resolve) => setInterval(resolve, ms))
+// }
+
+// GET RECIPES FILTER
+router.get('/api/recipes/filter/:filter', async (req: Request, res: Response) => {
+  const { filter } = req.params
   try {
-    const recipes = await getRecipes(undefined)
+    const recipes = await getRecipes(filter)
     res.status(200).send(recipes)
   } catch (error) {
     console.error(error)

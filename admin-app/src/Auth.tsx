@@ -95,8 +95,8 @@ const handleRegistration = async (
 
     if (id && token) {
       if (token) await dispatch(storeUser({ name: username, id, token }))
-      Cookies.set('id', id, { expires: 1, path: '/' })
-      Cookies.set('jwt', token, { expires: 1, path: '/' })
+      Cookies.set('admin-userid', id, { expires: 1, path: '/' })
+      Cookies.set('admin-jwt', token, { expires: 1, path: '/' })
       return id
     }
     return false
@@ -120,8 +120,8 @@ const handleUserLogin = async (
 
     if (id && token) {
       if (token) await dispatch(storeUser({ id, token, name: username }))
-      Cookies.set('id', id, { expires: 1, path: '/' })
-      Cookies.set('jwt', token, { expires: 1, path: '/' })
+      Cookies.set('admin-userid', id, { expires: 1, path: '/' })
+      Cookies.set('admin-jwt', token, { expires: 1, path: '/' })
       return id
     }
     return false
@@ -152,14 +152,14 @@ const handleValidate = async (validate, dispatch: Dispatch<UnknownAction>): Prom
 }
 
 const getUserCookies = () => {
-  const token = Cookies.get('jwt')
-  const id = Cookies.get('id')
+  const id = Cookies.get('admin-userid')
+  const token = Cookies.get('admin-jwt')
   return { token, id }
 }
 
 const removeUserCookies = () => {
-  Cookies.remove('jwt')
-  Cookies.remove('id')
+  Cookies.remove('admin-userid')
+  Cookies.remove('admin-jwt')
 }
 
 export default Auth

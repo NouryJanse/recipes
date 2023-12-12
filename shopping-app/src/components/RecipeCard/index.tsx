@@ -1,17 +1,6 @@
-// import { AiTwotoneEdit } from "react-icons/ai";
-// import { MdDelete } from "react-icons/md";
-// import classNames from "classnames";
-
 import type { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
-
-// import RecipeContainer from "./styled";
-// import { deleteRecipe, getRecipes } from "../../../../redux/reducers/recipes/recipeSlice";
-// import { Button } from "../../../index";
-// import { getDifferenceInFormat } from "../../../../helpers/DateHelper";
-// import RootState from "../../../../types/RootState";
-// import courseName from "../../../../pages/Recipe/Edit/helpers";
-// import { RECIPE_COURSE_OPTIONS, REPLACEMENT_IMAGE } from "../../../../constants";
+import Button from "../Form/Button";
 
 type RecipeCardProps = {
   recipe: any;
@@ -31,11 +20,6 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
     setIsHovering(false);
   };
 
-  // const showNewLabel = (): boolean => {
-  //   if (recipe.createdAt && getDifferenceInFormat(recipe.createdAt, "d") < 7) return true;
-  //   return false;
-  // };
-
   useEffect(() => {
     if (recipe?.images?.length) {
       setMainImage(`url('${recipe.images[0].url}')`);
@@ -50,7 +34,7 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
   if (!recipe) return <p>Error, no recipe found.</p>;
 
   return (
-    <a
+    <div
       className="recipe--card"
       style={{
         backgroundImage: mainImage,
@@ -58,29 +42,28 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      href={`recipes/${recipe.id}`}
+      onClick={() => (window.location.href = `recipes/${recipe.id}`)}
     >
-      {/* <div
-        className={classNames(
-          {
-            visible: showNewLabel(),
-            invisible: !showNewLabel(),
-          },
-          "inline-flex font-bold text-white border-2 rounded-lg p-1"
-        )}
-      >
-        New!
-      </div> */}
-
       <div>
-        <h3>{recipe.name}</h3>
+        <div>
+          <h3>{recipe.name}</h3>
 
-        <span className="">
-          {recipe.course}
-          {/* <i>{courseName(recipe.course ? recipe.course : "", RECIPE_COURSE_OPTIONS)}</i> */}
-        </span>
+          <span>{recipe.course} </span>
+        </div>
+
+        <Button
+          type="button"
+          style="primary"
+          classes="add-button"
+          onClick={(e) => {
+            e.stopPropagation();
+            console.log(recipe.id, recipe.name);
+          }}
+        >
+          Add
+        </Button>
       </div>
-    </a>
+    </div>
   );
 };
 

@@ -2,8 +2,7 @@ import type { FunctionalComponent } from "preact";
 import { useStore } from "@nanostores/preact";
 import { useEffect, useState } from "preact/hooks";
 
-import type { TypeShoppingItem } from "../../services/types.db";
-import { handleOnSubmit } from "./helpers";
+import { handleOnSubmit, modalTitle } from "./helpers";
 import { $formState, resetFormState, setFormState, type FormStateType, $modalShoppingItem } from "../../services/store";
 
 import SeasonalVeggieList from "../SeasonalVeggieList";
@@ -48,19 +47,12 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
   };
 
   return (
-    <Modal hasCloseBtn={true} isOpen={isOpen} onClose={onClose} title={title(editedShoppingItem, formState)}>
+    <Modal hasCloseBtn={true} isOpen={isOpen} onClose={onClose} title={modalTitle(editedShoppingItem, formState)}>
       <Form onSubmit={onSubmit} isOpen={isOpen} />
 
       {createNewMode && <SeasonalVeggieList />}
     </Modal>
   );
-};
-
-const title = (editedShoppingItem: FormStateType | TypeShoppingItem | undefined, formState: FormStateType): string => {
-  if (!editedShoppingItem) return `Add new shopping item`;
-  if ("id" in editedShoppingItem) return `Editing ${formState.ingredientName}`;
-  if (editedShoppingItem.ingredientName) return `Editing ${formState.ingredientName}`;
-  return "";
 };
 
 export default CreateShoppingItemModal;

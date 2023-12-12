@@ -3,6 +3,7 @@ button {
   padding-bottom: var(--step--4);
   padding-left: var(--step-1);
   padding-right: var(--step-1);
+  height: fit-content;
 
   @include sm {
     padding-top: var(--step--5);

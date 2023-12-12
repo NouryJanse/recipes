@@ -29,6 +29,6 @@ if (user) {
 
   <div class="container shopping--container">
     {user ? <ShoppingList client:load dbShoppingList={dbShoppingList} /> : <a href="/user/login">Login</a>}
-    <Recipes client:idle recipes={recipes} />
+    <Recipes client:idle serverRecipes={recipes} />
   </div>
 </Layout>

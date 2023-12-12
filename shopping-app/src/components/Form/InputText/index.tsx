@@ -1,12 +1,12 @@
 import type { FunctionComponent } from "preact";
 
 type InputTextProps = {
-  label: string;
-  inputRef: any;
+  label?: string;
+  inputRef?: any;
   value: string;
   name: string;
   onInput: (event: Event) => void;
-  defaultValue: string;
+  defaultValue?: string;
   placeholder: string;
 };
 
@@ -22,14 +22,14 @@ const InputText: FunctionComponent<InputTextProps> = ({
   return (
     <div>
       <label>
-        <span>{label}</span>
+        {label && <span>{label}</span>}
 
         <input
-          ref={inputRef}
+          ref={inputRef ? inputRef : {}}
           type="text"
           value={value}
           name={name}
-          defaultValue={defaultValue}
+          defaultValue={defaultValue ? defaultValue : ""}
           onInput={onInput}
           placeholder={placeholder}
         />

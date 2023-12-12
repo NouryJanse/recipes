@@ -5,6 +5,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
     "types": ["astro/env"],
-    "typeRoots": ["./node_modules/@nouryjanse/index.d.ts"],
+    "typeRoots": ["./src/types/index.d.ts"],
   }
 }

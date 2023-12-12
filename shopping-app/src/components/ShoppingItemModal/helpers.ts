@@ -12,7 +12,10 @@ import {
 import replaceShoppingItemInList from "../../helpers/replaceShoppingItemInList";
 import { syncToSocket, updateLocalStorage } from "../ShoppingList/helpers";
 
-const createShoppingItem = (formState: FormStateType, editedShoppingItem?: TypeShoppingItem): TypeShoppingItem => {
+export const createShoppingItem = (
+  formState: FormStateType,
+  editedShoppingItem?: TypeShoppingItem
+): TypeShoppingItem => {
   // update existing shopping item
   if (editedShoppingItem) {
     return {
@@ -35,7 +38,7 @@ const createShoppingItem = (formState: FormStateType, editedShoppingItem?: TypeS
   };
 };
 
-const addShoppingItem = (formState: FormStateType) => {
+export const addShoppingItem = (formState: FormStateType) => {
   const newShoppingItem = createShoppingItem(formState, undefined);
   const updatedList = sortShoppingListOnDate([...$list.get(), newShoppingItem]);
 
@@ -45,7 +48,7 @@ const addShoppingItem = (formState: FormStateType) => {
   syncToSocket(updatedList);
 };
 
-const editShoppingItem = (formState: FormStateType, editedShoppingItem: TypeShoppingItem) => {
+export const editShoppingItem = (formState: FormStateType, editedShoppingItem: TypeShoppingItem) => {
   const newShoppingItem = createShoppingItem(formState, editedShoppingItem);
   const items = replaceShoppingItemInList($list.get(), editedShoppingItem, newShoppingItem);
   const updatedList = sortShoppingListOnDate(items);
@@ -55,7 +58,7 @@ const editShoppingItem = (formState: FormStateType, editedShoppingItem: TypeShop
   syncToSocket(updatedList);
 };
 
-const handleInputChange = (event: Event): void => {
+export const handleInputChange = (event: Event): void => {
   const target = event.target as HTMLInputElement | HTMLSelectElement;
   const { name, value } = target;
 
@@ -65,7 +68,7 @@ const handleInputChange = (event: Event): void => {
   });
 };
 
-const handleOnSubmit = (editedShoppingItem: FormStateType | TypeShoppingItem | undefined) => {
+export const handleOnSubmit = (editedShoppingItem: FormStateType | TypeShoppingItem | undefined) => {
   if (!editedShoppingItem) {
     // new shopping item
     addShoppingItem($formState.get());
@@ -81,4 +84,17 @@ const handleOnSubmit = (editedShoppingItem: FormStateType | TypeShoppingItem | u
   return;
 };
 
-export { createShoppingItem, handleInputChange, handleOnSubmit };
+export const modalTitle = (
+  editedShoppingItem: FormStateType | TypeShoppingItem | undefined,
+  formState: FormStateType
+): string => {
+  // creating a new shopping item
+  if (!editedShoppingItem) return `Add new shopping item`;
+
+  // editing existing
+  if ("id" in editedShoppingItem) return `Editing ${formState.ingredientName}`;
+
+  // adding seasonal
+  if (editedShoppingItem.ingredientName) return `Adding ${formState.ingredientName}`;
+  return "";
+};

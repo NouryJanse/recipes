@@ -5,7 +5,7 @@ import NoContentError from '../../types/NoContentError'
 
 const prisma = new PrismaClient()
 
-const getRecipes = async (): Promise<Recipe[] | false> => {
+const getRecipes = async (filter: string | undefined): Promise<Recipe[] | false> => {
   try {
     const recipes = await prisma.recipe.findMany({
       orderBy: {
@@ -25,6 +25,9 @@ const getRecipes = async (): Promise<Recipe[] | false> => {
             addedAt: 'desc',
           },
         },
+      },
+      where: {
+        name: { contains: filter, mode: 'insensitive' },
       },
     })
 
