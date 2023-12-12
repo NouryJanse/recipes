@@ -4,7 +4,6 @@ import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
 import {
   $formState,
   $list,
-  resetFormState,
   setFormState,
   setModalShoppingItem,
   setShoppingList,
@@ -36,7 +35,7 @@ const createShoppingItem = (formState: FormStateType, editedShoppingItem?: TypeS
   };
 };
 
-const handleOnAdd = (formState: FormStateType) => {
+const addShoppingItem = (formState: FormStateType) => {
   const newShoppingItem = createShoppingItem(formState, undefined);
   const updatedList = sortShoppingListOnDate([...$list.get(), newShoppingItem]);
 
@@ -46,11 +45,10 @@ const handleOnAdd = (formState: FormStateType) => {
   syncToSocket(updatedList);
 };
 
-const handleOnEdit = (formState: FormStateType, editedShoppingItem: TypeShoppingItem) => {
+const editShoppingItem = (formState: FormStateType, editedShoppingItem: TypeShoppingItem) => {
   const newShoppingItem = createShoppingItem(formState, editedShoppingItem);
   const items = replaceShoppingItemInList($list.get(), editedShoppingItem, newShoppingItem);
   const updatedList = sortShoppingListOnDate(items);
-
   setShoppingList(updatedList);
   setModalShoppingItem(undefined);
   updateLocalStorage(updatedList);
@@ -67,17 +65,20 @@ const handleInputChange = (event: Event): void => {
   });
 };
 
-const handleOnSubmit = (editedShoppingItem: any) => {
-  // editing a shopping item
-  if (editedShoppingItem && editedShoppingItem.id) {
-    handleOnEdit($formState.get(), editedShoppingItem);
+const handleOnSubmit = (editedShoppingItem: FormStateType | TypeShoppingItem | undefined) => {
+  if (!editedShoppingItem) {
+    // new shopping item
+    addShoppingItem($formState.get());
     return;
   }
 
-  // append new shopping item and empty the form
-  handleOnAdd($formState.get());
-  resetFormState();
+  if ("id" in editedShoppingItem) {
+    // edit a shopping item
+    editShoppingItem($formState.get(), editedShoppingItem);
+    return;
+  }
+
   return;
 };
 
-export { createShoppingItem, handleOnAdd, handleOnEdit, handleInputChange, handleOnSubmit };
+export { createShoppingItem, handleInputChange, handleOnSubmit };
