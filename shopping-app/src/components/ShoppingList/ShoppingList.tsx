@@ -19,9 +19,9 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   const list = useStore($list);
   const [dialogOpened, setDialogOpened] = useState(false);
   const modalShoppingItem = useStore($modalShoppingItem);
+  const { isConnected } = activateSocket();
 
   useEffect(() => {
-    activateSocket();
     checkForExistingShoppingList(dbShoppingList);
   }, []);
 
@@ -43,8 +43,11 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
         }}
       />
 
-      <div className="ingredientsTitleContainer">
-        <h3>Your shopping list</h3>
+      <div className="shopping--items-title-container">
+        <h3>
+          Your shopping list
+          {isConnected ? <span className="online">Online</span> : <span className="offline">Offline</span>}
+        </h3>
         <Button type="button" style="secondary" onClick={() => setDialogOpened(true)}>
           Add another
         </Button>

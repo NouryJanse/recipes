@@ -1,15 +1,13 @@
-.ingredientsTitleContainer {
+.shopping--items-title-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-bottom: var(--step-0);
   justify-content: space-between;
 
-  @include md {
-    // justify-content: flex-start;
-  }
-
   h3 {
+    display: flex;
+    align-items: center;
     margin: 0 var(--step-0) 0 0;
 
     @include lg {
@@ -19,5 +17,16 @@
 
   @include lg {
     margin-bottom: var(--step-1);
+  }
+
+  span {
+    margin-left: var(--step--2);
+  }
+
+  span.online {
+    color: var(--color-teal-3);
+  }
+  span.offline {
+    color: var(--color-raspberry-4);
   }
 }

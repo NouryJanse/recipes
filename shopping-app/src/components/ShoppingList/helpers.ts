@@ -3,17 +3,18 @@ import getFormattedShoppingList from "../../helpers/getFormattedShoppingList";
 import type { TypeShoppingItem } from "../../services/types.db";
 import { setShoppingList } from "../../services/store";
 import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
+import { useEffect, useState } from "preact/hooks";
 
 const getSomeEnvVariable = () => {
   return import.meta.env.PUBLIC_SOCKET_API_URL
     ? import.meta.env.PUBLIC_SOCKET_API_URL
-    : process.env.SOCKET_API_URL
-      ? process.env.SOCKET_API_URL
+    : process.env.PUBLIC_SOCKET_API_URL
+      ? process.env.PUBLIC_SOCKET_API_URL
       : "https://shopping-server-iggv.onrender.com";
 };
 
 const SOCKET_API_URL = getSomeEnvVariable() as string;
-const socket = io(SOCKET_API_URL, {});
+const socket = io(SOCKET_API_URL, { autoConnect: false });
 
 export const syncToSocket = (updatedList: TypeShoppingItem[]) => {
   const body = getFormattedShoppingList("652ffe8d262c73d000bcfd9a", updatedList);
@@ -21,23 +22,32 @@ export const syncToSocket = (updatedList: TypeShoppingItem[]) => {
 };
 
 export const activateSocket = () => {
-  // socket.on("connect", () => {});
-  // socket.on("disconnect", () => {});
-  // socket.on("message", (msg) => {
-  //   console.log(msg);
-  // });
-  socket.on("onShoppingListUpdate", (data) => {
-    const parsedData = JSON.parse(data);
-    setShoppingList(parsedData.list);
-    updateLocalStorage(parsedData.list);
-  });
-  return () => {
-    // comments here for debugging purposes
-    // socket.off("connect");
-    // socket.off("disconnect");
-    // socket.off("message");
-    socket.off("onShoppingListUpdate");
-  };
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+
+  useEffect(() => {
+    socket.connect();
+
+    socket.on("connect", () => {
+      setIsConnected(true);
+    });
+    socket.on("disconnect", () => {
+      setIsConnected(false);
+    });
+    socket.on("onShoppingListUpdate", (data) => {
+      const parsedData = JSON.parse(data);
+      setShoppingList(parsedData.list);
+      updateLocalStorage(parsedData.list);
+    });
+    return () => {
+      isConnected;
+      socket.off("connect");
+      socket.off("disconnect");
+      socket.off("onShoppingListUpdate");
+      // socket.off("message");
+    };
+  }, []);
+
+  return { isConnected };
 };
 
 export const updateLocalStorage = (updatedList: TypeShoppingItem[]) => {
