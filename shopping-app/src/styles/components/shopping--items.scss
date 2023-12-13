@@ -18,6 +18,8 @@
 
   @include xl {
     max-width: 40vw;
+    overflow: scroll;
+    max-height: 75vh;
   }
 
   @include xxl {

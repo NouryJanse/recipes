@@ -3,7 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import * as dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
-import { mongodb, ObjectId } from "./db";
+import { mongodb } from "./db";
 
 const app = express();
 const httpServer = createServer(app);
@@ -23,7 +23,6 @@ io.on("connection", (socket) => {
   console.info(`connect: ${socket.id}`);
 
   socket.on("listUpdate", async (msg) => {
-    console.log(msg);
     const COLLECTION_NAME = process.env.COLLECTION_NAME as string;
     const DB_NAME = process.env.DB_NAME as string;
 
@@ -59,7 +58,7 @@ httpServer.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
 });
 
-// setInterval(() => {
-//   console.log("message");
-//   io.emit("message", new Date().toISOString());
-// }, 3000);
+setInterval(() => {
+  console.log("message");
+  io.emit("message", new Date().toISOString());
+}, 5000);

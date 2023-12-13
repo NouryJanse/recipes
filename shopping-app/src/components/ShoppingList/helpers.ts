@@ -26,7 +26,9 @@ export const activateSocket = () => {
 
   useEffect(() => {
     socket.connect();
-
+    socket.on("message", (msg) => {
+      console.log(msg);
+    });
     socket.on("connect", () => {
       setIsConnected(true);
     });
