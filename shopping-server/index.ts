@@ -28,8 +28,8 @@ io.on("connection", (socket) => {
 
     try {
       const shoppingList = JSON.parse(msg);
-      let db = await mongodb.db(DB_NAME);
-      let collection = await db.collection(COLLECTION_NAME);
+      let db = mongodb.db(DB_NAME);
+      let collection = db.collection(COLLECTION_NAME);
 
       if (shoppingList._id) {
         let res = await collection.replaceOne({ _id: shoppingList._id }, { ...shoppingList });
@@ -57,8 +57,3 @@ const port = process.env.PORT || 1234;
 httpServer.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
 });
-
-setInterval(() => {
-  console.log("message");
-  io.emit("message", new Date().toISOString());
-}, 5000);
