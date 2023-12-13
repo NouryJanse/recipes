@@ -1,6 +1,6 @@
 import type { FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
-import { setModalShoppingItem } from "../../services/store";
+import { setFormState, setModalShoppingItem } from "../../services/store";
 
 type SeasonalVeggieProps = {
   veggie: { id: number; title: string; imgUrl: string };
@@ -19,11 +19,16 @@ const SeasonalVeggie: FunctionalComponent<SeasonalVeggieProps> = ({ veggie }) =>
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onClick={() => {
-        setModalShoppingItem({
-          amount: "",
+        setFormState({
           ingredientName: veggie.title,
+          amount: "",
           unit: "",
         });
+        // setModalShoppingItem({
+        //   amount: "",
+        //   ingredientName: veggie.title,
+        //   unit: "",
+        // });
       }}
     >
       <span>{veggie.title}</span>

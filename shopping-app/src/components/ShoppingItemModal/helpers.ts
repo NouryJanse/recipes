@@ -8,6 +8,7 @@ import {
   setModalShoppingItem,
   setShoppingList,
   type FormStateType,
+  resetFormState,
 } from "../../services/store";
 import replaceShoppingItemInList from "../../helpers/replaceShoppingItemInList";
 import { syncToSocket, updateLocalStorage } from "../ShoppingList/helpers";
@@ -72,12 +73,14 @@ export const handleOnSubmit = (editedShoppingItem: FormStateType | TypeShoppingI
   if (!editedShoppingItem) {
     // new shopping item
     addShoppingItem($formState.get());
+    resetFormState();
     return;
   }
 
   if ("id" in editedShoppingItem) {
     // edit a shopping item
     editShoppingItem($formState.get(), editedShoppingItem);
+    resetFormState();
     return;
   }
 
