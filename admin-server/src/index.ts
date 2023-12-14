@@ -4,7 +4,6 @@ import cors from 'cors'
 import apiRouter from './routes'
 
 const port = parseInt(process.env.PORT as string, 10 || 3000)
-const env = process.env.ENV
 const options: cors.CorsOptions = {
   origin: (process.env.ALLOWED_ORIGIN as string) || '',
   allowedHeaders: ['Authorization', 'Content-Type'],
@@ -16,15 +15,8 @@ app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
 const router = express.Router()
-router.use((req: Request, res: Response, next: NextFunction) => {
-  // if (
-  //   env === 'production' &&
-  //   !req.originalUrl.includes('/api/recipes') &&
-  //   !req.originalUrl.includes('/api/ingredients')
-  // ) {
-  //   // only allow the routes /api/recipes and /api/ingredients for now in production
-  //   return res.status(500).send()
-  // }
+router.use(async (req: Request, res: Response, next: NextFunction) => {
+  // middleware for each request can be added here...
   next()
 })
 

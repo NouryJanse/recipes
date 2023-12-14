@@ -1,5 +1,4 @@
 import type { FunctionComponent } from "preact";
-import RecipeCard from "../RecipeCard";
 import useRecipesQuery from "./useRecipesQuery";
 import InputText from "../Form/InputText";
 import RecipeList from "./list";

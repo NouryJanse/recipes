@@ -2,7 +2,7 @@ import type { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 // data
-import { $list, $modalShoppingItem, setModalShoppingItem } from "../../services/store";
+import { $shoppingList, $modalShoppingItem, setModalShoppingItem } from "../../services/store";
 import { useStore } from "@nanostores/preact";
 
 // UI
@@ -16,7 +16,6 @@ type ShoppingListProps = {
 };
 
 const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) => {
-  const list = useStore($list);
   const [dialogOpened, setDialogOpened] = useState(false);
   const modalShoppingItem = useStore($modalShoppingItem);
   const { isConnected } = activateSocket();
@@ -48,12 +47,10 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
           Your shopping list
           {isConnected ? <span className="online">Online</span> : <span className="offline">Offline</span>}
         </h3>
-        <Button type="button" style="secondary" onClick={() => setDialogOpened(true)}>
-          Add another
-        </Button>
+        <Button type="button" style="secondary" onClick={() => setDialogOpened(true)} label="Add another" />
       </div>
 
-      <ShoppingItems list={list} />
+      <ShoppingItems />
     </div>
   );
 };

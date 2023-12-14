@@ -2,8 +2,10 @@ import type { FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 import { setFormState, setModalShoppingItem } from "../../services/store";
 
+type Veggie = { id: number; title: string; imgUrl: string };
+
 type SeasonalVeggieProps = {
-  veggie: { id: number; title: string; imgUrl: string };
+  veggie: Veggie;
 };
 
 const SeasonalVeggie: FunctionalComponent<SeasonalVeggieProps> = ({ veggie }) => {
@@ -12,28 +14,29 @@ const SeasonalVeggie: FunctionalComponent<SeasonalVeggieProps> = ({ veggie }) =>
   return (
     <div
       className="seasonal--veggie"
-      style={{
-        backgroundImage: `url('${veggie.imgUrl}')`,
-        boxShadow: !isHovering ? "inset 0 0 0 2000px rgba(0, 0, 0, 0.25)" : "inset 0 0 0 2000px rgba(0, 0, 0, 0.05)",
-      }}
+      style={getStyle(veggie, isHovering)}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
-      onClick={() => {
-        setFormState({
-          ingredientName: veggie.title,
-          amount: "",
-          unit: "",
-        });
-        // setModalShoppingItem({
-        //   amount: "",
-        //   ingredientName: veggie.title,
-        //   unit: "",
-        // });
-      }}
+      onClick={() => addVeggie(veggie)}
     >
       <span>{veggie.title}</span>
     </div>
   );
+};
+
+const addVeggie = (veggie: Veggie) => {
+  setFormState({
+    ingredientName: veggie.title,
+    amount: "",
+    unit: "",
+  });
+};
+
+const getStyle = (veggie: Veggie, isHovering: boolean) => {
+  return {
+    backgroundImage: `url('${veggie.imgUrl}')`,
+    boxShadow: !isHovering ? "inset 0 0 0 2000px rgba(0, 0, 0, 0.25)" : "inset 0 0 0 2000px rgba(0, 0, 0, 0.05)",
+  };
 };
 
 export default SeasonalVeggie;

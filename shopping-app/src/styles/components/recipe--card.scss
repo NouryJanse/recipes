@@ -2,7 +2,6 @@
   overflow: hidden;
   background-position: center;
   background-size: cover;
-  padding: var(--step-2);
   margin-bottom: var(--step-1);
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -10,45 +9,29 @@
   border-radius: 8px;
   color: white;
   text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding: var(--step--3);
 
   &:hover {
     cursor: pointer;
   }
 
   @include md {
-    padding: var(--step-1);
+    padding: var(--step--2);
   }
 
   @include lg {
-    padding: var(--step-0);
-  }
-
-  @include xl {
     padding: var(--step--1);
   }
 
-  @include xxl {
-    padding: var(--step-0);
-  }
-
-  @include xxxl {
-    padding: var(--step-2);
-  }
-
   div {
+    width: 100%;
     display: flex;
     flex-direction: row;
     padding-top: var(--step-2);
     justify-content: space-between;
-
-    div:first-of-type {
-      flex-direction: column;
-    }
-
-    button.add-button {
-      align-self: flex-end;
-      justify-self: flex-end;
-    }
 
     h3 {
       margin: 0;
@@ -61,6 +44,19 @@
       @include lg {
         font-size: var(--step-0);
       }
+    }
+
+    span.course {
+      font-size: var(--step--2);
+    }
+
+    div:first-of-type {
+      flex-direction: column;
+    }
+
+    button.add-button {
+      align-self: flex-end;
+      justify-self: flex-end;
     }
   }
 }

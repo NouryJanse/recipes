@@ -54,7 +54,7 @@ const AddRecipeIngredient: React.FC<AddRecipeIngredientProps> = ({ recipe, setSh
     }
 
     // @ts-ignore:next-line
-    createLinkedIngredient(obj)
+    await createLinkedIngredient(obj).unwrap()
     refetch()
     setShowAdd(false)
     return true

@@ -7,7 +7,7 @@ type RecipeListProps = {
 };
 
 const RecipeList: FunctionalComponent<RecipeListProps> = ({ isLoading, actualRecipes }) => {
-  if (isLoading) return <>Loading...</>;
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div>
       {!isLoading && actualRecipes && actualRecipes.length > 0 ? (
@@ -15,7 +15,7 @@ const RecipeList: FunctionalComponent<RecipeListProps> = ({ isLoading, actualRec
           return <RecipeCard recipe={recipe} withEditButton={false} withRemovalButton={false} />;
         })
       ) : (
-        <p>Unfortunately, there are no recipes yet...</p>
+        <p>Loading...</p>
       )}
     </div>
   );

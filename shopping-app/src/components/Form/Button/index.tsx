@@ -4,10 +4,10 @@ type ButtonProps = {
   type: "submit" | "reset" | "button";
   onClick?: (e: MouseEvent) => void;
   disabled?: boolean;
-  label?: any;
+  label?: string;
   classes?: string;
   children?: any;
-  style?: "primary" | "secondary" | "tertiary";
+  style?: "primary" | "secondary" | "tertiary" | "transparent";
 };
 
 const Button: FunctionalComponent<ButtonProps> = ({

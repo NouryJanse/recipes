@@ -3,7 +3,7 @@ import type { TypeShoppingItem } from "../../services/types.db";
 import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
 import {
   $formState,
-  $list,
+  $shoppingList,
   setFormState,
   setModalShoppingItem,
   setShoppingList,
@@ -41,7 +41,7 @@ export const createShoppingItem = (
 
 export const addShoppingItem = (formState: FormStateType) => {
   const newShoppingItem = createShoppingItem(formState, undefined);
-  const updatedList = sortShoppingListOnDate([...$list.get(), newShoppingItem]);
+  const updatedList = sortShoppingListOnDate([...$shoppingList.get(), newShoppingItem]);
 
   setShoppingList(updatedList);
   setModalShoppingItem(undefined);
@@ -51,7 +51,7 @@ export const addShoppingItem = (formState: FormStateType) => {
 
 export const editShoppingItem = (formState: FormStateType, editedShoppingItem: TypeShoppingItem) => {
   const newShoppingItem = createShoppingItem(formState, editedShoppingItem);
-  const items = replaceShoppingItemInList($list.get(), editedShoppingItem, newShoppingItem);
+  const items = replaceShoppingItemInList($shoppingList.get(), editedShoppingItem, newShoppingItem);
   const updatedList = sortShoppingListOnDate(items);
   setShoppingList(updatedList);
   setModalShoppingItem(undefined);

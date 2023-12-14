@@ -15,7 +15,8 @@ export const initialShoppingItemModalData: FormStateType = {
 
 export const $formState = atom<FormStateType>(initialShoppingItemModalData);
 export const $user = atom<User | undefined>();
-export const $list = atom<TypeShoppingItem[]>([]);
+export const $shoppingList = atom<TypeShoppingItem[]>([]);
+export const $recipesList = atom<Recipe[]>([]);
 export const $modalShoppingItem = atom<TypeShoppingItem | undefined>(undefined);
 
 export function setFormState(formState: FormStateType) {
@@ -30,8 +31,16 @@ export function setUser(user: User) {
   $user.set(user);
 }
 
-export function setShoppingList(list: TypeShoppingItem[]) {
-  $list.set(list);
+export function setShoppingList(shoppingList: TypeShoppingItem[]) {
+  $shoppingList.set(shoppingList);
+}
+
+export function addItemToShoppingList(item: TypeShoppingItem) {
+  $shoppingList.set([item, ...$shoppingList.get()]);
+}
+
+export function addItemToRecipesList(item: Recipe) {
+  $recipesList.set([item, ...$recipesList.get()]);
 }
 
 export function setModalShoppingItem(item: TypeShoppingItem | undefined) {

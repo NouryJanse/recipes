@@ -1,16 +1,21 @@
 import type { FunctionalComponent } from "preact";
 import ShoppingItem from "../ShoppingItem";
-import type { TypeShoppingItem } from "../../services/types.db";
+import { useStore } from "@nanostores/preact";
+import { $shoppingList } from "../../services/store";
+import ShoppingItemRecipe from "../ShoppingItemRecipe";
 
-type ShoppingItemsProps = {
-  list: TypeShoppingItem[];
-};
+type ShoppingItemsProps = {};
 
-const ShoppingItems: FunctionalComponent<ShoppingItemsProps> = ({ list }) => {
+const ShoppingItems: FunctionalComponent<ShoppingItemsProps> = ({}) => {
+  const shoppingList = useStore($shoppingList);
   return (
     <>
-      {list.map((shoppingItem) => {
-        return <ShoppingItem shoppingItem={shoppingItem} />;
+      {shoppingList.map((shoppingItem) => {
+        return shoppingItem.ingredientName ? (
+          <ShoppingItem shoppingItem={shoppingItem} />
+        ) : (
+          <ShoppingItemRecipe shoppingItem={shoppingItem} />
+        );
       })}
     </>
   );

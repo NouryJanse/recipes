@@ -1,18 +1,15 @@
 import { useEffect, useState, type StateUpdater } from "preact/hooks";
 import type { TypeShoppingItem } from "../../services/types.db";
 import type { FunctionComponent } from "preact";
+import { onDelete } from "../ShoppingItem/helpers";
 import Button from "../Form/Button";
-import { onDelete, onEdit, onUpdate } from "./helpers";
+import { addIngredientsFromRecipeToList } from "./helpers";
 
-type ShoppingItemProps = {
+type ShoppingItemRecipeProps = {
   shoppingItem: TypeShoppingItem;
 };
 
-const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem }) => {
-  if ("course" in shoppingItem) {
-    console.log(shoppingItem);
-  }
-
+const ShoppingItemRecipe: FunctionComponent<ShoppingItemRecipeProps> = ({ shoppingItem }) => {
   const [localShoppingItem, setLocalShoppingItem] = useState<TypeShoppingItem>(shoppingItem);
 
   useEffect(() => {
@@ -22,20 +19,21 @@ const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem }) =>
 
   return (
     <div className="shoppingItem">
-      <div onClick={() => onCheck(localShoppingItem, setLocalShoppingItem)}>
-        <input type="checkbox" name="checked" value="Bike" checked={shoppingItem.checked} />
-
+      <div>
         <span className={`amount-unit-ingredient ${isNew(localShoppingItem.updatedAt) ? "highlight" : ""}`}>
-          <div className="amount-unit">
-            {localShoppingItem.amount}
-            {localShoppingItem?.unit} {` `}
-          </div>
+          <div className="amount-unit">{localShoppingItem.name}</div>
           {localShoppingItem?.ingredientName}
         </span>
       </div>
 
       <div>
-        <Button classes="small" type="button" style="primary" children="Edit" onClick={() => onEdit(shoppingItem)} />
+        <Button
+          classes="small"
+          type="button"
+          style="primary"
+          children="Add ingredients"
+          onClick={() => addIngredientsFromRecipeToList(shoppingItem)}
+        />
         <Button
           classes="small"
           type="button"
@@ -48,17 +46,8 @@ const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem }) =>
   );
 };
 
-const onCheck = (localShoppingItem: TypeShoppingItem, setLocalShoppingItem: StateUpdater<TypeShoppingItem>) => {
-  const updatedItem = {
-    ...localShoppingItem,
-    checked: !localShoppingItem.checked,
-  };
-  setLocalShoppingItem(updatedItem);
-  onUpdate(updatedItem);
-};
-
 const isNew = (updatedAt: string): boolean => {
   return Math.abs(new Date(updatedAt).getTime() - Date.now()) < 1000;
 };
 
-export default ShoppingItem;
+export default ShoppingItemRecipe;
