@@ -38,12 +38,16 @@ export function setModalShoppingItem(item: TypeShoppingItem | undefined) {
   }
 }
 
+export const $modalShoppingItemOpened = atom<boolean>(false);
+export function setModalShoppingItemOpened(bool: boolean) {
+  $modalShoppingItemOpened.set(bool);
+}
+
 // SHOPPING LIST
 export const $shoppingList = atom<TypeShoppingItem[]>([]);
 export function setShoppingList(shoppingList: TypeShoppingItem[]) {
   $shoppingList.set(shoppingList);
 }
-
 
 // RECIPE MODAL
 export const $modalRecipeItem = atom<Recipe | undefined>(undefined);

@@ -9,20 +9,19 @@ type SelectProps = {
 
 const Select: FunctionalComponent<SelectProps> = ({ label, onInput, selected }) => {
   return (
-    <div>
-      <label>
-        <span>{label}</span>
-        <select name="unit" onInput={onInput}>
-          {INGREDIENT_UNITS.map((ingredient) => {
-            return (
-              <option value={ingredient.value} selected={selected === ingredient.value}>
-                {ingredient.text}
-              </option>
-            );
-          })}
-        </select>
-      </label>
-    </div>
+    <label>
+      <span>{label}</span>
+
+      <select name="unit" onInput={onInput}>
+        {INGREDIENT_UNITS.map((ingredient) => {
+          return (
+            <option value={ingredient.value} selected={selected === ingredient.value}>
+              {ingredient.text}
+            </option>
+          );
+        })}
+      </select>
+    </label>
   );
 };
 

@@ -1,7 +1,7 @@
 import type { FunctionComponent } from "preact";
-import { useEffect, useState, type StateUpdater } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import Button from "../Form/Button";
-import { $shoppingListRecipes, setShoppingListRecipes } from "../../services/store";
+import { getStyle, handleOnAdd, retrieveMainImage } from "./helpers";
 
 type RecipeCardProps = {
   recipe: any;
@@ -17,7 +17,6 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
     retrieveMainImage(recipe, setMainImage);
   }, [recipe]);
 
-  // Should be styled and moved into a component in the Recipe subfolder
   if (!recipe) return <p>Error, no recipe found.</p>;
 
   return (
@@ -44,28 +43,6 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
       </div>
     </div>
   );
-};
-
-const retrieveMainImage = (recipe: any, setMainImage: StateUpdater<string>) => {
-  if (recipe?.images?.length) {
-    setMainImage(`url('${recipe.images[0].url}')`);
-  } else {
-    setMainImage(
-      `url('https://res.cloudinary.com/dqnks1cyu/image/upload/v1664962512/recipes/healthy-eating-ingredients-732x549-thumbnail_y5ier5.jpg')`
-    );
-  }
-};
-
-const getStyle = (mainImage: string, isHovering: boolean) => {
-  return {
-    backgroundImage: mainImage,
-    boxShadow: !isHovering ? "inset 0 0 0 2000px rgba(0, 0, 0, 0.21)" : "inset 0 0 0 2000px rgba(0, 0, 0, 0.5)",
-  };
-};
-
-const handleOnAdd = (e: MouseEvent, recipe: Recipe) => {
-  e.stopPropagation();
-  setShoppingListRecipes([recipe, ...$shoppingListRecipes.get()]);
 };
 
 export default RecipeCard;

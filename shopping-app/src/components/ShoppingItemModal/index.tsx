@@ -3,20 +3,24 @@ import { useStore } from "@nanostores/preact";
 import { useEffect, useState } from "preact/hooks";
 
 import { handleOnSubmit, modalTitle } from "./helpers";
-import { $formState, resetFormState, setFormState, type FormStateType, $modalShoppingItem } from "../../services/store";
+import {
+  $formState,
+  resetFormState,
+  setFormState,
+  $modalShoppingItem,
+  $modalShoppingItemOpened,
+  setModalShoppingItemOpened,
+  setModalShoppingItem,
+} from "../../services/store";
 
 import SeasonalVeggieList from "../SeasonalVeggieList";
 import Modal from "../Modal";
 import Form from "./form";
 
-type CreateShoppingItemProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
-
-const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({ isOpen, onClose }) => {
+const CreateShoppingItemModal: FunctionalComponent = () => {
   const formState = useStore($formState);
   const editedShoppingItem = useStore($modalShoppingItem);
+  const modalShoppingItemOpened = useStore($modalShoppingItemOpened);
   const [createNewMode, setCreateNewMode] = useState(false);
 
   useEffect(() => {
@@ -39,7 +43,7 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
     } else {
       setCreateNewMode(false);
     }
-  }, [isOpen]);
+  }, [modalShoppingItemOpened]);
 
   const onSubmit = (): void => {
     handleOnSubmit(editedShoppingItem);
@@ -47,12 +51,22 @@ const CreateShoppingItemModal: FunctionalComponent<CreateShoppingItemProps> = ({
   };
 
   return (
-    <Modal hasCloseBtn={true} isOpen={isOpen} onClose={onClose} title={modalTitle(editedShoppingItem, formState)}>
-      <Form onSubmit={onSubmit} isOpen={isOpen} />
+    <Modal
+      hasCloseBtn={true}
+      isOpen={modalShoppingItemOpened}
+      onClose={onClose}
+      title={modalTitle(editedShoppingItem, formState)}
+    >
+      <Form onSubmit={onSubmit} isOpen={modalShoppingItemOpened} />
 
       {createNewMode && <SeasonalVeggieList />}
     </Modal>
   );
+};
+
+const onClose = () => {
+  setModalShoppingItemOpened(false);
+  setModalShoppingItem(undefined);
 };
 
 export default CreateShoppingItemModal;

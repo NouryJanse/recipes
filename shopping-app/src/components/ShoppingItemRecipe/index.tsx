@@ -1,10 +1,11 @@
-import { useEffect, useState, type StateUpdater } from "preact/hooks";
-import type { TypeShoppingItem } from "../../services/types.db";
+import { useEffect, useState } from "preact/hooks";
 import type { FunctionComponent } from "preact";
-import { onDelete } from "../ShoppingItem/helpers";
-import Button from "../Form/Button";
-import { addIngredientsFromRecipeToList } from "./helpers";
+
 import { setModalRecipeItem, setModalRecipeItemOpened } from "../../services/store";
+
+import { onDelete } from "../ShoppingItem/helpers";
+
+import Button from "../Form/Button";
 
 type ShoppingItemRecipeProps = {
   recipe: Recipe;
@@ -20,12 +21,9 @@ const ShoppingItemRecipe: FunctionComponent<ShoppingItemRecipeProps> = ({ recipe
 
   return (
     <div className="shoppingItem">
-      <div>
-        <span className={`amount-unit-ingredient ${isNew(localRecipe.updatedAt) ? "highlight" : ""}`}>
-          {/* <div className="amount-unit"></div> */}
-          {localRecipe.name}
-        </span>
-      </div>
+      <span className={`amount-unit-ingredient ${isNew(localRecipe.updatedAt) ? "highlight" : ""}`}>
+        {localRecipe.name}
+      </span>
 
       <div>
         <Button

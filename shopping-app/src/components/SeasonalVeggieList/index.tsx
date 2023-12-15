@@ -1,11 +1,13 @@
 import type { FunctionalComponent } from "preact";
-import SeasonalVeggie from "../SeasonalVeggie";
+
 import { fall } from "./fall";
+
+import SeasonalVeggie from "../SeasonalVeggie";
 
 export const SeasonalVeggieList: FunctionalComponent = ({}) => {
   return (
     <div class="seasonal-veggies">
-      <h3>Add seasonal veggies during fall</h3>
+      <h3>Add seasonal veggies (fall)</h3>
       <SeasonalVeggies />
     </div>
   );

@@ -1,25 +1,16 @@
 import type { FunctionalComponent } from "preact";
-import Modal from "../Modal";
+import { useEffect, useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
-import {
-  $modalRecipeItem,
-  $modalRecipeItemOpened,
-  $shoppingListRecipes,
-  setModalRecipeItemOpened,
-  setShoppingListRecipes,
-} from "../../services/store";
-import { nanoid } from "nanoid";
+
+import { $modalRecipeItem, $modalRecipeItemOpened, setModalRecipeItemOpened } from "../../services/store";
+import type { TypeShoppingItem } from "../../services/types.db";
+import { mapRecipeIngredientsToShoppingItems, onSubmit, onUpdate } from "./helpers";
+
+import Modal from "../Modal";
 import Button from "../Form/Button";
 import RecipeItem from "../RecipeItem";
-import type { TypeShoppingItem } from "../../services/types.db";
-import { useEffect, useState } from "preact/hooks";
-import updateArrayWithObjectById from "../../helpers/updateArrayWithObjectById";
-import deleteObjectWithIdFromArray from "../../helpers/deleteObjectWithIdFromArray";
-import { addIngredientsFromRecipeToList } from "../ShoppingItemRecipe/helpers";
 
-type RecipeModalProps = {};
-
-const RecipeModal: FunctionalComponent<RecipeModalProps> = ({}) => {
+const RecipeModal: FunctionalComponent = ({}) => {
   const modalRecipeItemOpened: boolean = useStore($modalRecipeItemOpened);
   const modalRecipeItem: Recipe | undefined = useStore($modalRecipeItem);
   const [recipeItems, setRecipeItems] = useState<TypeShoppingItem[]>([]);
@@ -27,19 +18,7 @@ const RecipeModal: FunctionalComponent<RecipeModalProps> = ({}) => {
   if (!modalRecipeItem) return <></>;
 
   useEffect(() => {
-    if (modalRecipeItem.ingredients && modalRecipeItem.ingredients.length) {
-      const loc: TypeShoppingItem[] = modalRecipeItem.ingredients.map(({ amount, name, unit }: RecipeIngredient) => {
-        return {
-          id: nanoid(),
-          amount: amount ? amount : 0,
-          ingredientName: name ? name : "",
-          checked: true,
-          unit: unit ? unit : "",
-          updatedAt: new Date().toISOString(),
-        };
-      });
-      if (loc && loc.length) setRecipeItems(loc);
-    }
+    mapRecipeIngredientsToShoppingItems(modalRecipeItem, setRecipeItems);
   }, [modalRecipeItem]);
 
   return (
@@ -55,35 +34,10 @@ const RecipeModal: FunctionalComponent<RecipeModalProps> = ({}) => {
           onUpdate={(updatedItem) => onUpdate(updatedItem, recipeItems, setRecipeItems)}
         />
       ))}
+
       <Button type="button" children="Add to shopping list" style="primary" onClick={() => onSubmit(recipeItems)} />
     </Modal>
   );
-};
-
-const onSubmit = (recipeItems: TypeShoppingItem[]) => {
-  const modalitems = $shoppingListRecipes.get();
-  const id = $modalRecipeItem.get()?.id;
-
-  if (modalitems && id) {
-    setShoppingListRecipes(
-      // @ts-ignore:next-line
-      deleteObjectWithIdFromArray(
-        modalitems.map((item) => {
-          return { ...item, id: `${item.id}` };
-        }),
-        id.toString()
-      )
-    );
-  }
-
-  addIngredientsFromRecipeToList(recipeItems);
-
-  $modalRecipeItem.set(undefined);
-  $modalRecipeItemOpened.set(false);
-};
-
-const onUpdate = (recipeItem: TypeShoppingItem, recipeItems: TypeShoppingItem[], setRecipeItems: any) => {
-  setRecipeItems(updateArrayWithObjectById(recipeItems, recipeItem));
 };
 
 export default RecipeModal;

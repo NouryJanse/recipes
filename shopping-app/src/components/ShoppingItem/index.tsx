@@ -1,8 +1,10 @@
 import { useEffect, useState, type StateUpdater } from "preact/hooks";
-import type { TypeShoppingItem } from "../../services/types.db";
 import type { FunctionComponent } from "preact";
-import Button from "../Form/Button";
+
 import { onDelete, onEdit, onUpdate } from "./helpers";
+import type { TypeShoppingItem } from "../../services/types.db";
+
+import Button from "../Form/Button";
 
 type ShoppingItemProps = {
   shoppingItem: TypeShoppingItem;
@@ -50,7 +52,6 @@ const onCheck = (localShoppingItem: TypeShoppingItem, setLocalShoppingItem: Stat
     checked: !localShoppingItem.checked,
   };
   setLocalShoppingItem(updatedItem);
-
   onUpdate(updatedItem);
 };
 

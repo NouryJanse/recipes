@@ -1,25 +1,25 @@
 import type { FunctionComponent } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect } from "preact/hooks";
 
 // data
-import { $modalShoppingItem, setModalShoppingItem } from "../../services/store";
+import { $modalShoppingItem, setModalShoppingItem, setModalShoppingItemOpened } from "../../services/store";
 import { useStore } from "@nanostores/preact";
 
 // UI
 import CreateShoppingItemModal from "../ShoppingItemModal";
 import ShoppingItems from "../ShoppingItems";
 import Button from "../Form/Button";
-import { activateSocket, checkForExistingShoppingList } from "./helpers";
+import { checkForExistingShoppingList } from "./helpers";
 import RecipeModal from "../RecipeModal";
+import { useActivateSocket } from "./useActivateSocket";
 
 type ShoppingListProps = {
   dbShoppingList: any;
 };
 
 const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) => {
-  const [dialogOpened, setDialogOpened] = useState(false);
   const modalShoppingItem = useStore($modalShoppingItem);
-  const { isConnected } = activateSocket();
+  const { isConnected } = useActivateSocket();
 
   useEffect(() => {
     checkForExistingShoppingList(dbShoppingList);
@@ -27,34 +27,34 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
 
   useEffect(() => {
     if (modalShoppingItem) {
-      setDialogOpened(true);
+      setModalShoppingItemOpened(true);
     } else {
-      setDialogOpened(false);
+      setModalShoppingItemOpened(false);
     }
   }, [modalShoppingItem]);
 
   return (
     <div className="shopping--items">
-      <CreateShoppingItemModal
-        isOpen={dialogOpened}
-        onClose={() => {
-          setDialogOpened(false);
-          setModalShoppingItem(undefined);
-        }}
-      />
+      <CreateShoppingItemModal />
 
       <RecipeModal />
 
       <div className="shopping--items-title-container">
-        <h3>
-          Your shopping list
-          {isConnected ? <span className="online">Online</span> : <span className="offline">Offline</span>}
-        </h3>
-        <Button type="button" style="secondary" onClick={() => setDialogOpened(true)} label="Add another" />
+        <ShoppingListHeader isConnected={isConnected} />
+        <Button type="button" style="secondary" onClick={() => setModalShoppingItemOpened(true)} label="Add another" />
       </div>
 
       <ShoppingItems />
     </div>
+  );
+};
+
+const ShoppingListHeader = ({ isConnected }: { isConnected: boolean }) => {
+  return (
+    <h3>
+      Your shopping list
+      {isConnected ? <span className="online">Online</span> : <span className="offline">Offline</span>}
+    </h3>
   );
 };
 

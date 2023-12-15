@@ -1,15 +1,17 @@
 import { nanoid } from "nanoid";
 import type { TypeShoppingItem } from "../../services/types.db";
-import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
+
 import {
+  type FormStateType,
   $formState,
   $shoppingList,
   setFormState,
   setModalShoppingItem,
   setShoppingList,
-  type FormStateType,
   resetFormState,
 } from "../../services/store";
+
+import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
 import replaceShoppingItemInList from "../../helpers/replaceShoppingItemInList";
 import { syncToSocket, updateLocalStorage } from "../ShoppingList/helpers";
 

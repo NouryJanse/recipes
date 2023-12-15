@@ -40,13 +40,9 @@ if (recipes) {
 ---
 
 {
-  currentRecipe && currentRecipe.id ? (
+  currentRecipe && currentRecipe.id && (
     <Layout title={currentRecipe.name}>
-      <div class="container">
-        <Recipe recipe={currentRecipe} />
-      </div>
+      <Recipe recipe={currentRecipe} />
     </Layout>
-  ) : (
-    ""
   )
 }

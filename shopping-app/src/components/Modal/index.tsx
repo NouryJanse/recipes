@@ -30,11 +30,8 @@ const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onCl
     >
       <div>
         {title ? <h2>{title}</h2> : ""}
-        {hasCloseBtn && (
-          <Button type="submit" style="tertiary" onClick={onClose}>
-            Close
-          </Button>
-        )}
+
+        {hasCloseBtn && <Button type="submit" style="tertiary" onClick={onClose} children="Close" />}
       </div>
 
       {children}

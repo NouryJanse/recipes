@@ -4,6 +4,7 @@ export const prerender = false;
 import { fetchShoppingList } from "../services/api/fetchShoppingList";
 import { fetchRecipes } from "../services/api/fetchRecipes";
 import { fetchUser } from "../services/api/fetchUser";
+
 import Layout from "../layouts/Layout.astro";
 import Header from "../layouts/Header.astro";
 import ShoppingList from "../components/ShoppingList/ShoppingList";
@@ -12,6 +13,7 @@ import App from "../components/App";
 
 let recipes = [];
 recipes = await fetchRecipes();
+
 const user = await fetchUser(Astro.cookies.get("jwt"));
 
 let dbShoppingList;
