@@ -4,25 +4,26 @@ import type { FunctionComponent } from "preact";
 import { onDelete } from "../ShoppingItem/helpers";
 import Button from "../Form/Button";
 import { addIngredientsFromRecipeToList } from "./helpers";
+import { setModalRecipeItem, setModalRecipeItemOpened } from "../../services/store";
 
 type ShoppingItemRecipeProps = {
-  shoppingItem: TypeShoppingItem;
+  recipe: Recipe;
 };
 
-const ShoppingItemRecipe: FunctionComponent<ShoppingItemRecipeProps> = ({ shoppingItem }) => {
-  const [localShoppingItem, setLocalShoppingItem] = useState<TypeShoppingItem>(shoppingItem);
+const ShoppingItemRecipe: FunctionComponent<ShoppingItemRecipeProps> = ({ recipe }) => {
+  const [localRecipe, setLocalRecipe] = useState<Recipe>(recipe);
 
   useEffect(() => {
     // if changes occur in the shopping item, update immediately
-    setLocalShoppingItem(shoppingItem);
-  }, [shoppingItem]);
+    setLocalRecipe(localRecipe);
+  }, [localRecipe]);
 
   return (
     <div className="shoppingItem">
       <div>
-        <span className={`amount-unit-ingredient ${isNew(localShoppingItem.updatedAt) ? "highlight" : ""}`}>
-          <div className="amount-unit">{localShoppingItem.name}</div>
-          {localShoppingItem?.ingredientName}
+        <span className={`amount-unit-ingredient ${isNew(localRecipe.updatedAt) ? "highlight" : ""}`}>
+          {/* <div className="amount-unit"></div> */}
+          {localRecipe.name}
         </span>
       </div>
 
@@ -32,14 +33,17 @@ const ShoppingItemRecipe: FunctionComponent<ShoppingItemRecipeProps> = ({ shoppi
           type="button"
           style="primary"
           children="Add ingredients"
-          onClick={() => addIngredientsFromRecipeToList(shoppingItem)}
+          onClick={() => {
+            setModalRecipeItemOpened(true);
+            setModalRecipeItem(localRecipe);
+          }}
         />
         <Button
           classes="small"
           type="button"
           style="tertiary"
           children="Delete"
-          onClick={() => onDelete(shoppingItem.id)}
+          onClick={() => onDelete(localRecipe.id.toString())}
         />
       </div>
     </div>

@@ -13,12 +13,14 @@ export const initialShoppingItemModalData: FormStateType = {
   unit: "",
 };
 
-export const $formState = atom<FormStateType>(initialShoppingItemModalData);
+// USER
 export const $user = atom<User | undefined>();
-export const $shoppingList = atom<TypeShoppingItem[]>([]);
-export const $recipesList = atom<Recipe[]>([]);
-export const $modalShoppingItem = atom<TypeShoppingItem | undefined>(undefined);
+export function setUser(user: User) {
+  $user.set(user);
+}
 
+// INGREDIENT MODAL
+export const $formState = atom<FormStateType>(initialShoppingItemModalData);
 export function setFormState(formState: FormStateType) {
   $formState.set(formState);
 }
@@ -27,26 +29,34 @@ export function resetFormState() {
   $formState.set(initialShoppingItemModalData);
 }
 
-export function setUser(user: User) {
-  $user.set(user);
-}
-
-export function setShoppingList(shoppingList: TypeShoppingItem[]) {
-  $shoppingList.set(shoppingList);
-}
-
-export function addItemToShoppingList(item: TypeShoppingItem) {
-  $shoppingList.set([item, ...$shoppingList.get()]);
-}
-
-export function addItemToRecipesList(item: Recipe) {
-  $recipesList.set([item, ...$recipesList.get()]);
-}
-
+export const $modalShoppingItem = atom<TypeShoppingItem | undefined>(undefined);
 export function setModalShoppingItem(item: TypeShoppingItem | undefined) {
   if (item) {
     $modalShoppingItem.set(item);
   } else {
     $modalShoppingItem.set(undefined);
   }
+}
+
+// SHOPPING LIST
+export const $shoppingList = atom<TypeShoppingItem[]>([]);
+export function setShoppingList(shoppingList: TypeShoppingItem[]) {
+  $shoppingList.set(shoppingList);
+}
+
+
+// RECIPE MODAL
+export const $modalRecipeItem = atom<Recipe | undefined>(undefined);
+export function setModalRecipeItem(item: any) {
+  $modalRecipeItem.set(item);
+}
+
+export const $modalRecipeItemOpened = atom<boolean>(false);
+export function setModalRecipeItemOpened(bool: boolean) {
+  $modalRecipeItemOpened.set(bool);
+}
+
+export const $shoppingListRecipes = atom<Recipe[]>([]);
+export function setShoppingListRecipes(shoppingListRecipes: Recipe[]) {
+  $shoppingListRecipes.set(shoppingListRecipes);
 }

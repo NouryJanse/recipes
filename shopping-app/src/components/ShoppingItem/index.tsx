@@ -9,10 +9,6 @@ type ShoppingItemProps = {
 };
 
 const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem }) => {
-  if ("course" in shoppingItem) {
-    console.log(shoppingItem);
-  }
-
   const [localShoppingItem, setLocalShoppingItem] = useState<TypeShoppingItem>(shoppingItem);
 
   useEffect(() => {
@@ -23,7 +19,7 @@ const ShoppingItem: FunctionComponent<ShoppingItemProps> = ({ shoppingItem }) =>
   return (
     <div className="shoppingItem">
       <div onClick={() => onCheck(localShoppingItem, setLocalShoppingItem)}>
-        <input type="checkbox" name="checked" value="Bike" checked={shoppingItem.checked} />
+        <input type="checkbox" name="checked" value="" checked={localShoppingItem.checked} />
 
         <span className={`amount-unit-ingredient ${isNew(localShoppingItem.updatedAt) ? "highlight" : ""}`}>
           <div className="amount-unit">
@@ -54,6 +50,7 @@ const onCheck = (localShoppingItem: TypeShoppingItem, setLocalShoppingItem: Stat
     checked: !localShoppingItem.checked,
   };
   setLocalShoppingItem(updatedItem);
+
   onUpdate(updatedItem);
 };
 

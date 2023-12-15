@@ -1,7 +1,7 @@
 import type { FunctionComponent } from "preact";
 import { useEffect, useState, type StateUpdater } from "preact/hooks";
 import Button from "../Form/Button";
-import { addItemToShoppingList } from "../../services/store";
+import { $shoppingListRecipes, setShoppingListRecipes } from "../../services/store";
 
 type RecipeCardProps = {
   recipe: any;
@@ -63,9 +63,9 @@ const getStyle = (mainImage: string, isHovering: boolean) => {
   };
 };
 
-const handleOnAdd = (e: MouseEvent, recipe: any) => {
+const handleOnAdd = (e: MouseEvent, recipe: Recipe) => {
   e.stopPropagation();
-  addItemToShoppingList(recipe);
+  setShoppingListRecipes([recipe, ...$shoppingListRecipes.get()]);
 };
 
 export default RecipeCard;

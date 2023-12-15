@@ -2,7 +2,7 @@ import type { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 // data
-import { $shoppingList, $modalShoppingItem, setModalShoppingItem } from "../../services/store";
+import { $modalShoppingItem, setModalShoppingItem } from "../../services/store";
 import { useStore } from "@nanostores/preact";
 
 // UI
@@ -10,6 +10,7 @@ import CreateShoppingItemModal from "../ShoppingItemModal";
 import ShoppingItems from "../ShoppingItems";
 import Button from "../Form/Button";
 import { activateSocket, checkForExistingShoppingList } from "./helpers";
+import RecipeModal from "../RecipeModal";
 
 type ShoppingListProps = {
   dbShoppingList: any;
@@ -41,6 +42,8 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
           setModalShoppingItem(undefined);
         }}
       />
+
+      <RecipeModal />
 
       <div className="shopping--items-title-container">
         <h3>

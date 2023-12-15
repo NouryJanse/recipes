@@ -1,7 +1,5 @@
-import type { TypeShoppingItem } from "../services/types.db";
-
-const deleteObjectWithIdFromArray = (array: TypeShoppingItem[], id: string): TypeShoppingItem[] => {
-  return array.filter((a) => {
+const deleteObjectWithIdFromArray = <T extends { id?: string }>(list: T[], id: string) => {
+  return list.filter((a) => {
     return a.id === id ? null : a;
   });
 };

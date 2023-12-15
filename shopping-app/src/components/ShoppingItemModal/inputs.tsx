@@ -30,7 +30,7 @@ const Inputs: FunctionComponent<InputsProps> = ({ isOpen }) => {
           value={formState.ingredientName}
           onInput={handleInputChange}
           label="Ingredient"
-          defaultValue="Courgette"
+          defaultValue=""
           placeholder="Enter your ingredient"
         />
       </div>
