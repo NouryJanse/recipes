@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "preact/hooks";
-import { fetchRecipes } from "./fetchRecipes";
+import { fetchRecipes } from "../../services/api/fetchRecipes";
 
 const useRecipesQuery = (serverRecipes: Recipe[]) => {
   const [actualRecipes, setActualRecipes] = useState<Recipe[]>(serverRecipes);
@@ -8,7 +8,7 @@ const useRecipesQuery = (serverRecipes: Recipe[]) => {
   const hasRendered = useRef(false);
 
   useEffect(() => {
-    // ADD DEBOUNCE!!
+    //@TODO ADD A LITTLE DEBOUNCE!!
     triggerFetch();
   }, [recipeFilter]);
 

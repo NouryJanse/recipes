@@ -1,8 +1,14 @@
-const fetchRecipes = async () => {
+const fetchRecipes = async (recipeFilter: string) => {
   try {
     const RECIPES_API_URL = import.meta.env.PUBLIC_RECIPES_API_URL;
+    console.log(RECIPES_API_URL);
+
     if (RECIPES_API_URL) {
-      const recipesJSON = await fetchWithTimeout(`${RECIPES_API_URL}/api/recipes`, { timeout: 750 });
+      const recipesJSON = await fetchWithTimeout(
+        `${RECIPES_API_URL}/api/recipes${recipeFilter.length ? `/filter/${recipeFilter}` : "/"}`,
+        { timeout: 750 }
+      );
+      // const recipesJSON = await fetchWithTimeout(`${RECIPES_API_URL}/api/recipes`, { timeout: 750 });
       if (recipesJSON.status === 200) {
         return await recipesJSON.json();
       }

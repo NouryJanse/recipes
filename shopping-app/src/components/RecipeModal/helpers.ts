@@ -9,6 +9,7 @@ import {
 } from "../../services/store";
 import { addIngredientsFromRecipeToList } from "../ShoppingItemRecipe/helpers";
 import updateArrayWithObjectById from "../../helpers/updateArrayWithObjectById";
+import deleteObjectWithIdFromArray from "../../helpers/deleteObjectWithIdFromArray";
 
 export const mapRecipeIngredientsToShoppingItems = (
   modalRecipeItem: Recipe,
