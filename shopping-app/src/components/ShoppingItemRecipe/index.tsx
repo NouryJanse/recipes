@@ -1,29 +1,27 @@
 import { useEffect, useState } from "preact/hooks";
 import type { FunctionComponent } from "preact";
 
-import { setModalRecipeItem, setModalRecipeItemOpened } from "../../services/store";
-
-import { onDelete } from "../ShoppingItem/helpers";
+import {
+  $shoppingListRecipes,
+  setModalRecipeItem,
+  setModalRecipeItemOpened,
+  setShoppingListRecipes,
+} from "../../services/store";
 
 import Button from "../Form/Button";
+import deleteObjectWithIdFromArray from "../../helpers/deleteObjectWithIdFromArray";
+import { useStore } from "@nanostores/preact";
 
 type ShoppingItemRecipeProps = {
   recipe: Recipe;
 };
 
 const ShoppingItemRecipe: FunctionComponent<ShoppingItemRecipeProps> = ({ recipe }) => {
-  const [localRecipe, setLocalRecipe] = useState<Recipe>(recipe);
-
-  useEffect(() => {
-    // if changes occur in the shopping item, update immediately
-    setLocalRecipe(localRecipe);
-  }, [localRecipe]);
+  const shoppingListRecipes = useStore($shoppingListRecipes);
 
   return (
     <div className="shoppingItem">
-      <span className={`amount-unit-ingredient ${isNew(localRecipe.updatedAt) ? "highlight" : ""}`}>
-        {localRecipe.name}
-      </span>
+      <span className={`amount-unit-ingredient ${isNew(recipe.updatedAt) ? "highlight" : ""}`}>{recipe.name}</span>
 
       <div>
         <Button
@@ -33,15 +31,21 @@ const ShoppingItemRecipe: FunctionComponent<ShoppingItemRecipeProps> = ({ recipe
           children="Add ingredients"
           onClick={() => {
             setModalRecipeItemOpened(true);
-            setModalRecipeItem(localRecipe);
+            setModalRecipeItem(recipe);
           }}
         />
+
         <Button
           classes="small"
           type="button"
           style="tertiary"
           children="Delete"
-          onClick={() => onDelete(localRecipe.id.toString())}
+          onClick={() => {
+            setShoppingListRecipes(
+              // @ts-ignore:next-line
+              deleteObjectWithIdFromArray(shoppingListRecipes, recipe.id)
+            );
+          }}
         />
       </div>
     </div>
