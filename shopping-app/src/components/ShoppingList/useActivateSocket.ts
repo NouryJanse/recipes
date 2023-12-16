@@ -1,6 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
 import { setShoppingList } from "../../services/store";
-import { updateLocalStorage } from "./helpers";
 
 import { getSocket } from "./getSocket";
 
@@ -20,9 +19,10 @@ export const useActivateSocket = () => {
       setIsConnected(false);
     });
     socket.on("onShoppingListUpdate", (data) => {
+      console.log("hello from socket: onShoppingListUpdate", data);
+
       const parsedData = JSON.parse(data);
       setShoppingList(parsedData.list);
-      updateLocalStorage(parsedData.list);
     });
     return () => {
       isConnected;

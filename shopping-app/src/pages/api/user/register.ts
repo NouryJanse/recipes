@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { User } from "../../../data/User";
-import connectToDB from "../../../services/mongoose";
+import getAPIDatabaseConnection from "../../../services/getAPIDatabaseConnection";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Tokens from "csrf";
@@ -10,7 +10,7 @@ const jwtSecret = import.meta.env.JWT_SECRET || "";
 const csrfSecret: string = import.meta.env.CSRF_SECRET as string;
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
-  await connectToDB();
+  await getAPIDatabaseConnection();
   const formData = await request.formData();
   const username = formData.get("username")?.toString();
   const password = formData.get("password")?.toString();

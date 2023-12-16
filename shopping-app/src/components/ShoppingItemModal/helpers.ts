@@ -13,7 +13,7 @@ import {
 
 import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
 import replaceShoppingItemInList from "../../helpers/replaceShoppingItemInList";
-import { syncToSocket, updateLocalStorage } from "../ShoppingList/helpers";
+import { syncToSocket } from "../../helpers/syncToSocket";
 
 export const createShoppingItem = (
   formState: FormStateType,
@@ -46,9 +46,8 @@ export const addShoppingItem = (formState: FormStateType) => {
   const updatedList = sortShoppingListOnDate([...$shoppingList.get(), newShoppingItem]);
 
   setShoppingList(updatedList);
-  setModalShoppingItem(undefined);
-  updateLocalStorage(updatedList);
   syncToSocket(updatedList);
+  setModalShoppingItem(undefined);
 };
 
 export const editShoppingItem = (formState: FormStateType, editedShoppingItem: TypeShoppingItem) => {
@@ -56,9 +55,8 @@ export const editShoppingItem = (formState: FormStateType, editedShoppingItem: T
   const items = replaceShoppingItemInList($shoppingList.get(), editedShoppingItem, newShoppingItem);
   const updatedList = sortShoppingListOnDate(items);
   setShoppingList(updatedList);
-  setModalShoppingItem(undefined);
-  updateLocalStorage(updatedList);
   syncToSocket(updatedList);
+  setModalShoppingItem(undefined);
 };
 
 export const handleInputChange = (event: Event): void => {

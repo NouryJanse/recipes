@@ -49,6 +49,8 @@ io.on("connection", (socket) => {
 const router = express.Router();
 
 router.get("/", (req, res) => {
+  console.log("test");
+
   return res.status(200).send({ status: "OK" });
 });
 

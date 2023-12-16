@@ -2,7 +2,7 @@ import type { FunctionComponent } from "preact";
 import { useEffect } from "preact/hooks";
 
 // data
-import { $modalShoppingItem, setModalShoppingItem, setModalShoppingItemOpened } from "../../services/store";
+import { $modalShoppingItem, setModalShoppingItemOpened } from "../../services/store";
 import { useStore } from "@nanostores/preact";
 
 // UI

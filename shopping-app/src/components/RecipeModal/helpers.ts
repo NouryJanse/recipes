@@ -7,9 +7,10 @@ import {
   $shoppingListRecipes,
   setShoppingListRecipes,
 } from "../../services/store";
-import { addIngredientsFromRecipeToList } from "../ShoppingItemRecipe/helpers";
 import updateArrayWithObjectById from "../../helpers/updateArrayWithObjectById";
 import deleteObjectWithIdFromArray from "../../helpers/deleteObjectWithIdFromArray";
+import { syncToSocket } from "../../helpers/syncToSocket";
+import { $shoppingList, setShoppingList } from "../../services/store";
 
 export const mapRecipeIngredientsToShoppingItems = (
   modalRecipeItem: Recipe,
@@ -54,4 +55,37 @@ export const onSubmit = (recipeItems: TypeShoppingItem[]) => {
 
 export const onUpdate = (recipeItem: TypeShoppingItem, recipeItems: TypeShoppingItem[], setRecipeItems: any) => {
   setRecipeItems(updateArrayWithObjectById(recipeItems, recipeItem));
+};
+
+export const addIngredientsFromRecipeToList = (shoppingItems: TypeShoppingItem[]) => {
+  const skiplist: TypeShoppingItem[] = [];
+
+  // update existing shopping items with the addition of the recipe ingredients
+  const updatedShoppingList = $shoppingList.get().map((existingShoppingItem) => {
+    const exists = shoppingItems.find((recipeIngredient) => {
+      const isPresent = recipeIngredient.ingredientName === existingShoppingItem.ingredientName;
+      if (isPresent) skiplist.push(recipeIngredient);
+      return isPresent;
+    });
+
+    if (exists) {
+      return {
+        ...existingShoppingItem,
+        amount: existingShoppingItem.amount + exists.amount,
+      };
+    }
+    return existingShoppingItem;
+  });
+
+  // filter the ingredients to get the new shopping Items (ingredients)
+  const newItems = shoppingItems.filter((ingr: any) => {
+    return !skiplist.find((skip) => {
+      return skip.ingredientName === ingr.ingredientName;
+    });
+  });
+
+  const updatedList = [...updatedShoppingList, ...newItems];
+
+  setShoppingList(updatedList);
+  syncToSocket(updatedList);
 };

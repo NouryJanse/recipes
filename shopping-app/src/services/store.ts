@@ -1,5 +1,6 @@
 import { atom } from "nanostores";
 import type { TypeShoppingItem, User } from "./types.db";
+import { updateLocalStorage } from "../helpers/updateLocalStorage";
 
 export interface FormStateType {
   amount: string;
@@ -47,6 +48,7 @@ export function setModalShoppingItemOpened(bool: boolean) {
 export const $shoppingList = atom<TypeShoppingItem[]>([]);
 export function setShoppingList(shoppingList: TypeShoppingItem[]) {
   $shoppingList.set(shoppingList);
+  updateLocalStorage();
 }
 
 // RECIPE MODAL
@@ -63,4 +65,5 @@ export function setModalRecipeItemOpened(bool: boolean) {
 export const $shoppingListRecipes = atom<Recipe[]>([]);
 export function setShoppingListRecipes(shoppingListRecipes: Recipe[]) {
   $shoppingListRecipes.set(shoppingListRecipes);
+  updateLocalStorage();
 }

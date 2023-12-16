@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 let connectionString = import.meta.env.DATA_CONNECTION || "";
 
-const connectToDB = async () => {
+const getAPIDatabaseConnection = async () => {
   try {
     await mongoose.connect(connectionString, {});
   } catch (error) {
@@ -9,4 +9,4 @@ const connectToDB = async () => {
     process.exit(1);
   }
 };
-export default connectToDB;
+export default getAPIDatabaseConnection;

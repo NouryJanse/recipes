@@ -1,9 +1,9 @@
 import type { APIRoute } from "astro";
 import { User } from "../../../data/User";
-import connectToDB from "../../../services/mongoose";
+import getAPIDatabaseConnection from "../../../services/getAPIDatabaseConnection";
 
 export const POST: APIRoute = async ({ request, redirect }) => {
-  await connectToDB();
+  await getAPIDatabaseConnection();
   const formData = await request.formData();
   const id = formData.get("id")?.toString();
   const user = await User.findById(id);
