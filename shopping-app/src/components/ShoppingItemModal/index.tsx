@@ -56,6 +56,7 @@ const CreateShoppingItemModal: FunctionalComponent = () => {
       isOpen={modalShoppingItemOpened}
       onClose={onClose}
       title={modalTitle(editedShoppingItem, formState)}
+      onSubmit={onSubmit}
     >
       <Form onSubmit={onSubmit} isOpen={modalShoppingItemOpened} />
 

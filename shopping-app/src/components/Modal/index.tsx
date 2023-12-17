@@ -8,9 +8,10 @@ interface ModalProps {
   onClose: () => void;
   children: any;
   title: string;
+  onSubmit?: () => void;
 }
 
-const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onClose, children, title }) => {
+const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onClose, children, title, onSubmit }) => {
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const Modal: FunctionComponent<ModalProps> = ({ isOpen, hasCloseBtn = true, onCl
       className="modal"
       onKeyDown={(e: KeyboardEvent) => {
         if (e.code === "Escape") onClose();
+        if (e.code === "Enter" && onSubmit) onSubmit();
       }}
     >
       <div>

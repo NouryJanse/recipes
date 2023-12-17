@@ -23,6 +23,7 @@ io.on("connection", (socket) => {
   console.info(`connect: ${socket.id}`);
 
   socket.on("listUpdate", async (msg) => {
+    console.info("listUpdate received");
     const COLLECTION_NAME = process.env.COLLECTION_NAME as string;
     const DB_NAME = process.env.DB_NAME as string;
 
@@ -33,8 +34,12 @@ io.on("connection", (socket) => {
 
       if (shoppingList._id) {
         let res = await collection.replaceOne({ _id: shoppingList._id }, { ...shoppingList });
+        console.info("emitting message", msg);
         io.emit("onShoppingListUpdate", msg);
+
         console.info(res);
+      } else {
+        console.info("No shopping list id found");
       }
     } catch (error) {
       console.error(error);
