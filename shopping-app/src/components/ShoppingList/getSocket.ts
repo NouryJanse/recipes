@@ -1,4 +1,5 @@
 import { io } from "socket.io-client";
+import { setSocket } from "../../services/store";
 
 const getSomeEnvVariable = () => {
   return import.meta.env.PUBLIC_SOCKET_API_URL
@@ -9,6 +10,11 @@ const getSomeEnvVariable = () => {
 };
 
 export const getSocket = () => {
-  const SOCKET_API_URL = getSomeEnvVariable() as string;
-  return io(SOCKET_API_URL, { autoConnect: false });
+  try {
+    const SOCKET_API_URL = getSomeEnvVariable() as string;
+    const socket = io(SOCKET_API_URL, { autoConnect: false });
+    setSocket(socket);
+  } catch (error) {
+    console.error(error)
+  }
 };

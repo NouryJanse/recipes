@@ -67,3 +67,9 @@ export function setShoppingListRecipes(shoppingListRecipes: Recipe[]) {
   $shoppingListRecipes.set(shoppingListRecipes);
   updateLocalStorage();
 }
+
+// SOCKET
+export const $socketClient = atom<any | undefined>(undefined);
+export function setSocket(socket: any) {
+  $socketClient.set(socket);
+}

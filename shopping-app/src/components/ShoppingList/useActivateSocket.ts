@@ -1,15 +1,13 @@
 import { useEffect, useState } from "preact/hooks";
-import { setShoppingList } from "../../services/store";
-
-import { getSocket } from "./getSocket";
+import { $socketClient, setShoppingList } from "../../services/store";
 
 export const useActivateSocket = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const socket = getSocket();
+  const socket = $socketClient.get();
 
   useEffect(() => {
     socket.connect();
-    socket.on("message", (msg) => {
+    socket.on("message", (msg: any) => {
       console.log(msg);
     });
     socket.on("connect", () => {
@@ -18,9 +16,7 @@ export const useActivateSocket = () => {
     socket.on("disconnect", () => {
       setIsConnected(false);
     });
-    socket.on("onShoppingListUpdate", (data) => {
-      console.log("hello from socket: onShoppingListUpdate", data);
-
+    socket.on("onShoppingListUpdate", (data: any) => {
       const parsedData = JSON.parse(data);
       setShoppingList(parsedData.list);
     });
