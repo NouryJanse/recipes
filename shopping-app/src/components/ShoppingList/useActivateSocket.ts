@@ -1,14 +1,21 @@
 import { useEffect, useState } from "preact/hooks";
-import { $socketClient, setShoppingList } from "../../services/store";
+import { $socketClient, setShoppingList, setSocket } from "../../services/store";
+import { getSocket } from "./getSocket";
+import { useStore } from "@nanostores/preact";
 
 export const useActivateSocket = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const socket = $socketClient.get();
+  const socket = useStore($socketClient);
 
   useEffect(() => {
+    if (!socket) {
+      const localSocket = getSocket();
+      setSocket(localSocket);
+    }
     if (socket) {
-      socket.connect();
-
+      if (!socket.connected) {
+        socket.connect();
+      }
       socket.on("message", (msg: any) => {
         console.log(msg);
       });
@@ -34,6 +41,12 @@ export const useActivateSocket = () => {
       };
     }
   }, [socket]);
+
+  useEffect(() => {
+    if (socket) {
+      setIsConnected(socket.connected);
+    }
+  }, [socket.connected]);
 
   return { isConnected };
 };

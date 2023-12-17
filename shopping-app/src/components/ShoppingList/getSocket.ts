@@ -12,9 +12,9 @@ const getSomeEnvVariable = () => {
 export const getSocket = () => {
   try {
     const SOCKET_API_URL = getSomeEnvVariable() as string;
-    const socket = io(SOCKET_API_URL, { autoConnect: false });
+    const socket = io(SOCKET_API_URL);
     setSocket(socket);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 };

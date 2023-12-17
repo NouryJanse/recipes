@@ -34,7 +34,7 @@ io.on("connection", (socket) => {
 
       if (shoppingList._id) {
         let res = await collection.replaceOne({ _id: shoppingList._id }, { ...shoppingList });
-        console.info("emitting message", msg);
+        console.info("emitting message");
         io.emit("onShoppingListUpdate", msg);
 
         console.info(res);
