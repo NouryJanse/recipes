@@ -32,6 +32,12 @@
     animation: highlight 2s;
   }
 
+  .recipe-title {
+    border-bottom: 2px dashed var(--color-teal-3);
+    padding-bottom: var(--step--7);
+    font-weight: 500;
+  }
+
   .amount-unit-ingredient {
     display: flex;
     flex-direction: row;

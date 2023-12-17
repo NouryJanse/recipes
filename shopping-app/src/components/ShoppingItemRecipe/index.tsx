@@ -21,7 +21,7 @@ const ShoppingItemRecipe: FunctionComponent<ShoppingItemRecipeProps> = ({ recipe
 
   return (
     <div className="shoppingItem">
-      <span className={`amount-unit-ingredient ${isNew(recipe.updatedAt) ? "highlight" : ""}`}>{recipe.name}</span>
+      <span className={`recipe-title ${isNew(recipe.updatedAt) ? "highlight" : ""}`}>{recipe.name}</span>
 
       <div>
         <Button

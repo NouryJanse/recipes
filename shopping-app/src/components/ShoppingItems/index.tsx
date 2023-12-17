@@ -11,12 +11,19 @@ const ShoppingItems: FunctionalComponent<ShoppingItemsProps> = ({}) => {
   const shoppingListRecipes = useStore($shoppingListRecipes);
   return (
     <>
-      {shoppingListRecipes.map((recipe: Recipe) => (
-        <ShoppingItemRecipe recipe={recipe} />
-      ))}
-      {shoppingList.map((shoppingItem) => (
-        <ShoppingItem shoppingItem={shoppingItem} />
-      ))}
+      <div>
+        {shoppingListRecipes.length ? <h4>Recipes</h4> : ""}
+        {shoppingListRecipes.map((recipe: Recipe) => (
+          <ShoppingItemRecipe recipe={recipe} />
+        ))}
+      </div>
+
+      <div>
+        {shoppingListRecipes.length ? <h4>Shopping items</h4> : ""}
+        {shoppingList.map((shoppingItem) => (
+          <ShoppingItem shoppingItem={shoppingItem} />
+        ))}
+      </div>
     </>
   );
 };

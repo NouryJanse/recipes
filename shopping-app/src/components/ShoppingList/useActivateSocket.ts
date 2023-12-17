@@ -43,10 +43,10 @@ export const useActivateSocket = () => {
   }, [socket]);
 
   useEffect(() => {
-    if (socket) {
+    if (socket && socket.connected) {
       setIsConnected(socket.connected);
     }
-  }, [socket.connected]);
+  }, [socket]);
 
   return { isConnected };
 };
