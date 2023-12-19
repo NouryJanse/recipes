@@ -8,6 +8,7 @@ type InputTextProps = {
   onInput: (event: Event) => void;
   defaultValue?: string;
   placeholder: string;
+  autoFocus?: boolean;
 };
 
 const InputText: FunctionComponent<InputTextProps> = ({
@@ -18,6 +19,7 @@ const InputText: FunctionComponent<InputTextProps> = ({
   onInput,
   defaultValue,
   placeholder,
+  autoFocus,
 }) => {
   return (
     <div>
@@ -29,6 +31,7 @@ const InputText: FunctionComponent<InputTextProps> = ({
           type="text"
           value={value}
           name={name}
+          autofocus={autoFocus ? true : false}
           defaultValue={defaultValue ? defaultValue : ""}
           onInput={onInput}
           placeholder={placeholder}

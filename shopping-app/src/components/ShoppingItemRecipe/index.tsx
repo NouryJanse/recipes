@@ -1,4 +1,3 @@
-import { useEffect, useState } from "preact/hooks";
 import type { FunctionComponent } from "preact";
 
 import {

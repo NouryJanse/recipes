@@ -1,4 +1,4 @@
-import { $shoppingList, $shoppingListRecipes, $user } from "../services/store";
+import { $shoppingList, $shoppingListRecipes } from "../services/store";
 
 export const updateLocalStorage = () => {
   if (typeof window !== "undefined") {

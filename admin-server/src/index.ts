@@ -14,9 +14,16 @@ app.use(cors(options))
 app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
+// function sleep(ms: number) {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, ms)
+//   })
+// }
+
 const router = express.Router()
 router.use(async (req: Request, res: Response, next: NextFunction) => {
   // middleware for each request can be added here...
+  // await sleep(3000)
   next()
 })
 

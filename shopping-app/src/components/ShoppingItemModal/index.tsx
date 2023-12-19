@@ -58,7 +58,7 @@ const CreateShoppingItemModal: FunctionalComponent = () => {
       title={modalTitle(editedShoppingItem, formState)}
       onSubmit={onSubmit}
     >
-      <Form onSubmit={onSubmit} isOpen={modalShoppingItemOpened} />
+      <Form onSubmit={onSubmit} />
 
       {createNewMode && <SeasonalVeggieList />}
     </Modal>

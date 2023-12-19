@@ -4,13 +4,12 @@ import Button from "../Form/Button";
 
 type FormProps = {
   onSubmit: () => void;
-  isOpen: boolean;
 };
 
-const Form: FunctionComponent<FormProps> = ({ onSubmit, isOpen }) => {
+const Form: FunctionComponent<FormProps> = ({ onSubmit }) => {
   return (
     <div className="shopping-form">
-      <Inputs isOpen={isOpen} />
+      <Inputs />
       <Button type="button" children="Save" style="primary" onClick={onSubmit} />
     </div>
   );
