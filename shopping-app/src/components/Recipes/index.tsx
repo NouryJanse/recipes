@@ -10,8 +10,8 @@ type RecipesProps = {
 const Recipes: FunctionComponent<RecipesProps> = ({ serverRecipes }) => {
   const { actualRecipes, recipeFilter, setRecipeFilter, isLoading, isError } = useRecipesQuery(serverRecipes);
 
-  if (isError) return <div>Error.</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div className="recipe--cards-status">Error. The server might be down. Please refresh.</div>;
+  if (isLoading) return <div className="recipe--cards-status">Loading...</div>;
 
   return (
     <div className="recipe--cards">
