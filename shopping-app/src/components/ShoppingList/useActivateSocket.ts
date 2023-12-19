@@ -13,6 +13,8 @@ export const useActivateSocket = () => {
       setSocket(localSocket);
     }
     if (socket) {
+      console.log(socket.connected);
+
       if (!socket.connected) {
         socket.connect();
       }
