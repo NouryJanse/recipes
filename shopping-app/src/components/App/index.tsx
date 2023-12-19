@@ -14,9 +14,6 @@ const App: FunctionComponent<AppProps> = ({ user }) => {
       $user.set(user);
     }
   }, [user]);
-  useEffect(() => {
-    getSocket();
-  }, []);
   return <></>;
 };
 

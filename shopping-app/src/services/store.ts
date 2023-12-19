@@ -71,5 +71,5 @@ export function setShoppingListRecipes(shoppingListRecipes: Recipe[]) {
 // SOCKET
 export const $socketClient = atom<any | undefined>(undefined);
 export function setSocket(socket: any) {
-  $socketClient.set(socket);
+  if (socket) $socketClient.set(socket);
 }
