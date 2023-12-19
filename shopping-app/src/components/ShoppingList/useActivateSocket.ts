@@ -8,25 +8,25 @@ export const useActivateSocket = () => {
   const socket = useStore($socketClient);
 
   useEffect(() => {
-    if (!socket) {
-      const localSocket = getSocket();
-      setSocket(localSocket);
-    }
-    if (socket) {
-      console.log(socket.connected);
+    getSocket();
+  }, []);
 
-      if (!socket.connected) {
-        socket.connect();
-      }
+  useEffect(() => {
+    if (socket) {
+      // if (!socket.connected) {
+      //   socket.connect();
+      // }
       socket.on("message", (msg: any) => {
         console.log(msg);
       });
 
       socket.on("connect", () => {
+        console.log("connected");
         setIsConnected(true);
       });
 
       socket.on("disconnect", () => {
+        console.log("disconnected");
         setIsConnected(false);
       });
 

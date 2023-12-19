@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 import { setSocket } from "../../services/store";
 
-const getSomeEnvVariable = () => {
+const getSomeEnvVariable = (): string => {
   return import.meta.env.PUBLIC_SOCKET_API_URL
     ? import.meta.env.PUBLIC_SOCKET_API_URL
     : process.env.PUBLIC_SOCKET_API_URL
@@ -9,7 +9,7 @@ const getSomeEnvVariable = () => {
       : "https://shopping-server-iggv.onrender.com";
 };
 
-export const getSocket = () => {
+export const getSocket = (): void => {
   try {
     const SOCKET_API_URL = getSomeEnvVariable() as string;
     const socket = io(SOCKET_API_URL);
