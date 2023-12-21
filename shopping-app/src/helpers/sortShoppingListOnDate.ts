@@ -1,8 +1,6 @@
-import type { TypeShoppingItem } from "../services/types.db";
-
-const sortShoppingListOnDate = (shoppingList: TypeShoppingItem[]) => {
+const sortShoppingListOnDate = <T extends { updatedAt: string }>(shoppingList: T[]) => {
   if (!shoppingList || !shoppingList.length) return [];
-  return shoppingList.sort((a: TypeShoppingItem, b: TypeShoppingItem) => {
+  return shoppingList.sort((a: T, b: T) => {
     if (a.updatedAt < b.updatedAt) return 1;
     return -1;
   });

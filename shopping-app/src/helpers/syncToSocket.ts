@@ -1,8 +1,9 @@
-import { $socketClient } from "../services/store";
-import type { TypeShoppingItem } from "../services/types.db";
-import { getLocalStorageObject } from "./updateLocalStorage";
+import { $socketClient, getUser } from "../services/store";
+import { formatLocalStorageObject } from "./updateLocalStorage";
 
-export const syncToSocket = (updatedList: TypeShoppingItem[]) => {
-  // @TODO: implement storage for ingredients and recipes here!
-  $socketClient.get().emit("listUpdate", getLocalStorageObject(updatedList));
+export const syncToSocket = () => {
+  const user = getUser();
+  if (user) {
+    $socketClient.get().emit("listUpdate", formatLocalStorageObject(user.id));
+  }
 };

@@ -9,6 +9,7 @@ import {
   setModalShoppingItem,
   setShoppingList,
   resetFormState,
+  getShoppingList,
 } from "../../services/store";
 
 import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
@@ -43,10 +44,17 @@ export const createShoppingItem = (
 
 export const addShoppingItem = (formState: FormStateType) => {
   const newShoppingItem = createShoppingItem(formState, undefined);
-  const updatedList = sortShoppingListOnDate([...$shoppingList.get(), newShoppingItem]);
+  const shoppingList = getShoppingList();
+
+  let updatedList;
+  if (shoppingList.length) {
+    updatedList = sortShoppingListOnDate([...shoppingList, newShoppingItem]);
+  } else {
+    updatedList = [newShoppingItem];
+  }
 
   setShoppingList(updatedList);
-  syncToSocket(updatedList);
+  syncToSocket();
   setModalShoppingItem(undefined);
 };
 
@@ -54,9 +62,11 @@ export const editShoppingItem = (formState: FormStateType, editedShoppingItem: T
   const newShoppingItem = createShoppingItem(formState, editedShoppingItem);
   const items = replaceShoppingItemInList($shoppingList.get(), editedShoppingItem, newShoppingItem);
   const updatedList = sortShoppingListOnDate(items);
+
   setShoppingList(updatedList);
-  syncToSocket(updatedList);
+  syncToSocket();
   setModalShoppingItem(undefined);
+  0;
 };
 
 export const handleInputChange = (event: Event): void => {

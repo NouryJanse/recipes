@@ -17,7 +17,13 @@ export const initialShoppingItemModalData: FormStateType = {
 // USER
 export const $user = atom<User | undefined>();
 export function setUser(user: User) {
-  $user.set(user);
+  if (user) {
+    $user.set(user);
+  }
+}
+
+export function getUser() {
+  return $user.get();
 }
 
 // INGREDIENT MODAL
@@ -51,6 +57,12 @@ export function setShoppingList(shoppingList: TypeShoppingItem[]) {
   updateLocalStorage();
 }
 
+export function getShoppingList(): TypeShoppingItem[] {
+  const list: TypeShoppingItem[] = $shoppingList.get();
+  if (list && list.length) return list;
+  return [];
+}
+
 // RECIPE MODAL
 export const $modalRecipeItem = atom<Recipe | undefined>(undefined);
 export function setModalRecipeItem(item: any) {
@@ -66,6 +78,12 @@ export const $shoppingListRecipes = atom<Recipe[]>([]);
 export function setShoppingListRecipes(shoppingListRecipes: Recipe[]) {
   $shoppingListRecipes.set(shoppingListRecipes);
   updateLocalStorage();
+}
+
+export function getShoppingListRecipes(): Recipe[] {
+  const list: Recipe[] = $shoppingListRecipes.get();
+  if (list && list.length) return list;
+  return [];
 }
 
 // SOCKET

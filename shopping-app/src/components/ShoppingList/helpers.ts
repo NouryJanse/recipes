@@ -1,25 +1,26 @@
-import { setShoppingList } from "../../services/store";
+import { setShoppingList, setShoppingListRecipes } from "../../services/store";
 import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
 
 export const checkForExistingShoppingList = (dbShoppingList: any) => {
-  const data = localStorage.getItem("shoppingList");
+  const rawData = localStorage.getItem("data");
 
-  if (data) {
-    const localShoppingList = JSON.parse(data);
+  if (rawData) {
+    const data = JSON.parse(rawData);
+    const { recipesList, shoppingList, updatedAt } = data;
 
-    //@TODO: bugfix, local shoppinglist is always newer since the date is generated on every load (wrong)
-
-    if (dbShoppingList?.updatedAt > localShoppingList?.updatedAt) {
+    if (dbShoppingList?.updatedAt > updatedAt) {
       // db version is newer
-      const sorted = sortShoppingListOnDate(dbShoppingList.list);
-      setShoppingList(sorted);
+      setShoppingList(sortShoppingListOnDate(dbShoppingList.shoppingList));
+      setShoppingListRecipes(sortShoppingListOnDate(dbShoppingList.recipesList));
     } else {
       // localStorage is newer
-      const sorted = sortShoppingListOnDate(localShoppingList.list);
-      setShoppingList(sorted);
+      setShoppingList(shoppingList);
+      setShoppingListRecipes(recipesList);
     }
-  } else if (dbShoppingList.list.length) {
-    setShoppingList(dbShoppingList.list);
+  } else if (dbShoppingList) {
+    const { recipesList, shoppingList } = dbShoppingList;
+    setShoppingList(shoppingList ? shoppingList : []);
+    setShoppingListRecipes(recipesList ? recipesList : []);
   } else {
     // new user with no data
   }

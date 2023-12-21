@@ -1,14 +1,16 @@
-import { mongodb } from "../db";
+import { mongodb, ObjectId } from "../db";
+import { $user } from "../store";
 
-const fetchShoppingList = async (_id: number) => {
+const fetchShoppingList = async () => {
   const DB_NAME: string = import.meta.env.DB_NAME as string;
   const COLLECTION_NAME: string = import.meta.env.COLLECTION_NAME as string;
   let db = mongodb.db(DB_NAME);
   let collection = db.collection(COLLECTION_NAME);
+  const userId = $user.get()?.id;
 
-  //@TODO: fetch USER collection instead of global version.
-  let shoppingItems = await collection.find({}).limit(10).toArray();
-  return shoppingItems[0];
+  if (userId) {
+    return await collection.findOne({ userId });
+  }
 };
 
 export { fetchShoppingList };

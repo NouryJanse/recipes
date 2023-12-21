@@ -1,9 +1,9 @@
 import { useEffect, useState } from "preact/hooks";
-import { $socketClient, setShoppingList } from "../../services/store";
+import { $socketClient, setShoppingList, setShoppingListRecipes } from "../../services/store";
 import { getSocket } from "./getSocket";
 import { useStore } from "@nanostores/preact";
 
-export const useActivateSocket = () => {
+export const useSocket = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const socket = useStore($socketClient);
 
@@ -28,8 +28,11 @@ export const useActivateSocket = () => {
       });
 
       socket.on("onShoppingListUpdate", (data: any) => {
-        const parsedData = JSON.parse(data);
-        setShoppingList(parsedData.list);
+        const { shoppingList, recipesList } = JSON.parse(data);
+        if (shoppingList && recipesList) {
+          setShoppingList(shoppingList);
+          setShoppingListRecipes(recipesList);
+        }
       });
 
       return () => {

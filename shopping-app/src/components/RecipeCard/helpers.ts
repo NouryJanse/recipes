@@ -1,5 +1,6 @@
 import type { StateUpdater } from "preact/hooks";
-import { $shoppingListRecipes, setShoppingListRecipes } from "../../services/store";
+import { $shoppingListRecipes, getShoppingListRecipes, setShoppingListRecipes } from "../../services/store";
+import { syncToSocket } from "../../helpers/syncToSocket";
 
 export const retrieveMainImage = (recipe: Recipe, setMainImage: StateUpdater<string>) => {
   if (recipe?.images?.length) {
@@ -20,5 +21,8 @@ export const getStyle = (mainImage: string, isHovering: boolean) => {
 
 export const handleOnAdd = (e: MouseEvent, recipe: Recipe) => {
   e.stopPropagation();
-  setShoppingListRecipes([recipe, ...$shoppingListRecipes.get()]);
+  const shoppingListRecipes = getShoppingListRecipes();
+  if (shoppingListRecipes.length) setShoppingListRecipes([recipe, ...shoppingListRecipes]);
+  if (!shoppingListRecipes.length) setShoppingListRecipes([recipe]);
+  syncToSocket();
 };

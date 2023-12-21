@@ -11,7 +11,7 @@ import ShoppingItems from "../ShoppingItems";
 import Button from "../Form/Button";
 import { checkForExistingShoppingList } from "./helpers";
 import RecipeModal from "../RecipeModal";
-import { useActivateSocket } from "./useActivateSocket";
+import { useSocket } from "./useSocket";
 
 type ShoppingListProps = {
   dbShoppingList: any;
@@ -19,7 +19,7 @@ type ShoppingListProps = {
 
 const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) => {
   const modalShoppingItem = useStore($modalShoppingItem);
-  const { isConnected } = useActivateSocket();
+  const { isConnected } = useSocket();
 
   useEffect(() => {
     checkForExistingShoppingList(dbShoppingList);

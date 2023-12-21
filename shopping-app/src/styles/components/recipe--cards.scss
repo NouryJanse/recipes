@@ -1,4 +1,8 @@
 .recipe--cards {
+  @include md {
+    padding-left: var(--step-2);
+  }
+
   > div {
     display: grid;
     gap: 0.75rem;
@@ -32,4 +36,8 @@
 
 .recipe--cards-status {
   width: 100%;
+
+  @include md {
+    padding-left: var(--step-2);
+  }
 }

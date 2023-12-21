@@ -20,9 +20,9 @@ const ShoppingItems: FunctionalComponent<ShoppingItemsProps> = ({}) => {
 
       <div>
         {shoppingListRecipes.length ? <h4>Shopping items</h4> : ""}
-        {shoppingList.map((shoppingItem) => (
-          <ShoppingItem shoppingItem={shoppingItem} />
-        ))}
+        {shoppingList && shoppingList.length
+          ? shoppingList.map((shoppingItem) => <ShoppingItem shoppingItem={shoppingItem} />)
+          : ""}
       </div>
     </>
   );

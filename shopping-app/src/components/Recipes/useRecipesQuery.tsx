@@ -22,8 +22,6 @@ const useRecipesQuery = (serverRecipes: Recipe[]) => {
         setActualRecipes(data);
         setIsLoading(false);
       } else {
-        console.log("false");
-
         setIsLoading(false);
         setIsError(true);
       }

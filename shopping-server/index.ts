@@ -3,7 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import * as dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
-import { mongodb } from "./db";
+import { ObjectId, mongodb } from "./db";
 
 const app = express();
 const httpServer = createServer(app);
@@ -28,12 +28,15 @@ io.on("connection", (socket) => {
     const DB_NAME = process.env.DB_NAME as string;
 
     try {
-      const shoppingList = JSON.parse(msg);
+      const data = JSON.parse(msg);
+      const { userId } = data;
       let db = mongodb.db(DB_NAME);
       let collection = db.collection(COLLECTION_NAME);
 
-      if (shoppingList._id) {
-        let res = await collection.replaceOne({ _id: shoppingList._id }, { ...shoppingList });
+      if (userId) {
+        const filter = { userId };
+        const options = { upsert: true };
+        let res = await collection.replaceOne(filter, data, options);
         console.info("emitting message");
         io.emit("onShoppingListUpdate", msg);
 
