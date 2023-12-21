@@ -25,8 +25,8 @@ export const createShoppingItem = (
     return {
       ...editedShoppingItem,
       ingredientName: formState.ingredientName,
-      amount: Number.parseInt(formState.amount),
-      unit: formState.unit,
+      amount: formState.amount ? Number.parseInt(formState.amount) : 0,
+      unit: formState.unit ? formState.unit : "pc",
       updatedAt: new Date().toISOString(),
     };
   }
@@ -35,8 +35,8 @@ export const createShoppingItem = (
   return {
     id: nanoid(),
     ingredientName: formState.ingredientName,
-    amount: Number.parseInt(formState.amount),
-    unit: formState.unit,
+    amount: formState.amount ? Number.parseInt(formState.amount) : 0,
+    unit: formState.unit ? formState.unit : "pc",
     updatedAt: new Date().toISOString(),
     checked: false,
   };

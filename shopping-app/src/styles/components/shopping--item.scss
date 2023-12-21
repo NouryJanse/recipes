@@ -1,9 +1,11 @@
 @keyframes highlight {
   0% {
-    background: var(--color-orange-3);
+    background: var(--color-orange-4);
+    color: var(--color-gray-1);
   }
   100% {
     background: transparent;
+    color: black;
   }
 }
 
@@ -16,6 +18,11 @@
   div {
     display: flex;
     align-items: center;
+
+    span {
+      padding: var(--step--6);
+      border-radius: 8px;
+    }
   }
 
   input[type="checkbox"],
@@ -29,7 +36,7 @@
   }
 
   .highlight {
-    animation: highlight 2s;
+    animation: highlight 3s;
   }
 
   .recipe-title {
