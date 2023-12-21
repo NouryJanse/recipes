@@ -72,6 +72,7 @@ export const addIngredientsFromRecipeToList = (shoppingItems: TypeShoppingItem[]
       return {
         ...existingShoppingItem,
         amount: existingShoppingItem.amount + exists.amount,
+        updatedAt: new Date().toISOString(),
       };
     }
     return existingShoppingItem;
@@ -87,5 +88,5 @@ export const addIngredientsFromRecipeToList = (shoppingItems: TypeShoppingItem[]
   const updatedList = [...updatedShoppingList, ...newItems];
 
   setShoppingList(updatedList);
-  syncToSocket(updatedList);
+  syncToSocket();
 };

@@ -9,13 +9,13 @@ import { syncToSocket } from "../../helpers/syncToSocket";
 export const onUpdate = (item: TypeShoppingItem): void => {
   const updatedList = updateArrayWithObjectById($shoppingList.get(), item);
   setShoppingList(updatedList);
-  syncToSocket(updatedList);
+  syncToSocket();
 };
 
 export const onDelete = (itemId: string): void => {
   const updatedList = deleteObjectWithIdFromArray($shoppingList.get(), itemId);
   setShoppingList(updatedList);
-  syncToSocket(updatedList);
+  syncToSocket();
 };
 
 export const onEdit = (shoppingItem: TypeShoppingItem) => {
