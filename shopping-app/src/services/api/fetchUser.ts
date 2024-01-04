@@ -1,4 +1,4 @@
-import { User } from "../types.db";
+import type { User } from "../types.db";
 import verifyJWT from "../verifyjwt";
 
 const fetchUser = async (jwtCookie: {
