@@ -1,5 +1,5 @@
 import type { StateUpdater } from "preact/hooks";
-import { $shoppingListRecipes, getShoppingListRecipes, setShoppingListRecipes } from "../../services/store";
+import { getShoppingListRecipes, setShoppingListRecipes } from "../../services/store";
 import { syncToSocket } from "../../helpers/syncToSocket";
 
 export const retrieveMainImage = (recipe: Recipe, setMainImage: StateUpdater<string>) => {

@@ -1,4 +1,4 @@
-import { mongodb, ObjectId } from "../db";
+import { mongodb } from "../db";
 import { $user } from "../store";
 
 const fetchShoppingList = async () => {

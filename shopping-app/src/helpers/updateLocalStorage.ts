@@ -10,7 +10,7 @@ export const updateLocalStorage = () => {
   }
 };
 
-export const formatLocalStorageObject = <Type>(id: number) => {
+export const formatLocalStorageObject = (id: number) => {
   return JSON.stringify({
     userId: id.toString(),
     updatedAt: `${new Date().toISOString()}`,
