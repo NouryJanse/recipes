@@ -17,4 +17,6 @@ export interface ShoppingList extends WithId<Document> {
 
 export interface User {
   id: number;
+  name?: string;
+  role?: string
 }
