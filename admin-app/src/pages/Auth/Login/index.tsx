@@ -22,7 +22,14 @@ const Login: React.FC<LoginProps> = ({ onUserLogin, setShowRegistration }): Reac
       <div className="container login-form">
         <h1>Sign in</h1>
 
-        <form action="/api/user/login" method="post">
+        <form
+          action="/api/user/login"
+          method="post"
+          onKeyDown={(e: KeyboardEvent) => {
+            if (e.code === 'Escape') onClose()
+            if (e.code === 'Enter' && onSubmit) onSubmit()
+          }}
+        >
           <label htmlFor="username">
             <span>Username</span>
             <input
