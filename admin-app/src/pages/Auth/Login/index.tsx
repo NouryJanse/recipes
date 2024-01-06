@@ -7,8 +7,8 @@ type LoginProps = {
 }
 
 const Login: React.FC<LoginProps> = ({ onUserLogin, setShowRegistration }): ReactElement => {
-  const [username, setUsername] = useState<string>('basic')
-  const [password, setPassword] = useState<string>('basic')
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
   return (
     <div className="page--register-login">
