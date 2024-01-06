@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { KeyboardEvent, KeyboardEventHandler, ReactElement, useState } from 'react'
 import { Button, PageTitle } from '../../../components'
 
 type LoginProps = {
@@ -11,7 +11,13 @@ const Login: React.FC<LoginProps> = ({ onUserLogin, setShowRegistration }): Reac
   const [password, setPassword] = useState<string>('')
 
   return (
-    <div className="page--register-login">
+    <div
+      className="page--register-login"
+      onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.code === 'Enter' && onUserLogin) onUserLogin(username, password)
+      }}
+      tabIndex={0}
+    >
       <div className="container login-hero">
         <div>
           <h1>Sign in</h1>
@@ -22,14 +28,7 @@ const Login: React.FC<LoginProps> = ({ onUserLogin, setShowRegistration }): Reac
       <div className="container login-form">
         <h1>Sign in</h1>
 
-        <form
-          action="/api/user/login"
-          method="post"
-          onKeyDown={(e: KeyboardEvent) => {
-            if (e.code === 'Escape') onClose()
-            if (e.code === 'Enter' && onSubmit) onSubmit()
-          }}
-        >
+        <form action="/api/user/login" method="post">
           <label htmlFor="username">
             <span>Username</span>
             <input
