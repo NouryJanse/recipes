@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express'
-import { getRecipe, updateRecipe } from '../../models/recipes'
+import { updateRecipe } from '../../models/recipes'
 import { updateImage } from '../../models/images'
-import { formatRecipeImages } from '../../helpers'
 import { ERROR_MESSAGES, HTTP_CODES } from '../../constants'
 import handleUserAuthentication from '../../services/handleUserValidation'
 
@@ -11,8 +10,16 @@ const router = express.Router()
 router.put('/api/recipes/:id', handleUserAuthentication, async (req: Request, res: Response) => {
   try {
     const { id } = req.params
-    const { name, description, authorId, course, published } = req.body
-    const recipe = await updateRecipe(Number(id), name, description, authorId, course, published)
+    const { name, description, authorId, course, published, numberOfPersons } = req.body
+    const recipe = await updateRecipe(
+      Number(id),
+      name,
+      description,
+      authorId,
+      course,
+      published,
+      numberOfPersons,
+    )
 
     if (req.body.images && req.body.images.length) {
       const promises = req.body.images.map(async (image: any) => {

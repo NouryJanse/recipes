@@ -14,7 +14,6 @@ export const StyledDropdown = styled.select`
   font-size: 16px;
   transition: all 150ms ease;
   transition: padding 200ms ease-in-out;
-  margin-top: 4px;
   min-width: 48px;
 
   &:focus {
@@ -29,6 +28,7 @@ export const StyledOption = styled.option`
 export const StyledLabel = styled.label`
   color: black;
   position: relative;
+  margin-bottom: 4px;
 `
 
 export const FieldRowStyle = styled.div`

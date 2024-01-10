@@ -9,7 +9,7 @@ import { PageTitle } from '../../../components'
 
 const CreateIngredient: React.FC = (): ReactElement => {
   const navigate = useNavigate()
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(true)
   const [unit, setUnit] = useState<string>('')
   const [createIngredient] = useCreateIngredientMutation()
 
@@ -38,7 +38,7 @@ const CreateIngredient: React.FC = (): ReactElement => {
       await createIngredient({ ...data, calorieCount: Number.parseInt(data.calorieCount) })
       reset()
       setUnit('')
-      setToggle(false)
+      setToggle(true)
     })()
   }
 

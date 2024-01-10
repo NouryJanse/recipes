@@ -1,19 +1,19 @@
 import type { FunctionalComponent } from "preact";
-import INGREDIENT_UNITS from "../../../constants/INGREDIENT_UNITS";
 
 type SelectProps = {
   label: string;
   onInput: (event: Event) => void;
   selected: string;
+  options: any[]
 };
 
-const Select: FunctionalComponent<SelectProps> = ({ label, onInput, selected }) => {
+const Select: FunctionalComponent<SelectProps> = ({ label, onInput, selected, options }) => {
   return (
     <label>
       <span>{label}</span>
 
       <select name="unit" onInput={onInput}>
-        {INGREDIENT_UNITS.map((ingredient) => {
+        {options.map((ingredient) => {
           return (
             <option value={ingredient.value} selected={selected === ingredient.value}>
               {ingredient.text}

@@ -5,6 +5,7 @@ import Select from "../Form/Select";
 import { handleInputChange } from "./helpers";
 import { $formState } from "../../services/store";
 import { useStore } from "@nanostores/preact";
+import INGREDIENT_UNITS from "../../constants/INGREDIENT_UNITS";
 
 const Inputs: FunctionComponent = () => {
   const formState = useStore($formState);
@@ -34,7 +35,7 @@ const Inputs: FunctionComponent = () => {
           placeholder="0"
           style={{ maxWidth: "80px" }}
         />
-        <Select label="Unit" onInput={handleInputChange} selected={formState.unit} />
+        <Select label="Unit" onInput={handleInputChange} selected={formState.unit} options={INGREDIENT_UNITS} />
       </div>
     </div>
   );

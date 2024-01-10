@@ -16,6 +16,7 @@ type TextFieldProps = {
   setValue?: (value: string | number) => void
   defaultIsNotEditing?: boolean
   labelClasses?: string
+  classes?: string
 }
 
 const Textfield: React.FC<TextFieldProps> = ({
@@ -30,6 +31,7 @@ const Textfield: React.FC<TextFieldProps> = ({
   setValue,
   defaultIsNotEditing,
   labelClasses = '',
+  classes = '',
 }): ReactElement => {
   const [editingValue, setEditingValue] = useState(defaultValue)
   const [isEditing, setIsEditing] = useState<boolean>(
@@ -59,7 +61,7 @@ const Textfield: React.FC<TextFieldProps> = ({
   }
 
   return (
-    <FieldRowStyle>
+    <FieldRowStyle className={classes}>
       <LabelStyle htmlFor={name} className={labelClasses}>
         {label}
       </LabelStyle>

@@ -11,7 +11,7 @@ type DropdownProps = {
   errors?: errorObject
   disabled?: boolean
   options: Option[]
-  defaultValue: string
+  defaultValue: string | number
   onChange: ChangeEventHandler
   classes?: string
 }
@@ -31,7 +31,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <FieldRowStyle>
       <StyledLabel htmlFor={name}>
-        {label}
+        <span className="block pb-1">{label}</span>
         <StyledDropdown
           {...(register && validation ? { ...register(name, validation) } : {})}
           id={name}

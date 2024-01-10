@@ -1,14 +1,27 @@
 interface Recipe {
-  id: number;
-  name?: string;
-  description?: string;
-  authorId: string;
-  course?: string;
-  createdAt: string;
-  updatedAt: string;
-  images?: Image[];
+  // id: number;
+  // name?: string;
+  // description?: string;
+  // authorId: string;
+  // course?: string;
+  // createdAt: string;
+  // updatedAt: string;
+  // images?: Image[];
   ingredients: RecipeIngredient[];
-  published: boolean;
+  // published: boolean;
+    id: number
+    name: string
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    published: boolean | null
+    authorId: number | null
+    course: string
+    cookingDuration: number | null
+    rating: number | null
+    difficultyRating: number | null
+    calorieCount: number | null
+    numberOfPersons: number
 }
 interface Ingredient {
   id: number;

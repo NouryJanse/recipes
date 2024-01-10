@@ -9,7 +9,7 @@ export const StyledTextArea = styled.textarea`
   border: 1px solid #0d6efd;
   transition: padding 200ms ease-in-out;
   min-height: 240px;
-  width: 99%;
+  width: 100%;
 
   &:focus {
     padding-left: 16px;
@@ -22,6 +22,4 @@ export const StyledLabel = styled.label`
   margin-bottom: 4px;
 `
 
-export const FieldRowStyle = styled.div`
-  max-width: 560px;
-`
+export const FieldRowStyle = styled.div``

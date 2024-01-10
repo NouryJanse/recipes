@@ -10,6 +10,7 @@ const updateRecipe = (
   _authorId: number,
   course: string,
   published: boolean,
+  numberOfPersons: number,
 ): Promise<Recipe | false> => {
   try {
     return prisma.recipe.update({
@@ -21,6 +22,7 @@ const updateRecipe = (
         description,
         course,
         published,
+        numberOfPersons,
       },
     })
   } catch (error) {

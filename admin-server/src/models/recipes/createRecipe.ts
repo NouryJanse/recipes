@@ -15,6 +15,7 @@ const createRecipe = async (
         name,
         description,
         course,
+        numberOfPersons: 0,
       },
     })
   } catch (error) {
