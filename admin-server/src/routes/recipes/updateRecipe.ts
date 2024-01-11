@@ -18,7 +18,7 @@ router.put('/api/recipes/:id', handleUserAuthentication, async (req: Request, re
       authorId,
       course,
       published,
-      numberOfPersons,
+      Number.parseInt(numberOfPersons),
     )
 
     if (req.body.images && req.body.images.length) {

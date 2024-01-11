@@ -14,13 +14,16 @@ import { $shoppingList, setShoppingList } from "../../services/store";
 
 export const mapRecipeIngredientsToShoppingItems = (
   modalRecipeItem: Recipe,
-  setRecipeItems: StateUpdater<TypeShoppingItem[]>
+  setRecipeItems: StateUpdater<TypeShoppingItem[]>,
+  selectedNumberOfPersons: number
 ) => {
   if (modalRecipeItem.ingredients && modalRecipeItem.ingredients.length) {
     const loc: TypeShoppingItem[] = modalRecipeItem.ingredients.map(({ amount, name, unit }: RecipeIngredient) => {
+      console.log(amount, modalRecipeItem.numberOfPersons, selectedNumberOfPersons);
+
       return {
         id: nanoid(),
-        amount: amount ? amount : 0,
+        amount: amount ? (amount / modalRecipeItem.numberOfPersons) * selectedNumberOfPersons : 0,
         ingredientName: name ? name : "",
         checked: true,
         unit: unit ? unit : "",

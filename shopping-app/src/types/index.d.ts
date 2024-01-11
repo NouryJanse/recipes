@@ -6,22 +6,22 @@ interface Recipe {
   // course?: string;
   // createdAt: string;
   // updatedAt: string;
-  // images?: Image[];
-  ingredients: RecipeIngredient[];
   // published: boolean;
-    id: number
-    name: string
-    description: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    published: boolean | null
-    authorId: number | null
-    course: string
-    cookingDuration: number | null
-    rating: number | null
-    difficultyRating: number | null
-    calorieCount: number | null
-    numberOfPersons: number
+  id: number;
+  name: string;
+  description: string | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  published: boolean | null;
+  authorId: number | null;
+  course: string;
+  cookingDuration: number | null;
+  rating: number | null;
+  difficultyRating: number | null;
+  calorieCount: number | null;
+  numberOfPersons: number;
+  images?: Image[];
+  ingredients: RecipeIngredient[];
 }
 interface Ingredient {
   id: number;

@@ -1,12 +1,17 @@
 import type { FunctionComponent } from "preact";
 import type { TypeShoppingItem } from "../../services/types.db";
+import { useStore } from "@nanostores/preact";
+import { $modalRecipeItem } from "../../services/store";
 
 type RecipeItemProps = {
   recipeItem: TypeShoppingItem;
   onUpdate: (recipeItem: TypeShoppingItem) => void;
+  selectedNumberOfPersons: number;
 };
 
 const RecipeItem: FunctionComponent<RecipeItemProps> = ({ recipeItem, onUpdate }) => {
+  const modalRecipeItem: Recipe | undefined = useStore($modalRecipeItem);
+
   return (
     <div className="shoppingItem">
       <div onClick={() => onUpdate({ ...recipeItem, checked: !recipeItem.checked })}>
