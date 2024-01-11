@@ -4,14 +4,14 @@ interface Recipe {
   // description?: string;
   // authorId: string;
   // course?: string;
-  // createdAt: string;
-  // updatedAt: string;
+  createdAt: string;
+  updatedAt: string;
   // published: boolean;
   id: number;
   name: string;
   description: string | null;
-  createdAt: Date | null;
-  updatedAt: Date | null;
+  // createdAt: Date | null;
+  // updatedAt: Date | null;
   published: boolean | null;
   authorId: number | null;
   course: string;

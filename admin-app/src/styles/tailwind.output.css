@@ -804,10 +804,6 @@ video {
   align-items: center;
 }
 
-.justify-end {
-  justify-content: flex-end;
-}
-
 .justify-center {
   justify-content: center;
 }
@@ -1005,8 +1001,8 @@ video {
   padding-bottom: 2.5rem;
 }
 
-.pb-2 {
-  padding-bottom: 0.5rem;
+.pb-1 {
+  padding-bottom: 0.25rem;
 }
 
 .pb-32 {
@@ -1035,10 +1031,6 @@ video {
 
 .pt-7 {
   padding-top: 1.75rem;
-}
-
-.pb-1 {
-  padding-bottom: 0.25rem;
 }
 
 .text-center {
