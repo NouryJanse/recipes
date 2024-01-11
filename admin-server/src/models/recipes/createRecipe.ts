@@ -15,7 +15,6 @@ const createRecipe = async (
         name,
         description,
         course,
-        // @ts-ignore
         numberOfPersons: 1,
       },
     })

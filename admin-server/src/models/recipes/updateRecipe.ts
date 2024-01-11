@@ -24,7 +24,6 @@ const updateRecipe = (
         description,
         course,
         published,
-        // @ts-ignore
         numberOfPersons,
       },
     })
