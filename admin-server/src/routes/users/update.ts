@@ -1,6 +1,4 @@
 import express, { Request, Response } from 'express'
-import connectToDB from './services/mongoose'
-import { User } from './services/User'
 import { HTTP_CODES } from '../../constants'
 import handleUserAuthentication from '../../services/handleUserValidation'
 

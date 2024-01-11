@@ -12,6 +12,8 @@ const updateRecipe = (
   published: boolean,
   numberOfPersons: number,
 ): Promise<Recipe | false> => {
+  console.log(numberOfPersons)
+
   try {
     return prisma.recipe.update({
       where: {
@@ -22,6 +24,7 @@ const updateRecipe = (
         description,
         course,
         published,
+        // @ts-ignore
         numberOfPersons,
       },
     })

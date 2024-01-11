@@ -13,7 +13,7 @@ router.get('/api/recipes/filter/:filter', async (req: Request, res: Response) =>
   const { filter } = req.params
   try {
     const recipes = await getRecipes(filter)
-    res.status(200).send(recipes)
+    return res.status(200).send(recipes)
   } catch (error) {
     console.error(error)
     return res.status(HTTP_CODES.NOT_FOUND).send([])
