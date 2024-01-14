@@ -19,8 +19,6 @@ export const mapRecipeIngredientsToShoppingItems = (
 ) => {
   if (modalRecipeItem.ingredients && modalRecipeItem.ingredients.length) {
     const loc: TypeShoppingItem[] = modalRecipeItem.ingredients.map(({ amount, name, unit }: RecipeIngredient) => {
-      console.log(amount, modalRecipeItem.numberOfPersons, selectedNumberOfPersons);
-
       return {
         id: nanoid(),
         amount: amount ? (amount / modalRecipeItem.numberOfPersons) * selectedNumberOfPersons : 0,

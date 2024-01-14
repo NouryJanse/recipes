@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react'
-import { AutoComplete, Button, Dropdown, FieldContainer, Number } from '../../../../index'
+import { AutoComplete, Button, Dropdown, Number } from '../../../../index'
 import { INGREDIENT_UNITS } from '../../../../../constants'
 import { useGetIngredientsQuery } from '../../../../../redux/reducers/ingredients/ingredients'
 
@@ -23,7 +23,7 @@ const Form: React.FC<FormProps> = ({
   setUnit,
 }): ReactElement => {
   const { data: ingredients, isLoading } = useGetIngredientsQuery()
-  const [options, setOptions] = useState<Option[]>()
+  const [options, setOptions] = useState<Option[]>([])
 
   useEffect(() => {
     if (ingredients && ingredients.length) {
@@ -39,10 +39,6 @@ const Form: React.FC<FormProps> = ({
       )
     }
   }, [ingredients])
-
-  if (!options) {
-    return <p>Loading...</p>
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row items-end mb-4">
