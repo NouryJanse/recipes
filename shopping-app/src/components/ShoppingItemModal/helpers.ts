@@ -61,12 +61,10 @@ export const addShoppingItem = (formState: FormStateType) => {
 export const editShoppingItem = (formState: FormStateType, editedShoppingItem: TypeShoppingItem) => {
   const newShoppingItem = createShoppingItem(formState, editedShoppingItem);
   const items = replaceShoppingItemInList($shoppingList.get(), editedShoppingItem, newShoppingItem);
-  const updatedList = sortShoppingListOnDate(items);
 
-  setShoppingList(updatedList);
+  setShoppingList(sortShoppingListOnDate(items));
   syncToSocket();
   setModalShoppingItem(undefined);
-  0;
 };
 
 export const handleInputChange = (event: Event): void => {
@@ -80,20 +78,13 @@ export const handleInputChange = (event: Event): void => {
 };
 
 export const handleOnSubmit = (editedShoppingItem: FormStateType | TypeShoppingItem | undefined) => {
-  if (!editedShoppingItem) {
-    // new shopping item
-    addShoppingItem($formState.get());
-    resetFormState();
-    return;
-  }
+  // new shopping item
+  if (!editedShoppingItem) addShoppingItem($formState.get());
 
-  if ("id" in editedShoppingItem) {
-    // edit a shopping item
-    editShoppingItem($formState.get(), editedShoppingItem);
-    resetFormState();
-    return;
-  }
+  // edit a shopping item
+  if (editedShoppingItem && "id" in editedShoppingItem) editShoppingItem($formState.get(), editedShoppingItem);
 
+  resetFormState();
   return;
 };
 

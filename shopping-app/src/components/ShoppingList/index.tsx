@@ -6,12 +6,10 @@ import { $modalShoppingItem, setModalShoppingItemOpened } from "../../services/s
 import { useStore } from "@nanostores/preact";
 
 // UI
-import CreateShoppingItemModal from "../ShoppingItemModal";
-import ShoppingItems from "../ShoppingItems";
-import Button from "../Form/Button";
-import { checkForExistingShoppingList } from "./helpers";
-import RecipeModal from "../RecipeModal";
 import { useSocket } from "./useSocket";
+import { checkForExistingShoppingList } from "./helpers";
+import CreateShoppingItemModal from "../ShoppingItemModal";
+import { Button, RecipeModal, ShoppingItems } from "..";
 
 type ShoppingListProps = {
   dbShoppingList: any;
