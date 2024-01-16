@@ -59,9 +59,7 @@ if (user) {
         <input type="hidden" name="_csrf" value={token} />
 
         <div class="buttons">
-          <a href="/user/register">
-            <Button type="button" style="secondary">Register</Button>
-          </a>
+          <Button type="button" style="secondary">Register</Button>
 
           <Button type="submit" style="primary">Sign in</Button>
         </div>
@@ -69,3 +67,10 @@ if (user) {
     </div>
   </div>
 </Layout>
+
+<script>
+  const buttons = document.getElementsByTagName("button");
+  buttons[0].addEventListener("click", () => {
+    window.location.href = "/user/register";
+  });
+</script>

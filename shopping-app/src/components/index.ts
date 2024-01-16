@@ -6,6 +6,7 @@ export { default as InputNumber } from "./Form/InputNumber";
 export { default as InputText } from "./Form/InputText";
 export { default as Select } from "./Form/Select";
 export { default as Modal } from "./Modal";
+export { default as Planning } from "./Planning";
 export { default as Recipe } from "./Recipe";
 export { default as RecipeCard } from "./RecipeCard";
 export { default as RecipeItem } from "./RecipeItem";

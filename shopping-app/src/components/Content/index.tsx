@@ -1,7 +1,7 @@
 import type { FunctionComponent } from "preact";
-import { Button, Recipes, ShoppingList } from "..";
+import { Button, Planning, Recipes, ShoppingList } from "..";
 import { useScreenDetector } from "./useScreenDetector";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
 type ContentProps = {
   dbShoppingList: any;
@@ -10,43 +10,39 @@ type ContentProps = {
 
 const Content: FunctionComponent<ContentProps> = ({ dbShoppingList, recipes }) => {
   const { isMobile, isTablet, isDesktop } = useScreenDetector();
-  const [showRecipes, setShowRecipes] = useState(false);
+  const [showRecipes, setShowRecipes] = useState<"groceries" | "recipes" | "planning">("groceries");
 
-  const shouldRecipesBeShown = (): boolean => {
-    return isTablet || isDesktop || showRecipes;
+  const shouldIBeShown = (template: string): boolean => {
+    if (isMobile && template === showRecipes) return true;
+    if ((!isMobile && template === showRecipes) || (!isMobile && template === "groceries")) return true;
+    return false;
   };
 
-  const shouldShoppingBeShown = (): boolean => {
-    return !showRecipes || (showRecipes && (isTablet || isDesktop));
-  };
+  useEffect(() => {
+    if (isTablet || isDesktop) {
+      setShowRecipes("recipes");
+    } else {
+      setShowRecipes("groceries");
+    }
+  }, []);
 
   return (
     <>
-      <div>
-        <Button
-          type="button"
-          style="tertiary"
-          onClick={() => {
-            setShowRecipes(false);
-          }}
-          label="Groceries"
-        />
+      <div className="shopping--buttons">
         {isMobile && (
-          <Button
-            type="button"
-            style="tertiary"
-            onClick={() => {
-              setShowRecipes(true);
-            }}
-            label="Recipes"
-          />
+          <Button type="button" style="tertiary" onClick={() => setShowRecipes("groceries")} label="Groceries" />
         )}
-        <Button type="button" style="tertiary" onClick={() => {}} label="Planning" />
+        <>
+          <Button type="button" style="tertiary" onClick={() => setShowRecipes("recipes")} label="Recipes" />
+          <Button type="button" style="tertiary" onClick={() => setShowRecipes("planning")} label="Planning" />
+        </>
       </div>
 
-      {shouldShoppingBeShown() && <ShoppingList dbShoppingList={dbShoppingList} />}
-
-      {shouldRecipesBeShown() && <Recipes serverRecipes={recipes} />}
+      <div className="shopping--container">
+        {shouldIBeShown("groceries") && <ShoppingList dbShoppingList={dbShoppingList} />}
+        {shouldIBeShown("recipes") && <Recipes serverRecipes={recipes} />}
+        {shouldIBeShown("planning") && <Planning />}
+      </div>
     </>
   );
 };

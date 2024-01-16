@@ -30,3 +30,10 @@
     color: var(--color-raspberry-4);
   }
 }
+
+.shopping--buttons {
+  margin-bottom: var(--step--2);
+  button {
+    margin-right: var(--step--2);
+  }
+}
