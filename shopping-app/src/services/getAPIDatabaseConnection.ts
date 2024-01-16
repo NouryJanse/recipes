@@ -5,7 +5,7 @@ const getAPIDatabaseConnection = async () => {
   try {
     await mongoose.connect(connectionString, {});
   } catch (error) {
-    console.log(error);
+    console.error(error);
     process.exit(1);
   }
 };

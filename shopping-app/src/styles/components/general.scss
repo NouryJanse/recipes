@@ -48,3 +48,18 @@ img {
   height: auto;
   max-width: 100%;
 }
+
+a {
+  font-weight: 700;
+  text-decoration: none;
+  margin: 0 0 var(--step-1) 0;
+  color: blue;
+  border-bottom: 2px solid blue;
+  transition: all 200ms ease-in-out;
+
+  @include md {
+    &:hover {
+      padding-bottom: 4px;
+    }
+  }
+}

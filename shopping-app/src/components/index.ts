@@ -1,4 +1,6 @@
 export { default as App } from "./App";
+export { default as Content } from "./Content";
+export { default as Footer } from "./Footer";
 export { default as Button } from "./Form/Button";
 export { default as InputNumber } from "./Form/InputNumber";
 export { default as InputText } from "./Form/InputText";

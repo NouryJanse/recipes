@@ -1,7 +1,7 @@
 import type { FunctionComponent } from "preact";
 import useRecipesQuery from "./useRecipesQuery";
 import InputText from "../Form/InputText";
-import RecipeList from "./list";
+import RecipeList from "./RecipeList";
 
 type RecipesProps = {
   serverRecipes: Recipe[];

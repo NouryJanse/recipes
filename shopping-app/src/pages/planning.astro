@@ -2,16 +2,12 @@
 export const prerender = false;
 
 import { fetchShoppingList } from "../services/api/fetchShoppingList";
-import { fetchRecipes } from "../services/api/fetchRecipes";
 import { fetchUser } from "../services/api/fetchUser";
 
 import Layout from "../layouts/Layout.astro";
 import Header from "../layouts/Header.astro";
 import { setUser } from "../services/store";
-import { App, Button, Content } from "../components";
-
-let recipes = [];
-recipes = await fetchRecipes("");
+import { App, ShoppingList } from "../components";
 
 const user = await fetchUser(Astro.cookies.get("jwt"));
 if (user) {
@@ -31,9 +27,8 @@ if (user) {
 
   <Header />
 
-  <div class="container page--groceries">
-    <div class="shopping--container">
-      <Content client:only dbShoppingList={dbShoppingList} recipes={recipes} />
-    </div>
+  <div class="container shopping--container">
+    {user ? <ShoppingList client:load dbShoppingList={dbShoppingList} /> : <a href="/user/login">Login</a>}
+    <!-- <Recipes client:idle serverRecipes={recipes} /> -->
   </div>
 </Layout>

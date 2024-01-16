@@ -22,7 +22,10 @@ export const getStyle = (mainImage: string, isHovering: boolean) => {
 export const handleOnAdd = (e: MouseEvent, recipe: Recipe) => {
   e.stopPropagation();
   const shoppingListRecipes = getShoppingListRecipes();
-  if (shoppingListRecipes.length) setShoppingListRecipes([recipe, ...shoppingListRecipes]);
-  if (!shoppingListRecipes.length) setShoppingListRecipes([recipe]);
-  syncToSocket();
+  const contains = shoppingListRecipes.find((listRecipe: Recipe) => listRecipe.id === recipe.id);
+  if (!contains) {
+    if (shoppingListRecipes.length) setShoppingListRecipes([recipe, ...shoppingListRecipes]);
+    if (!shoppingListRecipes.length) setShoppingListRecipes([recipe]);
+    syncToSocket();
+  }
 };

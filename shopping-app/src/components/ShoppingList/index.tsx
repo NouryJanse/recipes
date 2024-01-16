@@ -34,14 +34,11 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   return (
     <div className="shopping--items">
       <CreateShoppingItemModal />
-
       <RecipeModal />
-
       <div className="shopping--items-title-container">
         <ShoppingListHeader isConnected={isConnected} />
-        <Button type="button" style="secondary" onClick={() => setModalShoppingItemOpened(true)} label="Add another" />
+        <Button type="button" style="secondary" onClick={() => setModalShoppingItemOpened(true)} label="Add" />
       </div>
-
       <ShoppingItems />
     </div>
   );

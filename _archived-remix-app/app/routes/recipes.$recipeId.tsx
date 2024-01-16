@@ -29,7 +29,6 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 
 export default function RecipePage() {
   const { recipe } = useLoaderData<typeof loader>();
-  console.log(recipe);
 
   return (
     <div className="p-2 sm:p-3 md:p-4 lg:p-5 xl:p-6">

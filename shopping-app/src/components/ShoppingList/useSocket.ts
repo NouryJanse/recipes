@@ -14,16 +14,16 @@ export const useSocket = () => {
   useEffect(() => {
     if (socket) {
       socket.on("message", (msg: any) => {
-        console.log(msg);
+        console.info(msg);
       });
 
       socket.on("connect", () => {
-        console.log("connected");
+        console.info("connected");
         setIsConnected(true);
       });
 
       socket.on("disconnect", () => {
-        console.log("disconnected");
+        console.info("disconnected");
         setIsConnected(false);
       });
 

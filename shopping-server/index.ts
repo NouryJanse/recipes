@@ -57,5 +57,5 @@ io.on("connection", (socket) => {
 const port = process.env.PORT || 1234;
 
 httpServer.listen(port, () => {
-  console.log(`Express server listening on port ${port}`);
+  console.info(`Express server listening on port ${port}`);
 });
