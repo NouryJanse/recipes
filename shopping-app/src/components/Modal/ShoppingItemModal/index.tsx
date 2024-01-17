@@ -11,10 +11,10 @@ import {
   $modalShoppingItemOpened,
   setModalShoppingItemOpened,
   setModalShoppingItem,
-} from "../../services/store";
+} from "../../../services/store";
 
-import SeasonalVeggieList from "../SeasonalVeggieList";
-import Modal from "../Modal";
+import SeasonalVeggieList from "../../SeasonalVeggieList";
+import Modal from "..";
 import Form from "./form";
 
 const CreateShoppingItemModal: FunctionalComponent = () => {

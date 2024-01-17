@@ -2,6 +2,7 @@ import type { FunctionComponent } from "preact";
 import useRecipesQuery from "./useRecipesQuery";
 import InputText from "../Form/InputText";
 import RecipeList from "./RecipeList";
+import { RecipeModal } from "..";
 
 type RecipesProps = {
   serverRecipes: Recipe[];
@@ -14,20 +15,23 @@ const Recipes: FunctionComponent<RecipesProps> = ({ serverRecipes }) => {
   if (isLoading && recipeFilter === "") return <div className="recipe--cards-status">Loading...</div>;
 
   return (
-    <div className="recipe--cards">
-      <div>
-        <h2>Recipes</h2>
+    <>
+      <RecipeModal />
+      <div className="recipe--cards">
+        <div>
+          <h2>Recipes</h2>
 
-        <InputText
-          placeholder="Enter filter query..."
-          name="search"
-          value={recipeFilter}
-          onInput={(e: Event) => setRecipeFilter((e.target as HTMLInputElement).value)}
-        />
+          <InputText
+            placeholder="Enter filter query..."
+            name="search"
+            value={recipeFilter}
+            onInput={(e: Event) => setRecipeFilter((e.target as HTMLInputElement).value)}
+          />
+        </div>
+
+        <RecipeList actualRecipes={actualRecipes} />
       </div>
-
-      <RecipeList actualRecipes={actualRecipes} />
-    </div>
+    </>
   );
 };
 

@@ -1,16 +1,16 @@
 import { nanoid } from "nanoid";
-import type { TypeShoppingItem } from "../../services/types.db";
+import type { TypeShoppingItem } from "../../../services/types.db";
 import type { StateUpdater } from "preact/hooks";
 import {
   $modalRecipeItem,
   $modalRecipeItemOpened,
   $shoppingListRecipes,
   setShoppingListRecipes,
-} from "../../services/store";
-import updateArrayWithObjectById from "../../helpers/updateArrayWithObjectById";
-import deleteObjectWithIdFromArray from "../../helpers/deleteObjectWithIdFromArray";
-import { syncToSocket } from "../../helpers/syncToSocket";
-import { $shoppingList, setShoppingList } from "../../services/store";
+} from "../../../services/store";
+import updateArrayWithObjectById from "../../../helpers/updateArrayWithObjectById";
+import deleteObjectWithIdFromArray from "../../../helpers/deleteObjectWithIdFromArray";
+import { syncToSocket } from "../../../helpers/syncToSocket";
+import { $shoppingList, setShoppingList } from "../../../services/store";
 
 export const mapRecipeIngredientsToShoppingItems = (
   modalRecipeItem: Recipe,

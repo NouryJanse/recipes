@@ -5,10 +5,10 @@ import {
   setModalRecipeItem,
   setModalRecipeItemOpened,
   setShoppingListRecipes,
-} from "../../services/store";
+} from "../../../../services/store";
 
-import Button from "../Form/Button";
-import deleteObjectWithIdFromArray from "../../helpers/deleteObjectWithIdFromArray";
+import Button from "../../../Form/Button";
+import deleteObjectWithIdFromArray from "../../../../helpers/deleteObjectWithIdFromArray";
 import { useStore } from "@nanostores/preact";
 
 type ShoppingItemRecipeProps = {

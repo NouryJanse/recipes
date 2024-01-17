@@ -1,6 +1,6 @@
 import type { FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import Button from "../Form/Button";
+import Button from "../../Form/Button";
 import { getStyle, handleOnAdd, retrieveMainImage } from "./helpers";
 
 type RecipeCardProps = {

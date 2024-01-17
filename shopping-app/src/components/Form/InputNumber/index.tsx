@@ -8,7 +8,6 @@ type InputNumberProps = {
   onInput: (event: Event) => void;
   defaultValue?: string;
   placeholder: string;
-  style: any;
 };
 
 const InputNumber: FunctionComponent<InputNumberProps> = ({
@@ -19,7 +18,6 @@ const InputNumber: FunctionComponent<InputNumberProps> = ({
   onInput,
   defaultValue,
   placeholder,
-  style,
 }) => {
   return (
     <label>
@@ -33,7 +31,6 @@ const InputNumber: FunctionComponent<InputNumberProps> = ({
         defaultValue={defaultValue ? defaultValue : ""}
         onInput={onInput}
         placeholder={placeholder}
-        style={style}
       />
     </label>
   );

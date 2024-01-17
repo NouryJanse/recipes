@@ -1,6 +1,5 @@
 import type { StateUpdater } from "preact/hooks";
-import { getShoppingListRecipes, setShoppingListRecipes } from "../../services/store";
-import { syncToSocket } from "../../helpers/syncToSocket";
+import { setModalRecipeItem, setModalRecipeItemOpened } from "../../../services/store";
 
 export const retrieveMainImage = (recipe: Recipe, setMainImage: StateUpdater<string>) => {
   if (recipe?.images?.length) {
@@ -21,11 +20,13 @@ export const getStyle = (mainImage: string, isHovering: boolean) => {
 
 export const handleOnAdd = (e: MouseEvent, recipe: Recipe) => {
   e.stopPropagation();
-  const shoppingListRecipes = getShoppingListRecipes();
-  const contains = shoppingListRecipes.find((listRecipe: Recipe) => listRecipe.id === recipe.id);
-  if (!contains) {
-    if (shoppingListRecipes.length) setShoppingListRecipes([recipe, ...shoppingListRecipes]);
-    if (!shoppingListRecipes.length) setShoppingListRecipes([recipe]);
-    syncToSocket();
-  }
+  setModalRecipeItem(recipe);
+  setModalRecipeItemOpened(true);
+  // const shoppingListRecipes = getShoppingListRecipes();
+  // const contains = shoppingListRecipes.find((listRecipe: Recipe) => listRecipe.id === recipe.id);
+  // if (!contains) {
+  //   if (shoppingListRecipes.length) setShoppingListRecipes([recipe, ...shoppingListRecipes]);
+  //   if (!shoppingListRecipes.length) setShoppingListRecipes([recipe]);
+  //   syncToSocket();
+  // }
 };

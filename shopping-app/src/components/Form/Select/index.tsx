@@ -4,7 +4,7 @@ type SelectProps = {
   label: string;
   onInput: (event: Event) => void;
   selected: string;
-  options: any[]
+  options: any[];
 };
 
 const Select: FunctionalComponent<SelectProps> = ({ label, onInput, selected, options }) => {
@@ -14,8 +14,9 @@ const Select: FunctionalComponent<SelectProps> = ({ label, onInput, selected, op
 
       <select name="unit" onInput={onInput}>
         {options.map((ingredient) => {
+          const { value, disabled } = ingredient;
           return (
-            <option value={ingredient.value} selected={selected === ingredient.value}>
+            <option value={value} selected={selected === ingredient.value} disabled={disabled ? disabled : false}>
               {ingredient.text}
             </option>
           );

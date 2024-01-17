@@ -1,6 +1,6 @@
 import type { FunctionComponent } from "preact";
 import Inputs from "./inputs";
-import Button from "../Form/Button";
+import Button from "../../Form/Button";
 
 type FormProps = {
   onSubmit: () => void;
@@ -8,7 +8,7 @@ type FormProps = {
 
 const Form: FunctionComponent<FormProps> = ({ onSubmit }) => {
   return (
-    <div className="shopping-form">
+    <div className="modal--grocery-item">
       <Inputs />
       <Button type="button" children="Save" style="primary" onClick={onSubmit} />
     </div>

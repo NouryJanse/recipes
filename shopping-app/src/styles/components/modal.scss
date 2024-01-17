@@ -1,0 +1,151 @@
+dialog.modal {
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+  position: fixed;
+  box-shadow: hsl(0 0% 0% / 10%) 0 0 0.5rem 0.25rem;
+  transition: all 200ms ease-in-out;
+
+  div.input-container {
+    display: flex;
+    flex-direction: column;
+
+    @include sm {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    div.ingredient-name {
+      @include sm {
+        margin-right: var(--step--1);
+      }
+    }
+
+    div.amount-unit {
+      display: flex;
+      flex-direction: row;
+      label {
+        margin-right: var(--step--1);
+        width: 50vw;
+
+        @include md {
+          width: auto;
+          max-width: 120px;
+        }
+      }
+      label:nth-of-type(2) {
+        margin: 0;
+      }
+    }
+  }
+
+  form {
+    padding-top: var(--step--2);
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include md {
+    width: 80%;
+    height: 70%;
+    border-radius: 0.5rem;
+    padding: 4rem;
+  }
+
+  @include xl {
+    width: 50%;
+    height: 70%;
+    border-radius: 0.5rem;
+    padding: 4rem;
+  }
+
+  @include xxl {
+    width: 77%;
+    height: 70%;
+  }
+
+  > div:first-of-type {
+    margin-bottom: var(--step-2);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    h2 {
+      margin: 0 8px 0 0;
+    }
+  }
+
+  button {
+    align-self: flex-end;
+    width: fit-content;
+  }
+
+  .modal--grocery-item {
+    margin-bottom: var(--step-2);
+    // position: fixed;
+    // bottom: 0;
+    // background: white;
+    // left: 0;
+    // margin: 0;
+    // padding: 12px;
+    // width: 100%;
+
+    @include md {
+      // position: initial;
+      // bottom: auto;
+      // left: auto;
+      // width: initial;
+      // background-color: initial;
+    }
+
+    button {
+      width: 100%;
+      padding: var(--step--3) var(--step--2);
+
+      @include md {
+        width: auto;
+      }
+    }
+  }
+
+  .modal--recipe {
+    div.buttons {
+      display: flex;
+      flex-direction: column;
+
+      @include md {
+        justify-content: flex-end;
+        flex-direction: row;
+      }
+      button {
+        width: 100%;
+        padding: var(--step--3) var(--step--2);
+        margin-bottom: var(--step-2);
+
+        @include md {
+          width: auto;
+        }
+      }
+      @include md {
+        button:first-of-type {
+          margin-right: var(--step-0);
+        }
+      }
+    }
+
+    label {
+      width: 100%;
+      @include md {
+        width: min-content;
+      }
+    }
+
+    @include md {
+      flex-direction: row;
+    }
+  }
+}
+
+::backdrop {
+  background: linear-gradient(90deg, rgba(185, 222, 237, 0.9), rgba(239, 239, 239, 0.7));
+}

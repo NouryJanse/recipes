@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import type { TypeShoppingItem } from "../../services/types.db";
+import type { TypeShoppingItem } from "../../../services/types.db";
 
 import {
   type FormStateType,
@@ -10,11 +10,11 @@ import {
   setShoppingList,
   resetFormState,
   getShoppingList,
-} from "../../services/store";
+} from "../../../services/store";
 
-import sortShoppingListOnDate from "../../helpers/sortShoppingListOnDate";
-import replaceShoppingItemInList from "../../helpers/replaceShoppingItemInList";
-import { syncToSocket } from "../../helpers/syncToSocket";
+import sortShoppingListOnDate from "../../../helpers/sortShoppingListOnDate";
+import replaceShoppingItemInList from "../../../helpers/replaceShoppingItemInList";
+import { syncToSocket } from "../../../helpers/syncToSocket";
 
 export const createShoppingItem = (
   formState: FormStateType,

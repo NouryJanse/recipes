@@ -2,7 +2,7 @@ import type { FunctionalComponent } from "preact";
 import ShoppingItem from "../ShoppingItem";
 import { useStore } from "@nanostores/preact";
 import { $shoppingList, $shoppingListRecipes } from "../../services/store";
-import ShoppingItemRecipe from "../ShoppingItemRecipe";
+import ShoppingItemRecipe from "../Groceries/Items/ShoppingItemRecipe";
 
 type ShoppingItemsProps = {};
 

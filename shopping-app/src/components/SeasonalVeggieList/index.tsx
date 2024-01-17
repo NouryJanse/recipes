@@ -2,7 +2,7 @@ import type { FunctionalComponent } from "preact";
 
 import { fall } from "./fall";
 
-import SeasonalVeggie from "../SeasonalVeggie";
+import SeasonalVeggie from "./SeasonalVeggie";
 
 export const SeasonalVeggieList: FunctionalComponent = ({}) => {
   return (

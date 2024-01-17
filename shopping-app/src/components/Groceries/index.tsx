@@ -8,14 +8,15 @@ import { useStore } from "@nanostores/preact";
 // UI
 import { useSocket } from "./useSocket";
 import { checkForExistingShoppingList } from "./helpers";
-import CreateShoppingItemModal from "../ShoppingItemModal";
-import { Button, RecipeModal, ShoppingItems } from "..";
+import CreateShoppingItemModal from "../Modal/ShoppingItemModal";
+import { Button } from "..";
+import Items from "./Items";
 
-type ShoppingListProps = {
+type GroceriesProps = {
   dbShoppingList: any;
 };
 
-const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) => {
+const Groceries: FunctionComponent<GroceriesProps> = ({ dbShoppingList }) => {
   const modalShoppingItem = useStore($modalShoppingItem);
   const { isConnected } = useSocket();
 
@@ -34,12 +35,11 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = ({ dbShoppingList }) 
   return (
     <div className="shopping--items">
       <CreateShoppingItemModal />
-      <RecipeModal />
       <div className="shopping--items-title-container">
         <ShoppingListHeader isConnected={isConnected} />
         <Button type="button" style="secondary" onClick={() => setModalShoppingItemOpened(true)} label="Add" />
       </div>
-      <ShoppingItems />
+      <Items />
     </div>
   );
 };
@@ -53,4 +53,4 @@ const ShoppingListHeader = ({ isConnected }: { isConnected: boolean }) => {
   );
 };
 
-export default ShoppingList;
+export default Groceries;

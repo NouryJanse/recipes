@@ -1,7 +1,8 @@
 import type { FunctionComponent } from "preact";
-import { Button, Planning, Recipes, ShoppingList } from "..";
+import { Button, Groceries, Planning, Recipes } from "..";
 import { useScreenDetector } from "./useScreenDetector";
 import { useEffect, useState } from "preact/hooks";
+import type { Style } from "../Form/Button";
 
 type ContentProps = {
   dbShoppingList: any;
@@ -30,16 +31,31 @@ const Content: FunctionComponent<ContentProps> = ({ dbShoppingList, recipes }) =
     <>
       <div className="shopping--buttons">
         {isMobile && (
-          <Button type="button" style="tertiary" onClick={() => setShowRecipes("groceries")} label="Groceries" />
+          <Button
+            type="button"
+            style={buttonStyle(showRecipes, "groceries")}
+            onClick={() => setShowRecipes("groceries")}
+            label="Groceries"
+          />
         )}
         <>
-          <Button type="button" style="tertiary" onClick={() => setShowRecipes("recipes")} label="Recipes" />
-          <Button type="button" style="tertiary" onClick={() => setShowRecipes("planning")} label="Planning" />
+          <Button
+            type="button"
+            style={buttonStyle(showRecipes, "recipes")}
+            onClick={() => setShowRecipes("recipes")}
+            label="My recipes"
+          />
+          <Button
+            type="button"
+            style={buttonStyle(showRecipes, "planning")}
+            onClick={() => setShowRecipes("planning")}
+            label="My planning"
+          />
         </>
       </div>
 
       <div className="shopping--container">
-        {shouldIBeShown("groceries") && <ShoppingList dbShoppingList={dbShoppingList} />}
+        {shouldIBeShown("groceries") && <Groceries dbShoppingList={dbShoppingList} />}
         {shouldIBeShown("recipes") && <Recipes serverRecipes={recipes} />}
         {shouldIBeShown("planning") && <Planning />}
       </div>
@@ -47,4 +63,7 @@ const Content: FunctionComponent<ContentProps> = ({ dbShoppingList, recipes }) =
   );
 };
 
+const buttonStyle = (showRecipes: string, buttonName: string): "primary" | "secondary" | "tertiary" | "transparent" => {
+  return showRecipes === buttonName ? "primary" : "tertiary";
+};
 export default Content;

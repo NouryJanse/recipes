@@ -1,5 +1,5 @@
 import type { FunctionalComponent } from "preact";
-import RecipeCard from "../RecipeCard";
+import RecipeCard from "./RecipeCard";
 
 type RecipeListProps = {
   actualRecipes: Recipe[];

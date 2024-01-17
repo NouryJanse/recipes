@@ -26,7 +26,7 @@ model Recipe {
   calorieCount     Int?
   Image            Image[]
   RecipeIngredient RecipeIngredient[]
-  numberOfPersons  Int                @default(1)
+  numberOfPersons  Int                @default(2)
 }
 
 model Image {

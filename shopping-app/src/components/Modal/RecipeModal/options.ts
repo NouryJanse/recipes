@@ -1,5 +1,5 @@
 export default [
-  { id: 0, text: "Make a choice", value: "0", disabled: false },
+  { id: 0, text: "Make a choice", value: "1", disabled: false },
   { id: 1, text: "1 person", value: "1", disabled: false },
   { id: 2, text: "2 persons", value: "2", disabled: false },
   { id: 3, text: "3 persons", value: "3", disabled: false },
