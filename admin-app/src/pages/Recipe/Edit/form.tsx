@@ -26,7 +26,7 @@ const Form: React.FC<FormProps> = ({
   initialRecipeLoad,
 }): ReactElement => {
   const [course, setCourse] = useState(recipe && recipe.course ? recipe.course : '')
-  const [numberOfPersons, setNumberOfPersons] = useState(recipe && recipe.numberOfPersons ? recipe.numberOfPersons : 0)
+  const [numberOfPersons, setNumberOfPersons] = useState(recipe && recipe.numberOfPersons ? recipe.numberOfPersons : 2)
   const [toggle, setToggle] = useState(recipe && recipe.published ? recipe.published : false)
 
   return (

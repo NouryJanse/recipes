@@ -41,7 +41,6 @@ const EditRecipe: React.FC = (): ReactElement => {
     await updateRecipe({
       ...editedRecipe,
       ...recipe,
-      // published: editedRecipe.published !== undefined ? editedRecipe.published : recipe.published,
     })
     return true
   }

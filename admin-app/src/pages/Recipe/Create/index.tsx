@@ -20,8 +20,10 @@ const CreateRecipe: React.FC = (): ReactElement => {
 
   const onSubmit = async (data: object): Promise<void> => {
     // @ts-ignore:next-line
-    await createRecipe(data)
-    navigate('/recipes')
+    const res = await createRecipe(data)
+    // @ts-ignore:next-line
+    const id = res.data.recipe.id
+    navigate(`/recipes/${id}/`)
   }
 
   return (
