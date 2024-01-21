@@ -16,7 +16,9 @@ const Recipes: FunctionComponent<RecipesProps> = ({ serverRecipes }) => {
 
   return (
     <>
-      <RecipeModal />
+      <div className="recipe--modal">
+        <RecipeModal />
+      </div>
       <div className="recipe--cards">
         <div>
           <h2>Recipes</h2>

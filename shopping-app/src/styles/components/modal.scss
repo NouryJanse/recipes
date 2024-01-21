@@ -82,21 +82,6 @@ dialog.modal {
 
   .modal--grocery-item {
     margin-bottom: var(--step-2);
-    // position: fixed;
-    // bottom: 0;
-    // background: white;
-    // left: 0;
-    // margin: 0;
-    // padding: 12px;
-    // width: 100%;
-
-    @include md {
-      // position: initial;
-      // bottom: auto;
-      // left: auto;
-      // width: initial;
-      // background-color: initial;
-    }
 
     button {
       width: 100%;
@@ -108,6 +93,9 @@ dialog.modal {
     }
   }
 
+  //
+  //
+  //
   .modal--recipe {
     div.buttons {
       display: flex;
@@ -117,6 +105,7 @@ dialog.modal {
         justify-content: flex-end;
         flex-direction: row;
       }
+
       button {
         width: 100%;
         padding: var(--step--3) var(--step--2);
@@ -126,6 +115,7 @@ dialog.modal {
           width: auto;
         }
       }
+
       @include md {
         button:first-of-type {
           margin-right: var(--step-0);
@@ -148,4 +138,29 @@ dialog.modal {
 
 ::backdrop {
   background: linear-gradient(90deg, rgba(185, 222, 237, 0.9), rgba(239, 239, 239, 0.7));
+}
+
+.recipe--modal {
+  dialog {
+    width: 100%;
+
+    @include md {
+      width: 50%;
+      height: 70%;
+      border-radius: 0.5rem;
+      padding: 4rem;
+    }
+
+    @include xl {
+      width: 50%;
+      height: 70%;
+      border-radius: 0.5rem;
+      padding: 4rem;
+    }
+
+    @include xxl {
+      width: 55;
+      height: 70%;
+    }
+  }
 }

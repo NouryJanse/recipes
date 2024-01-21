@@ -33,20 +33,20 @@ export const mapRecipeIngredientsToShoppingItems = (
 };
 
 export const onSubmit = (recipeItems: TypeShoppingItem[]) => {
-  const modalitems = $shoppingListRecipes.get();
-  const id = $modalRecipeItem.get()?.id;
+  // const modalitems = $shoppingListRecipes.get();
+  // const id = $modalRecipeItem.get()?.id;
 
-  if (modalitems && id) {
-    setShoppingListRecipes(
-      // @ts-ignore:next-line
-      deleteObjectWithIdFromArray(
-        modalitems.map((item) => {
-          return { ...item, id: `${item.id}` };
-        }),
-        id.toString()
-      )
-    );
-  }
+  // if (modalitems && id) {
+  //   setShoppingListRecipes(
+  //     // @ts-ignore:next-line
+  //     deleteObjectWithIdFromArray(
+  //       modalitems.map((item) => {
+  //         return { ...item, id: `${item.id}` };
+  //       }),
+  //       id.toString()
+  //     )
+  //   );
+  // }
 
   addIngredientsFromRecipeToList(recipeItems);
 

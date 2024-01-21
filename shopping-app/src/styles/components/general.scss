@@ -15,7 +15,7 @@ label {
 
 input,
 select {
-  padding: var(--step--3) var(--step--1);
+  padding: var(--step--2) var(--step--1);
   border: 0;
   border-radius: 8px;
   color: black;
@@ -24,7 +24,7 @@ select {
 }
 
 select {
-  padding: var(--step--4) var(--step--1) var(--step--3) var(--step--1);
+  padding: var(--step--2) var(--step--1) var(--step--3) var(--step--1);
 }
 
 input[type="text"],

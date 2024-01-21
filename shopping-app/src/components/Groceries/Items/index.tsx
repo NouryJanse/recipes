@@ -7,7 +7,11 @@ import { ShoppingItem } from "../..";
 const Items: FunctionalComponent = ({}) => {
   const shoppingList = useStore($shoppingList);
   return (
-    <>{shoppingList.length ? shoppingList.map((shoppingItem) => <ShoppingItem shoppingItem={shoppingItem} />) : ""}</>
+    <>
+      {shoppingList.length
+        ? shoppingList.map((shoppingItem) => <ShoppingItem shoppingItem={shoppingItem} />)
+        : "Start adding ingredients to your list!"}
+    </>
   );
 };
 

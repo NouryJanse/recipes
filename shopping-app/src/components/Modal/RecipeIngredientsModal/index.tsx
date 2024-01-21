@@ -6,25 +6,23 @@ import { mapRecipeIngredientsToShoppingItems, onSubmit, onUpdate } from "./helpe
 import options from "./options";
 import {
   $modalRecipeItem,
-  $modalRecipeItemOpened,
+  $recipeIngredientsModalOpened,
   getShoppingListRecipes,
-  setContentSwitcher,
-  setModalRecipeItemOpened,
+  setRecipeIngredientsModalOpened,
   setShoppingListRecipes,
 } from "../../../services/store";
 import type { TypeShoppingItem } from "../../../services/types.db";
 import Modal from "..";
 import { Button, RecipeItem, Select } from "../..";
-import { getRecipePlanning } from "../../../helpers/getRecipePlanning";
 import { syncToSocket } from "../../../helpers/syncToSocket";
 
-const RecipeModal: FunctionalComponent = ({}) => {
-  const modalRecipeItemOpened: boolean = useStore($modalRecipeItemOpened);
+const RecipeIngredientsModal: FunctionalComponent = ({}) => {
+  const recipeIngredientsModalOpened: boolean = useStore($recipeIngredientsModalOpened);
   const modalRecipeItem: Recipe | undefined = useStore($modalRecipeItem);
   const [recipeItems, setRecipeItems] = useState<TypeShoppingItem[]>([]);
+  const [step, setStep] = useState<0 | 1 | 2>(1);
 
   const [selectedNumberOfPersons, setSelectedNumberOfPersons] = useState(0);
-  const [cookingDate, setCookingDate] = useState("");
 
   if (!modalRecipeItem) return <></>;
 
@@ -40,57 +38,59 @@ const RecipeModal: FunctionalComponent = ({}) => {
 
   return (
     <Modal
-      isOpen={modalRecipeItemOpened}
+      isOpen={recipeIngredientsModalOpened}
       hasCloseBtn={true}
-      title={`Plan ${modalRecipeItem.name}`}
-      onClose={() => {
-        setCookingDate("");
-        setModalRecipeItemOpened(false);
-      }}
+      title={recipeTitle(step, modalRecipeItem.name)}
+      onClose={() => resetForm(setStep, setSelectedNumberOfPersons, setRecipeIngredientsModalOpened)}
     >
       <div className="modal--recipe">
         <div>
-          <Select
-            label="Cooking day"
-            onInput={(event: Event) => {
-              const target = event.target as HTMLInputElement | HTMLSelectElement;
-              setCookingDate(target.value);
-            }}
-            selected={cookingDate}
-            options={[
-              { id: -1, text: "Pick a day", value: "none", disabled: false },
-              ...getRecipePlanning().map((obj, key) => {
-                return { id: key, text: obj.date, value: obj.date, disabled: false };
-              }),
-            ]}
-          />
+          <>
+            <Select
+              label="Number of persons"
+              onInput={(event: Event) => {
+                const target = event.target as HTMLInputElement | HTMLSelectElement;
+                setSelectedNumberOfPersons(Number.parseInt(target.value));
+              }}
+              selected={modalRecipeItem.numberOfPersons.toString()}
+              options={options}
+            />
+
+            <div>
+              {recipeItems.map((recipeItem: TypeShoppingItem) => (
+                <RecipeItem
+                  recipeItem={recipeItem}
+                  onUpdate={(updatedItem) => onUpdate(updatedItem, recipeItems, setRecipeItems)}
+                  selectedNumberOfPersons={selectedNumberOfPersons}
+                />
+              ))}
+            </div>
+          </>
         </div>
 
-        <Button
-          type="button"
-          children="Save"
-          style="primary"
-          onClick={() => {
-            if (cookingDate) saveRecipeToPlanning(cookingDate, modalRecipeItem);
-            setModalRecipeItemOpened(false);
-            setContentSwitcher("planning");
-          }}
-        />
+        <div className="buttons">
+          <Button
+            type="button"
+            children={`Add ${modalRecipeItem.name} to groceries`}
+            style="primary"
+            onClick={() => onSubmit(recipeItems)}
+          />
+        </div>
       </div>
     </Modal>
   );
 };
 
-const resetForm = (
-  setStep: any,
-  setSelectedNumberOfPersons: any,
-  setCookingDate: any,
-  setModalRecipeItemOpened: any
-): void => {
+const resetForm = (setStep: any, setSelectedNumberOfPersons: any, setRecipeIngredientsModalOpened: any): void => {
   setStep(1);
   setSelectedNumberOfPersons(2);
-  setCookingDate("");
-  setModalRecipeItemOpened(false);
+  setRecipeIngredientsModalOpened(false);
+};
+
+const recipeTitle = (step: number, recipeName: string): string => {
+  if (step === 1) return "Do you want to plan this meal?";
+  if (step === 2) return "Select the ingredients you want to add to the list";
+  return recipeName;
 };
 
 const saveRecipeToPlanning = (cookingDate: string, recipe: any) => {
@@ -105,4 +105,4 @@ const saveRecipeToPlanning = (cookingDate: string, recipe: any) => {
   }
 };
 
-export default RecipeModal;
+export default RecipeIngredientsModal;
