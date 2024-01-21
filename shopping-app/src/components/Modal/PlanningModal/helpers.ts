@@ -4,32 +4,13 @@ import {
   $modalRecipeItem,
   $planningModalOpened,
   $shoppingListRecipes,
+  getShoppingListRecipes,
   setShoppingListRecipes,
 } from "../../../services/store";
 import updateArrayWithObjectById from "../../../helpers/updateArrayWithObjectById";
 import deleteObjectWithIdFromArray from "../../../helpers/deleteObjectWithIdFromArray";
 import { syncToSocket } from "../../../helpers/syncToSocket";
 import { $shoppingList, setShoppingList } from "../../../services/store";
-
-export const mapRecipeIngredientsToShoppingItems = (
-  modalRecipeItem: Recipe,
-  // setRecipeItems: StateUpdater<TypeShoppingItem[]>,
-  selectedNumberOfPersons: number
-) => {
-  if (modalRecipeItem.ingredients && modalRecipeItem.ingredients.length) {
-    const loc: TypeShoppingItem[] = modalRecipeItem.ingredients.map(({ amount, name, unit }: RecipeIngredient) => {
-      return {
-        id: nanoid(),
-        amount: amount ? (amount / modalRecipeItem.numberOfPersons) * selectedNumberOfPersons : 0,
-        ingredientName: name ? name : "",
-        checked: true,
-        unit: unit ? unit : "",
-        updatedAt: new Date().toISOString(),
-      };
-    });
-    // if (loc && loc.length) setRecipeItems(loc);
-  }
-};
 
 export const onSubmit = (recipeItems: TypeShoppingItem[]) => {
   const modalitems = $shoppingListRecipes.get();
@@ -48,7 +29,6 @@ export const onSubmit = (recipeItems: TypeShoppingItem[]) => {
   }
 
   addIngredientsFromRecipeToList(recipeItems);
-
   $modalRecipeItem.set(undefined);
   $planningModalOpened.set(false);
 };
@@ -89,4 +69,16 @@ export const addIngredientsFromRecipeToList = (shoppingItems: TypeShoppingItem[]
 
   setShoppingList(updatedList);
   syncToSocket();
+};
+
+export const saveRecipeToPlanning = (cookingDate: string, recipe: any) => {
+  const newPlanningRecipe = { cookingDate, ...recipe };
+  const shoppingListRecipes = getShoppingListRecipes();
+  const contains = shoppingListRecipes.find((listRecipe: any) => listRecipe.cookingDate === cookingDate);
+
+  if (!contains) {
+    if (shoppingListRecipes.length) setShoppingListRecipes([newPlanningRecipe, ...shoppingListRecipes]);
+    if (!shoppingListRecipes.length) setShoppingListRecipes([newPlanningRecipe]);
+    syncToSocket();
+  }
 };

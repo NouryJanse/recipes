@@ -20,6 +20,10 @@ const Content: FunctionComponent<ContentProps> = ({ dbShoppingList, recipes }) =
     return false;
   };
 
+  //
+  // TODO: move socket here because its currently creating new connections because of the content switcher
+  //
+
   useEffect(() => {
     if (isTablet || isDesktop) {
       setContentSwitcher("recipes");

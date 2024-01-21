@@ -9,7 +9,7 @@ const RecipeList: FunctionalComponent<RecipeListProps> = ({ actualRecipes }) => 
   return (
     <div>
       {actualRecipes && actualRecipes.length > 0 ? (
-        actualRecipes.map((recipe: any) => {
+        actualRecipes.slice(0, 12).map((recipe: any) => {
           return <RecipeCard recipe={recipe} withEditButton={false} withRemovalButton={false} />;
         })
       ) : (

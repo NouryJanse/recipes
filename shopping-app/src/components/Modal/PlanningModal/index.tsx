@@ -5,15 +5,13 @@ import { useStore } from "@nanostores/preact";
 import {
   $modalRecipeItem,
   $planningModalOpened,
-  getShoppingListRecipes,
   setContentSwitcher,
   setPlanningModalOpened,
-  setShoppingListRecipes,
 } from "../../../services/store";
 import Modal from "..";
 import { Button, Select } from "../..";
-import { syncToSocket } from "../../../helpers/syncToSocket";
 import { getRecipePlanning } from "../../../helpers/getRecipePlanning";
+import { saveRecipeToPlanning } from "./helpers";
 
 const PlanningModal: FunctionalComponent = ({}) => {
   const planningModalOpened: boolean = useStore($planningModalOpened);
@@ -63,30 +61,6 @@ const PlanningModal: FunctionalComponent = ({}) => {
       </div>
     </Modal>
   );
-};
-
-const resetForm = (
-  setStep: any,
-  setSelectedNumberOfPersons: any,
-  setCookingDate: any,
-  setGroceryItemModalOpened: any
-): void => {
-  setStep(1);
-  setSelectedNumberOfPersons(2);
-  setCookingDate("");
-  setGroceryItemModalOpened(false);
-};
-
-const saveRecipeToPlanning = (cookingDate: string, recipe: any) => {
-  const newPlanningRecipe = { cookingDate, ...recipe };
-  const shoppingListRecipes = getShoppingListRecipes();
-  const contains = shoppingListRecipes.find((listRecipe: any) => listRecipe.cookingDate === cookingDate);
-
-  if (!contains) {
-    if (shoppingListRecipes.length) setShoppingListRecipes([newPlanningRecipe, ...shoppingListRecipes]);
-    if (!shoppingListRecipes.length) setShoppingListRecipes([newPlanningRecipe]);
-    syncToSocket();
-  }
 };
 
 export default PlanningModal;

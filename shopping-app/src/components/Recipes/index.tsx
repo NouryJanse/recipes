@@ -2,7 +2,7 @@ import type { FunctionComponent } from "preact";
 import useRecipesQuery from "./useRecipesQuery";
 import InputText from "../Form/InputText";
 import RecipeList from "./RecipeList";
-import { IngredientsModal, PlanningModal } from "..";
+import { PlanningModal } from "..";
 
 type RecipesProps = {
   serverRecipes: Recipe[];
