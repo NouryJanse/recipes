@@ -74,6 +74,11 @@ export function setModalRecipeItemOpened(bool: boolean) {
   $modalRecipeItemOpened.set(bool);
 }
 
+export const $recipeIngredientsModalOpened = atom<boolean>(false);
+export function setRecipeIngredientsModalOpened(bool: boolean) {
+  $recipeIngredientsModalOpened.set(bool);
+}
+
 export const $shoppingListRecipes = atom<Recipe[]>([]);
 export function setShoppingListRecipes(shoppingListRecipes: Recipe[]) {
   $shoppingListRecipes.set(shoppingListRecipes);
@@ -90,4 +95,10 @@ export function getShoppingListRecipes(): Recipe[] {
 export const $socketClient = atom<any | undefined>(undefined);
 export function setSocket(socket: any) {
   if (socket) $socketClient.set(socket);
+}
+
+// CONTENT SWITCHER
+export const $contentSwitcher = atom<"groceries" | "recipes" | "planning">("groceries");
+export function setContentSwitcher(content: "groceries" | "recipes" | "planning"): void {
+  $contentSwitcher.set(content);
 }

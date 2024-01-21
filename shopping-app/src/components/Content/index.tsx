@@ -1,8 +1,9 @@
 import type { FunctionComponent } from "preact";
 import { Button, Groceries, Planning, Recipes } from "..";
 import { useScreenDetector } from "./useScreenDetector";
-import { useEffect, useState } from "preact/hooks";
-import type { Style } from "../Form/Button";
+import { useEffect } from "preact/hooks";
+import { useStore } from "@nanostores/preact";
+import { $contentSwitcher, setContentSwitcher } from "../../services/store";
 
 type ContentProps = {
   dbShoppingList: any;
@@ -11,19 +12,19 @@ type ContentProps = {
 
 const Content: FunctionComponent<ContentProps> = ({ dbShoppingList, recipes }) => {
   const { isMobile, isTablet, isDesktop } = useScreenDetector();
-  const [showRecipes, setShowRecipes] = useState<"groceries" | "recipes" | "planning">("groceries");
+  const contentSwitcher = useStore($contentSwitcher);
 
   const shouldIBeShown = (template: string): boolean => {
-    if (isMobile && template === showRecipes) return true;
-    if ((!isMobile && template === showRecipes) || (!isMobile && template === "groceries")) return true;
+    if (isMobile && template === contentSwitcher) return true;
+    if ((!isMobile && template === contentSwitcher) || (!isMobile && template === "groceries")) return true;
     return false;
   };
 
   useEffect(() => {
     if (isTablet || isDesktop) {
-      setShowRecipes("recipes");
+      setContentSwitcher("recipes");
     } else {
-      setShowRecipes("groceries");
+      setContentSwitcher("groceries");
     }
   }, []);
 
@@ -33,22 +34,22 @@ const Content: FunctionComponent<ContentProps> = ({ dbShoppingList, recipes }) =
         {isMobile && (
           <Button
             type="button"
-            style={buttonStyle(showRecipes, "groceries")}
-            onClick={() => setShowRecipes("groceries")}
+            style={buttonStyle(contentSwitcher, "groceries")}
+            onClick={() => setContentSwitcher("groceries")}
             label="Groceries"
           />
         )}
         <>
           <Button
             type="button"
-            style={buttonStyle(showRecipes, "recipes")}
-            onClick={() => setShowRecipes("recipes")}
+            style={buttonStyle(contentSwitcher, "recipes")}
+            onClick={() => setContentSwitcher("recipes")}
             label="My recipes"
           />
           <Button
             type="button"
-            style={buttonStyle(showRecipes, "planning")}
-            onClick={() => setShowRecipes("planning")}
+            style={buttonStyle(contentSwitcher, "planning")}
+            onClick={() => setContentSwitcher("planning")}
             label="My planning"
           />
         </>
@@ -63,7 +64,10 @@ const Content: FunctionComponent<ContentProps> = ({ dbShoppingList, recipes }) =
   );
 };
 
-const buttonStyle = (showRecipes: string, buttonName: string): "primary" | "secondary" | "tertiary" | "transparent" => {
-  return showRecipes === buttonName ? "primary" : "tertiary";
+const buttonStyle = (
+  contentSwitcher: string,
+  buttonName: string
+): "primary" | "secondary" | "tertiary" | "transparent" => {
+  return contentSwitcher === buttonName ? "primary" : "tertiary";
 };
 export default Content;
