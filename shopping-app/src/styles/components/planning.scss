@@ -34,7 +34,6 @@
       overflow: hidden;
       background-position: center;
       background-size: cover;
-      margin-bottom: var(--step-1);
       transition-property: all;
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       transition-duration: 120ms;
@@ -45,6 +44,7 @@
       padding: var(--step--3);
       border: 1px solid transparent;
       justify-content: space-between;
+      margin-bottom: var(--step--3);
 
       &.empty {
         border-color: var(--color-gray-2);
@@ -65,10 +65,17 @@
 
       @include md {
         padding: var(--step--2);
+        margin-bottom: var(--step--1);
       }
 
       @include lg {
         padding: var(--step--1);
+        margin-bottom: var(--step--2);
+      }
+
+      @include xl {
+        padding: var(--step--1);
+        margin-bottom: var(--step--4);
       }
 
       .first-row {
