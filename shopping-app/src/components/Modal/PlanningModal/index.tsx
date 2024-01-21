@@ -5,6 +5,7 @@ import { useStore } from "@nanostores/preact";
 import {
   $modalRecipeItem,
   $planningModalOpened,
+  $shoppingListRecipes,
   setContentSwitcher,
   setPlanningModalOpened,
 } from "../../../services/store";
@@ -41,9 +42,14 @@ const PlanningModal: FunctionalComponent = ({}) => {
             selected={cookingDate}
             options={[
               { id: -1, text: "Pick a day", value: "none", disabled: false },
-              ...getRecipePlanning().map((obj, key) => {
-                return { id: key, text: obj.date, value: obj.date, disabled: false };
-              }),
+              ...getRecipePlanning()
+                .map((obj, key) => {
+                  return { id: key, text: obj.date, value: obj.date, disabled: false };
+                })
+                .filter(
+                  (planningObj: any) =>
+                    !$shoppingListRecipes.get().find((recipe: any) => recipe.cookingDate === planningObj.value)
+                ),
             ]}
           />
         </div>
