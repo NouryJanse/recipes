@@ -29,48 +29,53 @@ const PlanningCard: FunctionComponent<PlanningCardProps> = ({ recipe }) => {
 
   return (
     <div
-      className="recipe--card"
+      className="planning--card"
       style={getStyle(mainImage, isHovering)}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onClick={() => (window.location.href = `recipes/${recipe.id}`)}
     >
-      <div>
+      <div className="first-row">
         <div>
-          <h3>{recipe.name}</h3>
           <span>{recipe.cookingDate}</span>
+          <h3>{recipe.name}</h3>
         </div>
-        <Button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            setShoppingListRecipes(
-              getShoppingListRecipes().filter((a: any) => {
-                return a.cookingDate === recipe.cookingDate ? null : a;
-              })
-            );
-            syncToSocket();
-          }}
-        >
-          x
-        </Button>
-        <Button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            setModalRecipeItem(recipe);
-            setRecipeIngredientsModalOpened(true);
-            // setShoppingListRecipes(
-            //   getShoppingListRecipes().filter((a: any) => {
-            //     return a.cookingDate === recipe.cookingDate ? null : a;
-            //   })
-            // );
-            // syncToSocket();
-          }}
-        >
-          Add to groceries
-        </Button>
+        <div>
+          <Button
+            type="button"
+            style="transparent"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShoppingListRecipes(
+                getShoppingListRecipes().filter((a: any) => {
+                  return a.cookingDate === recipe.cookingDate ? null : a;
+                })
+              );
+              syncToSocket();
+            }}
+          >
+            x
+          </Button>
+        </div>
       </div>
+
+      <Button
+        type="button"
+        style="transparent"
+        onClick={(e) => {
+          e.stopPropagation();
+          setModalRecipeItem(recipe);
+          setRecipeIngredientsModalOpened(true);
+          // setShoppingListRecipes(
+          //   getShoppingListRecipes().filter((a: any) => {
+          //     return a.cookingDate === recipe.cookingDate ? null : a;
+          //   })
+          // );
+          // syncToSocket();
+        }}
+      >
+        Add to groceries
+      </Button>
     </div>
   );
 };

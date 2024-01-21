@@ -20,9 +20,13 @@ const Planning: FunctionComponent = ({}) => {
           if (!recipe) {
             return (
               <>
-                <div className="planning--item">
-                  No recipe planned on {object.date}
-                  <Button type="button" onClick={() => setContentSwitcher("recipes")}>
+                <div className="planning--card empty" onClick={() => setContentSwitcher("recipes")}>
+                  <div className="first-row">
+                    <div>
+                      <span>{object.date}</span>
+                    </div>
+                  </div>
+                  <Button type="button" style="secondary">
                     +
                   </Button>
                 </div>
