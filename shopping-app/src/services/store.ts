@@ -45,11 +45,6 @@ export function setModalShoppingItem(item: TypeShoppingItem | undefined) {
   }
 }
 
-export const $modalShoppingItemOpened = atom<boolean>(false);
-export function setModalShoppingItemOpened(bool: boolean) {
-  $modalShoppingItemOpened.set(bool);
-}
-
 // SHOPPING LIST
 export const $shoppingList = atom<TypeShoppingItem[]>([]);
 export function setShoppingList(shoppingList: TypeShoppingItem[]) {
@@ -67,16 +62,6 @@ export function getShoppingList(): TypeShoppingItem[] {
 export const $modalRecipeItem = atom<Recipe | undefined>(undefined);
 export function setModalRecipeItem(item: any) {
   $modalRecipeItem.set(item);
-}
-
-export const $modalRecipeItemOpened = atom<boolean>(false);
-export function setModalRecipeItemOpened(bool: boolean) {
-  $modalRecipeItemOpened.set(bool);
-}
-
-export const $recipeIngredientsModalOpened = atom<boolean>(false);
-export function setRecipeIngredientsModalOpened(bool: boolean) {
-  $recipeIngredientsModalOpened.set(bool);
 }
 
 export const $shoppingListRecipes = atom<Recipe[]>([]);
@@ -101,4 +86,20 @@ export function setSocket(socket: any) {
 export const $contentSwitcher = atom<"groceries" | "recipes" | "planning">("groceries");
 export function setContentSwitcher(content: "groceries" | "recipes" | "planning"): void {
   $contentSwitcher.set(content);
+}
+
+// MODAL BOOLEANS
+export const $groceryItemModalOpened = atom<boolean>(false);
+export function setGroceryItemModalOpened(bool: boolean) {
+  $groceryItemModalOpened.set(bool);
+}
+
+export const $ingredientsModalOpened = atom<boolean>(false);
+export function setIngredientsModalOpened(bool: boolean) {
+  $ingredientsModalOpened.set(bool);
+}
+
+export const $planningModalOpened = atom<boolean>(false);
+export function setPlanningModalOpened(bool: boolean) {
+  $planningModalOpened.set(bool);
 }

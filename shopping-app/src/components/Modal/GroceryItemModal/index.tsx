@@ -8,19 +8,19 @@ import {
   resetFormState,
   setFormState,
   $modalShoppingItem,
-  $modalShoppingItemOpened,
-  setModalShoppingItemOpened,
   setModalShoppingItem,
+  setGroceryItemModalOpened,
+  $groceryItemModalOpened,
 } from "../../../services/store";
 
 import SeasonalVeggieList from "../../SeasonalVeggieList";
 import Modal from "..";
 import Form from "./form";
 
-const CreateShoppingItemModal: FunctionalComponent = () => {
+const GroceryItemModal: FunctionalComponent = () => {
   const formState = useStore($formState);
   const editedShoppingItem = useStore($modalShoppingItem);
-  const modalShoppingItemOpened = useStore($modalShoppingItemOpened);
+  const groceryItemModalOpened = useStore($groceryItemModalOpened);
   const [createNewMode, setCreateNewMode] = useState(false);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const CreateShoppingItemModal: FunctionalComponent = () => {
     } else {
       setCreateNewMode(false);
     }
-  }, [modalShoppingItemOpened]);
+  }, [groceryItemModalOpened]);
 
   const onSubmit = (): void => {
     handleOnSubmit(editedShoppingItem);
@@ -53,7 +53,7 @@ const CreateShoppingItemModal: FunctionalComponent = () => {
   return (
     <Modal
       hasCloseBtn={true}
-      isOpen={modalShoppingItemOpened}
+      isOpen={groceryItemModalOpened}
       onClose={onClose}
       title={modalTitle(editedShoppingItem, formState)}
       onSubmit={onSubmit}
@@ -66,8 +66,8 @@ const CreateShoppingItemModal: FunctionalComponent = () => {
 };
 
 const onClose = () => {
-  setModalShoppingItemOpened(false);
+  setGroceryItemModalOpened(false);
   setModalShoppingItem(undefined);
 };
 
-export default CreateShoppingItemModal;
+export default GroceryItemModal;

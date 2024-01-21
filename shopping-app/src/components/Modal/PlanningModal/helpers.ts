@@ -1,9 +1,8 @@
 import { nanoid } from "nanoid";
 import type { TypeShoppingItem } from "../../../services/types.db";
-import type { StateUpdater } from "preact/hooks";
 import {
   $modalRecipeItem,
-  $modalRecipeItemOpened,
+  $planningModalOpened,
   $shoppingListRecipes,
   setShoppingListRecipes,
 } from "../../../services/store";
@@ -14,7 +13,7 @@ import { $shoppingList, setShoppingList } from "../../../services/store";
 
 export const mapRecipeIngredientsToShoppingItems = (
   modalRecipeItem: Recipe,
-  setRecipeItems: StateUpdater<TypeShoppingItem[]>,
+  // setRecipeItems: StateUpdater<TypeShoppingItem[]>,
   selectedNumberOfPersons: number
 ) => {
   if (modalRecipeItem.ingredients && modalRecipeItem.ingredients.length) {
@@ -28,30 +27,30 @@ export const mapRecipeIngredientsToShoppingItems = (
         updatedAt: new Date().toISOString(),
       };
     });
-    if (loc && loc.length) setRecipeItems(loc);
+    // if (loc && loc.length) setRecipeItems(loc);
   }
 };
 
 export const onSubmit = (recipeItems: TypeShoppingItem[]) => {
-  // const modalitems = $shoppingListRecipes.get();
-  // const id = $modalRecipeItem.get()?.id;
+  const modalitems = $shoppingListRecipes.get();
+  const id = $modalRecipeItem.get()?.id;
 
-  // if (modalitems && id) {
-  //   setShoppingListRecipes(
-  //     // @ts-ignore:next-line
-  //     deleteObjectWithIdFromArray(
-  //       modalitems.map((item) => {
-  //         return { ...item, id: `${item.id}` };
-  //       }),
-  //       id.toString()
-  //     )
-  //   );
-  // }
+  if (modalitems && id) {
+    setShoppingListRecipes(
+      // @ts-ignore:next-line
+      deleteObjectWithIdFromArray(
+        modalitems.map((item) => {
+          return { ...item, id: `${item.id}` };
+        }),
+        id.toString()
+      )
+    );
+  }
 
   addIngredientsFromRecipeToList(recipeItems);
 
   $modalRecipeItem.set(undefined);
-  $modalRecipeItemOpened.set(false);
+  $planningModalOpened.set(false);
 };
 
 export const onUpdate = (recipeItem: TypeShoppingItem, recipeItems: TypeShoppingItem[], setRecipeItems: any) => {

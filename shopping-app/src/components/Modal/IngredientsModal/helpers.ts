@@ -1,14 +1,8 @@
 import { nanoid } from "nanoid";
 import type { TypeShoppingItem } from "../../../services/types.db";
 import type { StateUpdater } from "preact/hooks";
-import {
-  $modalRecipeItem,
-  $modalRecipeItemOpened,
-  $shoppingListRecipes,
-  setShoppingListRecipes,
-} from "../../../services/store";
+import { $ingredientsModalOpened, $modalRecipeItem } from "../../../services/store";
 import updateArrayWithObjectById from "../../../helpers/updateArrayWithObjectById";
-import deleteObjectWithIdFromArray from "../../../helpers/deleteObjectWithIdFromArray";
 import { syncToSocket } from "../../../helpers/syncToSocket";
 import { $shoppingList, setShoppingList } from "../../../services/store";
 
@@ -33,25 +27,9 @@ export const mapRecipeIngredientsToShoppingItems = (
 };
 
 export const onSubmit = (recipeItems: TypeShoppingItem[]) => {
-  const modalitems = $shoppingListRecipes.get();
-  const id = $modalRecipeItem.get()?.id;
-
-  if (modalitems && id) {
-    setShoppingListRecipes(
-      // @ts-ignore:next-line
-      deleteObjectWithIdFromArray(
-        modalitems.map((item) => {
-          return { ...item, id: `${item.id}` };
-        }),
-        id.toString()
-      )
-    );
-  }
-
   addIngredientsFromRecipeToList(recipeItems);
-
   $modalRecipeItem.set(undefined);
-  $modalRecipeItemOpened.set(false);
+  $ingredientsModalOpened.set(false);
 };
 
 export const onUpdate = (recipeItem: TypeShoppingItem, recipeItems: TypeShoppingItem[], setRecipeItems: any) => {
@@ -90,4 +68,16 @@ export const addIngredientsFromRecipeToList = (shoppingItems: TypeShoppingItem[]
 
   setShoppingList(updatedList);
   syncToSocket();
+};
+
+export const resetForm = (setStep: any, setSelectedNumberOfPersons: any, setIngredientsModalOpened: any): void => {
+  setStep(1);
+  setSelectedNumberOfPersons(2);
+  setIngredientsModalOpened(false);
+};
+
+export const recipeTitle = (step: number, recipeName: string): string => {
+  if (step === 1) return "Do you want to plan this meal?";
+  if (step === 2) return "Select the ingredients you want to add to the list";
+  return recipeName;
 };

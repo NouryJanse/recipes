@@ -2,7 +2,7 @@ import type { FunctionComponent } from "preact";
 import useRecipesQuery from "./useRecipesQuery";
 import InputText from "../Form/InputText";
 import RecipeList from "./RecipeList";
-import { RecipeModal } from "..";
+import { IngredientsModal, PlanningModal } from "..";
 
 type RecipesProps = {
   serverRecipes: Recipe[];
@@ -17,7 +17,7 @@ const Recipes: FunctionComponent<RecipesProps> = ({ serverRecipes }) => {
   return (
     <>
       <div className="recipe--modal">
-        <RecipeModal />
+        <PlanningModal />
       </div>
       <div className="recipe--cards">
         <div>

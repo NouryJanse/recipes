@@ -2,13 +2,13 @@ import type { FunctionComponent } from "preact";
 import { useEffect } from "preact/hooks";
 
 // data
-import { $modalShoppingItem, setModalShoppingItemOpened } from "../../services/store";
+import { $modalShoppingItem, setGroceryItemModalOpened } from "../../services/store";
 import { useStore } from "@nanostores/preact";
 
 // UI
 import { useSocket } from "./useSocket";
 import { checkForExistingShoppingList } from "./helpers";
-import CreateShoppingItemModal from "../Modal/ShoppingItemModal";
+import CreateShoppingItemModal from "../Modal/GroceryItemModal";
 import { Button } from "..";
 import Items from "./Items";
 
@@ -26,9 +26,9 @@ const Groceries: FunctionComponent<GroceriesProps> = ({ dbShoppingList }) => {
 
   useEffect(() => {
     if (modalShoppingItem) {
-      setModalShoppingItemOpened(true);
+      setGroceryItemModalOpened(true);
     } else {
-      setModalShoppingItemOpened(false);
+      setGroceryItemModalOpened(false);
     }
   }, [modalShoppingItem]);
 
@@ -37,7 +37,7 @@ const Groceries: FunctionComponent<GroceriesProps> = ({ dbShoppingList }) => {
       <CreateShoppingItemModal />
       <div className="shopping--items-title-container">
         <ShoppingListHeader isConnected={isConnected} />
-        <Button type="button" style="secondary" onClick={() => setModalShoppingItemOpened(true)} label="Add" />
+        <Button type="button" style="secondary" onClick={() => setGroceryItemModalOpened(true)} label="Add" />
       </div>
       <Items />
     </div>

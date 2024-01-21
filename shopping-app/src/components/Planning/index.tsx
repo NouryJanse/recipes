@@ -3,14 +3,14 @@ import { getRecipePlanning } from "../../helpers/getRecipePlanning";
 import { $shoppingListRecipes, setContentSwitcher } from "../../services/store";
 import PlanningCard from "./PlanningCard";
 import { useStore } from "@nanostores/preact";
-import { Button, RecipeIngredientsModal } from "..";
+import { Button, IngredientsModal, PlanningModal } from "..";
 
 const Planning: FunctionComponent = ({}) => {
   const planningItems = useStore($shoppingListRecipes);
 
   return (
     <div className="planning">
-      <RecipeIngredientsModal />
+      <IngredientsModal />
       <h2>Your planning</h2>
       <div className="grid">
         {getRecipePlanning().map((object) => {

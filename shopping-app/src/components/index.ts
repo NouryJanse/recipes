@@ -4,9 +4,9 @@ export { default as Footer } from "./Footer";
 export { default as Groceries } from "./Groceries";
 
 export { default as Modal } from "./Modal";
-export { default as RecipeIngredientsModal } from "./Modal/RecipeIngredientsModal";
-export { default as RecipeModal } from "./Modal/RecipeModal";
-export { default as ShoppingItemModal } from "./Modal/ShoppingItemModal";
+export { default as GroceryItemModal } from "./Modal/GroceryItemModal";
+export { default as IngredientsModal } from "./Modal/IngredientsModal";
+export { default as PlanningModal } from "./Modal/PlanningModal";
 
 export { default as Planning } from "./Planning";
 export { default as Recipe } from "./Recipe";

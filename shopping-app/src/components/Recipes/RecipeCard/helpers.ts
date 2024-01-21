@@ -1,5 +1,5 @@
 import type { StateUpdater } from "preact/hooks";
-import { setModalRecipeItem, setModalRecipeItemOpened } from "../../../services/store";
+import { setIngredientsModalOpened, setModalRecipeItem, setPlanningModalOpened } from "../../../services/store";
 
 export const retrieveMainImage = (recipe: Recipe, setMainImage: StateUpdater<string>) => {
   if (recipe?.images?.length) {
@@ -21,7 +21,7 @@ export const getStyle = (mainImage: string, isHovering: boolean) => {
 export const handleOnAdd = (e: MouseEvent, recipe: Recipe) => {
   e.stopPropagation();
   setModalRecipeItem(recipe);
-  setModalRecipeItemOpened(true);
+  setPlanningModalOpened(true);
   // const shoppingListRecipes = getShoppingListRecipes();
   // const contains = shoppingListRecipes.find((listRecipe: Recipe) => listRecipe.id === recipe.id);
   // if (!contains) {

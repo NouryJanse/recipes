@@ -2,8 +2,8 @@ import type { FunctionComponent } from "preact";
 
 import {
   $shoppingListRecipes,
+  setGroceryItemModalOpened,
   setModalRecipeItem,
-  setModalRecipeItemOpened,
   setShoppingListRecipes,
 } from "../../../../services/store";
 
@@ -29,7 +29,7 @@ const ShoppingItemRecipe: FunctionComponent<ShoppingItemRecipeProps> = ({ recipe
           style="primary"
           children="Add ingredients"
           onClick={() => {
-            setModalRecipeItemOpened(true);
+            setGroceryItemModalOpened(true);
             setModalRecipeItem(recipe);
           }}
         />

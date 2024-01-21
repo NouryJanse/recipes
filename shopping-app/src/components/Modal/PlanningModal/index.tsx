@@ -1,51 +1,35 @@
 import type { FunctionalComponent } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import { useStore } from "@nanostores/preact";
 
-import { mapRecipeIngredientsToShoppingItems, onSubmit, onUpdate } from "./helpers";
-import options from "./options";
 import {
   $modalRecipeItem,
-  $modalRecipeItemOpened,
+  $planningModalOpened,
   getShoppingListRecipes,
   setContentSwitcher,
-  setModalRecipeItemOpened,
+  setPlanningModalOpened,
   setShoppingListRecipes,
 } from "../../../services/store";
-import type { TypeShoppingItem } from "../../../services/types.db";
 import Modal from "..";
-import { Button, RecipeItem, Select } from "../..";
-import { getRecipePlanning } from "../../../helpers/getRecipePlanning";
+import { Button, Select } from "../..";
 import { syncToSocket } from "../../../helpers/syncToSocket";
+import { getRecipePlanning } from "../../../helpers/getRecipePlanning";
 
-const RecipeModal: FunctionalComponent = ({}) => {
-  const modalRecipeItemOpened: boolean = useStore($modalRecipeItemOpened);
+const PlanningModal: FunctionalComponent = ({}) => {
+  const planningModalOpened: boolean = useStore($planningModalOpened);
   const modalRecipeItem: Recipe | undefined = useStore($modalRecipeItem);
-  const [recipeItems, setRecipeItems] = useState<TypeShoppingItem[]>([]);
-
-  const [selectedNumberOfPersons, setSelectedNumberOfPersons] = useState(0);
   const [cookingDate, setCookingDate] = useState("");
 
   if (!modalRecipeItem) return <></>;
 
-  useEffect(() => {
-    // set initial and changed values for number of persons
-    setSelectedNumberOfPersons(modalRecipeItem.numberOfPersons);
-  }, [modalRecipeItem]);
-
-  useEffect(() => {
-    // set ingredients when modal recipe item is available, also recalculate when number of persons is changed
-    mapRecipeIngredientsToShoppingItems(modalRecipeItem, setRecipeItems, selectedNumberOfPersons);
-  }, [modalRecipeItem, selectedNumberOfPersons]);
-
   return (
     <Modal
-      isOpen={modalRecipeItemOpened}
+      isOpen={planningModalOpened}
       hasCloseBtn={true}
       title={`Plan ${modalRecipeItem.name}`}
       onClose={() => {
         setCookingDate("");
-        setModalRecipeItemOpened(false);
+        setPlanningModalOpened(false);
       }}
     >
       <div className="modal--recipe">
@@ -72,7 +56,7 @@ const RecipeModal: FunctionalComponent = ({}) => {
           style="primary"
           onClick={() => {
             if (cookingDate) saveRecipeToPlanning(cookingDate, modalRecipeItem);
-            setModalRecipeItemOpened(false);
+            setPlanningModalOpened(false);
             setContentSwitcher("planning");
           }}
         />
@@ -85,12 +69,12 @@ const resetForm = (
   setStep: any,
   setSelectedNumberOfPersons: any,
   setCookingDate: any,
-  setModalRecipeItemOpened: any
+  setGroceryItemModalOpened: any
 ): void => {
   setStep(1);
   setSelectedNumberOfPersons(2);
   setCookingDate("");
-  setModalRecipeItemOpened(false);
+  setGroceryItemModalOpened(false);
 };
 
 const saveRecipeToPlanning = (cookingDate: string, recipe: any) => {
@@ -105,4 +89,4 @@ const saveRecipeToPlanning = (cookingDate: string, recipe: any) => {
   }
 };
 
-export default RecipeModal;
+export default PlanningModal;

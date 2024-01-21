@@ -38,7 +38,7 @@ const RecipeCard: FunctionComponent<RecipeCardProps> = ({ recipe }) => {
           style="transparent"
           classes="add-button"
           onClick={(e) => handleOnAdd(e, recipe)}
-          label="Add"
+          label="Plan"
         />
       </div>
     </div>
