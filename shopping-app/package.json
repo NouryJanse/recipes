@@ -1,6 +1,7 @@
 {
-  "name": "client",
+  "name": "shopping-app",
   "type": "module",
+  "license": "UNLICENSED",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
@@ -10,30 +11,31 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.3.1",
-    "@astrojs/node": "^7.0.4",
-    "@astrojs/preact": "^3.0.1",
-    "@nanostores/preact": "^0.5.0",
+    "@astrojs/check": "^0.8.1",
+    "@astrojs/node": "^8.3.2",
+    "@astrojs/preact": "^3.5.0",
+    "@nanostores/preact": "^0.5.1",
     "@types/bcryptjs": "^2.4.6",
-    "@types/jsonwebtoken": "^9.0.5",
+    "@types/jsonwebtoken": "^9.0.6",
     "bcryptjs": "^2.4.3",
     "csrf": "^3.1.0",
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.3.0",
-    "mongoose": "^8.0.3",
-    "nanoid": "^5.0.4",
-    "nanostores": "^0.9.5",
-    "preact": "^10.19.3",
-    "socket.io-client": "^4.7.2",
-    "wouter": "^2.12.1"
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.0",
+    "nanoid": "^5.0.7",
+    "nanostores": "^0.10.3",
+    "preact": "^10.22.1",
+    "socket.io-client": "^4.7.5",
+    "wouter": "^3.3.1"
   },
   "devDependencies": {
     "@nouryjanse/recipe-types": "^1.0.3",
-    "astro": "^4.0.3",
-    "prettier": "^3.1.1",
-    "prettier-plugin-astro": "^0.12.2",
-    "sass": "^1.69.5",
-    "typescript": "^5.3.3"
-  }
+    "astro": "^4.11.5",
+    "prettier": "^3.3.2",
+    "prettier-plugin-astro": "^0.14.0",
+    "sass": "^1.77.8",
+    "typescript": "^5.5.3"
+  },
+  "packageManager": "yarn@4.3.1"
 }

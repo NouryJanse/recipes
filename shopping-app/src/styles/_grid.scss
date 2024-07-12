@@ -256,10 +256,6 @@
 }
 
 @media only screen and (min-width: 48em) {
-  // .container {
-  //   width: 49rem;
-  // }
-
   .col-sm,
   .col-sm-1,
   .col-sm-2,
@@ -487,10 +483,6 @@
 }
 
 @media only screen and (min-width: 64em) {
-  // .container {
-  //   width: 65rem;
-  // }
-
   .col-md,
   .col-md-1,
   .col-md-2,
@@ -718,10 +710,6 @@
 }
 
 @media only screen and (min-width: 75em) {
-  // .container {
-  //   width: 76rem;
-  // }
-
   .col-lg,
   .col-lg-1,
   .col-lg-2,
@@ -947,25 +935,3 @@
     order: 1;
   }
 }
-
-// .row {
-//   display: flex;
-//   flex-wrap: wrap;
-// }
-// .row div {
-//   flex: 1 1 160px;
-// }
-
-// .cardAnimation {
-//   animation-name: cardAni;
-//   animation-duration: 750ms;
-// }
-
-// @keyframes cardAni {
-//   from {
-//     transform: translateY(12px);
-//   }
-//   to {
-//     transform: translateY(0px);
-//   }
-// }
