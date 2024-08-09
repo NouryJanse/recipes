@@ -100,11 +100,6 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, withEditButton, withRem
   )
 }
 
-RecipeCard.defaultProps = {
-  withEditButton: false,
-  withRemovalButton: false,
-}
-
 const showNewLabel = (recipe): boolean => {
   if (recipe.createdAt && getDifferenceInFormat(recipe.createdAt, 'd') < 7) return true
   return false

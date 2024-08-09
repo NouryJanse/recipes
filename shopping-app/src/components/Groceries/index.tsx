@@ -18,7 +18,8 @@ type GroceriesProps = {
 
 const Groceries: FunctionComponent<GroceriesProps> = ({ dbShoppingList }) => {
   const modalShoppingItem = useStore($modalShoppingItem);
-  const { isConnected } = useSocket();
+  // const { isConnected } = useSocket();
+  const isConnected = false;
 
   useEffect(() => {
     checkForExistingShoppingList(dbShoppingList);

@@ -9,10 +9,6 @@ const Icon: React.FC<IconProps> = ({ iconElement, classes }): ReactElement => {
   return <StyledIcon className={classes}>{iconElement}</StyledIcon>
 }
 
-Icon.defaultProps = {
-  classes: '',
-}
-
 import styled from 'styled-components'
 
 const StyledIcon = styled.div`

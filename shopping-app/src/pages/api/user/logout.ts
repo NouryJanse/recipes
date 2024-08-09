@@ -2,10 +2,15 @@ import type { APIRoute } from "astro";
 
 // auth.js
 export const POST: APIRoute = async ({ cookies, redirect }) => {
-  cookies.set("jwt", "", {
-    path: "/",
-    maxAge: 1,
-  });
+  try {
+    cookies.set("jwt", "", {
+      path: "/",
+      maxAge: 1,
+    });
 
-  return redirect("/user/login");
+    return redirect("/user/login");
+  } catch (error) {
+    console.error(error);
+    return redirect("/user/login");
+  }
 };

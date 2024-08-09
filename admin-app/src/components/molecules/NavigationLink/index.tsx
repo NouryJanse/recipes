@@ -47,9 +47,4 @@ const NavigationLink: React.FC<NavigationLinkProps> = ({
   )
 }
 
-NavigationLink.defaultProps = {
-  unread: 0,
-  additionalClasses: '',
-}
-
 export default NavigationLink

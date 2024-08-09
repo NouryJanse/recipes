@@ -1,7 +1,7 @@
 const fetchURL = async (url: string) => {
-  return await fetch(url, {
-    method: "GET",
-  });
-};
+    return await fetch(url, {
+        method: 'GET',
+    })
+}
 
-export default fetchURL;
+export default fetchURL

@@ -96,8 +96,4 @@ const Textfield: React.FC<TextFieldProps> = ({
   )
 }
 
-Textfield.defaultProps = {
-  defaultValue: '',
-}
-
 export default Textfield

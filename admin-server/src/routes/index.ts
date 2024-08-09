@@ -19,21 +19,21 @@ import deleteUser from './users/delete'
 import validateToken from './users/validateToken'
 
 let apiRouter = Router().use('/', [
-  createRecipe,
-  createRecipeImage,
-  deleteRecipeImage, // this order is important, for execution of the routes (first image then recipe deletion)
-  deleteRecipe,
-  getRecipe,
-  getRecipes,
-  getRecipesFilter,
-  updateRecipe,
-  ingredientRouter,
-  registerUser,
-  loginUser,
-  logoutUser,
-  updateUser,
-  deleteUser,
-  validateToken,
+    createRecipe,
+    createRecipeImage,
+    deleteRecipeImage, // this order is important, for execution of the routes (first image then recipe deletion)
+    deleteRecipe,
+    getRecipe,
+    getRecipes,
+    getRecipesFilter,
+    updateRecipe,
+    ingredientRouter,
+    registerUser,
+    loginUser,
+    logoutUser,
+    updateUser,
+    deleteUser,
+    validateToken,
 ])
 
 export default apiRouter

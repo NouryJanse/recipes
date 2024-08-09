@@ -49,17 +49,4 @@ const Button: React.FC<ButtonProps> = ({
   )
 }
 
-Button.defaultProps = {
-  onClick: (): boolean => {
-    return true
-  },
-  disabled: false,
-  label: '',
-  classes: '',
-  children: undefined,
-  buttonStyle: 'primary',
-  noedge: false,
-  fullwidth: false,
-}
-
 export default Button

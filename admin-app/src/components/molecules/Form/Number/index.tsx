@@ -78,8 +78,4 @@ const Number: React.FC<NumberProps> = ({
   )
 }
 
-Number.defaultProps = {
-  defaultValue: 0,
-}
-
 export default Number

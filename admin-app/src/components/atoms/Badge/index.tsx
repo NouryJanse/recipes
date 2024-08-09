@@ -9,8 +9,4 @@ const Badge: React.FC<BadgeProps> = ({ text, classes }): ReactElement => {
   return <div className={`${classes} rounded-full bg-blue px-3 py-1 text-white`}>{text}</div>
 }
 
-Badge.defaultProps = {
-  classes: '',
-}
-
 export default Badge

@@ -39,8 +39,4 @@ const TextArea: React.FC<TextAreaProps> = ({
   )
 }
 
-TextArea.defaultProps = {
-  defaultValue: '',
-}
-
 export default TextArea

@@ -37,11 +37,4 @@ const ImageComponent: React.FC<ImageComponentProps> = ({ src, alt, width, height
   )
 }
 
-ImageComponent.defaultProps = {
-  width: undefined,
-  height: undefined,
-  // rounded: false,
-  classes: '',
-}
-
 export default ImageComponent
