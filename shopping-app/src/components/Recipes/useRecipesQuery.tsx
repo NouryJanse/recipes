@@ -11,7 +11,7 @@ const useRecipesQuery = (serverRecipes: Recipe[]) => {
     const hasRendered = useRef(false)
 
     useEffect(() => {
-        //@TODO ADD A LITTLE DEBOUNCE!!
+        // TODO: add debounce
         triggerFetch()
     }, [recipeFilter])
 
