@@ -1,11 +1,11 @@
 export default interface RecipeState {
-  data: { recipes: Recipe[] }
-  status: {
-    getRecipe?: string
-    getRecipes?: string
-    createRecipe?: string
-    updateRecipe?: string
-    deleteRecipe?: string
-  }
-  error?: object
+    data: { recipes: Recipe[] }
+    status: {
+        getRecipe?: string
+        getRecipes?: string
+        createRecipe?: string
+        updateRecipe?: string
+        deleteRecipe?: string
+    }
+    error?: object
 }

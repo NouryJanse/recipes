@@ -1,5 +1,5 @@
 export default interface UserState {
-  data: {
-    user: User
-  }
+    data: {
+        user: User
+    }
 }

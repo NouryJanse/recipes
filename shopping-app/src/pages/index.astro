@@ -1,37 +1,35 @@
 ---
-export const prerender = false;
+export const prerender = false
 
-import { fetchShoppingList } from "../services/api/fetchShoppingList";
-import { fetchRecipes } from "../services/api/fetchRecipes";
-import { fetchUser } from "../services/api/fetchUser";
+import { fetchShoppingList } from '../services/api/fetchShoppingList'
+import { fetchRecipes } from '../services/api/fetchRecipes'
+import { fetchUser } from '../services/api/fetchUser'
 
-import Layout from "../layouts/Layout.astro";
-import Header from "../layouts/Header.astro";
-import { setUser } from "../services/store";
-import { App, Content } from "../components";
+import Layout from '../layouts/Layout.astro'
+import Header from '../layouts/Header.astro'
+import { setUser } from '../services/store'
+import { App, Content } from '../components'
 
-let recipes = [];
-recipes = await fetchRecipes("");
+let recipes = []
+recipes = await fetchRecipes('')
 
-const user = await fetchUser(Astro.cookies.get("jwt"));
+const user = await fetchUser(Astro.cookies.get('jwt'))
 if (user) {
-  setUser(user);
+    setUser(user)
 }
 
-let dbShoppingList;
+let dbShoppingList
 if (user) {
-  dbShoppingList = await fetchShoppingList();
+    dbShoppingList = await fetchShoppingList()
 } else {
-  return Astro.redirect("/user/login");
+    return Astro.redirect('/user/login')
 }
 ---
 
 <Layout title="Your Shopping List.">
-  <App client:load user={user} />
-
-  <Header />
-
-  <div class="container pagea--groceries">
-    <Content client:only dbShoppingList={dbShoppingList} recipes={recipes} />
-  </div>
+    <App client:load user={user} />
+    <Header />
+    <div class="container">
+        <Content client:only dbShoppingList={dbShoppingList} recipes={recipes} />
+    </div>
 </Layout>

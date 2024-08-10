@@ -1,19 +1,19 @@
-import type { FunctionComponent } from "preact";
-import type { User } from "../../services/types.db";
-import { setUser } from "../../services/store";
-import { useEffect } from "preact/hooks";
+import type { FunctionComponent } from 'preact'
+import type { User } from '../../services/types.db'
+import { setUser } from '../../services/store'
+import { useEffect } from 'preact/hooks'
 
 type AppProps = {
-  user: User;
-};
+    user: User
+}
 
 const App: FunctionComponent<AppProps> = ({ user }) => {
-  useEffect(() => {
-    if (user) {
-      setUser(user);
-    }
-  }, [user]);
-  return <></>;
-};
+    useEffect(() => {
+        if (user) {
+            setUser(user)
+        }
+    }, [user])
+    return <></>
+}
 
-export default App;
+export default App

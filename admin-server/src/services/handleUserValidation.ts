@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import validateJwt from './validateJwt'
 import { HTTP_CODES } from '../constants'
+import { TokenExpiredError } from 'jsonwebtoken'
 
 const handleUserAuthentication = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -23,6 +24,9 @@ const handleUserAuthentication = async (req: Request, res: Response, next: NextF
         }
         res.status(HTTP_CODES.FORBIDDEN).send()
     } catch (error) {
+        if (error instanceof TokenExpiredError) {
+            console.error('dit is een token expired error', error)
+        }
         console.error(error)
         res.status(HTTP_CODES.FORBIDDEN).send()
     }

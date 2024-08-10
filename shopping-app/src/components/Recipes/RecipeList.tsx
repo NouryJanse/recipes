@@ -1,22 +1,29 @@
-import type { FunctionalComponent } from "preact";
-import RecipeCard from "./RecipeCard";
+import type { FunctionalComponent } from 'preact'
+import RecipeCard from './RecipeCard'
 
 type RecipeListProps = {
-  actualRecipes: Recipe[];
-};
+    actualRecipes: Recipe[]
+    isLoading: boolean
+}
 
-const RecipeList: FunctionalComponent<RecipeListProps> = ({ actualRecipes }) => {
-  return (
-    <div className="grid">
-      {actualRecipes && actualRecipes.length > 0 ? (
-        actualRecipes.slice(0, 12).map((recipe: any) => {
-          return <RecipeCard recipe={recipe} withEditButton={false} withRemovalButton={false} />;
-        })
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
-  );
-};
+const RecipeList: FunctionalComponent<RecipeListProps> = ({ actualRecipes, isLoading }) => {
+    return (
+        <div className="grid">
+            {actualRecipes && !isLoading ? (
+                actualRecipes.slice(0, 12).map((recipe: any) => {
+                    return (
+                        <RecipeCard
+                            recipe={recipe}
+                            withEditButton={false}
+                            withRemovalButton={false}
+                        />
+                    )
+                })
+            ) : (
+                <p>Loading...</p>
+            )}
+        </div>
+    )
+}
 
-export default RecipeList;
+export default RecipeList

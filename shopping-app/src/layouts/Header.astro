@@ -1,24 +1,24 @@
 ---
-import Button from "../components/Form/Button";
+import Button from '../components/Form/Button'
 
-import verifyJWT from "../services/verifyjwt";
-const jwtCookie = Astro.cookies.get("jwt");
-const jwt = jwtCookie?.value ? jwtCookie.value : "";
-const user: any = verifyJWT(jwt);
+import verifyJWT from '../services/verifyjwt'
+const jwtCookie = Astro.cookies.get('jwt')
+const jwt = jwtCookie?.value ? jwtCookie.value : ''
+const user: any = verifyJWT(jwt)
 ---
 
 <header>
-  <h1>My Groceries.<sup>alpha version</sup></h1>
+    <h1>My Groceries.<sup>alpha version</sup></h1>
 
-  {
-    user && (
-      <form action="/api/user/logout" method="POST">
-        <p>{user ? `Hello ${user.username}` : "You are not logged in."}</p>
+    {
+        user && (
+            <form action="/api/user/logout" method="POST">
+                <p>{user ? `Hello ${user.username}` : 'You are not logged in.'}</p>
 
-        <Button type="submit" style="tertiary">
-          Sign out
-        </Button>
-      </form>
-    )
-  }
+                <Button type="submit" style="tertiary">
+                    Sign out
+                </Button>
+            </form>
+        )
+    }
 </header>
