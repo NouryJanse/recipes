@@ -1,8 +1,7 @@
 {
   "name": "shopping-app",
-  "type": "module",
-  "license": "UNLICENSED",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -37,6 +36,5 @@
     "prettier-plugin-astro": "^0.14.0",
     "sass": "^1.77.8",
     "typescript": "^5.5.3"
-  },
-  "packageManager": "yarn@4.3.1"
+  }
 }
