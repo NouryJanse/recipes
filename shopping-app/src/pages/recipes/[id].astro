@@ -1,48 +1,48 @@
 ---
-import { Recipe } from "../../components";
-import Layout from "../../layouts/Layout.astro";
+import { Recipe } from '../../components'
+import Layout from '../../layouts/Layout.astro'
 
 interface Props {
-  recipes: { id: string }[];
+    recipes: { id: string }[]
 }
 
-export const prerender = true;
+export const prerender = true
 
 export const getRecipes = async () => {
-  const RECIPES_API_URL = import.meta.env.PUBLIC_RECIPES_API_URL;
-  const recipesJSON = await fetch(`${RECIPES_API_URL}/api/recipes`);
-  if (recipesJSON.status === 200) {
-    return recipesJSON.json();
-  }
-  return false;
-};
-
-export async function getStaticPaths() {
-  const recipes = await getRecipes();
-  if (recipes) {
-    return recipes.map((recipe: any) => {
-      return {
-        params: { id: recipe.id },
-        props: { recipes },
-      };
-    });
-  }
-  return [];
+    const RECIPES_API_URL = import.meta.env.PUBLIC_RECIPES_API_URL
+    const recipesJSON = await fetch(`${RECIPES_API_URL}/api/recipes`)
+    if (recipesJSON.status === 200) {
+        return recipesJSON.json()
+    }
+    return false
 }
 
-const { id } = Astro.params;
-const { recipes } = Astro.props;
+export async function getStaticPaths() {
+    const recipes = await getRecipes()
+    if (recipes) {
+        return recipes.map((recipe: any) => {
+            return {
+                params: { id: recipe.id },
+                props: { recipes },
+            }
+        })
+    }
+    return []
+}
 
-let currentRecipe;
+const { id } = Astro.params
+const { recipes } = Astro.props
+
+let currentRecipe
 if (recipes) {
-  currentRecipe = recipes.find((recipe) => recipe.id == id);
+    currentRecipe = recipes.find((recipe) => recipe.id == id)
 }
 ---
 
 {
-  currentRecipe && currentRecipe.id && (
-    <Layout title={currentRecipe.name}>
-      <Recipe recipe={currentRecipe} />
-    </Layout>
-  )
+    currentRecipe && currentRecipe.id && (
+        <Layout title={currentRecipe.name}>
+            <Recipe recipe={currentRecipe} />
+        </Layout>
+    )
 }

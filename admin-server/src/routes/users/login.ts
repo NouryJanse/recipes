@@ -30,7 +30,7 @@ router.post('/api/users/login', async (req, res) => {
             }
             return res.status(500).send({ message: 'An error occurred.' })
         }
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('error', error)
         return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({ error })
     }

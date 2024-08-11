@@ -8,18 +8,18 @@ import jwt from 'jsonwebtoken'
 const router = express.Router()
 
 router.post('/api/users/validate', handleUserAuthentication, async (req, res) => {
-  try {
-    const { authorization: token } = req.headers
-    if (token) {
-      await connectToDB()
-      const { username } = <jwt.JwtPayload>jwt.decode(token.replace('Bearer ', ''))
-      const { id, role } = await User.findOne({ username })
-      return res.status(200).send({ authenticated: true, id, username, role })
+    try {
+        const { authorization: token } = req.headers
+        if (token) {
+            await connectToDB()
+            const { username } = <jwt.JwtPayload>jwt.decode(token.replace('Bearer ', ''))
+            const { id, role } = await User.findOne({ username })
+            return res.status(200).send({ authenticated: true, id, username, role })
+        }
+    } catch (error: unknown) {
+        console.error(error)
+        return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({ authenticated: false })
     }
-  } catch (error: any) {
-    console.error(error)
-    return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send({ authenticated: false })
-  }
 })
 
 export default router
