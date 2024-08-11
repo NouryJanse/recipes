@@ -8,12 +8,12 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 400;
     }
 
-    *, 
-    *:before, 
+    *,
+    *:before,
     *:after {
         box-sizing: inherit;
     }
-    
+
     body {
         margin: 0;
         padding: 0;
@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
         display: block;
         text-decoration: none;
     }
-    
+
     p {
         font-family: 'opensans';
         font-weight: 400;
@@ -35,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
     nav {
         width: 60px;
         transition: 0.3s;
-        
+
         @media screen and (min-width: 600px) {
             min-height: 100vh;
         }
@@ -83,7 +83,7 @@ const GlobalStyle = createGlobalStyle`
     @keyframes cardAni {
         from {transform: translateY(12px)}
         to {transform: translateY(0px)}
-    }   
+    }
 
     .react-switch-checkbox:checked + .react-switch-label .react-switch-button {
         transform: translateX(51px);
@@ -91,6 +91,6 @@ const GlobalStyle = createGlobalStyle`
 
     .react-switch-label:active .react-switch-button {
         width: 31px;
-    }    
+    }
 `
 export default GlobalStyle

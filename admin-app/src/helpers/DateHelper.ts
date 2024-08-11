@@ -16,49 +16,49 @@ const shortFormat = 'HH:mm:ss'
 dayjs.tz.setDefault(currentTimeZone)
 
 export const getDateTime = (): string => {
-  return dayjs().tz().format(longFormat)
+    return dayjs().tz().format(longFormat)
 }
 
 export const formatDateTime = (date: string): string => {
-  if (date) {
-    return dayjs.tz(date, currentTimeZone).format(longFormat)
-  }
-  return ''
+    if (date) {
+        return dayjs.tz(date, currentTimeZone).format(longFormat)
+    }
+    return ''
 }
 
 export const formatNLDateTime = (date: string): string => {
-  if (date) {
-    return dayjs(date).tz(currentTimeZone).format(nlFormat)
-  }
-  return ''
+    if (date) {
+        return dayjs(date).tz(currentTimeZone).format(nlFormat)
+    }
+    return ''
 }
 
 export const formatUTCDateTime = (date: Date): string => {
-  if (date) {
-    return dayjs(date).tz(currentTimeZone).format(longFormat)
-  }
-  return ''
+    if (date) {
+        return dayjs(date).tz(currentTimeZone).format(longFormat)
+    }
+    return ''
 }
 
 export const getTime = (): string => {
-  dayjs.tz.setDefault(currentTimeZone)
-  return dayjs().tz().format(shortFormat)
+    dayjs.tz.setDefault(currentTimeZone)
+    return dayjs().tz().format(shortFormat)
 }
 
 export const getTodayMinusDays = (days: number): string => {
-  if (days) {
-    return dayjs.tz('').endOf('day').subtract(days, 'days').format(longFormat)
-  }
-  return ''
+    if (days) {
+        return dayjs.tz('').endOf('day').subtract(days, 'days').format(longFormat)
+    }
+    return ''
 }
 
 export const getDifferenceInText = (date: string): string => {
-  return dayjs(date).fromNow(true)
+    return dayjs(date).fromNow(true)
 }
 
 export const getDifferenceInFormat = (
-  date: string,
-  format: 'ms' | 's' | 'm' | 'h' | 'd' | 'w' | 'M', // ... Q, y
+    date: string,
+    format: 'ms' | 's' | 'm' | 'h' | 'd' | 'w' | 'M', // ... Q, y
 ): number => {
-  return dayjs().diff(date, format, true)
+    return dayjs().diff(date, format, true)
 }

@@ -7,15 +7,15 @@
 html,
 body,
 #root {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .appFadeIn {
-  opacity: 0;
-  transition: opacity 750ms ease-in-out;
+    opacity: 0;
+    transition: opacity 750ms ease-in-out;
 
-  &.reveal {
-    opacity: 1;
-  }
+    &.reveal {
+        opacity: 1;
+    }
 }

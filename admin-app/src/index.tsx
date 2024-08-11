@@ -11,14 +11,14 @@ import Auth from './Auth'
 
 const container = document.getElementById('root')
 if (container) {
-  const root = createRoot(container!)
-  root.render(
-    <Provider store={store}>
-      <BrowserRouter>
-        <GlobalStyle />
-        <Fonts />
-        <Auth />
-      </BrowserRouter>
-    </Provider>,
-  )
+    const root = createRoot(container!)
+    root.render(
+        <Provider store={store}>
+            <BrowserRouter>
+                <GlobalStyle />
+                <Fonts />
+                <Auth />
+            </BrowserRouter>
+        </Provider>,
+    )
 }

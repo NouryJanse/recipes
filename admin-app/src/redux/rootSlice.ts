@@ -7,11 +7,11 @@ import { ingredientsAPI } from './reducers/ingredients/ingredients'
 import { usersAPI } from './reducers/users/users'
 
 const rootReducer = combineReducers({
-  [recipesAPI.reducerPath]: recipesAPI.reducer,
-  [ingredientsAPI.reducerPath]: ingredientsAPI.reducer,
-  [usersAPI.reducerPath]: usersAPI.reducer,
-  applicationSlice,
-  userSlice,
+    [recipesAPI.reducerPath]: recipesAPI.reducer,
+    [ingredientsAPI.reducerPath]: ingredientsAPI.reducer,
+    [usersAPI.reducerPath]: usersAPI.reducer,
+    applicationSlice,
+    userSlice,
 })
 
 export default rootReducer

@@ -15,7 +15,6 @@
             "img_url": "",
             "kitchen": "",
             "course": ""
-            
         },
         {
             "id": "jadsgih",
@@ -23,7 +22,7 @@
             "description": "",
             "img_url": "",
             "kitchen": "",
-            "course": ""            
+            "course": ""
         }
     ]
 }

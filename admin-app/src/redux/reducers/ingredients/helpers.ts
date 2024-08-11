@@ -1,12 +1,12 @@
 // TODO: unit test
 
 const replaceIngredientWithIdInArrayWithIngredients = (
-  ingredients: Ingredient[],
-  updatedIngredient: Ingredient,
+    ingredients: Ingredient[],
+    updatedIngredient: Ingredient,
 ): Ingredient[] => {
-  return ingredients.map((ingredient: Ingredient) => {
-    return ingredient.id === updatedIngredient.id ? updatedIngredient : ingredient
-  })
+    return ingredients.map((ingredient: Ingredient) => {
+        return ingredient.id === updatedIngredient.id ? updatedIngredient : ingredient
+    })
 }
 
 export default replaceIngredientWithIdInArrayWithIngredients

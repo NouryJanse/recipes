@@ -25,10 +25,12 @@ const handleUserAuthentication = async (req: Request, res: Response, next: NextF
         res.status(HTTP_CODES.FORBIDDEN).send()
     } catch (error) {
         if (error instanceof TokenExpiredError) {
-            console.error('dit is een token expired error', error)
+            res.status(HTTP_CODES.FORBIDDEN).send()
+            return
         }
         console.error(error)
         res.status(HTTP_CODES.FORBIDDEN).send()
+        return
     }
 }
 
