@@ -1,127 +1,126 @@
 button {
-  height: fit-content;
-  padding-top: var(--step--7);
-  padding-bottom: var(--step--7);
-  padding-left: var(--step--2);
-  padding-right: var(--step--2);
-  box-sizing: border-box;
-  margin: 0;
-  flex-shrink: 0;
-  color: white;
-  background-color: black;
-  border-radius: 80px;
-  border: 2px solid transparent;
-  outline: 0;
-  font-size: var(--step--1);
-
-  @include sm {
-    padding-top: var(--step--5);
-    padding-bottom: var(--step--5);
-    padding-left: var(--step-2);
-    padding-right: var(--step-2);
-
-    &.small {
-      padding-top: var(--step--8);
-      padding-bottom: var(--step--8);
-      padding-left: var(--step--1);
-      padding-right: var(--step--1);
-    }
-  }
-
-  @include xl {
-    font-size: var(--step--2);
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  @include fine {
-    &:hover {
-      cursor: pointer;
-      background-color: transparent;
-      border-color: transparent;
-      border: 2px solid black;
-      color: black;
-    }
-  }
-
-  @include md {
-    &:hover {
-      background-color: transparent;
-      color: black;
-      border-color: black;
-    }
-  }
-
-  // VARIANTS FROM HERE
-
-  &.secondary {
+    height: fit-content;
+    padding-top: var(--step--7);
+    padding-bottom: var(--step--7);
+    padding-left: var(--step--2);
+    padding-right: var(--step--2);
+    box-sizing: border-box;
+    margin: 0;
+    flex-shrink: 0;
+    color: white;
     background-color: black;
-    border-color: transparent;
-    border: 2px solid black;
-    color: white;
-    font-weight: 700;
-
-    @include fine {
-      &:hover {
-        color: black;
-        background-color: transparent;
-      }
-    }
-  }
-
-  &.primary {
-    background-color: var(--color-blue-3);
-    border-color: transparent;
-    color: white;
-
-    @include fine {
-      &:hover {
-        background-color: var(--color-blue-4);
-      }
-    }
-  }
-
-  &.tertiary {
-    background-color: var(--color-white);
-    border-color: black;
-    color: black;
-
-    @include fine {
-      &:hover {
-        color: white;
-        background-color: black;
-      }
-    }
-  }
-
-  &.transparent {
-    background-color: rgba($color: #fff, $alpha: 0.4);
-    border: 1px solid white;
-    color: white;
-    font-weight: 700;
-
-    padding-top: var(--step--4);
-    padding-bottom: var(--step--4);
-    padding-left: var(--step-1);
-    padding-right: var(--step-1);
+    border-radius: 80px;
+    border: 2px solid transparent;
+    outline: 0;
+    font-size: var(--step--1);
 
     @include sm {
-      padding-top: var(--step--7);
-      padding-bottom: var(--step--7);
-      padding-left: var(--step--3);
-      padding-right: var(--step--3);
+        padding-top: var(--step--5);
+        padding-bottom: var(--step--5);
+        padding-left: var(--step-2);
+        padding-right: var(--step-2);
+
+        &.small {
+            padding-top: var(--step--8);
+            padding-bottom: var(--step--8);
+            padding-left: var(--step--1);
+            padding-right: var(--step--1);
+        }
+    }
+
+    @include xl {
+        font-size: var(--step--2);
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
     }
 
     @include fine {
-      &:hover {
-        color: white;
-        background-color: black;
-        border-color: white;
-        border-width: 1px;
-      }
+        &:hover {
+            cursor: pointer;
+            background-color: transparent;
+            border-color: transparent;
+            border: 2px solid black;
+            color: black;
+        }
     }
-  }
+
+    @include md {
+        &:hover {
+            background-color: transparent;
+            color: black;
+            border-color: black;
+        }
+    }
+
+    // VARIANTS FROM HERE
+    &.secondary {
+        background-color: black;
+        border-color: transparent;
+        border: 2px solid black;
+        color: white;
+        font-weight: 700;
+
+        @include fine {
+            &:hover {
+                color: black;
+                background-color: transparent;
+            }
+        }
+    }
+
+    &.primary {
+        background-color: var(--color-blue-3);
+        border-color: transparent;
+        color: white;
+
+        @include fine {
+            &:hover {
+                background-color: var(--color-blue-4);
+            }
+        }
+    }
+
+    &.tertiary {
+        background-color: var(--color-white);
+        border-color: black;
+        color: black;
+
+        @include fine {
+            &:hover {
+                color: white;
+                background-color: black;
+            }
+        }
+    }
+
+    &.transparent {
+        background-color: rgba($color: #fff, $alpha: 0.4);
+        border: 1px solid white;
+        color: white;
+        font-weight: 700;
+
+        padding-top: var(--step--4);
+        padding-bottom: var(--step--4);
+        padding-left: var(--step-1);
+        padding-right: var(--step-1);
+
+        @include sm {
+            padding-top: var(--step--7);
+            padding-bottom: var(--step--7);
+            padding-left: var(--step--3);
+            padding-right: var(--step--3);
+        }
+
+        @include fine {
+            &:hover {
+                color: white;
+                background-color: black;
+                border-color: white;
+                border-width: 1px;
+            }
+        }
+    }
 }

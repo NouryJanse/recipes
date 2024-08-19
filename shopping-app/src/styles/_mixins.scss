@@ -1,68 +1,68 @@
 // Small devices
 @mixin sm {
-  @media (min-width: #{$screen-sm-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-sm-min}) {
+        @content;
+    }
 }
 
 // Medium devices
 @mixin md {
-  @media (min-width: #{$screen-md-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-md-min}) {
+        @content;
+    }
 }
 
 // Large devices
 @mixin lg {
-  @media (min-width: #{$screen-lg-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-lg-min}) {
+        @content;
+    }
 }
 
 // Extra large devices
 @mixin xl {
-  @media (min-width: #{$screen-xl-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-xl-min}) {
+        @content;
+    }
 }
 
 // Extra extra large devices
 @mixin xxl {
-  @media (min-width: #{$screen-xxl-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-xxl-min}) {
+        @content;
+    }
 }
 
 // Extra extra large devices
 @mixin xxxl {
-  @media (min-width: #{$screen-xxxl-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-xxxl-min}) {
+        @content;
+    }
 }
 
 // HD
 @mixin hd {
-  @media (min-width: #{$screen-hd-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-hd-min}) {
+        @content;
+    }
 }
 
 // 2K
 @mixin twok {
-  @media (min-width: #{$screen-2k-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-2k-min}) {
+        @content;
+    }
 }
 
 // 4K
 @mixin fourk {
-  @media (min-width: #{$screen-4k-min}) {
-    @content;
-  }
+    @media (min-width: #{$screen-4k-min}) {
+        @content;
+    }
 }
 
 @mixin fine {
-  @media screen and (pointer: fine) {
-    @content;
-  }
+    @media screen and (pointer: fine) {
+        @content;
+    }
 }

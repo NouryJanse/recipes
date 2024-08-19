@@ -1,61 +1,61 @@
 @keyframes highlight {
-  0% {
-    background: var(--color-orange-4);
-    color: var(--color-gray-1);
-  }
-  100% {
-    background: transparent;
-    color: black;
-  }
+    0% {
+        background: var(--color-orange-4);
+        color: var(--color-gray-1);
+    }
+    100% {
+        background: transparent;
+        color: black;
+    }
 }
 
 .shoppingItem {
-  display: flex;
-  margin-bottom: var(--step-0);
-  justify-content: space-between;
-  align-items: center;
-
-  div {
     display: flex;
+    margin-bottom: var(--step-0);
+    justify-content: space-between;
     align-items: center;
 
-    span {
-      padding: var(--step--6);
-      border-radius: 8px;
-    }
-  }
+    div {
+        display: flex;
+        align-items: center;
 
-  input[type="checkbox"],
-  .amount-unit,
-  button:nth-child(1) {
-    margin-right: var(--step--1);
-
-    @include lg {
-      margin-right: var(--step-0);
-    }
-  }
-
-  .highlight {
-    animation: highlight 3500ms;
-  }
-
-  .recipe-title {
-    border-bottom: 2px dashed var(--color-teal-3);
-    padding-bottom: var(--step--7);
-    font-weight: 500;
-  }
-
-  .amount-unit-ingredient {
-    display: flex;
-    flex-direction: row;
-    margin-right: var(--step-1);
-
-    @include lg {
-      margin-right: var(--step-2);
+        span {
+            padding: var(--step--6);
+            border-radius: 8px;
+        }
     }
 
-    div.amount-unit {
-      min-width: var(--step-5);
+    input[type='checkbox'],
+    .amount-unit,
+    button:nth-child(1) {
+        margin-right: var(--step--1);
+
+        @include lg {
+            margin-right: var(--step-0);
+        }
     }
-  }
+
+    .highlight {
+        animation: highlight 3500ms;
+    }
+
+    .recipe-title {
+        border-bottom: 2px dashed var(--color-teal-3);
+        padding-bottom: var(--step--7);
+        font-weight: 500;
+    }
+
+    .amount-unit-ingredient {
+        display: flex;
+        flex-direction: row;
+        margin-right: var(--step-1);
+
+        @include lg {
+            margin-right: var(--step-2);
+        }
+
+        div.amount-unit {
+            min-width: var(--step-5);
+        }
+    }
 }

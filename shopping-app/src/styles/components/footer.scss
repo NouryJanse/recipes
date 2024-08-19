@@ -1,14 +1,14 @@
 footer {
-  position: fixed;
-  bottom: 0;
-  height: 16vh;
-  width: 100%;
-  border-top: 1px solid var(--color-gray-2);
-  padding: var(--step-1);
+    position: fixed;
+    bottom: 0;
+    height: 16vh;
+    width: 100%;
+    border-top: 1px solid var(--color-gray-2);
+    padding: var(--step-1);
 
-  div {
-    a {
-      margin-right: var(--step-2);
+    div {
+        a {
+            margin-right: var(--step-2);
+        }
     }
-  }
 }

@@ -2,21 +2,21 @@
 // https://blog.logrocket.com/fluid-vs-responsive-typography-css-clamp/#creating-fluid-typography-scale
 
 :root {
-  --step--8: clamp(0.2038rem, 0.1926rem + 0.0559vw, 0.3356rem);
-  --step--7: clamp(0.2444rem, 0.2295rem + 0.0742vw, 0.4194rem);
-  --step--6: clamp(0.2931rem, 0.2735rem + 0.098vw, 0.5244rem);
-  --step--5: clamp(0.3519rem, 0.3261rem + 0.1287vw, 0.6556rem);
-  --step--4: clamp(0.4219rem, 0.3882rem + 0.1684vw, 0.8194rem);
-  --step--3: clamp(0.5063rem, 0.4624rem + 0.2193vw, 1.0238rem);
-  --step--2: clamp(0.6075rem, 0.5505rem + 0.285vw, 1.28rem);
-  --step--1: clamp(0.7294rem, 0.6556rem + 0.3689vw, 1.6rem);
-  --step-0: clamp(0.875rem, 0.7797rem + 0.4767vw, 2rem);
-  --step-1: clamp(1.05rem, 0.9271rem + 0.6144vw, 2.5rem);
-  --step-2: clamp(1.26rem, 1.1019rem + 0.7903vw, 3.125rem);
-  --step-3: clamp(1.5119rem, 1.309rem + 1.0146vw, 3.9063rem);
-  --step-4: clamp(1.8144rem, 1.5543rem + 1.3003vw, 4.8831rem);
-  --step-5: clamp(2.1775rem, 1.8448rem + 1.6637vw, 6.1038rem);
-  --step-6: clamp(2.6125rem, 2.1873rem + 2.1258vw, 7.6294rem);
-  --step-7: clamp(3.135rem, 2.5925rem + 2.7127vw, 9.5369rem);
-  --step-8: clamp(3.7625rem, 3.0711rem + 3.4568vw, 11.9206rem);
+    --step--8: clamp(0.2038rem, 0.1926rem + 0.0559vw, 0.3356rem);
+    --step--7: clamp(0.2444rem, 0.2295rem + 0.0742vw, 0.4194rem);
+    --step--6: clamp(0.2931rem, 0.2735rem + 0.098vw, 0.5244rem);
+    --step--5: clamp(0.3519rem, 0.3261rem + 0.1287vw, 0.6556rem);
+    --step--4: clamp(0.4219rem, 0.3882rem + 0.1684vw, 0.8194rem);
+    --step--3: clamp(0.5063rem, 0.4624rem + 0.2193vw, 1.0238rem);
+    --step--2: clamp(0.6075rem, 0.5505rem + 0.285vw, 1.28rem);
+    --step--1: clamp(0.7294rem, 0.6556rem + 0.3689vw, 1.6rem);
+    --step-0: clamp(0.875rem, 0.7797rem + 0.4767vw, 2rem);
+    --step-1: clamp(1.05rem, 0.9271rem + 0.6144vw, 2.5rem);
+    --step-2: clamp(1.26rem, 1.1019rem + 0.7903vw, 3.125rem);
+    --step-3: clamp(1.5119rem, 1.309rem + 1.0146vw, 3.9063rem);
+    --step-4: clamp(1.8144rem, 1.5543rem + 1.3003vw, 4.8831rem);
+    --step-5: clamp(2.1775rem, 1.8448rem + 1.6637vw, 6.1038rem);
+    --step-6: clamp(2.6125rem, 2.1873rem + 2.1258vw, 7.6294rem);
+    --step-7: clamp(3.135rem, 2.5925rem + 2.7127vw, 9.5369rem);
+    --step-8: clamp(3.7625rem, 3.0711rem + 3.4568vw, 11.9206rem);
 }

@@ -1,25 +1,22 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import App from './App'
+import App from '../../App'
 import Cookies from 'js-cookie'
 import {
     useLoginMutation,
     useRegisterMutation,
     useValidateMutation,
-} from './redux/reducers/users/users'
-import { Login, Register } from './components'
+} from '../../redux/reducers/users/users'
+import { Login, Register } from '../../components'
 import { useDispatch } from 'react-redux'
-import { clearUser, storeToken, storeUser } from './redux/reducers/users/userSlice'
+import { clearUser, storeToken, storeUser } from '../../redux/reducers/users/userSlice'
 import { Dispatch, UnknownAction } from '@reduxjs/toolkit'
+import { getUserCookies, removeUserCookies } from '../../helpers/Cookies'
 
-type AuthProps = {}
-
-const Auth: React.FC<AuthProps> = ({}): ReactElement => {
+const Auth: React.FC = (): ReactElement => {
     const dispatch = useDispatch()
-    const [login, { isLoading: isLoggingIn, isError: loginError, error, isSuccess }] =
-        useLoginMutation()
-    const [validate, { isLoading: isValidating, isError: validationError }] = useValidateMutation()
-    const [register, { isLoading: isRegistrating, isError: registrationError }] =
-        useRegisterMutation()
+    const [login, { isLoading: isLoggingIn }] = useLoginMutation()
+    const [validate, { isLoading: isValidating }] = useValidateMutation()
+    const [register] = useRegisterMutation()
     const [showRegistration, setShowRegistration] = useState<boolean>(false)
     const [userId, setUserId] = useState<string>()
     const [hasLoaded, setHasLoaded] = useState<boolean | undefined>(undefined)
@@ -54,7 +51,7 @@ const Auth: React.FC<AuthProps> = ({}): ReactElement => {
     }
 
     const onUserLogout = async () => {
-        handleUserLogout()
+        removeUserCookies()
         setUserId(undefined)
         dispatch(clearUser())
     }
@@ -152,10 +149,6 @@ const handleUserLogin = async (
     }
 }
 
-const handleUserLogout = (): void => {
-    removeUserCookies()
-}
-
 const handleValidate = async (
     validate,
     dispatch: Dispatch<UnknownAction>,
@@ -170,20 +163,12 @@ const handleValidate = async (
         return false
     } catch (error) {
         removeUserCookies()
+        if (error instanceof TypeError) {
+            // handle server offline: failed to fetch
+        }
         console.error(error)
         return false
     }
-}
-
-const getUserCookies = () => {
-    const id = Cookies.get('admin-userid')
-    const token = Cookies.get('admin-jwt')
-    return { token, id }
-}
-
-const removeUserCookies = () => {
-    Cookies.remove('admin-userid')
-    Cookies.remove('admin-jwt')
 }
 
 export default Auth

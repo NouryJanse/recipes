@@ -1,65 +1,65 @@
 label {
-  display: flex;
-  flex-direction: column;
-  color: var(--color-gray-3);
-  width: fit-content;
+    display: flex;
+    flex-direction: column;
+    color: var(--color-gray-3);
+    width: fit-content;
 
-  span {
-    opacity: 0.6;
-  }
+    span {
+        opacity: 0.6;
+    }
 
-  > :first-child {
-    margin-bottom: var(--step--4);
-  }
+    > :first-child {
+        margin-bottom: var(--step--4);
+    }
 }
 
 input,
 select {
-  padding: var(--step--2) var(--step--1);
-  border: 0;
-  border-radius: 8px;
-  color: black;
-  background-color: var(--color-gray-2);
-  outline: 0;
+    padding: var(--step--2) var(--step--1);
+    border: 0;
+    border-radius: 8px;
+    color: black;
+    background-color: var(--color-gray-2);
+    outline: 0;
 }
 
 select {
-  padding: var(--step--2) var(--step--1) var(--step--3) var(--step--1);
+    padding: var(--step--2) var(--step--1) var(--step--3) var(--step--1);
 }
 
-input[type="text"],
-input[type="password"] {
-  @include md {
-    width: calc(var(--step-8) + var(--step-8) + var(--step-7));
-  }
+input[type='text'],
+input[type='password'] {
+    @include md {
+        width: calc(var(--step-8) + var(--step-8) + var(--step-7));
+    }
 }
 
-input[type="checkbox"] {
-  width: var(--step-1);
-  height: var(--step-1);
+input[type='checkbox'] {
+    width: var(--step-1);
+    height: var(--step-1);
 
-  @include sm {
-    width: var(--step-0);
-    height: var(--step-0);
-  }
+    @include sm {
+        width: var(--step-0);
+        height: var(--step-0);
+    }
 }
 
 img {
-  height: auto;
-  max-width: 100%;
+    height: auto;
+    max-width: 100%;
 }
 
 a {
-  font-weight: 700;
-  text-decoration: none;
-  margin: 0 0 var(--step-1) 0;
-  color: blue;
-  border-bottom: 2px solid blue;
-  transition: all 200ms ease-in-out;
+    font-weight: 700;
+    text-decoration: none;
+    margin: 0 0 var(--step-1) 0;
+    color: blue;
+    border-bottom: 2px solid blue;
+    transition: all 200ms ease-in-out;
 
-  @include md {
-    &:hover {
-      padding-bottom: 4px;
+    @include md {
+        &:hover {
+            padding-bottom: 4px;
+        }
     }
-  }
 }

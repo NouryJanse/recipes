@@ -7,7 +7,7 @@ import GlobalStyle from './styles/globalStyle'
 import './styles/index.scss'
 
 import Fonts from './styles/fonts'
-import Auth from './Auth'
+import Auth from './pages/Auth'
 
 const container = document.getElementById('root')
 if (container) {

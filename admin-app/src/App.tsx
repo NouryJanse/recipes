@@ -18,6 +18,8 @@ import {
     Account,
     EditIngredient,
 } from './components'
+import addObserver from './helpers/addObserver'
+import NoRecipes from './components/organisms/Recipe/NoRecipes'
 
 type AppProps = {
     onUserLogout: () => void
@@ -41,25 +43,12 @@ const App: React.FC<AppProps> = ({ onUserLogout }): ReactElement => {
             <div className={navBar}>
                 <Routes>
                     <Route path={ROUTES.HOME} element={<Dashboard />} />
-
                     <Route path={ROUTES.RECIPES_CREATE} element={<CreateRecipe />} />
-
                     <Route path="/recipes" element={<Recipes />}>
-                        <Route
-                            index
-                            element={
-                                <main style={{ padding: '1rem' }}>
-                                    <p>
-                                        No recipes data available, probably the API endpoint is
-                                        down.
-                                    </p>
-                                </main>
-                            }
-                        />
+                        <Route index element={<NoRecipes />} />
                         <Route path=":recipeId" element={<RecipeDetail />} />
                         <Route path=":recipeId/edit" element={<EditRecipe />} />
                     </Route>
-
                     <Route path={ROUTES.INGREDIENTS} element={<Ingredients />}>
                         <Route path=":ingredientId/edit" element={<EditIngredient />} />
                     </Route>
@@ -72,27 +61,6 @@ const App: React.FC<AppProps> = ({ onUserLogout }): ReactElement => {
             </div>
         </div>
     )
-}
-
-const addObserver = () => {
-    const animatedEls = document.querySelectorAll('.appFadeIn')
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.contains('appFadeIn')
-                        ? entry.target.classList.add('reveal')
-                        : ''
-                }
-            })
-        },
-        { threshold: 0.1 },
-    )
-
-    for (let i = 0; i < animatedEls.length; i++) {
-        const elements = animatedEls[i]
-        observer.observe(elements)
-    }
 }
 
 export default App

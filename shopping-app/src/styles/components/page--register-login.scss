@@ -1,147 +1,147 @@
 .page--register-login {
-  @include md {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-    height: 100%;
-  }
-
-  .login-hero {
-    display: none;
-    background-color: #ececec;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    z-index: -9999;
-    overflow: hidden;
-
     @include md {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    div.blob::before {
-      position: absolute;
-      content: "";
-      left: -30%;
-      bottom: -25%;
-      width: 450px;
-      height: 450px;
-      background: orange;
-      border-radius: 62% 47% 82% 35% / 45% 45% 80% 66%;
-      will-change: border-radius, transform, opacity;
-      animation:
-        sliderShape 12s ease-in-out infinite,
-        sliderScale 20s ease-in-out infinite;
-      display: block;
-      z-index: -1;
-      -webkit-animation:
-        sliderShape 12s ease-in-out infinite,
-        sliderScale 20s ease-in-out infinite;
-    }
-
-    @keyframes sliderShape {
-      0%,
-      100% {
-        border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-        transform: translate3d(0, 0, 0) rotateZ(0.01deg);
-      }
-      34% {
-        border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
-        transform: translate3d(0, 5px, 0) rotateZ(0.01deg);
-      }
-      50% {
-        transform: translate3d(0, 0, 0) rotateZ(0.01deg);
-      }
-      67% {
-        border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
-        transform: translate3d(0, -3px, 0) rotateZ(0.01deg);
-      }
-    }
-
-    @keyframes sliderScale {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.5);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-  }
-
-  &.page--register div.blob::before {
-    background: blue;
-  }
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .buttons {
-      width: 100%;
-
-      @include sm {
-        width: auto;
-      }
-
-      @include md {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
         width: 100%;
-      }
+        height: 100%;
     }
-  }
 
-  label {
-    width: 100%;
-    min-width: 240px;
+    .login-hero {
+        display: none;
+        background-color: #ececec;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: -9999;
+        overflow: hidden;
 
-    @include sm {
-      width: fit-content;
+        @include md {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        div.blob::before {
+            position: absolute;
+            content: '';
+            left: -30%;
+            bottom: -25%;
+            width: 450px;
+            height: 450px;
+            background: orange;
+            border-radius: 62% 47% 82% 35% / 45% 45% 80% 66%;
+            will-change: border-radius, transform, opacity;
+            animation:
+                sliderShape 12s ease-in-out infinite,
+                sliderScale 20s ease-in-out infinite;
+            display: block;
+            z-index: -1;
+            -webkit-animation:
+                sliderShape 12s ease-in-out infinite,
+                sliderScale 20s ease-in-out infinite;
+        }
+
+        @keyframes sliderShape {
+            0%,
+            100% {
+                border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+                transform: translate3d(0, 0, 0) rotateZ(0.01deg);
+            }
+            34% {
+                border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
+                transform: translate3d(0, 5px, 0) rotateZ(0.01deg);
+            }
+            50% {
+                transform: translate3d(0, 0, 0) rotateZ(0.01deg);
+            }
+            67% {
+                border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+                transform: translate3d(0, -3px, 0) rotateZ(0.01deg);
+            }
+        }
+
+        @keyframes sliderScale {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
     }
-  }
+
+    &.page--register div.blob::before {
+        background: blue;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .buttons {
+            width: 100%;
+
+            @include sm {
+                width: auto;
+            }
+
+            @include md {
+                width: 100%;
+            }
+        }
+    }
+
+    label {
+        width: 100%;
+        min-width: 240px;
+
+        @include sm {
+            width: fit-content;
+        }
+    }
 }
 
 .login-form {
-  display: flex;
-  flex-direction: column;
-  min-width: 240px;
-
-  h1 {
-    padding-top: var(--step-2);
-    @include md {
-      padding: 0;
-      display: none;
-    }
-  }
-
-  button {
-    font-size: var(--step-0);
-
-    @include sm {
-      font-size: var(--step--1);
-    }
-  }
-
-  .buttons {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    flex-direction: column;
     min-width: 240px;
 
-    a {
-      margin-right: var(--step-2);
+    h1 {
+        padding-top: var(--step-2);
+        @include md {
+            padding: 0;
+            display: none;
+        }
     }
-  }
 
-  @include md {
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-  }
+    button {
+        font-size: var(--step-0);
+
+        @include sm {
+            font-size: var(--step--1);
+        }
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        min-width: 240px;
+
+        a {
+            margin-right: var(--step-2);
+        }
+    }
+
+    @include md {
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
 }
