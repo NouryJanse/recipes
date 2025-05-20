@@ -1,15 +1,9 @@
 import React, { ReactElement, useState } from 'react'
 import { Button } from '../../../components'
+import useAuth from '../useAuth'
 
-type RegisterProps = {
-    onUserRegistration: (username: string, password: string) => void
-    setShowRegistration: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-const Register: React.FC<RegisterProps> = ({
-    onUserRegistration,
-    setShowRegistration,
-}): ReactElement => {
+const Register: React.FC = (): ReactElement => {
+    const { onUserRegistration, setShowRegistration } = useAuth()
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
 

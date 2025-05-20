@@ -12,27 +12,29 @@ const YourRecipes = ({}): ReactElement => {
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="text-md xl:text-3xl font-semibold">Your recipes</h2>
                     </div>
+
                     <div className="grid xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-                        {[...recipes]
-                            .sort((a: Recipe, b: Recipe) =>
-                                compareDateForSorting(a.createdAt, b.createdAt),
+                        {getRecipesForYourRecipes([...recipes]).map((recipe: Recipe) => {
+                            return (
+                                <RecipeCard
+                                    key={recipe.id}
+                                    recipe={recipe}
+                                    withEditButton
+                                    withRemovalButton
+                                />
                             )
-                            .slice(4, 7)
-                            .map((recipe: Recipe) => {
-                                return (
-                                    <RecipeCard
-                                        key={recipe.id}
-                                        recipe={recipe}
-                                        withEditButton
-                                        withRemovalButton
-                                    />
-                                )
-                            })}
+                        })}
                     </div>
                 </>
             )}
         </div>
     )
+}
+
+const getRecipesForYourRecipes = (recipes: Recipe[]) => {
+    return recipes
+        .sort((a: Recipe, b: Recipe) => compareDateForSorting(a.createdAt, b.createdAt))
+        .slice(4, 7)
 }
 
 export default YourRecipes

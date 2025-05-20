@@ -1,4 +1,4 @@
-import truncateString from '../StringHelper'
+import truncateString from '../truncateString'
 
 describe('truncateString', () => {
     it('truncates the string with ... at the end', async () => {

@@ -1,14 +1,11 @@
 import React, { KeyboardEvent, KeyboardEventHandler, ReactElement, useState } from 'react'
 import { Button, PageTitle } from '../../../components'
+import useAuth from '../useAuth'
 
-type LoginProps = {
-    onUserLogin: (username: string, password: string) => void
-    setShowRegistration: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-const Login: React.FC<LoginProps> = ({ onUserLogin, setShowRegistration }): ReactElement => {
+const Login: React.FC = (): ReactElement => {
     const [username, setUsername] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const { onUserLogin, setShowRegistration } = useAuth()
 
     return (
         <div

@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, ReactElement } from 'react'
 import { UseFormRegister, FieldValues } from 'react-hook-form'
 import { useDropzone } from 'react-dropzone'
 
-import readAsDataURLViaPromise from '../../../../helpers/FileSystemHelper'
+import readAsDataUrlViaPromise from '../../../../helpers/readAsDataUrlViaPromise'
 import clsx from 'clsx'
 
 type ImagePickerProps = {
@@ -21,7 +21,7 @@ const ImagePicker: React.FC<ImagePickerProps> = ({
 }): ReactElement => {
     const onDrop = useCallback(
         async (acceptedFiles: File[]) => {
-            const file = await readAsDataURLViaPromise(acceptedFiles[0])
+            const file = await readAsDataUrlViaPromise(acceptedFiles[0])
             if (file && typeof file === 'object') {
                 onSelectedImageCallback(file as ImageData)
             }

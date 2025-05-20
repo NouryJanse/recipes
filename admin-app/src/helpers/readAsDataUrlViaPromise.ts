@@ -1,6 +1,6 @@
 // unit test needed
 
-const readAsDataURLViaPromise = (file: File): Promise<object> | boolean => {
+const readAsDataUrlViaPromise = (file: File): Promise<object> | boolean => {
     if (!file.size) return false
 
     return new Promise((resolve) => {
@@ -17,4 +17,4 @@ const readAsDataURLViaPromise = (file: File): Promise<object> | boolean => {
     })
 }
 
-export default readAsDataURLViaPromise
+export default readAsDataUrlViaPromise

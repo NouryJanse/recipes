@@ -9,7 +9,7 @@ const LOG_TYPES = {
 /* eslint-disable no-console */
 
 // This helper function should be refactored into a Sentry kind of logging service collect and reporting purposes
-const LogHelper = ({ logType, message }: { logType: string; message: string }): boolean => {
+const logHelper = ({ logType, message }: { logType: string; message: string }): boolean => {
     if (!Object.values(LOG_TYPES).some((type) => type === logType)) return false
     switch (logType) {
         case LOG_TYPES.LOG:
@@ -29,4 +29,4 @@ const LogHelper = ({ logType, message }: { logType: string; message: string }): 
 }
 /* eslint-enable no-console */
 
-export default LogHelper
+export default logHelper

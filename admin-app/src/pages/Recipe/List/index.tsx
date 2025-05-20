@@ -16,6 +16,7 @@ const Recipes: React.FC = (): ReactElement | null => {
         <div className="pt-7">
             <div>{isLoading && <Loader />}</div>
 
+            {/* Either show a list of recipes or a single recipe detail */}
             {!params.recipeId ? (
                 <div>
                     <PageTitle text={`${recipes.length} delicous meals`} />

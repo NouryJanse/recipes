@@ -1,13 +1,13 @@
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import { store } from './redux/store'
 
-import GlobalStyle from './styles/globalStyle'
 import './styles/index.scss'
+import GlobalStyle from './styles/globalStyle'
 
-import Fonts from './styles/fonts'
+import { store } from './redux/store'
 import Auth from './pages/Auth'
+import Fonts from './styles/fonts'
 
 const container = document.getElementById('root')
 if (container) {
